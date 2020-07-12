@@ -24,6 +24,8 @@ const App: React.SFC<{}> = () => {
       <h1>gh-jobs</h1>
       <p>Jobs: {jobs.length}</p>
       <p>Default City: Los Angeles</p>
+      <label htmlFor="search">Search</label>
+      <input id="search" type="text" />
       {jobs && (
         <Grid
           columns={["Company", "Created At", "Location", "Title", "Type"]}
