@@ -1,5 +1,9 @@
 import * as React from "react";
+import { Grid } from "gridjs-react";
+
 import { getGitHubJobs } from "./api/github";
+
+import { Job } from "./types";
 
 /**
  * Application.
@@ -19,6 +23,19 @@ const App: React.SFC<{}> = () => {
     <div id="app">
       <h1>gh-jobs</h1>
       <p>Jobs: {jobs.length}</p>
+      <p>Default City: Los Angeles</p>
+      {jobs && (
+        <Grid
+          columns={["Company", "Created At", "Location", "Title", "Type"]}
+          data={jobs.map((job: Job) => [
+            job.company,
+            job.created_at,
+            job.location,
+            job.title,
+            job.type,
+          ])}
+        />
+      )}
     </div>
   );
 };
