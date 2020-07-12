@@ -10,3 +10,15 @@ export const getGitHubJobs = async (): Promise<Job[]> => {
   const data: Job[] = await response.json();
   return data;
 };
+
+export const searchJobs = async (searchString: string): Promise<Job[]> => {
+  const response = await fetch(
+    `${baseGHUrl}?description=${encodeURI(searchString)}`,
+    {
+      headers: { "Content-Type": "application/json" },
+      method: "GET",
+    }
+  );
+  const data: Job[] = await response.json();
+  return data;
+};
