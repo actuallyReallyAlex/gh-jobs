@@ -19,3 +19,5 @@ export interface LocationOption {
   setter: (param: string) => void;
   value: string;
 }
+
+export type SearchType = "description" | "location";

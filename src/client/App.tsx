@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Grid } from "gridjs-react";
 
-import { getGitHubJobs, locationSearchJobs, searchJobs } from "./api/github";
+import { getGitHubJobs, searchJobs } from "./api/github";
 
 import { Job, LocationOption } from "./types";
 
@@ -36,12 +36,20 @@ const App: React.SFC<{}> = () => {
   }, []);
 
   const handleSearch = async () => {
-    const filteredJobs = await searchJobs(search);
+    const filteredJobs = await searchJobs(
+      search,
+      locationOptions,
+      "description"
+    );
     setJobs(filteredJobs);
   };
 
   const handleLocationSearch = async () => {
-    const filteredJobs = await locationSearchJobs(locationSearch);
+    const filteredJobs = await searchJobs(
+      locationSearch,
+      locationOptions,
+      "location"
+    );
     setJobs(filteredJobs);
   };
 

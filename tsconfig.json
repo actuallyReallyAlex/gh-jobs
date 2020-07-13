@@ -4,11 +4,7 @@
     "skipLibCheck": true,
     "target": "es5",
     "module": "commonjs",
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "jsx": "react",
     "outDir": "./build",
     "noEmit": false,
@@ -16,10 +12,8 @@
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "downlevelIteration": true
   },
-  "include": [
-    "./src/server/**/*",
-    "./index.d.ts"
-  ]
+  "include": ["./src/server/**/*", "./index.d.ts"]
 }
