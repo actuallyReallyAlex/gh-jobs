@@ -12,6 +12,7 @@ const App: React.SFC<{}> = () => {
   const [initialJobs, setInitialJobs] = React.useState([]);
   const [jobs, setJobs] = React.useState([]);
   const [search, setSearch] = React.useState("");
+  const [locationSearch, setLocationSearch] = React.useState("");
 
   React.useEffect((): void => {
     const getJobs = async () => {
@@ -31,6 +32,13 @@ const App: React.SFC<{}> = () => {
     <div id="app">
       <h1>gh-jobs</h1>
       <p>Jobs: {jobs.length}</p>
+      <label htmlFor="location-search">Location Search</label>
+      <input
+        id="location-search"
+        onChange={(e) => setLocationSearch(e.target.value)}
+        type="text"
+        value={locationSearch}
+      />
       <p>Default City: Los Angeles</p>
       <label htmlFor="search">Search</label>
       <input
