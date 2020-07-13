@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Grid } from "gridjs-react";
 
-import { getGitHubJobs, searchJobs } from "./api/github";
+import { getGitHubJobs, locationSearchJobs, searchJobs } from "./api/github";
 
 import { Job } from "./types";
 
@@ -28,10 +28,16 @@ const App: React.SFC<{}> = () => {
     setJobs(filteredJobs);
   };
 
+  const handleLocationSearch = async () => {
+    const filteredJobs = await locationSearchJobs(locationSearch);
+    setJobs(filteredJobs);
+  };
+
   return (
     <div id="app">
       <h1>gh-jobs</h1>
       <p>Jobs: {jobs.length}</p>
+      <p>Default City: Los Angeles</p>
       <label htmlFor="location-search">Location Search</label>
       <input
         id="location-search"
@@ -39,7 +45,8 @@ const App: React.SFC<{}> = () => {
         type="text"
         value={locationSearch}
       />
-      <p>Default City: Los Angeles</p>
+      <button onClick={() => handleLocationSearch()}>Search</button>
+
       <label htmlFor="search">Search</label>
       <input
         id="search"
