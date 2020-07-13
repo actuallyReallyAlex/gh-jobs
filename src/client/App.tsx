@@ -2,6 +2,7 @@ import * as React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Details from "./pages/Details";
 import Search from "./pages/Search";
+import Header from "./components/Header";
 
 /**
  * Application.
@@ -10,7 +11,7 @@ const App: React.SFC<{}> = () => {
   return (
     <Router>
       <div id="app">
-        <h1>gh-jobs</h1>
+        <Header />
         <Switch>
           <Route exact path="/">
             <Search />
