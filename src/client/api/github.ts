@@ -1,4 +1,4 @@
-import { baseGHUrl } from "../constants";
+import { baseGHUrl, baseGHJobURL } from "../constants";
 
 import { Job, LocationOption, SearchType } from "../types";
 import { unique } from "../util";
@@ -67,4 +67,13 @@ export const searchJobs = async (
   });
 
   return unique(filteredJobs);
+};
+
+export const getJobDetails = async (id: string): Promise<Job> => {
+  const response = await fetch(`${baseGHJobURL}/${id}.json?markdown=true`, {
+    headers: { "Content-Type": "application/json" },
+    method: "GET",
+  });
+  const data: Job = await response.json();
+  return data;
 };
