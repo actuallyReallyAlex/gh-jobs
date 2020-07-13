@@ -19,7 +19,10 @@ const SearchInput: React.SFC<{}> = () => {
     <div
       style={{
         backgroundImage: 'url("/assets/backgroundImg.png")',
-        padding: "25px",
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        borderRadius: "0.5rem",
+        padding: "35px 20%",
       }}
     >
       <div
@@ -67,19 +70,15 @@ const SearchInput: React.SFC<{}> = () => {
           <button
             onClick={() => {}}
             style={{
-              backgroundColor: "transparent",
-              border: "1px solid transparent",
-              borderColor: "#6c757d",
-              borderBottomRightRadius: "0",
-              borderRadius: ".25rem",
-              borderTopRightRadius: "0",
-              color: "#6c757d",
+              backgroundColor: "rgba(27, 108, 205, 1)",
+              border: "3px solid rgba(255, 255, 255, 1)",
+              color: "#fff",
               cursor: "pointer",
               display: "inline-block",
               fontSize: "1rem",
               fontWeight: 400,
               lineHeight: "1.5",
-              padding: ".375rem .75rem",
+              padding: ".375rem 3rem",
               position: "relative",
               textAlign: "center",
               transition:
