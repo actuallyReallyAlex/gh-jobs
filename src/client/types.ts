@@ -12,7 +12,7 @@ export interface Job {
   url: string;
 }
 
-export type JobType = "Full Time";
+export type JobType = "Contract" | "Full Time";
 
 export interface LocationOption {
   name: string;

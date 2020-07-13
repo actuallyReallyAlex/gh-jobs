@@ -24,7 +24,8 @@ const getData = async (url: string): Promise<Job[]> => {
 export const searchJobs = async (
   searchString: string,
   locationOptions: LocationOption[],
-  searchType: SearchType
+  searchType: SearchType,
+  fullTime: boolean
 ): Promise<Job[]> => {
   const jobs = [];
 
@@ -32,16 +33,24 @@ export const searchJobs = async (
     (location: LocationOption) => location.value !== ""
   );
 
+  if (searchType === "location") {
+    locationsSearches.push({
+      name: "locationSearch",
+      setter: null,
+      value: searchString,
+    });
+  }
+
   await Promise.all(
     locationsSearches.map(async (location: LocationOption) => {
       let url = "";
       if (searchType === "description") {
-        url = `${baseGHUrl}?description=${encodeURI(
+        url = `${baseGHUrl}?full_time=${fullTime}&description=${encodeURI(
           searchString
         )}&location=${encodeURI(location.value)}`;
       } else if (searchType === "location") {
-        url = `${baseGHUrl}?location=${encodeURI(
-          searchString + " " + location.value
+        url = `${baseGHUrl}?full_time=${fullTime}&location=${encodeURI(
+          location.value
         )}`;
       }
       const data = await getData(url);
@@ -49,5 +58,13 @@ export const searchJobs = async (
     })
   );
 
-  return unique(jobs);
+  const filteredJobs = jobs.filter((job: Job) => {
+    if (fullTime && job.type !== "Full Time") {
+      return false;
+    } else {
+      return true;
+    }
+  });
+
+  return unique(filteredJobs);
 };
