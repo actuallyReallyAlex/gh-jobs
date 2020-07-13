@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Grid } from "gridjs-react";
+import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Grid, _ } from "gridjs-react";
 
 import { getGitHubJobs, searchJobs } from "../api/github";
 
@@ -71,7 +72,6 @@ const Search: React.SFC<SearchProps> = () => {
     <>
       <p>Jobs: {jobs.length}</p>
       <p>Default City: Los Angeles</p>
-
       <label htmlFor="full-time">Full Time</label>
       <input
         id="full-time"
@@ -80,7 +80,6 @@ const Search: React.SFC<SearchProps> = () => {
         type="checkbox"
         value="full-time"
       />
-
       <label htmlFor="location-1">Chicago</label>
       <input
         id="location-1"
@@ -113,7 +112,6 @@ const Search: React.SFC<SearchProps> = () => {
         type="checkbox"
         value="San Francisco"
       />
-
       <label htmlFor="location-search">Location Search</label>
       <input
         id="location-search"
@@ -122,7 +120,6 @@ const Search: React.SFC<SearchProps> = () => {
         value={locationSearch}
       />
       <button onClick={() => handleLocationSearch()}>Search</button>
-
       <label htmlFor="search">Search</label>
       <input
         id="search"
@@ -131,10 +128,30 @@ const Search: React.SFC<SearchProps> = () => {
         value={search}
       />
       <button onClick={() => handleSearch()}>Search</button>
-      {jobs && (
+      {jobs &&
+        jobs.map((job: Job) => (
+          <Link key={job.id} to={`/${job.id}`}>
+            {job.id}
+          </Link>
+        ))}
+      {/* {jobs && (
         <Grid
-          columns={["Company", "Created At", "Location", "Title", "Type"]}
+          columns={[
+            {
+              name: "Actions",
+              formatter: (cell, row) => {
+                console.log(cell);
+                return _(<Link to={`/${cell}`}>GO!</Link>);
+              },
+            },
+            "Company",
+            "Created At",
+            "Location",
+            "Title",
+            "Type",
+          ]}
           data={jobs.map((job: Job) => [
+            job.id,
             job.company,
             job.created_at,
             job.location,
@@ -142,7 +159,7 @@ const Search: React.SFC<SearchProps> = () => {
             job.type,
           ])}
         />
-      )}
+      )} */}
     </>
   );
 };
