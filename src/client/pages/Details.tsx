@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
 import { getJobDetails } from "../api/github";
@@ -18,6 +18,9 @@ const Details: React.SFC<{}> = () => {
   return (
     <div>
       <h2>DETAILS</h2>
+      <Link to="/">
+        <button>Back</button>
+      </Link>
       {data && (
         <div>
           <span>Company: {data.company}</span>
