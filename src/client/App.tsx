@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Grid } from "gridjs-react";
 
-import { getGitHubJobs, searchJobs } from "./api/github";
+import { getGitHubJobs, locationSearchJobs, searchJobs } from "./api/github";
 
 import { Job } from "./types";
 
@@ -12,6 +12,7 @@ const App: React.SFC<{}> = () => {
   const [initialJobs, setInitialJobs] = React.useState([]);
   const [jobs, setJobs] = React.useState([]);
   const [search, setSearch] = React.useState("");
+  const [locationSearch, setLocationSearch] = React.useState("");
 
   React.useEffect((): void => {
     const getJobs = async () => {
@@ -27,11 +28,25 @@ const App: React.SFC<{}> = () => {
     setJobs(filteredJobs);
   };
 
+  const handleLocationSearch = async () => {
+    const filteredJobs = await locationSearchJobs(locationSearch);
+    setJobs(filteredJobs);
+  };
+
   return (
     <div id="app">
       <h1>gh-jobs</h1>
       <p>Jobs: {jobs.length}</p>
       <p>Default City: Los Angeles</p>
+      <label htmlFor="location-search">Location Search</label>
+      <input
+        id="location-search"
+        onChange={(e) => setLocationSearch(e.target.value)}
+        type="text"
+        value={locationSearch}
+      />
+      <button onClick={() => handleLocationSearch()}>Search</button>
+
       <label htmlFor="search">Search</label>
       <input
         id="search"
