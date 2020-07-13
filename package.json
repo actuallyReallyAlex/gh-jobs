@@ -1,6 +1,6 @@
 {
   "name": "gh-jobs",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "A MERN application bootstrapped with create-mern-application.",
   "main": "build/index.js",
   "scripts": {

@@ -1,15 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+
 /* Application */
 body {
+  background-color: rgba(243, 245, 250, 1);
+  color: #0e0e0e;
   font-family: "Roboto", "Helvetica Neue", sans-serif;
   margin: 0;
 }
 
 #app {
-  align-items: center;
-  color: #0e0e0e;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  margin: 0 auto;
+  max-width: 80%;
   min-height: 100vh;
-  padding: 25px;
+  padding: 0;
+}
+
+header {
+  font-size: 1.5rem;
+  font-weight: lighter;
+  margin-top: 25px;
+}
+
+.bold {
+  font-weight: bold;
 }
