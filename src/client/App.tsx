@@ -1,18 +1,30 @@
 import * as React from "react";
 import { Grid } from "gridjs-react";
 
-import { getGitHubJobs, locationSearchJobs, searchJobs } from "./api/github";
+import { getGitHubJobs, searchJobs } from "./api/github";
 
-import { Job } from "./types";
+import { Job, LocationOption } from "./types";
 
 /**
  * Application.
  */
 const App: React.SFC<{}> = () => {
   const [initialJobs, setInitialJobs] = React.useState([]);
+  const [allJobs, setAllJobs] = React.useState([]);
   const [jobs, setJobs] = React.useState([]);
   const [search, setSearch] = React.useState("");
   const [locationSearch, setLocationSearch] = React.useState("");
+  const [location1, setLocation1] = React.useState("");
+  const [location2, setLocation2] = React.useState("");
+  const [location3, setLocation3] = React.useState("");
+  const [location4, setLocation4] = React.useState("");
+
+  const locationOptions: LocationOption[] = [
+    { name: "location1", setter: setLocation1, value: location1 },
+    { name: "location2", setter: setLocation2, value: location2 },
+    { name: "location3", setter: setLocation3, value: location3 },
+    { name: "location4", setter: setLocation4, value: location4 },
+  ];
 
   React.useEffect((): void => {
     const getJobs = async () => {
@@ -24,13 +36,33 @@ const App: React.SFC<{}> = () => {
   }, []);
 
   const handleSearch = async () => {
-    const filteredJobs = await searchJobs(search);
+    const filteredJobs = await searchJobs(
+      search,
+      locationOptions,
+      "description"
+    );
     setJobs(filteredJobs);
   };
 
   const handleLocationSearch = async () => {
-    const filteredJobs = await locationSearchJobs(locationSearch);
+    const filteredJobs = await searchJobs(
+      locationSearch,
+      locationOptions,
+      "location"
+    );
     setJobs(filteredJobs);
+  };
+
+  const handleCheckBox = (e) => {
+    const { checked, name, value } = e.target;
+    const setter = locationOptions.find(
+      (location: LocationOption) => location.name === name
+    ).setter;
+    if (checked) {
+      setter(value);
+    } else {
+      setter("");
+    }
   };
 
   return (
@@ -38,6 +70,40 @@ const App: React.SFC<{}> = () => {
       <h1>gh-jobs</h1>
       <p>Jobs: {jobs.length}</p>
       <p>Default City: Los Angeles</p>
+
+      <label htmlFor="location-1">Chicago</label>
+      <input
+        id="location-1"
+        name="location1"
+        onChange={(e) => handleCheckBox(e)}
+        type="checkbox"
+        value="Chicago"
+      />
+      <label htmlFor="location-2">Los Angeles</label>
+      <input
+        id="location-2"
+        name="location2"
+        onChange={(e) => handleCheckBox(e)}
+        type="checkbox"
+        value="Los Angeles"
+      />
+      <label htmlFor="location-3">New York City</label>
+      <input
+        id="location-3"
+        name="location3"
+        onChange={(e) => handleCheckBox(e)}
+        type="checkbox"
+        value="New York City"
+      />
+      <label htmlFor="location-4">San Francisco</label>
+      <input
+        id="location-4"
+        name="location4"
+        onChange={(e) => handleCheckBox(e)}
+        type="checkbox"
+        value="San Francisco"
+      />
+
       <label htmlFor="location-search">Location Search</label>
       <input
         id="location-search"
