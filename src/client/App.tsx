@@ -18,6 +18,7 @@ const App: React.SFC<{}> = () => {
   const [location2, setLocation2] = React.useState("");
   const [location3, setLocation3] = React.useState("");
   const [location4, setLocation4] = React.useState("");
+  const [fullTime, setFullTime] = React.useState(false);
 
   const locationOptions: LocationOption[] = [
     { name: "location1", setter: setLocation1, value: location1 },
@@ -39,7 +40,8 @@ const App: React.SFC<{}> = () => {
     const filteredJobs = await searchJobs(
       search,
       locationOptions,
-      "description"
+      "description",
+      fullTime
     );
     setJobs(filteredJobs);
   };
@@ -48,7 +50,8 @@ const App: React.SFC<{}> = () => {
     const filteredJobs = await searchJobs(
       locationSearch,
       locationOptions,
-      "location"
+      "location",
+      fullTime
     );
     setJobs(filteredJobs);
   };
@@ -70,6 +73,15 @@ const App: React.SFC<{}> = () => {
       <h1>gh-jobs</h1>
       <p>Jobs: {jobs.length}</p>
       <p>Default City: Los Angeles</p>
+
+      <label htmlFor="full-time">Full Time</label>
+      <input
+        id="full-time"
+        name="full-time"
+        onChange={(e) => setFullTime(e.target.checked)}
+        type="checkbox"
+        value="full-time"
+      />
 
       <label htmlFor="location-1">Chicago</label>
       <input
