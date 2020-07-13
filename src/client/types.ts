@@ -13,3 +13,9 @@ export interface Job {
 }
 
 export type JobType = "Full Time";
+
+export interface LocationOption {
+  name: string;
+  setter: (param: string) => void;
+  value: string;
+}

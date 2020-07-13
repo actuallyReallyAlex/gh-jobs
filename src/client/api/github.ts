@@ -36,17 +36,3 @@ export const locationSearchJobs = async (
   const data: Job[] = await response.json();
   return data;
 };
-
-export const getAllGitHubJobs = async (): Promise<Job[]> => {
-  const jobs = [];
-
-  for (let i = 1; i < 11; i++) {
-    const response = await fetch(`${baseGHUrl}?page=${i}`, {
-      headers: { "Content-Type": "application/json" },
-      method: "GET",
-    });
-    const data: Job[] = await response.json();
-    jobs.push.apply(jobs, data);
-  }
-  return jobs;
-};
