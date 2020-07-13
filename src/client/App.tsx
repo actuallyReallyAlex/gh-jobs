@@ -9,12 +9,14 @@ import {
 } from "./api/github";
 
 import { Job } from "./types";
+import { groupBy } from "./util";
 
 /**
  * Application.
  */
 const App: React.SFC<{}> = () => {
   const [initialJobs, setInitialJobs] = React.useState([]);
+  const [allJobs, setAllJobs] = React.useState([]);
   const [jobs, setJobs] = React.useState([]);
   const [search, setSearch] = React.useState("");
   const [locationSearch, setLocationSearch] = React.useState("");
@@ -31,7 +33,9 @@ const App: React.SFC<{}> = () => {
   React.useEffect((): void => {
     const getAllJobs = async () => {
       const allJobs = await getAllGitHubJobs();
-      console.log(allJobs);
+      setAllJobs(allJobs);
+      const grouped = groupBy(allJobs, "location");
+      console.log(grouped);
     };
     getAllJobs();
   }, []);
