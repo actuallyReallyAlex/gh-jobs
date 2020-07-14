@@ -48,7 +48,10 @@ const Details: React.SFC<{}> = () => {
 
       <div className="details__main__container">
         {data && (
-          <div>
+          <>
+            <div>
+              <h2 className="details__title">{data.title}</h2>
+            </div>
             <span>Company: {data.company}</span>
             <span>Company Logo: {data.company_logo}</span>
             <span>Company URL: {data.company_url}</span>
@@ -56,10 +59,9 @@ const Details: React.SFC<{}> = () => {
             <span>ID: {data.id}</span>
             <ReactMarkdown source={data.description} />
             <span>Location: {data.location}</span>
-            <span>Title: {data.title}</span>
             <span>Type: {data.type}</span>
             <span>URL: {data.url}</span>
-          </div>
+          </>
         )}
       </div>
     </div>
