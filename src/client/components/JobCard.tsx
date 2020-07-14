@@ -1,6 +1,7 @@
 import * as React from "react";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { Job } from "../types";
+import { Link } from "react-router-dom";
 
 export interface JobCardProps {
   job: Job;
@@ -17,7 +18,9 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
 
         <div className="jobcard__middle__container">
           <p className="jobcard__company">{job.company}</p>
-          <p className="jobcard__title">{job.title}</p>
+          <Link to={`/${job.id}`}>
+            <p className="jobcard__title">{job.title}</p>
+          </Link>
           {job.type === "Full Time" && (
             <p className="jobcard__fulltime">Full Time</p>
           )}
