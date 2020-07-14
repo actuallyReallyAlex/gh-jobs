@@ -8,8 +8,11 @@ export interface JobCardProps {
 const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
   const { job } = props;
   return (
-    <div>
-      <img alt="Company Logo" src={job.company_logo} />
+    <div className="jobcard__container">
+      <div className="jobcard__logo__container">
+        <img alt="Company Logo" src={job.company_logo} />
+      </div>
+
       <div>
         <h4>{job.company}</h4>
         <h3>{job.title}</h3>
