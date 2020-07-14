@@ -5,6 +5,7 @@ import { getGitHubJobs, searchJobs } from "../api/github";
 
 import { Job, LocationOption } from "../types";
 import SearchInput from "../components/SearchInput";
+import JobCard from "../components/JobCard";
 
 export interface SearchProps {}
 
@@ -116,9 +117,10 @@ const Search: React.SFC<SearchProps> = () => {
       <button onClick={() => handleLocationSearch()}>Search</button>
       {jobs &&
         jobs.map((job: Job) => (
-          <Link key={job.id} to={`/${job.id}`}>
-            {job.id}
-          </Link>
+          <JobCard job={job} key={job.id} />
+          // <Link key={job.id} to={`/${job.id}`}>
+          //   {job.id}
+          // </Link>
         ))}
       {/* {jobs && (
         <Grid

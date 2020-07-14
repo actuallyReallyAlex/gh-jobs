@@ -113,3 +113,128 @@ header {
   vertical-align: middle;
   z-index: 2;
 }
+
+.flex {
+  display: flex;
+}
+
+.jobcard__container {
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  margin-top: 16px;
+  padding: 15px;
+}
+
+.jobcard__container a {
+  text-decoration: none;
+}
+
+.jobcard__logo__not-found {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.jobcard__logo__not-found p {
+  color: #bdbdbd;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+}
+
+.jobcard__logo__container {
+  background-color: #f2f2f2;
+  border-radius: 4px;
+  height: 90px;
+  width: 90px;
+}
+
+.jobcard__logo__container img {
+  height: 90px;
+  object-fit: contain;
+  width: 90px;
+}
+
+.jobcard__middle__container {
+  margin-left: 16px;
+}
+
+.jobcard__company {
+  color: #334680;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 14px;
+  margin: 0;
+}
+
+.jobcard__title {
+  color: #334680;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 21px;
+  margin-bottom: 12px;
+  margin-top: 8px;
+}
+
+.jobcard__fulltime {
+  border: 1px solid #334680;
+  border-radius: 4px;
+  color: #334680;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 14px;
+  padding: 6px 8px;
+  text-align: center;
+  width: 53px;
+}
+
+.jobcard__right__container {
+  align-self: flex-end;
+  display: flex;
+}
+
+.jobcard__location {
+  align-items: center;
+  display: flex;
+}
+
+.jobcard__location i {
+  color: #b9bdcf;
+  font-size: 15px;
+  margin-right: 7.5px;
+}
+
+.jobcard__location p {
+  color: #b9bdcf;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+}
+
+.jobcard__created {
+  align-items: center;
+  display: flex;
+  margin-left: 28.5px;
+}
+
+.jobcard__created i {
+  color: #b9bdcf;
+  font-size: 15px;
+  margin-right: 7.5px;
+}
+
+.jobcard__created p {
+  color: #b9bdcf;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+}
