@@ -201,9 +201,20 @@ header {
 }
 
 .jobcard__created {
-  color: #b7bcce;
+  align-items: center;
+  display: flex;
+  margin-left: 28.5px;
+}
+
+.jobcard__created i {
+  color: #b9bdcf;
+  font-size: 15px;
+  margin-right: 7.5px;
+}
+
+.jobcard__created p {
+  color: #b9bdcf;
   font-size: 12px;
   font-weight: 500;
   line-height: 14px;
-  margin-left: 28.5px;
 }

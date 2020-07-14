@@ -1,4 +1,5 @@
 import * as React from "react";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { Job } from "../types";
 
 export interface JobCardProps {
@@ -28,7 +29,12 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
           <i className="material-icons">public</i>
           <p>{job.location}</p>
         </div>
-        <p className="jobcard__created">{job.created_at}</p>
+        <div className="jobcard__created">
+          <i className="material-icons">access_time</i>
+          <p>
+            {formatDistanceToNow(new Date(job.created_at), { addSuffix: true })}
+          </p>
+        </div>
       </div>
     </div>
   );
