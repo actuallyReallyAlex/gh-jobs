@@ -1,7 +1,8 @@
 import * as React from "react";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import { Job } from "../types";
 import { Link } from "react-router-dom";
+
+import { Job } from "../types";
 
 export interface JobCardProps {
   job: Job;
@@ -9,11 +10,26 @@ export interface JobCardProps {
 
 const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
   const { job } = props;
+  const handleImageError = () => {
+    // TODO - Should set the image to a fallback/just display the div with the not found text
+    alert("IMAGE ERROR - CREATE FUNCTIONALITY");
+  };
   return (
     <div className="jobcard__container">
       <div className="flex">
         <div className="jobcard__logo__container">
-          <img alt="Company Logo" src={job.company_logo} />
+          {job.company_logo ? (
+            <img
+              alt="Company Logo"
+              id={`logo-${job.id}`}
+              onError={handleImageError}
+              src={job.company_logo}
+            />
+          ) : (
+            <div className="jobcard__logo__not-found">
+              <p>not found</p>
+            </div>
+          )}
         </div>
 
         <div className="jobcard__middle__container">

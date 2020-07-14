@@ -135,6 +135,22 @@ header {
   text-decoration: none;
 }
 
+.jobcard__logo__not-found {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.jobcard__logo__not-found p {
+  color: #bdbdbd;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+}
+
 .jobcard__logo__container {
   background-color: #f2f2f2;
   border-radius: 4px;
