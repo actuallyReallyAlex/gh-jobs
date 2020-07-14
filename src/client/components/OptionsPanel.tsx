@@ -36,9 +36,11 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
       />
 
       <Input
+        icon="public"
         id="location-search"
         label="Location"
         onChange={(e) => setLocationSearch(e.target.value)}
+        placeholder="City, state, zip code or country"
         value={locationSearch}
       />
 

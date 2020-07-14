@@ -45,7 +45,8 @@ header {
   padding: 35px 20%;
 }
 
-.search__container__inner {
+.search__container__inner,
+.input__container__inner {
   align-items: stretch;
   display: flex;
   flex-wrap: wrap;
@@ -55,7 +56,8 @@ header {
 .input__addon__left {
   align-items: center;
   background-color: #fff;
-  border: 1px solid rgba(206, 212, 218, 1);
+  border: 1px solid #b9bdcf;
+  /* border: 1px solid rgba(206, 212, 218, 1); */
   border-bottom-left-radius: 0.25rem;
   border-right: none;
   border-top-left-radius: 0.25rem;
@@ -66,19 +68,24 @@ header {
   text-align: center;
 }
 
-.search__input {
+.input__addon__left i {
+  color: #b9bdcf;
+}
+
+.search__input,
+.input__container__inner input {
   background-clip: padding-box;
   background-color: #fff;
-  border: 1px solid #ced4da;
+  border: 1px solid #b9bdcf;
   border-bottom-right-radius: 0;
   border-left: none;
   border-right: none;
   border-top-right-radius: 0;
-  color: #495057;
   flex: 1 1 auto;
+  font-size: 12px;
   font-weight: 400;
   height: calc(1.5em + 0.75rem + 2px);
-  line-height: 1.5;
+  line-height: 14px;
   margin-bottom: 0;
   min-width: 0;
   padding: 0.375rem 0.75rem;
@@ -86,8 +93,25 @@ header {
   width: 1%;
 }
 
-.search__input:focus {
+input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #b9bdcf;
+  opacity: 1; /* Firefox */
+}
+
+.search__input:focus,
+.input__container__inner input:focus {
   outline: none;
+}
+
+.input__container__inner {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.input__container__inner input {
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+  border-right: 1px solid #b9bdcf;
 }
 
 .search__button__container {
@@ -323,4 +347,25 @@ header {
   width: 4px;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
+}
+
+.input__container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+  margin-top: 32px;
+  max-width: 90%;
+}
+
+.input__container__inner {
+  margin-top: 14px;
+}
+
+.input__container label {
+  color: #b9bdcf;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 21px;
+  text-transform: uppercase;
 }
