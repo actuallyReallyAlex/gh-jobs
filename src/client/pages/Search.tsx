@@ -1,10 +1,10 @@
 import * as React from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import { Grid, _ } from "gridjs-react";
+import { Link } from "react-router-dom";
 
 import { getGitHubJobs, searchJobs } from "../api/github";
 
 import { Job, LocationOption } from "../types";
+import SearchInput from "../components/SearchInput";
 
 export interface SearchProps {}
 
@@ -12,7 +12,6 @@ const Search: React.SFC<SearchProps> = () => {
   const [initialJobs, setInitialJobs] = React.useState([]);
   const [allJobs, setAllJobs] = React.useState([]);
   const [jobs, setJobs] = React.useState([]);
-  const [search, setSearch] = React.useState("");
   const [locationSearch, setLocationSearch] = React.useState("");
   const [location1, setLocation1] = React.useState("");
   const [location2, setLocation2] = React.useState("");
@@ -35,16 +34,6 @@ const Search: React.SFC<SearchProps> = () => {
     };
     getJobs();
   }, []);
-
-  const handleSearch = async () => {
-    const filteredJobs = await searchJobs(
-      search,
-      locationOptions,
-      "description",
-      fullTime
-    );
-    setJobs(filteredJobs);
-  };
 
   const handleLocationSearch = async () => {
     const filteredJobs = await searchJobs(
@@ -70,6 +59,11 @@ const Search: React.SFC<SearchProps> = () => {
 
   return (
     <>
+      <SearchInput
+        fullTime={fullTime}
+        locationOptions={locationOptions}
+        setJobs={setJobs}
+      />
       <p>Jobs: {jobs.length}</p>
       <p>Default City: Los Angeles</p>
       <label htmlFor="full-time">Full Time</label>
@@ -120,14 +114,6 @@ const Search: React.SFC<SearchProps> = () => {
         value={locationSearch}
       />
       <button onClick={() => handleLocationSearch()}>Search</button>
-      <label htmlFor="search">Search</label>
-      <input
-        id="search"
-        onChange={(e) => setSearch(e.target.value)}
-        type="text"
-        value={search}
-      />
-      <button onClick={() => handleSearch()}>Search</button>
       {jobs &&
         jobs.map((job: Job) => (
           <Link key={job.id} to={`/${job.id}`}>

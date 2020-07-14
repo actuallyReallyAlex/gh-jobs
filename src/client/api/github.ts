@@ -27,6 +27,10 @@ export const searchJobs = async (
   searchType: SearchType,
   fullTime: boolean
 ): Promise<Job[]> => {
+  console.log(searchString);
+  console.log(locationOptions);
+  console.log(searchType);
+  console.log(fullTime);
   const jobs = [];
 
   const locationsSearches = locationOptions.filter(
@@ -38,6 +42,14 @@ export const searchJobs = async (
       name: "locationSearch",
       setter: null,
       value: searchString,
+    });
+  }
+
+  if (locationsSearches.length === 0 && searchType === "description") {
+    locationsSearches.push({
+      name: "descriptionSearch",
+      setter: null,
+      value: "",
     });
   }
 
