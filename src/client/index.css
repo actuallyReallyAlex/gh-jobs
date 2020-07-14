@@ -238,3 +238,15 @@ header {
   font-weight: 500;
   line-height: 14px;
 }
+
+.search__container {
+  display: flex;
+}
+
+.options-panel__container {
+  width: 25%;
+}
+
+.jobs__container {
+  width: 75%;
+}

@@ -19,7 +19,7 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
     setLocationSearch,
   } = props;
   return (
-    <div>
+    <div className="options-panel__container">
       <label htmlFor="full-time">Full Time</label>
       <input
         id="full-time"
