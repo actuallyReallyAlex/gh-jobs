@@ -78,8 +78,8 @@ const Search: React.SFC<SearchProps> = () => {
         <div className="jobs__container">
           {jobs && jobs.map((job: Job) => <JobCard job={job} key={job.id} />)}
         </div>
-        <Copyright />
       </div>
+      <Copyright />
     </>
   );
 };
