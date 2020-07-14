@@ -65,7 +65,13 @@ const Search: React.SFC<SearchProps> = () => {
         locationOptions={locationOptions}
         setJobs={setJobs}
       />
-      <OptionsPanel />
+      <OptionsPanel
+        handleCheckBox={handleCheckBox}
+        handleLocationSearch={handleLocationSearch}
+        locationSearch={locationSearch}
+        setFullTime={setFullTime}
+        setLocationSearch={setLocationSearch}
+      />
       {jobs && jobs.map((job: Job) => <JobCard job={job} key={job.id} />)}
     </>
   );
