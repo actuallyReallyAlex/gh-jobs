@@ -5,6 +5,7 @@ import { getGitHubJobs, searchJobs } from "../api/github";
 import { Job, LocationOption } from "../types";
 import SearchInput from "../components/SearchInput";
 import JobCard from "../components/JobCard";
+import OptionsPanel from "../components/OptionsPanel";
 
 export interface SearchProps {}
 
@@ -64,6 +65,7 @@ const Search: React.SFC<SearchProps> = () => {
         locationOptions={locationOptions}
         setJobs={setJobs}
       />
+      <OptionsPanel />
       <p>Jobs: {jobs.length}</p>
       <p>Default City: Los Angeles</p>
       <label htmlFor="full-time">Full Time</label>
