@@ -1,5 +1,6 @@
 import * as React from "react";
 import Checkbox from "./Checkbox";
+import Input from "./Input";
 
 export interface OptionsPanelProps {
   handleCheckBox: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -34,6 +35,13 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
         value="full-time"
       />
 
+      <Input
+        id="location-search"
+        label="Location"
+        onChange={(e) => setLocationSearch(e.target.value)}
+        value={locationSearch}
+      />
+
       {locations.map((location: string, i: number) => (
         <Checkbox
           key={i}
@@ -44,15 +52,6 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
           value={location}
         />
       ))}
-
-      <label htmlFor="location-search">Location Search</label>
-      <input
-        id="location-search"
-        onChange={(e) => setLocationSearch(e.target.value)}
-        type="text"
-        value={locationSearch}
-      />
-      <button onClick={() => handleLocationSearch()}>Search</button>
     </div>
   );
 };
