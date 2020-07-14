@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
 import { getJobDetails } from "../api/github";
+import { validURL } from "../util";
 
 const Details: React.SFC<{}> = () => {
   let { id } = useParams();
@@ -22,6 +23,27 @@ const Details: React.SFC<{}> = () => {
           <i className="material-icons">west</i>
           <span>Back to search</span>
         </Link>
+        <div className="details__container__how-to">
+          <span className="details__container__label">How to Apply</span>
+          {data &&
+            (validURL(data.how_to_apply) ? (
+              <a
+                className="details__side__link"
+                href={data.how_to_apply}
+                rel="noopener noreferrer"
+                style={{ marginTop: "16px" }}
+                target="_blank"
+              >
+                <i className="material-icons">link</i>
+                <span>Apply</span>
+              </a>
+            ) : (
+              <ReactMarkdown
+                className="details__container__apply-md"
+                source={data.how_to_apply}
+              />
+            ))}
+        </div>
       </div>
 
       <div className="details__main__container">
@@ -31,7 +53,6 @@ const Details: React.SFC<{}> = () => {
             <span>Company Logo: {data.company_logo}</span>
             <span>Company URL: {data.company_url}</span>
             <span>Created At: {data.created_at}</span>
-            <ReactMarkdown source={data.how_to_apply} />
             <span>ID: {data.id}</span>
             <ReactMarkdown source={data.description} />
             <span>Location: {data.location}</span>

@@ -399,6 +399,7 @@ input::placeholder {
 .details__side__container {
   display: flex;
   flex-direction: column;
+  padding-right: 50px;
   width: 25%;
 }
 
@@ -431,4 +432,24 @@ input::placeholder {
 
 .details__side__link:hover i {
   text-decoration: none;
+}
+
+.details__container__how-to {
+  display: flex;
+  flex-direction: column;
+  margin-top: 36px;
+}
+
+.details__container__label {
+  color: #b9bdcf;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 21px;
+  text-transform: uppercase;
+}
+
+.details__container__apply-md a {
+  overflow-wrap: break-word;
 }
