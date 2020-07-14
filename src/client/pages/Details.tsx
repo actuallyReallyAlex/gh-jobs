@@ -49,8 +49,11 @@ const Details: React.SFC<{}> = () => {
       <div className="details__main__container">
         {data && (
           <>
-            <div>
+            <div className="details__container__title">
               <h2 className="details__title">{data.title}</h2>
+              {data.type === "Full Time" && (
+                <p className="details__title__fulltime">Full Time</p>
+              )}
             </div>
             <span>Company: {data.company}</span>
             <span>Company Logo: {data.company_logo}</span>
@@ -59,7 +62,6 @@ const Details: React.SFC<{}> = () => {
             <span>ID: {data.id}</span>
             <ReactMarkdown source={data.description} />
             <span>Location: {data.location}</span>
-            <span>Type: {data.type}</span>
             <span>URL: {data.url}</span>
           </>
         )}

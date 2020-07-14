@@ -210,7 +210,8 @@ input::placeholder {
   margin-top: 8px;
 }
 
-.jobcard__fulltime {
+.jobcard__fulltime,
+.details__title__fulltime {
   border: 1px solid #334680;
   border-radius: 4px;
   color: #334680;
@@ -461,5 +462,17 @@ input::placeholder {
   font-weight: bold;
   font-size: 24px;
   line-height: 28px;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.details__container__title {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+}
+
+.details__title__fulltime {
+  margin-left: 17px;
   margin-top: 0;
 }
