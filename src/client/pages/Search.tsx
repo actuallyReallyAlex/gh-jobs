@@ -59,7 +59,11 @@ const Search: React.SFC<SearchProps> = () => {
 
   return (
     <>
-      <SearchInput />
+      <SearchInput
+        fullTime={fullTime}
+        locationOptions={locationOptions}
+        setJobs={setJobs}
+      />
       <p>Jobs: {jobs.length}</p>
       <p>Default City: Los Angeles</p>
       <label htmlFor="full-time">Full Time</label>

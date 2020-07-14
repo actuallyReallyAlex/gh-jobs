@@ -1,19 +1,27 @@
 import * as React from "react";
 
 import { searchJobs } from "../api/github";
+import { LocationOption, Job } from "../types";
 
-const SearchInput: React.SFC<{}> = () => {
+interface SearchInputProps {
+  fullTime: boolean;
+  locationOptions: LocationOption[];
+  setJobs: (filteredJobs: Job[]) => void;
+}
+
+const SearchInput: React.SFC<SearchInputProps> = (props: SearchInputProps) => {
+  const { fullTime, locationOptions, setJobs } = props;
   const [search, setSearch] = React.useState("");
 
-  // const handleSearch = async () => {
-  //   const filteredJobs = await searchJobs(
-  //     search,
-  //     locationOptions,
-  //     "description",
-  //     fullTime
-  //   );
-  //   setJobs(filteredJobs);
-  // };
+  const handleSearch = async () => {
+    const filteredJobs = await searchJobs(
+      search,
+      locationOptions,
+      "description",
+      fullTime
+    );
+    setJobs(filteredJobs);
+  };
 
   return (
     <div className="search__container__outer">
@@ -31,7 +39,7 @@ const SearchInput: React.SFC<{}> = () => {
           value={search}
         />
         <div className="search__button__container">
-          <button className="search__button" onClick={() => {}}>
+          <button className="search__button" onClick={() => handleSearch()}>
             Search
           </button>
         </div>
