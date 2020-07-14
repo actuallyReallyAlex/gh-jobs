@@ -2,10 +2,12 @@ import * as React from "react";
 
 import { getGitHubJobs, searchJobs } from "../api/github";
 
-import { Job, LocationOption } from "../types";
 import SearchInput from "../components/SearchInput";
 import JobCard from "../components/JobCard";
 import OptionsPanel from "../components/OptionsPanel";
+import Copyright from "../components/Copyright";
+
+import { Job, LocationOption } from "../types";
 
 export interface SearchProps {}
 
@@ -76,6 +78,7 @@ const Search: React.SFC<SearchProps> = () => {
         <div className="jobs__container">
           {jobs && jobs.map((job: Job) => <JobCard job={job} key={job.id} />)}
         </div>
+        <Copyright />
       </div>
     </>
   );
