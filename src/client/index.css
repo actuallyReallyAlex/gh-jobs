@@ -85,6 +85,10 @@ header {
   width: 1%;
 }
 
+.search__input:focus {
+  outline: none;
+}
+
 .search__button__container {
   display: flex;
   margin-left: -1px;
