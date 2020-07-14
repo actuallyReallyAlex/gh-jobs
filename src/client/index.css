@@ -390,3 +390,20 @@ input::placeholder {
   color: #8f929b;
   text-decoration: underline;
 }
+
+.details__container {
+  display: flex;
+  flex-direction: row;
+}
+
+.details__side__container {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+}
+
+.details__main__container {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+}

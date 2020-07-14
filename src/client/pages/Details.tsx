@@ -16,26 +16,30 @@ const Details: React.SFC<{}> = () => {
     getData();
   }, []);
   return (
-    <div>
-      <h2>DETAILS</h2>
-      <Link to="/">
-        <button>Back</button>
-      </Link>
-      {data && (
-        <div>
-          <span>Company: {data.company}</span>
-          <span>Company Logo: {data.company_logo}</span>
-          <span>Company URL: {data.company_url}</span>
-          <span>Created At: {data.created_at}</span>
-          <ReactMarkdown source={data.how_to_apply} />
-          <span>ID: {data.id}</span>
-          <ReactMarkdown source={data.description} />
-          <span>Location: {data.location}</span>
-          <span>Title: {data.title}</span>
-          <span>Type: {data.type}</span>
-          <span>URL: {data.url}</span>
-        </div>
-      )}
+    <div className="details__container">
+      <div className="details__side__container">
+        <Link to="/">
+          <button>Back</button>
+        </Link>
+      </div>
+
+      <div className="details__main__container">
+        {data && (
+          <div>
+            <span>Company: {data.company}</span>
+            <span>Company Logo: {data.company_logo}</span>
+            <span>Company URL: {data.company_url}</span>
+            <span>Created At: {data.created_at}</span>
+            <ReactMarkdown source={data.how_to_apply} />
+            <span>ID: {data.id}</span>
+            <ReactMarkdown source={data.description} />
+            <span>Location: {data.location}</span>
+            <span>Title: {data.title}</span>
+            <span>Type: {data.type}</span>
+            <span>URL: {data.url}</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
