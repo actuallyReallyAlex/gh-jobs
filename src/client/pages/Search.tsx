@@ -1,11 +1,11 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
 
 import { getGitHubJobs, searchJobs } from "../api/github";
 
 import { Job, LocationOption } from "../types";
 import SearchInput from "../components/SearchInput";
 import JobCard from "../components/JobCard";
+import OptionsPanel from "../components/OptionsPanel";
 
 export interface SearchProps {}
 
@@ -65,89 +65,18 @@ const Search: React.SFC<SearchProps> = () => {
         locationOptions={locationOptions}
         setJobs={setJobs}
       />
-      <p>Jobs: {jobs.length}</p>
-      <p>Default City: Los Angeles</p>
-      <label htmlFor="full-time">Full Time</label>
-      <input
-        id="full-time"
-        name="full-time"
-        onChange={(e) => setFullTime(e.target.checked)}
-        type="checkbox"
-        value="full-time"
-      />
-      <label htmlFor="location-1">Chicago</label>
-      <input
-        id="location-1"
-        name="location1"
-        onChange={(e) => handleCheckBox(e)}
-        type="checkbox"
-        value="Chicago"
-      />
-      <label htmlFor="location-2">Los Angeles</label>
-      <input
-        id="location-2"
-        name="location2"
-        onChange={(e) => handleCheckBox(e)}
-        type="checkbox"
-        value="Los Angeles"
-      />
-      <label htmlFor="location-3">New York City</label>
-      <input
-        id="location-3"
-        name="location3"
-        onChange={(e) => handleCheckBox(e)}
-        type="checkbox"
-        value="New York City"
-      />
-      <label htmlFor="location-4">San Francisco</label>
-      <input
-        id="location-4"
-        name="location4"
-        onChange={(e) => handleCheckBox(e)}
-        type="checkbox"
-        value="San Francisco"
-      />
-      <label htmlFor="location-search">Location Search</label>
-      <input
-        id="location-search"
-        onChange={(e) => setLocationSearch(e.target.value)}
-        type="text"
-        value={locationSearch}
-      />
-      <button onClick={() => handleLocationSearch()}>Search</button>
-      {jobs &&
-        jobs.map((job: Job) => (
-          <JobCard job={job} key={job.id} />
-          // <Link key={job.id} to={`/${job.id}`}>
-          //   {job.id}
-          // </Link>
-        ))}
-      {/* {jobs && (
-        <Grid
-          columns={[
-            {
-              name: "Actions",
-              formatter: (cell, row) => {
-                console.log(cell);
-                return _(<Link to={`/${cell}`}>GO!</Link>);
-              },
-            },
-            "Company",
-            "Created At",
-            "Location",
-            "Title",
-            "Type",
-          ]}
-          data={jobs.map((job: Job) => [
-            job.id,
-            job.company,
-            job.created_at,
-            job.location,
-            job.title,
-            job.type,
-          ])}
+      <div className="search__container">
+        <OptionsPanel
+          handleCheckBox={handleCheckBox}
+          handleLocationSearch={handleLocationSearch}
+          locationSearch={locationSearch}
+          setFullTime={setFullTime}
+          setLocationSearch={setLocationSearch}
         />
-      )} */}
+        <div className="jobs__container">
+          {jobs && jobs.map((job: Job) => <JobCard job={job} key={job.id} />)}
+        </div>
+      </div>
     </>
   );
 };
