@@ -170,11 +170,16 @@ input::placeholder {
   width: 100%;
 }
 
-.jobcard__logo__not-found p {
+.jobcard__logo__not-found,
+.details__logo__not-found p {
   color: #bdbdbd;
   font-size: 12px;
   font-weight: 500;
   line-height: 14px;
+}
+
+.details__logo__not-found p {
+  font-size: 8px;
 }
 
 .jobcard__logo__container,
@@ -541,4 +546,13 @@ input::placeholder {
 
 .details__location p {
   margin-top: 0;
+}
+
+.details__container__description {
+  color: #334680;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
 }

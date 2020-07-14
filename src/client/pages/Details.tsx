@@ -93,7 +93,10 @@ const Details: React.SFC<{}> = () => {
                 </div>
               </div>
             </div>
-            <ReactMarkdown source={data.description} />
+
+            <div className="details__container__description">
+              <ReactMarkdown source={data.description} />
+            </div>
           </>
         )}
       </div>
