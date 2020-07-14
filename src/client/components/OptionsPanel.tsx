@@ -19,6 +19,13 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
     setFullTime,
     setLocationSearch,
   } = props;
+
+  const locations = [
+    "Chicago",
+    "Los Angeles",
+    "New York City",
+    "San Francisco",
+  ];
   return (
     <div className="options-panel__container">
       <Checkbox
@@ -27,38 +34,17 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
         value="full-time"
       />
 
-      <label htmlFor="location-1">Chicago</label>
-      <input
-        id="location-1"
-        name="location1"
-        onChange={(e) => handleCheckBox(e)}
-        type="checkbox"
-        value="Chicago"
-      />
-      <label htmlFor="location-2">Los Angeles</label>
-      <input
-        id="location-2"
-        name="location2"
-        onChange={(e) => handleCheckBox(e)}
-        type="checkbox"
-        value="Los Angeles"
-      />
-      <label htmlFor="location-3">New York City</label>
-      <input
-        id="location-3"
-        name="location3"
-        onChange={(e) => handleCheckBox(e)}
-        type="checkbox"
-        value="New York City"
-      />
-      <label htmlFor="location-4">San Francisco</label>
-      <input
-        id="location-4"
-        name="location4"
-        onChange={(e) => handleCheckBox(e)}
-        type="checkbox"
-        value="San Francisco"
-      />
+      {locations.map((location: string, i: number) => (
+        <Checkbox
+          key={i}
+          id={`location-${i + 1}`}
+          label={location}
+          name={`location${i + 1}`}
+          onChange={(e) => handleCheckBox(e)}
+          value={location}
+        />
+      ))}
+
       <label htmlFor="location-search">Location Search</label>
       <input
         id="location-search"

@@ -1,17 +1,25 @@
 import * as React from "react";
 
 export interface CheckboxProps {
+  id?: string;
   label: string;
+  name?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
 }
 
 const Checkbox: React.SFC<CheckboxProps> = (props: CheckboxProps) => {
-  const { label, onChange, value } = props;
+  const { id, label, name, onChange, value } = props;
   return (
     <label className="checkbox__container">
       {label}
-      <input onChange={onChange} type="checkbox" value={value} />
+      <input
+        id={id}
+        name={name}
+        onChange={onChange}
+        type="checkbox"
+        value={value}
+      />
       <span className="checkmark" />
     </label>
   );
