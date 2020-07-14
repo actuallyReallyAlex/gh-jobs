@@ -18,8 +18,9 @@ const Details: React.SFC<{}> = () => {
   return (
     <div className="details__container">
       <div className="details__side__container">
-        <Link to="/">
-          <button>Back</button>
+        <Link className="details__side__link" to="/">
+          <i className="material-icons">west</i>
+          <span>Back to search</span>
         </Link>
       </div>
 
