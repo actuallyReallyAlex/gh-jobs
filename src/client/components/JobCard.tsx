@@ -24,7 +24,10 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
       </div>
 
       <div className="jobcard__right__container">
-        <p className="jobcard__location">{job.location}</p>
+        <div className="jobcard__location">
+          <i className="material-icons">public</i>
+          <p>{job.location}</p>
+        </div>
         <p className="jobcard__created">{job.created_at}</p>
       </div>
     </div>
