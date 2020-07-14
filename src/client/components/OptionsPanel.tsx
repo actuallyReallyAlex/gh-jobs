@@ -1,4 +1,5 @@
 import * as React from "react";
+import Checkbox from "./Checkbox";
 
 export interface OptionsPanelProps {
   handleCheckBox: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -20,21 +21,11 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
   } = props;
   return (
     <div className="options-panel__container">
-      {/* <div className="checkbox">
-        <input
-          id="full-time"
-          name="full-time"
-          onChange={(e) => setFullTime(e.target.checked)}
-          type="checkbox"
-          value="full-time"
-        />
-        <label htmlFor="full-time">Full Time</label>
-      </div> */}
-      <label className="checkmark__container">
-        Full Time
-        <input type="checkbox" />
-        <span className="checkmark" />
-      </label>
+      <Checkbox
+        label="Full Time"
+        onChange={(e) => setFullTime(e.target.checked)}
+        value="full-time"
+      />
 
       <label htmlFor="location-1">Chicago</label>
       <input
