@@ -160,7 +160,8 @@ input::placeholder {
   text-decoration: none;
 }
 
-.jobcard__logo__not-found {
+.jobcard__logo__not-found,
+.details__logo__not-found {
   align-items: center;
   display: flex;
   height: 100%;
@@ -176,14 +177,16 @@ input::placeholder {
   line-height: 14px;
 }
 
-.jobcard__logo__container {
+.jobcard__logo__container,
+.details__logo__container {
   background-color: #f2f2f2;
   border-radius: 4px;
   height: 90px;
   width: 90px;
 }
 
-.jobcard__logo__container img {
+.jobcard__logo__container img,
+.details__logo__container img {
   height: 90px;
   object-fit: contain;
   width: 90px;
@@ -193,7 +196,8 @@ input::placeholder {
   margin-left: 16px;
 }
 
-.jobcard__company {
+.jobcard__company,
+.details__company {
   color: #334680;
   font-size: 12px;
   font-weight: bold;
@@ -228,18 +232,21 @@ input::placeholder {
   display: flex;
 }
 
-.jobcard__location {
+.jobcard__location,
+.details__location {
   align-items: center;
   display: flex;
 }
 
-.jobcard__location i {
+.jobcard__location i,
+.details__location i {
   color: #b9bdcf;
   font-size: 15px;
   margin-right: 7.5px;
 }
 
-.jobcard__location p {
+.jobcard__location p,
+.details__location p {
   color: #b9bdcf;
   font-size: 12px;
   font-weight: 500;
@@ -493,5 +500,45 @@ input::placeholder {
 }
 
 .details__created p {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.details__logo__container {
+  margin-right: 12px;
+}
+
+.details__logo__container,
+.details__logo__container img {
+  height: 42px;
+  width: 42px;
+}
+
+.details__container__company {
+  display: flex;
+  flex-direction: row;
+  margin-top: 32px;
+}
+
+.details__company {
+  color: #334680;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 21px;
+}
+
+.details__company__right {
+  display: flex;
+  flex-direction: column;
+}
+
+.details__location {
+  align-items: flex-start;
+  margin-top: 10px;
+}
+
+.details__location p {
   margin-top: 0;
 }

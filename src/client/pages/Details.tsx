@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 
 import { getJobDetails } from "../api/github";
 import { validURL } from "../util";
+import JobCard from "../components/JobCard";
 
 const Details: React.SFC<{}> = () => {
   let { id } = useParams();
@@ -57,6 +58,7 @@ const Details: React.SFC<{}> = () => {
                   <p className="details__title__fulltime">Full Time</p>
                 )}
               </div>
+
               <div className="details__created">
                 <i className="material-icons">access_time</i>
                 <p>
@@ -66,14 +68,32 @@ const Details: React.SFC<{}> = () => {
                 </p>
               </div>
             </div>
-            <span>Company: {data.company}</span>
-            <span>Company Logo: {data.company_logo}</span>
-            <span>Company URL: {data.company_url}</span>
-            <span>Created At: {data.created_at}</span>
-            <span>ID: {data.id}</span>
+
+            <div className="details__container__company">
+              <div className="details__logo__container">
+                {data.company_logo ? (
+                  <img
+                    alt="Company Logo"
+                    id={`logo-${data.id}`}
+                    // onError={handleImageError}
+                    src={data.company_logo}
+                  />
+                ) : (
+                  <div className="details__logo__not-found">
+                    <p>not found</p>
+                  </div>
+                )}
+              </div>
+
+              <div className="details__company__right">
+                <p className="details__company">{data.company}</p>
+                <div className="details__location">
+                  <i className="material-icons">public</i>
+                  <p>{data.location}</p>
+                </div>
+              </div>
+            </div>
             <ReactMarkdown source={data.description} />
-            <span>Location: {data.location}</span>
-            <span>URL: {data.url}</span>
           </>
         )}
       </div>
