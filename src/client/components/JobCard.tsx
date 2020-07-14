@@ -13,10 +13,12 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
         <img alt="Company Logo" src={job.company_logo} />
       </div>
 
-      <div>
-        <h4>{job.company}</h4>
-        <h3>{job.title}</h3>
-        {job.type === "Full Time" && <span>Full Time</span>}
+      <div className="jobcard__middle__container">
+        <p className="jobcard__company">{job.company}</p>
+        <p className="jobcard__title">{job.title}</p>
+        {job.type === "Full Time" && (
+          <p className="jobcard__fulltime">Full Time</p>
+        )}
       </div>
       <div>
         <p>{job.location}</p>

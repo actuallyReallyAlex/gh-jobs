@@ -137,3 +137,36 @@ header {
   object-fit: contain;
   width: 90px;
 }
+
+.jobcard__middle__container {
+  margin-left: 16px;
+}
+
+.jobcard__company {
+  color: #334680;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 14px;
+  margin: 0;
+}
+
+.jobcard__title {
+  color: #334680;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 21px;
+  margin-bottom: 12px;
+  margin-top: 8px;
+}
+
+.jobcard__fulltime {
+  border: 1px solid #334680;
+  border-radius: 4px;
+  color: #334680;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 14px;
+  padding: 6px 8px;
+  text-align: center;
+  width: 53px;
+}
