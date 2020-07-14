@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;500&display=swap");
 
 /* Application */
 body {
@@ -23,6 +23,13 @@ header {
   font-weight: lighter;
   margin-bottom: 25px;
   margin-top: 25px;
+
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 200;
+  font-size: 24px;
+  line-height: 36px;
+  color: #282538;
 }
 
 .bold {
