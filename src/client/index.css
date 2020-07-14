@@ -394,6 +394,7 @@ input::placeholder {
   font-weight: lighter;
   justify-content: center;
   line-height: 17px;
+  margin-top: 50px;
   width: 100%;
 }
 
