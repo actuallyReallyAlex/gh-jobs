@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
 
 import { getGitHubJobs, searchJobs } from "../api/github";
 
@@ -115,39 +114,7 @@ const Search: React.SFC<SearchProps> = () => {
         value={locationSearch}
       />
       <button onClick={() => handleLocationSearch()}>Search</button>
-      {jobs &&
-        jobs.map((job: Job) => (
-          <JobCard job={job} key={job.id} />
-          // <Link key={job.id} to={`/${job.id}`}>
-          //   {job.id}
-          // </Link>
-        ))}
-      {/* {jobs && (
-        <Grid
-          columns={[
-            {
-              name: "Actions",
-              formatter: (cell, row) => {
-                console.log(cell);
-                return _(<Link to={`/${cell}`}>GO!</Link>);
-              },
-            },
-            "Company",
-            "Created At",
-            "Location",
-            "Title",
-            "Type",
-          ]}
-          data={jobs.map((job: Job) => [
-            job.id,
-            job.company,
-            job.created_at,
-            job.location,
-            job.title,
-            job.type,
-          ])}
-        />
-      )} */}
+      {jobs && jobs.map((job: Job) => <JobCard job={job} key={job.id} />)}
     </>
   );
 };
