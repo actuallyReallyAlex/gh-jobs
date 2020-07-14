@@ -1,4 +1,5 @@
 import * as React from "react";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useParams, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
@@ -50,10 +51,20 @@ const Details: React.SFC<{}> = () => {
         {data && (
           <>
             <div className="details__container__title">
-              <h2 className="details__title">{data.title}</h2>
-              {data.type === "Full Time" && (
-                <p className="details__title__fulltime">Full Time</p>
-              )}
+              <div className="details__container__title__inner">
+                <h2 className="details__title">{data.title}</h2>
+                {data.type === "Full Time" && (
+                  <p className="details__title__fulltime">Full Time</p>
+                )}
+              </div>
+              <div className="details__created">
+                <i className="material-icons">access_time</i>
+                <p>
+                  {formatDistanceToNow(new Date(data.created_at), {
+                    addSuffix: true,
+                  })}
+                </p>
+              </div>
             </div>
             <span>Company: {data.company}</span>
             <span>Company Logo: {data.company_logo}</span>
