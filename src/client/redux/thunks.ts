@@ -5,8 +5,9 @@ import {
   setCurrentJobs,
   setIsLoading,
 } from "./actions/application";
+import { getData, unique } from "../util";
 
-import { AppThunk, Job } from "../types";
+import { AppThunk, Job, LocationOption, RootState } from "../types";
 
 export const getJobs = (): AppThunk => async (dispatch, getState) => {
   try {
@@ -38,4 +39,48 @@ export const getJobs = (): AppThunk => async (dispatch, getState) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+// TODO - `full_time` doesn't really work on GitHub API
+export const searchJobs = (
+  search: string,
+  locationOptions: LocationOption[]
+): AppThunk => async (dispatch, getState) => {
+  dispatch(setIsLoading(true));
+  const state: RootState = getState();
+  const { fullTime } = state.application;
+
+  const jobs = [];
+
+  const locationsSearches = locationOptions.filter(
+    (location: LocationOption) => location.value !== ""
+  );
+
+  // * Since location options have to be a thing for the challenge
+  // * Make as many requests as locations (since you can only have 1 location per request)
+  // * And push all the results into one array
+  await Promise.all(
+    locationsSearches.map(async (location: LocationOption) => {
+      const url = `${baseGHUrl}?full_time=${encodeURI(
+        fullTime.toString()
+      )}&description=${encodeURI(search)}&location=${encodeURI(
+        location.value
+      )}`;
+      const data = await getData(url);
+      jobs.push.apply(jobs, data);
+    })
+  );
+
+  if (locationsSearches.length === 0) {
+    const url = `${baseGHUrl}?full_time=${encodeURI(
+      fullTime.toString()
+    )}&description=${encodeURI(search)}`;
+    const data = await getData(url);
+    jobs.push.apply(jobs, data);
+  }
+
+  const uniqueJobs = unique(jobs);
+
+  dispatch(setCurrentJobs(uniqueJobs));
+  dispatch(setIsLoading(false));
 };

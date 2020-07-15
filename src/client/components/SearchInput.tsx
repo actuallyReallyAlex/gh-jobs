@@ -1,29 +1,18 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { searchJobs } from "../api/github";
-import { LocationOption, Job, RootState } from "../types";
-import { setCurrentJobs } from "../redux/actions/application";
+import { searchJobs } from "../redux/thunks";
+
+import { LocationOption } from "../types";
 
 interface SearchInputProps {
-  fullTime: boolean;
-  handleSetCurrentJobs: (filteredJobs: Job[]) => void;
+  handleSearch: (search: string, locationOptions: LocationOption[]) => void;
   locationOptions: LocationOption[];
 }
 
 const SearchInput: React.SFC<SearchInputProps> = (props: SearchInputProps) => {
-  const { fullTime, handleSetCurrentJobs, locationOptions } = props;
+  const { handleSearch, locationOptions } = props;
   const [search, setSearch] = React.useState("");
-
-  const handleSearch = async () => {
-    const filteredJobs = await searchJobs(
-      search,
-      locationOptions,
-      "description",
-      fullTime
-    );
-    handleSetCurrentJobs(filteredJobs);
-  };
 
   return (
     <div className="search__container__outer">
@@ -41,7 +30,10 @@ const SearchInput: React.SFC<SearchInputProps> = (props: SearchInputProps) => {
           value={search}
         />
         <div className="search__button__container">
-          <button className="search__button" onClick={() => handleSearch()}>
+          <button
+            className="search__button"
+            onClick={() => handleSearch(search, locationOptions)}
+          >
             Search
           </button>
         </div>
@@ -50,13 +42,9 @@ const SearchInput: React.SFC<SearchInputProps> = (props: SearchInputProps) => {
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  fullTime: state.application.fullTime,
-});
-
 const mapDispatchToProps = (dispatch) => ({
-  handleSetCurrentJobs: (filteredJobs: Job[]) =>
-    dispatch(setCurrentJobs(filteredJobs)),
+  handleSearch: (search: string, locationOptions: LocationOption[]) =>
+    dispatch(searchJobs(search, locationOptions)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchInput);
+export default connect(null, mapDispatchToProps)(SearchInput);
