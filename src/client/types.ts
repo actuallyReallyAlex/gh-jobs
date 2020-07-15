@@ -7,7 +7,10 @@ export interface ApplicationAction {
   payload: any;
 }
 
-export interface ApplicationState {}
+export interface ApplicationState {
+  jobs: Job[];
+  jobsFetchedAt: string;
+}
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,

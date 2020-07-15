@@ -1,8 +1,9 @@
-import { SET_JOBS } from "../actionTypes";
-import { ApplicationAction, ApplicationState, Job } from "../../types";
+import { SET_JOBS, SET_JOBS_FETCHED_AT } from "../actionTypes";
+import { ApplicationAction, ApplicationState } from "../../types";
 
 export const initialState: ApplicationState = {
   jobs: [],
+  jobsFetchedAt: null,
 };
 
 const reducer = (
@@ -12,6 +13,9 @@ const reducer = (
   switch (action.type) {
     case SET_JOBS: {
       return { ...state, jobs: action.payload.jobs };
+    }
+    case SET_JOBS_FETCHED_AT: {
+      return { ...state, jobsFetchedAt: action.payload.jobsFetchedAt };
     }
     default:
       return state;
