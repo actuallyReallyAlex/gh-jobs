@@ -587,12 +587,14 @@ input::placeholder {
   }
 
   .search__container,
-  .jobcard__container {
+  .jobcard__container,
+  .details__container {
     flex-direction: column;
   }
 
   .options-panel__container,
-  .jobs__container {
+  .jobs__container,
+  .details__side__container {
     width: 100%;
   }
 
