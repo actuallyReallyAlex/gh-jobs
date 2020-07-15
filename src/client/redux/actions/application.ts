@@ -2,6 +2,7 @@ import {
   SET_JOBS,
   SET_JOBS_FETCHED_AT,
   SET_FULL_TIME,
+  SET_IS_LOADING,
   SET_CURRENT_JOBS,
   SET_CURRENT_PAGE,
 } from "../actionTypes";
@@ -21,6 +22,11 @@ export const setCurrentPage = (currentPage: number) => ({
 export const setFullTime = (fullTime: boolean) => ({
   type: SET_FULL_TIME,
   payload: { fullTime },
+});
+
+export const setIsLoading = (isLoading: boolean) => ({
+  type: SET_IS_LOADING,
+  payload: { isLoading },
 });
 
 export const setJobs = (jobs: Job[]) => ({ type: SET_JOBS, payload: { jobs } });
