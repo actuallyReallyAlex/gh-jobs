@@ -723,7 +723,8 @@ input::placeholder {
 
 .pagination__item,
 .pagination__item__selected,
-.pagination__item__disabled {
+.pagination__item__disabled,
+.pagination__item__more {
   margin-left: 6px;
   margin-right: 6px;
 }
@@ -771,7 +772,14 @@ input::placeholder {
   font-size: 18px;
 }
 
-/* .pagination__item .disabled button:hover {
-  border: 1px solid #b7bcce;
-  color: #b9bdcf;
-} */
+.pagination__item__more {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pagination__item__more i {
+  color: #b7bcce;
+  font-size: 18px;
+}

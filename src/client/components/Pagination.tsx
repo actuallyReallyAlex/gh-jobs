@@ -26,16 +26,28 @@ const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
   const pageButtons = [];
 
   for (let i = 1; i < totalPages + 1; i++) {
-    pageButtons.push(
-      <li
-        className={
-          i === currentPage ? `pagination__item__selected` : `pagination__item`
-        }
-        key={i}
-      >
-        <button onClick={() => handlePaginationClick(i)}>{i}</button>
-      </li>
-    );
+    if (i === 4) {
+      // * dot dot dot
+      pageButtons.push(
+        <li className="pagination__item__more" key={i}>
+          <i className="material-icons">more_horiz</i>
+        </li>
+      );
+    } else if (i <= 3 || i === totalPages + 1) {
+      // * regular button
+      pageButtons.push(
+        <li
+          className={
+            i === currentPage
+              ? `pagination__item__selected`
+              : `pagination__item`
+          }
+          key={i}
+        >
+          <button onClick={() => handlePaginationClick(i)}>{i}</button>
+        </li>
+      );
+    }
   }
 
   return (
