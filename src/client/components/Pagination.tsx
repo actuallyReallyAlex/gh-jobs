@@ -2,9 +2,10 @@ import * as React from "react";
 import { connect } from "react-redux";
 
 import PaginationNavigation from "./PaginationNavigation";
+import PaginationItem from "./PaginationItem";
+import PaginationMore from "./PaginationMore";
 
 import { RootState } from "../types";
-import PaginationItem from "./PaginationItem";
 
 export interface PaginationProps {
   totalPages: number;
@@ -18,11 +19,7 @@ const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
   for (let i = 1; i < totalPages + 1; i++) {
     if (i === 4) {
       // * dot dot dot
-      pageButtons.push(
-        <li className="pagination__item__more" key={i}>
-          <i className="material-icons">more_horiz</i>
-        </li>
-      );
+      pageButtons.push(<PaginationMore key={i} />);
     } else if (i <= 3 || i === totalPages + 1) {
       // * regular PaginationItem
       pageButtons.push(<PaginationItem key={i} page={i} />);
