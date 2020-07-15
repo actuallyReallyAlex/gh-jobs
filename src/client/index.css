@@ -587,12 +587,16 @@ input::placeholder {
   }
 
   .search__container,
-  .jobcard__container {
+  .jobcard__container,
+  .details__container,
+  .details__container__title__inner {
     flex-direction: column;
   }
 
   .options-panel__container,
-  .jobs__container {
+  .jobs__container,
+  .details__side__container,
+  .details__main__container {
     width: 100%;
   }
 
@@ -613,5 +617,14 @@ input::placeholder {
 
   .jobcard__right__container {
     max-width: calc(100% - 120px);
+  }
+
+  .details__title {
+    margin-top: 36px;
+  }
+
+  .details__title__fulltime {
+    margin-left: 0;
+    margin-top: 4px;
   }
 }
