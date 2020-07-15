@@ -1,3 +1,21 @@
+import { Action } from "redux";
+import { ThunkAction } from "redux-thunk";
+
+export interface ApplicationAction {
+  type: string;
+  // eslint-disable-next-line
+  payload: any;
+}
+
+export interface ApplicationState {}
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;
+
 export interface Job {
   company: string;
   company_logo: string;
@@ -20,12 +38,8 @@ export interface LocationOption {
   value: string;
 }
 
+export type RootState = {
+  application: ApplicationState;
+};
+
 export type SearchType = "description" | "location";
-
-export interface UIAction {
-  type: string;
-  // eslint-disable-next-line
-  payload: any;
-}
-
-export interface UIState {}

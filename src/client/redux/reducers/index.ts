@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import ui from "./ui";
+import application from "./application";
 
 export default combineReducers({
-  ui,
+  application,
 });
