@@ -9,9 +9,12 @@ import Search from "./pages/Search";
 import Header from "./components/Header";
 import { getJobs } from "./redux/thunks";
 import { RootState } from "./types";
+import LoadingIndicator from "./components/LoadingIndicator";
+import { setIsLoading } from "./redux/actions/application";
 
 interface AppProps {
   handleGetJobs: () => void;
+  handleSetIsLoading: (isLoading: boolean) => void;
   jobsFetchedAt: string;
 }
 
@@ -19,7 +22,7 @@ interface AppProps {
  * Application.
  */
 const App: React.SFC<AppProps> = (props: AppProps) => {
-  const { handleGetJobs, jobsFetchedAt } = props;
+  const { handleGetJobs, handleSetIsLoading, jobsFetchedAt } = props;
 
   React.useEffect(() => {
     if (jobsFetchedAt) {
@@ -28,7 +31,11 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
         end: endOfToday(),
       });
 
-      if (!isWithinToday) handleGetJobs();
+      if (!isWithinToday) {
+        handleGetJobs();
+      } else {
+        handleSetIsLoading(false);
+      }
     } else {
       handleGetJobs();
     }
@@ -46,6 +53,7 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
             <Details />
           </Route>
         </Switch>
+        <LoadingIndicator />
       </div>
     </Router>
   );
@@ -57,6 +65,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleGetJobs: () => dispatch(getJobs()),
+  handleSetIsLoading: (isLoading: boolean) => dispatch(setIsLoading(isLoading)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
