@@ -47,6 +47,8 @@ export interface LocationOption {
   value: string;
 }
 
+export type PaginationNavigationType = "left" | "right";
+
 export type RootState = {
   application: ApplicationState;
 };
