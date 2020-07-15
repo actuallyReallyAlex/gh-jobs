@@ -22,7 +22,6 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
   const [location2, setLocation2] = React.useState("");
   const [location3, setLocation3] = React.useState("");
   const [location4, setLocation4] = React.useState("");
-  const [fullTime, setFullTime] = React.useState(false);
 
   const locationOptions: LocationOption[] = [
     { name: "location1", setter: setLocation1, value: location1 },
@@ -55,13 +54,12 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
 
   return (
     <>
-      <SearchInput fullTime={fullTime} locationOptions={locationOptions} />
+      <SearchInput locationOptions={locationOptions} />
       <div className="search__container">
         <OptionsPanel
           handleCheckBox={handleCheckBox}
           handleLocationSearch={handleLocationSearch}
           locationSearch={locationSearch}
-          setFullTime={setFullTime}
           setLocationSearch={setLocationSearch}
         />
         <div className="jobs__container">

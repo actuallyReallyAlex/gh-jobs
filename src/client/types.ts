@@ -10,6 +10,7 @@ export interface ApplicationAction {
 export interface ApplicationState {
   currentJobs: Job[];
   currentPage: number;
+  fullTime: boolean;
   jobs: Job[];
   jobsFetchedAt: string;
 }

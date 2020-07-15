@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 
 import { searchJobs } from "../api/github";
-import { LocationOption, Job } from "../types";
+import { LocationOption, Job, RootState } from "../types";
 import { setCurrentJobs } from "../redux/actions/application";
 
 interface SearchInputProps {
@@ -50,9 +50,13 @@ const SearchInput: React.SFC<SearchInputProps> = (props: SearchInputProps) => {
   );
 };
 
+const mapStateToProps = (state: RootState) => ({
+  fullTime: state.application.fullTime,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   handleSetCurrentJobs: (filteredJobs: Job[]) =>
     dispatch(setCurrentJobs(filteredJobs)),
 });
 
-export default connect(null, mapDispatchToProps)(SearchInput);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchInput);

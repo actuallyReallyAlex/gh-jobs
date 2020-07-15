@@ -3,12 +3,14 @@ import {
   SET_CURRENT_PAGE,
   SET_JOBS,
   SET_JOBS_FETCHED_AT,
+  SET_FULL_TIME,
 } from "../actionTypes";
 import { ApplicationAction, ApplicationState } from "../../types";
 
 export const initialState: ApplicationState = {
   currentJobs: [],
   currentPage: 1,
+  fullTime: false,
   jobs: [],
   jobsFetchedAt: null,
 };
@@ -23,6 +25,9 @@ const reducer = (
     }
     case SET_CURRENT_PAGE: {
       return { ...state, currentPage: action.payload.currentPage };
+    }
+    case SET_FULL_TIME: {
+      return { ...state, fullTime: action.payload.fullTime };
     }
     case SET_JOBS: {
       return { ...state, jobs: action.payload.jobs };
