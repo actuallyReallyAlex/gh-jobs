@@ -11,6 +11,7 @@ export interface ApplicationState {
   currentJobs: Job[];
   currentPage: number;
   fullTime: boolean;
+  isLoading: boolean;
   jobs: Job[];
   jobsFetchedAt: string;
 }

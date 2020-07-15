@@ -11,6 +11,7 @@ export const initialState: ApplicationState = {
   currentJobs: [],
   currentPage: 1,
   fullTime: false,
+  isLoading: true,
   jobs: [],
   jobsFetchedAt: null,
 };
