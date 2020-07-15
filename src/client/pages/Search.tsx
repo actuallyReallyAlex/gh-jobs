@@ -1,4 +1,5 @@
 import * as React from "react";
+import { connect } from "react-redux";
 
 import { getGitHubJobs, searchJobs } from "../api/github";
 
@@ -7,14 +8,15 @@ import JobCard from "../components/JobCard";
 import OptionsPanel from "../components/OptionsPanel";
 import Copyright from "../components/Copyright";
 
-import { Job, LocationOption } from "../types";
+import { Job, LocationOption, RootState } from "../types";
 
-export interface SearchProps {}
+export interface SearchProps {
+  currentJobs: Job[];
+}
 
-const Search: React.SFC<SearchProps> = () => {
-  const [initialJobs, setInitialJobs] = React.useState([]);
-  const [allJobs, setAllJobs] = React.useState([]);
-  const [jobs, setJobs] = React.useState([]);
+const Search: React.SFC<SearchProps> = (props: SearchProps) => {
+  const { currentJobs } = props;
+
   const [locationSearch, setLocationSearch] = React.useState("");
   const [location1, setLocation1] = React.useState("");
   const [location2, setLocation2] = React.useState("");
@@ -29,23 +31,14 @@ const Search: React.SFC<SearchProps> = () => {
     { name: "location4", setter: setLocation4, value: location4 },
   ];
 
-  React.useEffect((): void => {
-    const getJobs = async () => {
-      const initialJobs = await getGitHubJobs();
-      setInitialJobs(initialJobs);
-      setJobs(initialJobs);
-    };
-    getJobs();
-  }, []);
-
   const handleLocationSearch = async () => {
-    const filteredJobs = await searchJobs(
-      locationSearch,
-      locationOptions,
-      "location",
-      fullTime
-    );
-    setJobs(filteredJobs);
+    // const filteredJobs = await searchJobs(
+    //   locationSearch,
+    //   locationOptions,
+    //   "location",
+    //   fullTime
+    // );
+    // setJobs(filteredJobs);
   };
 
   const handleCheckBox = (e) => {
@@ -62,11 +55,7 @@ const Search: React.SFC<SearchProps> = () => {
 
   return (
     <>
-      <SearchInput
-        fullTime={fullTime}
-        locationOptions={locationOptions}
-        setJobs={setJobs}
-      />
+      <SearchInput fullTime={fullTime} locationOptions={locationOptions} />
       <div className="search__container">
         <OptionsPanel
           handleCheckBox={handleCheckBox}
@@ -76,7 +65,8 @@ const Search: React.SFC<SearchProps> = () => {
           setLocationSearch={setLocationSearch}
         />
         <div className="jobs__container">
-          {jobs && jobs.map((job: Job) => <JobCard job={job} key={job.id} />)}
+          {currentJobs &&
+            currentJobs.map((job: Job) => <JobCard job={job} key={job.id} />)}
         </div>
       </div>
       <Copyright />
@@ -84,4 +74,8 @@ const Search: React.SFC<SearchProps> = () => {
   );
 };
 
-export default Search;
+const mapStateToProps = (state: RootState) => ({
+  currentJobs: state.application.currentJobs,
+});
+
+export default connect(mapStateToProps)(Search);

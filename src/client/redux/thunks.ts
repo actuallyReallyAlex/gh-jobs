@@ -1,5 +1,9 @@
 import { baseGHUrl } from "../constants";
-import { setJobs, setJobsFetchedAt } from "./actions/application";
+import {
+  setJobs,
+  setJobsFetchedAt,
+  setCurrentJobs,
+} from "./actions/application";
 
 import { AppThunk, Job } from "../types";
 
@@ -24,8 +28,11 @@ export const getJobs = (): AppThunk => async (dispatch, getState) => {
       }
     }
 
+    const currentJobs = jobs.slice(0, 10);
+
     dispatch(setJobs(jobs));
-    dispatch(setJobsFetchedAt(new Date().toDateString()));
+    dispatch(setJobsFetchedAt(new Date().toString()));
+    dispatch(setCurrentJobs(currentJobs));
   } catch (error) {
     console.error(error);
   }

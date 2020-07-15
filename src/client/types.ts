@@ -8,6 +8,8 @@ export interface ApplicationAction {
 }
 
 export interface ApplicationState {
+  currentJobs: Job[];
+  currentPage: number;
   jobs: Job[];
   jobsFetchedAt: string;
 }
