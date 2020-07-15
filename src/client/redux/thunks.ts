@@ -3,6 +3,7 @@ import {
   setJobs,
   setJobsFetchedAt,
   setCurrentJobs,
+  setIsLoading,
 } from "./actions/application";
 
 import { AppThunk, Job } from "../types";
@@ -33,6 +34,7 @@ export const getJobs = (): AppThunk => async (dispatch, getState) => {
     dispatch(setJobs(jobs));
     dispatch(setJobsFetchedAt(new Date().toString()));
     dispatch(setCurrentJobs(currentJobs));
+    dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
   }
