@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.21.0] - 2020-07-15
+
+### 📄 Details
+
+### Added
+
+### Changed
+
+- Details uses `jobs` to find job instead of hitting GitHub API again
+- Use `dangerouslySetInnerHTML()` in favor of `react-markdown`
+
+### Removed
+
+`react-markdown`
+
+### Fixed
+
 ## [0.20.0] - 2020-07-15
 
 ### 🗺️ LocationSearch

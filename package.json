@@ -1,6 +1,6 @@
 {
   "name": "gh-jobs",
-  "version": "0.20.0",
+  "version": "0.21.0",
   "description": "A MERN application bootstrapped with create-mern-application.",
   "main": "build/index.js",
   "scripts": {
@@ -29,7 +29,6 @@
     "node-fetch": "^2.6.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-markdown": "^4.3.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
