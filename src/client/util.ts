@@ -1,3 +1,14 @@
+import { Job } from "./types";
+
+export const getData = async (url: string): Promise<Job[]> => {
+  const response = await fetch(url, {
+    headers: { "Content-Type": "application/json" },
+    method: "GET",
+  });
+  const data: Job[] = await response.json();
+  return data;
+};
+
 export const groupBy = (arr: any[], key: any): any =>
   arr.reduce(
     (acc, item) => ((acc[item[key]] = [...(acc[item[key]] || []), item]), acc),
