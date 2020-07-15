@@ -1,14 +1,17 @@
 import { applyMiddleware, compose, createStore } from "redux";
 import thunk from "redux-thunk";
 import throttle from "lodash/throttle";
-import { saveState } from "../util";
+import { loadState, saveState } from "../util";
 import rootReducer from "./reducers";
 
 const composeEnhancers =
   (window["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] as typeof compose) || compose;
 
+const persistedState = loadState();
+
 const store = createStore(
   rootReducer,
+  persistedState,
   composeEnhancers(applyMiddleware(thunk))
 );
 
