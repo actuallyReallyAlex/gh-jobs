@@ -1,12 +1,14 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import Checkbox from "./Checkbox";
 import Input from "./Input";
+import { setFullTime } from "../redux/actions/application";
 
 export interface OptionsPanelProps {
   handleCheckBox: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleLocationSearch: () => void;
+  handleSetFullTime: (fullTime: boolean) => void;
   locationSearch: string;
-  setFullTime: (fullTime: boolean) => void;
   setLocationSearch: (locationSearch: string) => void;
 }
 
@@ -16,8 +18,8 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
   const {
     handleCheckBox,
     handleLocationSearch,
+    handleSetFullTime,
     locationSearch,
-    setFullTime,
     setLocationSearch,
   } = props;
 
@@ -31,7 +33,7 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
     <div className="options-panel__container">
       <Checkbox
         label="Full Time"
-        onChange={(e) => setFullTime(e.target.checked)}
+        onChange={(e) => handleSetFullTime(e.target.checked)}
         value="full-time"
       />
 
@@ -58,4 +60,8 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
   );
 };
 
-export default OptionsPanel;
+const mapDispatchToProps = (dispatch) => ({
+  handleSetFullTime: (fullTime: boolean) => dispatch(setFullTime(fullTime)),
+});
+
+export default connect(null, mapDispatchToProps)(OptionsPanel);
