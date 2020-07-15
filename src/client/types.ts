@@ -15,6 +15,7 @@ export interface ApplicationState {
   jobs: Job[];
   jobsFetchedAt: string;
   locationSearch: string;
+  totalPages: number;
 }
 
 export type AppThunk<ReturnType = void> = ThunkAction<

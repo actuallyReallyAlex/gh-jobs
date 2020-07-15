@@ -5,15 +5,19 @@ import SearchInput from "../components/SearchInput";
 import JobCard from "../components/JobCard";
 import OptionsPanel from "../components/OptionsPanel";
 import Copyright from "../components/Copyright";
+import Pagination from "../components/Pagination";
 
 import { Job, LocationOption, RootState } from "../types";
 
 export interface SearchProps {
   currentJobs: Job[];
+  currentPage: number;
 }
 
 const Search: React.SFC<SearchProps> = (props: SearchProps) => {
-  const { currentJobs } = props;
+  const { currentJobs, currentPage } = props;
+
+  const jobsOnPage = currentJobs.slice(currentPage * 5 - 5, currentPage * 5);
 
   const [location1, setLocation1] = React.useState("");
   const [location2, setLocation2] = React.useState("");
@@ -45,8 +49,9 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
       <div className="search__container">
         <OptionsPanel handleCheckBox={handleCheckBox} />
         <div className="jobs__container">
-          {currentJobs &&
-            currentJobs.map((job: Job) => <JobCard job={job} key={job.id} />)}
+          {jobsOnPage &&
+            jobsOnPage.map((job: Job) => <JobCard job={job} key={job.id} />)}
+          <Pagination />
         </div>
       </div>
       <Copyright />
@@ -56,6 +61,7 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
 
 const mapStateToProps = (state: RootState) => ({
   currentJobs: state.application.currentJobs,
+  currentPage: state.application.currentPage,
 });
 
 export default connect(mapStateToProps)(Search);

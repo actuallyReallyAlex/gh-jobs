@@ -4,6 +4,8 @@ import {
   setJobsFetchedAt,
   setCurrentJobs,
   setIsLoading,
+  setCurrentPage,
+  setTotalPages,
 } from "./actions/application";
 import { getData, unique } from "../util";
 
@@ -26,11 +28,11 @@ export const getJobs = (): AppThunk => async (dispatch, getState) => {
       }
     }
 
-    const currentJobs = jobs.slice(0, 10);
-
     dispatch(setJobs(jobs));
     dispatch(setJobsFetchedAt(new Date().toString()));
-    dispatch(setCurrentJobs(currentJobs));
+    dispatch(setCurrentJobs(jobs));
+    dispatch(setCurrentPage(1));
+    dispatch(setTotalPages(Math.ceil(jobs.length / 5)));
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
@@ -86,5 +88,14 @@ export const searchJobs = (
   const uniqueJobs = unique(jobs);
 
   dispatch(setCurrentJobs(uniqueJobs));
+  dispatch(setCurrentPage(1));
+  dispatch(setTotalPages(Math.ceil(uniqueJobs.length / 5)));
   dispatch(setIsLoading(false));
+};
+
+export const pagination = (pageNumber: number): AppThunk => (
+  dispach,
+  getState
+) => {
+  dispach(setCurrentPage(pageNumber));
 };
