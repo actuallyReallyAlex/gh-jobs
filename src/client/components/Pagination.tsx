@@ -1,19 +1,17 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { pagination } from "../redux/thunks";
 import PaginationNavigation from "./PaginationNavigation";
 
 import { RootState } from "../types";
+import PaginationItem from "./PaginationItem";
 
 export interface PaginationProps {
-  currentPage: number;
-  handlePaginationClick: (pageNumber: number) => void;
   totalPages: number;
 }
 
 const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
-  const { currentPage, handlePaginationClick, totalPages } = props;
+  const { totalPages } = props;
 
   const pageButtons = [];
 
@@ -26,19 +24,8 @@ const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
         </li>
       );
     } else if (i <= 3 || i === totalPages + 1) {
-      // * regular button
-      pageButtons.push(
-        <li
-          className={
-            i === currentPage
-              ? `pagination__item__selected`
-              : `pagination__item`
-          }
-          key={i}
-        >
-          <button onClick={() => handlePaginationClick(i)}>{i}</button>
-        </li>
-      );
+      // * regular PaginationItem
+      pageButtons.push(<PaginationItem key={i} page={i} />);
     }
   }
 
@@ -54,13 +41,7 @@ const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  currentPage: state.application.currentPage,
   totalPages: state.application.totalPages,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  handlePaginationClick: (pageNumber: number) =>
-    dispatch(pagination(pageNumber)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Pagination);
+export default connect(mapStateToProps)(Pagination);
