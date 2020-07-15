@@ -14,6 +14,7 @@ export interface ApplicationState {
   isLoading: boolean;
   jobs: Job[];
   jobsFetchedAt: string;
+  locationSearch: string;
 }
 
 export type AppThunk<ReturnType = void> = ThunkAction<

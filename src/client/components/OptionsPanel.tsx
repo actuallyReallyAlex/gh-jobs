@@ -2,14 +2,14 @@ import * as React from "react";
 import { connect } from "react-redux";
 import Checkbox from "./Checkbox";
 import Input from "./Input";
-import { setFullTime } from "../redux/actions/application";
+import { setFullTime, setLocationSearch } from "../redux/actions/application";
+import { RootState } from "../types";
 
 export interface OptionsPanelProps {
   handleCheckBox: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleLocationSearch: () => void;
   handleSetFullTime: (fullTime: boolean) => void;
+  handleSetLocationSearch: (locationSearch: string) => void;
   locationSearch: string;
-  setLocationSearch: (locationSearch: string) => void;
 }
 
 const OptionsPanel: React.SFC<OptionsPanelProps> = (
@@ -17,10 +17,9 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
 ) => {
   const {
     handleCheckBox,
-    handleLocationSearch,
     handleSetFullTime,
+    handleSetLocationSearch,
     locationSearch,
-    setLocationSearch,
   } = props;
 
   const locations = [
@@ -41,7 +40,7 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
         icon="public"
         id="location-search"
         label="Location"
-        onChange={(e) => setLocationSearch(e.target.value)}
+        onChange={(e) => handleSetLocationSearch(e.target.value)}
         placeholder="City, state, zip code or country"
         value={locationSearch}
       />
@@ -60,8 +59,14 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  handleSetFullTime: (fullTime: boolean) => dispatch(setFullTime(fullTime)),
+const mapStateToProps = (state: RootState) => ({
+  locationSearch: state.application.locationSearch,
 });
 
-export default connect(null, mapDispatchToProps)(OptionsPanel);
+const mapDispatchToProps = (dispatch) => ({
+  handleSetFullTime: (fullTime: boolean) => dispatch(setFullTime(fullTime)),
+  handleSetLocationSearch: (locationSearch: string) =>
+    dispatch(setLocationSearch(locationSearch)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(OptionsPanel);

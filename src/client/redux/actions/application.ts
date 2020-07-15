@@ -5,6 +5,7 @@ import {
   SET_IS_LOADING,
   SET_CURRENT_JOBS,
   SET_CURRENT_PAGE,
+  SET_LOCATION_SEARCH,
 } from "../actionTypes";
 
 import { Job } from "../../types";
@@ -34,4 +35,9 @@ export const setJobs = (jobs: Job[]) => ({ type: SET_JOBS, payload: { jobs } });
 export const setJobsFetchedAt = (jobsFetchedAt: string) => ({
   type: SET_JOBS_FETCHED_AT,
   payload: { jobsFetchedAt },
+});
+
+export const setLocationSearch = (locationSearch: string) => ({
+  type: SET_LOCATION_SEARCH,
+  payload: { locationSearch },
 });

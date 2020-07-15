@@ -1,8 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { getGitHubJobs, searchJobs } from "../api/github";
-
 import SearchInput from "../components/SearchInput";
 import JobCard from "../components/JobCard";
 import OptionsPanel from "../components/OptionsPanel";
@@ -17,7 +15,6 @@ export interface SearchProps {
 const Search: React.SFC<SearchProps> = (props: SearchProps) => {
   const { currentJobs } = props;
 
-  const [locationSearch, setLocationSearch] = React.useState("");
   const [location1, setLocation1] = React.useState("");
   const [location2, setLocation2] = React.useState("");
   const [location3, setLocation3] = React.useState("");
@@ -29,16 +26,6 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
     { name: "location3", setter: setLocation3, value: location3 },
     { name: "location4", setter: setLocation4, value: location4 },
   ];
-
-  const handleLocationSearch = async () => {
-    // const filteredJobs = await searchJobs(
-    //   locationSearch,
-    //   locationOptions,
-    //   "location",
-    //   fullTime
-    // );
-    // setJobs(filteredJobs);
-  };
 
   const handleCheckBox = (e) => {
     const { checked, name, value } = e.target;
@@ -56,12 +43,7 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
     <>
       <SearchInput locationOptions={locationOptions} />
       <div className="search__container">
-        <OptionsPanel
-          handleCheckBox={handleCheckBox}
-          handleLocationSearch={handleLocationSearch}
-          locationSearch={locationSearch}
-          setLocationSearch={setLocationSearch}
-        />
+        <OptionsPanel handleCheckBox={handleCheckBox} />
         <div className="jobs__container">
           {currentJobs &&
             currentJobs.map((job: Job) => <JobCard job={job} key={job.id} />)}
