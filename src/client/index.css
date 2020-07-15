@@ -714,3 +714,47 @@ input::placeholder {
     transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
   }
 }
+
+.pagination__list {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+}
+
+.pagination__item,
+.pagination__item__selected {
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.pagination__item button,
+.pagination__item__selected button {
+  background: transparent;
+  border: 1px solid #b7bcce;
+  border-radius: 4px;
+  color: #b9bdcf;
+  box-sizing: border-box;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: normal;
+  height: 36px;
+  line-height: 14px;
+  text-align: center;
+  width: 36px;
+}
+
+.pagination__item__selected button {
+  background: #1e86ff;
+  border: 1px solid #1e86ff;
+  color: #ffffff;
+}
+
+.pagination__item button:hover {
+  border: 1px solid #1e86ff;
+  color: #1e86ff;
+}
+
+.pagination__item button:focus,
+.pagination__item__selected button:focus {
+  outline: #1e86ff auto 1px;
+}

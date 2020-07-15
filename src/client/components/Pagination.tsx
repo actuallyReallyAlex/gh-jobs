@@ -18,17 +18,22 @@ const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
 
   for (let i = 1; i < totalPages + 1; i++) {
     pageButtons.push(
-      <li key={i}>
-        <button onClick={() => handlePaginationClick(i)}>
-          {currentPage === i ? `${i} - HERE` : i}
-        </button>
+      <li
+        className={
+          i === currentPage ? `pagination__item__selected` : `pagination__item`
+        }
+        key={i}
+      >
+        <button onClick={() => handlePaginationClick(i)}>{i}</button>
       </li>
     );
   }
 
   return (
     <nav>
-      <ul>{pageButtons.map((button) => button)}</ul>
+      <ul className="pagination__list">
+        {pageButtons.map((button) => button)}
+      </ul>
     </nav>
   );
 };
