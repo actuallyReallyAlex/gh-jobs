@@ -21,3 +21,11 @@ export interface LocationOption {
 }
 
 export type SearchType = "description" | "location";
+
+export interface UIAction {
+  type: string;
+  // eslint-disable-next-line
+  payload: any;
+}
+
+export interface UIState {}
