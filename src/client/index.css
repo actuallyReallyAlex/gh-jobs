@@ -722,13 +722,15 @@ input::placeholder {
 }
 
 .pagination__item,
-.pagination__item__selected {
+.pagination__item__selected,
+.pagination__item__disabled {
   margin-left: 6px;
   margin-right: 6px;
 }
 
 .pagination__item button,
-.pagination__item__selected button {
+.pagination__item__selected button,
+.pagination__item__disabled button {
   background: transparent;
   border: 1px solid #b7bcce;
   border-radius: 4px;
@@ -754,7 +756,22 @@ input::placeholder {
   color: #1e86ff;
 }
 
+.pagination__item__disabled button:hover {
+  cursor: not-allowed;
+}
+
 .pagination__item button:focus,
-.pagination__item__selected button:focus {
+.pagination__item__selected button:focus,
+.pagination__item__disabled button:focus {
   outline: #1e86ff auto 1px;
 }
+
+.pagination__item i,
+.pagination__item__disabled i {
+  font-size: 18px;
+}
+
+/* .pagination__item .disabled button:hover {
+  border: 1px solid #b7bcce;
+  color: #b9bdcf;
+} */
