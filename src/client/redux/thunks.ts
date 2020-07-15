@@ -18,11 +18,7 @@ export const getJobs = (): AppThunk => async (dispatch, getState) => {
     // * Can only get 50 jobs at a time
     // * keep going until there are no more jobs
     while (jobsInBatch !== 0) {
-      const response = await fetch(`${baseGHUrl}?page=${page}`, {
-        headers: { "Content-Type": "application/json" },
-        method: "GET",
-      });
-      const batchJobs: Job[] = await response.json();
+      const batchJobs = await getData(`${baseGHUrl}?page=${page}`);
       jobsInBatch = batchJobs.length;
       page++;
       if (jobsInBatch !== 0) {
@@ -48,13 +44,21 @@ export const searchJobs = (
 ): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoading(true));
   const state: RootState = getState();
-  const { fullTime } = state.application;
+  const { fullTime, locationSearch } = state.application;
 
   const jobs = [];
 
   const locationsSearches = locationOptions.filter(
     (location: LocationOption) => location.value !== ""
   );
+
+  if (locationSearch) {
+    locationsSearches.push({
+      name: "locationSearch",
+      setter: null,
+      value: locationSearch,
+    });
+  }
 
   // * Since location options have to be a thing for the challenge
   // * Make as many requests as locations (since you can only have 1 location per request)

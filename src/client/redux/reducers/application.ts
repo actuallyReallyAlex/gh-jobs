@@ -5,6 +5,7 @@ import {
   SET_IS_LOADING,
   SET_JOBS,
   SET_JOBS_FETCHED_AT,
+  SET_LOCATION_SEARCH,
 } from "../actionTypes";
 
 import { ApplicationAction, ApplicationState } from "../../types";
@@ -16,6 +17,7 @@ export const initialState: ApplicationState = {
   isLoading: true,
   jobs: [],
   jobsFetchedAt: null,
+  locationSearch: "",
 };
 
 const reducer = (
@@ -40,6 +42,9 @@ const reducer = (
     }
     case SET_JOBS_FETCHED_AT: {
       return { ...state, jobsFetchedAt: action.payload.jobsFetchedAt };
+    }
+    case SET_LOCATION_SEARCH: {
+      return { ...state, locationSearch: action.payload.locationSearch };
     }
     default:
       return state;
