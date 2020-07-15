@@ -1,22 +1,23 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useParams, Link } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
 
-import { getJobDetails } from "../api/github";
 import Copyright from "../components/Copyright";
 import { validURL } from "../util";
+import { Job, RootState } from "../types";
 
-const Details: React.SFC<{}> = () => {
+interface DetailsProps {
+  jobs: Job[];
+}
+
+const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
+  const { jobs } = props;
   let { id } = useParams();
   const [data, setData] = React.useState(null);
   React.useEffect((): void => {
-    const getData = async () => {
-      const data = await getJobDetails(id);
-      console.log({ data });
-      setData(data);
-    };
-    getData();
+    const job = jobs.find((job: Job) => job.id === id);
+    setData(job);
   }, []);
   return (
     <>
@@ -41,10 +42,7 @@ const Details: React.SFC<{}> = () => {
                   <span>Apply</span>
                 </a>
               ) : (
-                <ReactMarkdown
-                  className="details__container__apply-md"
-                  source={data.how_to_apply}
-                />
+                <div dangerouslySetInnerHTML={{ __html: data.how_to_apply }} />
               ))}
           </div>
         </div>
@@ -96,7 +94,7 @@ const Details: React.SFC<{}> = () => {
               </div>
 
               <div className="details__container__description">
-                <ReactMarkdown source={data.description} />
+                <div dangerouslySetInnerHTML={{ __html: data.description }} />
               </div>
             </>
           )}
@@ -107,4 +105,8 @@ const Details: React.SFC<{}> = () => {
   );
 };
 
-export default Details;
+const mapStateToProps = (state: RootState) => ({
+  jobs: state.application.jobs,
+});
+
+export default connect(mapStateToProps)(Details);
