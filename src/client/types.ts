@@ -15,6 +15,7 @@ export interface ApplicationState {
   jobs: Job[];
   jobsFetchedAt: string;
   locationSearch: string;
+  totalPages: number;
 }
 
 export type AppThunk<ReturnType = void> = ThunkAction<
@@ -45,6 +46,8 @@ export interface LocationOption {
   setter: (param: string) => void;
   value: string;
 }
+
+export type PaginationNavigationType = "left" | "right";
 
 export type RootState = {
   application: ApplicationState;

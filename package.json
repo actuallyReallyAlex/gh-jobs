@@ -1,18 +1,20 @@
 {
   "name": "gh-jobs",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "description": "A MERN application bootstrapped with create-mern-application.",
   "main": "build/index.js",
   "scripts": {
     "build": "npm run build-client && npm run build-server",
     "build-client": "rimraf dist && webpack --display=errors-only",
     "build-server": "rimraf build && tsc && copyfiles -f src/server/assets/**/* build/assets",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
     "dev": "env-cmd -e development npm run spinup",
     "spinup": "node build/index.js",
     "start": "start-server-and-test dev http://localhost:3000 'webpack-dev-server --info=false'",
     "test": "start-server-and-test test-server http://localhost:3000 cy:run",
     "test-gui": "start-server-and-test test-server http://localhost:3000 cy:open",
-    "test-server": "env-cmd -e test npm start"
+    "test-server": "env-cmd -e test npm run spinup"
   },
   "keywords": [],
   "author": "",
@@ -58,6 +60,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "copyfiles": "^2.3.0",
     "css-loader": "^3.6.0",
+    "cypress": "^4.10.0",
     "env-cmd": "^10.1.0",
     "html-webpack-plugin": "^4.3.0",
     "rimraf": "^3.0.2",

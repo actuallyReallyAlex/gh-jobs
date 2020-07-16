@@ -6,6 +6,7 @@ import {
   SET_CURRENT_JOBS,
   SET_CURRENT_PAGE,
   SET_LOCATION_SEARCH,
+  SET_TOTAL_PAGES,
 } from "../actionTypes";
 
 import { Job } from "../../types";
@@ -40,4 +41,9 @@ export const setJobsFetchedAt = (jobsFetchedAt: string) => ({
 export const setLocationSearch = (locationSearch: string) => ({
   type: SET_LOCATION_SEARCH,
   payload: { locationSearch },
+});
+
+export const setTotalPages = (totalPages: number) => ({
+  type: SET_TOTAL_PAGES,
+  payload: { totalPages },
 });

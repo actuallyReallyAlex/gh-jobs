@@ -11,7 +11,12 @@ const persistedState = loadState();
 
 const store = createStore(
   rootReducer,
-  persistedState,
+  persistedState
+    ? {
+        ...persistedState,
+        application: { ...persistedState.application, currentPage: 1 },
+      }
+    : {},
   composeEnhancers(applyMiddleware(thunk))
 );
 

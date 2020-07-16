@@ -5,3 +5,4 @@ export const SET_IS_LOADING = "SET_IS_LOADING";
 export const SET_JOBS = "SET_JOBS";
 export const SET_JOBS_FETCHED_AT = "SET_JOBS_FETCHED_AT";
 export const SET_LOCATION_SEARCH = "SET_LOCATION_SEARCH";
+export const SET_TOTAL_PAGES = "SET_TOTAL_PAGES";
