@@ -74,12 +74,19 @@ const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
   const pageButtons = [];
 
   for (let i = 1; i < totalPages + 1; i++) {
+    // debugger;
     // * Options:
     // * "More"
     // * "Item"
     // * None
 
-    if (i === rightSibling + 1 || i === leftSibling - 1) {
+    // * 1 needs to be displayed when far enough away
+    if (i === 1 && currentPage >= 3) {
+      pageButtons.push(<PaginationItem key={i} page={i} />);
+    } else if (i === totalPages && currentPage < totalPages) {
+      // * Last page needs to be displayed when far enough away
+      pageButtons.push(<PaginationItem key={i} page={i} />);
+    } else if (i === rightSibling + 1 || i === leftSibling - 1) {
       //? not right
       // * More
       pageButtons.push(<PaginationMore key={i} />);
