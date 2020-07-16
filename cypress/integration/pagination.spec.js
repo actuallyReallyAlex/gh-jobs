@@ -21,7 +21,7 @@ context("Pagination", () => {
         onResponse: (xhr) => {},
       });
     });
-    cy.visit("http://localhost:8080");
+    cy.visit("http://localhost:3000");
   });
 
   it("Should render initial <Pagination /> component correctly", () => {
