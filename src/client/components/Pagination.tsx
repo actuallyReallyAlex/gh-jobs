@@ -14,36 +14,9 @@ export interface PaginationProps {
   totalPages: number;
 }
 
-// const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
-//   const { currentPage, totalPages } = props;
-
-//   // * This only works if totalPages = 10 :)
-//   return (
-//     <nav>
-//       <ul className="pagination__list">
-//         <PaginationNavigation type="left" />
-//         <PaginationItem page={1} />
-//         {currentPage > 3 && <PaginationMore />}
-//         {currentPage < 4 && <PaginationItem page={2} />}
-//         {currentPage < 5 && currentPage >= 1 && <PaginationItem page={3} />}
-//         {currentPage < 6 && currentPage > 2 && <PaginationItem page={4} />}
-//         {currentPage < 7 && currentPage > 3 && <PaginationItem page={5} />}
-//         {currentPage < 8 && currentPage > 4 && <PaginationItem page={6} />}
-//         {currentPage < 9 && currentPage > 5 && <PaginationItem page={7} />}
-//         {currentPage <= 10 && currentPage > 6 && <PaginationItem page={8} />}
-//         {currentPage <= 11 && currentPage > 7 && <PaginationItem page={9} />}
-//         {currentPage < 8 && <PaginationMore />}
-//         <PaginationItem page={10} />
-//         <PaginationNavigation type="right" />
-//       </ul>
-//     </nav>
-//   );
-// };
-
 const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
   const { currentPage, handleSetTotalPages, totalPages } = props;
 
-  // ? Rename to rightSibling / leftSibling?
   const [rightSibling, setRightSibling] = React.useState(3);
   const [leftSibling, setLeftSibling] = React.useState(0);
   const [pageButtons, setPageButtons] = React.useState([]);
@@ -52,39 +25,22 @@ const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
 
   const siblings = 1;
 
-  // ? is 3 the "rightSibling" or is the the max number of buttons?
-
-  // const pageButtons = [];
-
   React.useEffect(() => {
-    // debugger;
     let newRightSibling = 3;
     let newLeftSibling = 0;
     const newPageButtons = [];
-    console.log({ currentPage, leftSibling, rightSibling });
+
     // * Right Boundary Math
-    // if (currentPage === rightSibling) {
-    console.log(`setting rightSibling to ${currentPage + 1}`);
     if (currentPage !== 1) {
       newRightSibling = currentPage + 1;
-      // setRightSibling(currentPage + 1);
     }
-    // }
 
     // * Left Boundary Math
-    console.log(`setting leftSibling to ${currentPage - 1}`);
     newLeftSibling = currentPage - 1;
-    // setLeftSibling(currentPage - 1);
-    // if (currentPage - leftSibling === maxButtons) {
-    //   setLeftSibling(leftSibling + 1);
-    // }
 
     // * Push Buttons into button array
     for (let i = 1; i < totalPages + 1; i++) {
-      // * Options:
-      // * "More"
-      // * "Item"
-      // * None
+      // * Options: "More" | "Item" | None
 
       // * 1 needs to be displayed when far enough away
       if (i === 1 && currentPage >= 3) {
@@ -102,9 +58,6 @@ const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
       ) {
         // * Item
         newPageButtons.push(<PaginationItem key={i} page={i} />);
-      } else {
-        // * None
-        // console.log(i);
       }
     }
     setRightSibling(newRightSibling);
@@ -112,7 +65,6 @@ const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
     setPageButtons(newPageButtons);
   }, [currentPage]);
 
-  console.log(`pageButtonsLength: ${pageButtons.length}`);
   return (
     <nav>
       <ul className="pagination__list">
