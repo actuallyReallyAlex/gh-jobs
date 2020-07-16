@@ -30,9 +30,9 @@ export const getJobs = (): AppThunk => async (dispatch, getState) => {
 
     dispatch(setJobs(jobs));
     dispatch(setJobsFetchedAt(new Date().toString()));
-    dispatch(setCurrentJobs(jobs));
     dispatch(setCurrentPage(1));
     dispatch(setTotalPages(Math.ceil(jobs.length / 5)));
+    dispatch(setCurrentJobs(jobs));
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
