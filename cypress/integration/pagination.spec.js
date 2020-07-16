@@ -195,4 +195,24 @@ context("Pagination", () => {
         });
     });
   });
+
+  it("Should be able to hop to ends of pagination", () => {
+    cy.get(".pagination__list").then(($list) => {
+      const childList = $list[0].children;
+      const page1Button = childList[1].children[0];
+      const page10Button = childList[5].children[0];
+
+      cy.get(page10Button)
+        .click()
+        .then(() => {
+          cy.paginationSelect10(childList);
+
+          cy.get(page1Button)
+            .click()
+            .then(() => {
+              cy.paginationSelect1(childList);
+            });
+        });
+    });
+  });
 });
