@@ -51,7 +51,7 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
         <div className="jobs__container">
           {jobsOnPage &&
             jobsOnPage.map((job: Job) => <JobCard job={job} key={job.id} />)}
-          <Pagination />
+          {jobsOnPage.length > 0 && <Pagination />}
         </div>
       </div>
       <Copyright />
