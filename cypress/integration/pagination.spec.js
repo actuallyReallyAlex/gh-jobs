@@ -127,29 +127,71 @@ context("Pagination", () => {
         .click()
         .then(() => {
           // * 1st CLICK (9 is selected)
+          cy.paginationSelect9(childList);
 
-          // * Should contain 7 elements
-          assert.equal(childList.length, 7);
-          // * 1st Button should be Left Arrow
-          assert.equal(childList[0].innerText, "chevron_left");
-          // * 1st button should be disabled
-          assert.equal(childList[0].children[0].disabled, false);
-          // * 2nd Button should be "1"
-          assert.equal(childList[1].innerText, "1");
-          // * 2nd Button as "1" should be deselected
-          assert.equal(childList[1].className, "pagination__item");
-          // * 3rd Button should be 'More'
-          assert.equal(childList[2].innerText, "more_horiz");
-          // * 4th Button should be "8"
-          assert.equal(childList[3].innerText, "8");
-          // * 5th Button should be "9"
-          assert.equal(childList[4].innerText, "9");
-          // * 5th button should be selected
-          assert.equal(childList[4].className, "pagination__item__selected");
-          // * 6th Button should be "10"
-          assert.equal(childList[5].innerText, "10");
-          // * 7th Button should be Right Arrow
-          assert.equal(childList[6].innerText, "chevron_right");
+          cy.get(leftArrowButton)
+            .click()
+            .then(() => {
+              // * 2nd CLICK (8 is selected)
+
+              cy.paginationSelect8(childList);
+
+              cy.get(leftArrowButton)
+                .click()
+                .then(() => {
+                  // * 3rd CLICK (7 is selected)
+
+                  cy.paginationSelect7(childList);
+
+                  cy.get(leftArrowButton)
+                    .click()
+                    .then(() => {
+                      // * 4th CLICK (6 is selected)
+
+                      cy.paginationSelect6(childList);
+
+                      cy.get(leftArrowButton)
+                        .click()
+                        .then(() => {
+                          // * 5th CLICK (5 is selected)
+
+                          cy.paginationSelect5(childList);
+
+                          cy.get(leftArrowButton)
+                            .click()
+                            .then(() => {
+                              // * 6th CLICK (4 is selected)
+
+                              cy.paginationSelect4(childList);
+
+                              cy.get(leftArrowButton)
+                                .click()
+                                .then(() => {
+                                  // * 7th CLICK (3 is selected)
+
+                                  cy.paginationSelect3(childList);
+
+                                  cy.get(leftArrowButton)
+                                    .click()
+                                    .then(() => {
+                                      // * 8th CLICK (2 is selected)
+
+                                      cy.paginationSelect2(childList);
+
+                                      cy.get(leftArrowButton)
+                                        .click()
+                                        .then(() => {
+                                          // * 9th CLICK (1 is selected)
+
+                                          cy.paginationSelect1(childList);
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
         });
     });
   });
