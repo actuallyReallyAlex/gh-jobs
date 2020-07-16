@@ -1,4 +1,3 @@
-import { baseGHUrl } from "../constants";
 import {
   setJobs,
   setJobsFetchedAt,
@@ -13,20 +12,7 @@ import { AppThunk, Job, LocationOption, RootState } from "../types";
 
 export const getJobs = (): AppThunk => async (dispatch, getState) => {
   try {
-    const jobs: Job[] = [];
-    let jobsInBatch = null;
-    let page = 1;
-
-    // * Can only get 50 jobs at a time
-    // * keep going until there are no more jobs
-    while (jobsInBatch !== 0) {
-      const batchJobs = await getData(`${baseGHUrl}?page=${page}`);
-      jobsInBatch = batchJobs.length;
-      page++;
-      if (jobsInBatch !== 0) {
-        jobs.push(...batchJobs);
-      }
-    }
+    const jobs: Job[] = await getData("/jobs");
 
     dispatch(setJobs(jobs));
     dispatch(setJobsFetchedAt(new Date().toString()));
@@ -67,7 +53,7 @@ export const searchJobs = (
   // * And push all the results into one array
   await Promise.all(
     locationsSearches.map(async (location: LocationOption) => {
-      const url = `${baseGHUrl}?full_time=${encodeURI(
+      const url = `/jobs/search?full_time=${encodeURI(
         fullTime.toString()
       )}&description=${encodeURI(search)}&location=${encodeURI(
         location.value
@@ -78,7 +64,7 @@ export const searchJobs = (
   );
 
   if (locationsSearches.length === 0) {
-    const url = `${baseGHUrl}?full_time=${encodeURI(
+    const url = `/jobs/search?full_time=${encodeURI(
       fullTime.toString()
     )}&description=${encodeURI(search)}`;
     const data = await getData(url);

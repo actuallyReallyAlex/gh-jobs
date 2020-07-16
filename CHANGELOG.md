@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.23.0] - 2020-07-16
+
+### ✨ Backend
+
+### Added
+
+- Call to `/jobs` on the Backend
+- Call to `/jobs/search` on the Backend
+
+### Changed
+
+- API logic on the FE to be on the BE
+
+### Removed
+
+- API logic on the FE
+- constants file
+- github.ts file
+
+### Fixed
+
 ## [0.22.0] - 2020-07-16
 
 ### 📖 Paginatioon

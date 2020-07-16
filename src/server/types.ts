@@ -1,28 +1,21 @@
-import { Request, Router } from "express";
-import { Document } from "mongoose";
+import { Router } from "express";
 
-/* NEW LINE */
-export interface BeerDocument extends Document {
-  _id: string;
-  abv: number;
-  brewer: string;
-  description: string;
-  name: string;
-  type: string;
-}
-
-/* NEW LINE */
-export interface BeerEditRequest extends Request {
-  body: {
-    abv: number;
-    brewer: string;
-    description: string;
-    name: string;
-    type: string;
-  };
-}
-
-/* NEW LINE */
 export type Controller = {
   router: Router;
 };
+
+export interface Job {
+  company: string;
+  company_logo: string;
+  company_url: string;
+  created_at: string;
+  description: string;
+  how_to_apply: string;
+  id: string;
+  location: string;
+  title: string;
+  type: JobType;
+  url: string;
+}
+
+export type JobType = "Contract" | "Full Time";

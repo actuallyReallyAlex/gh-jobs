@@ -6,17 +6,9 @@ context("Pagination", () => {
       cy.server();
       cy.route({
         method: "GET",
-        url: "**/positions.json?page=1",
+        url: "/jobs",
         status: 200,
         response: jobsJson,
-        onRequest: (xhr) => {},
-        onResponse: (xhr) => {},
-      });
-      cy.route({
-        method: "GET",
-        url: "**/positions.json?page=2",
-        status: 200,
-        response: [],
         onRequest: (xhr) => {},
         onResponse: (xhr) => {},
       });
