@@ -46,6 +46,7 @@ const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
   // ? Rename to rightSibling / leftSibling?
   const [rightSibling, setRightSibling] = React.useState(3);
   const [leftSibling, setLeftSibling] = React.useState(0);
+  const [pageButtons, setPageButtons] = React.useState([]);
 
   const maxButtons = 3;
 
@@ -53,55 +54,65 @@ const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
 
   // ? is 3 the "rightSibling" or is the the max number of buttons?
 
+  // const pageButtons = [];
+
   React.useEffect(() => {
+    // debugger;
+    let newRightSibling = 3;
+    let newLeftSibling = 0;
+    const newPageButtons = [];
     console.log({ currentPage, leftSibling, rightSibling });
     // * Right Boundary Math
     // if (currentPage === rightSibling) {
     console.log(`setting rightSibling to ${currentPage + 1}`);
     if (currentPage !== 1) {
-      setRightSibling(currentPage + 1);
+      newRightSibling = currentPage + 1;
+      // setRightSibling(currentPage + 1);
     }
     // }
 
     // * Left Boundary Math
     console.log(`setting leftSibling to ${currentPage - 1}`);
-    setLeftSibling(currentPage - 1);
+    newLeftSibling = currentPage - 1;
+    // setLeftSibling(currentPage - 1);
     // if (currentPage - leftSibling === maxButtons) {
     //   setLeftSibling(leftSibling + 1);
     // }
+
+    // * Push Buttons into button array
+    for (let i = 1; i < totalPages + 1; i++) {
+      // * Options:
+      // * "More"
+      // * "Item"
+      // * None
+
+      // * 1 needs to be displayed when far enough away
+      if (i === 1 && currentPage >= 3) {
+        newPageButtons.push(<PaginationItem key={i} page={i} />);
+      } else if (i === totalPages && currentPage < totalPages) {
+        // * Last page needs to be displayed when far enough away
+        newPageButtons.push(<PaginationItem key={i} page={i} />);
+      } else if (i === newRightSibling + 1 || i === newLeftSibling - 1) {
+        //? not right
+        // * More
+        newPageButtons.push(<PaginationMore key={i} />);
+      } else if (
+        (i <= newRightSibling && i >= newLeftSibling) ||
+        i === totalPages + 1
+      ) {
+        // * Item
+        newPageButtons.push(<PaginationItem key={i} page={i} />);
+      } else {
+        // * None
+        // console.log(i);
+      }
+    }
+    setRightSibling(newRightSibling);
+    setLeftSibling(newLeftSibling);
+    setPageButtons(newPageButtons);
   }, [currentPage]);
 
-  const pageButtons = [];
-
-  for (let i = 1; i < totalPages + 1; i++) {
-    // debugger;
-    // * Options:
-    // * "More"
-    // * "Item"
-    // * None
-
-    // * 1 needs to be displayed when far enough away
-    if (i === 1 && currentPage >= 3) {
-      pageButtons.push(<PaginationItem key={i} page={i} />);
-    } else if (i === totalPages && currentPage < totalPages) {
-      // * Last page needs to be displayed when far enough away
-      pageButtons.push(<PaginationItem key={i} page={i} />);
-    } else if (i === rightSibling + 1 || i === leftSibling - 1) {
-      //? not right
-      // * More
-      pageButtons.push(<PaginationMore key={i} />);
-    } else if (
-      (i <= rightSibling && i >= leftSibling) ||
-      i === totalPages + 1
-    ) {
-      // * Item
-      pageButtons.push(<PaginationItem key={i} page={i} />);
-    } else {
-      // * None
-      // console.log(i);
-    }
-  }
-
+  console.log(`pageButtonsLength: ${pageButtons.length}`);
   return (
     <nav>
       <ul className="pagination__list">
