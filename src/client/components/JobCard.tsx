@@ -16,7 +16,7 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
   };
   return (
     <div className="jobcard__container">
-      <div className="flex">
+      <div className="jobcard__container__left">
         <div className="jobcard__logo__container">
           {job.company_logo ? (
             <img
@@ -32,7 +32,7 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
           )}
         </div>
 
-        <div className="jobcard__middle__container">
+        <div className="jobcard__container__middle">
           <p className="jobcard__company">{job.company}</p>
           <Link to={`/${job.id}`}>
             <p className="jobcard__title">{job.title}</p>
@@ -43,7 +43,7 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
         </div>
       </div>
 
-      <div className="jobcard__right__container">
+      <div className="jobcard__container__right">
         <div className="jobcard__location">
           <i className="material-icons">public</i>
           <p>{job.location}</p>

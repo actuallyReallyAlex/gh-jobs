@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.26.0] - 2020-07-17
+
+### 🔧 Tweaks that Make Em Squeaks
+
+### Added
+
+### Changed
+
+- JobCard class names to follow BEM better
+- README
+
+### Removed
+
+- `gridjs-react`
+
+### Fixed
+
+- Location Search border radius are now even
+- Copyright not having a space
+- Align Company info in JobCard correctly
+- `Details` not scrolling to top automatically
+- `Details` will not scroll horizontally anymore
+
 ## [0.25.0] - 2020-07-17
 
 ### ✏️ Tweaky McTweakerson

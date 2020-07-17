@@ -16,6 +16,10 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
   const [data, setData] = React.useState(null);
   const [applyLink, setApplyLink] = React.useState("");
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   React.useEffect((): void => {
     const job = jobs.find((job: Job) => job.id === id);
     const isPlainLink = job.how_to_apply.slice(0, 5) === "<p><a";
