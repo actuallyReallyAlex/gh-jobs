@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - If "How To Apply" is a single link, display a styled link
 - Page title
 - Page description
+- Favicon
 
 ### Removed
 
