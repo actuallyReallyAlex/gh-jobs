@@ -1,6 +1,7 @@
 import * as React from "react";
 
 export interface CheckboxProps {
+  checked?: boolean;
   id?: string;
   label: string;
   name?: string;
@@ -9,11 +10,12 @@ export interface CheckboxProps {
 }
 
 const Checkbox: React.SFC<CheckboxProps> = (props: CheckboxProps) => {
-  const { id, label, name, onChange, value } = props;
+  const { checked, id, label, name, onChange, value } = props;
   return (
     <label className="checkbox__container">
       {label}
       <input
+        checked={checked}
         id={id}
         name={name}
         onChange={onChange}

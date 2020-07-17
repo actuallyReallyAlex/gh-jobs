@@ -6,6 +6,7 @@ import {
   SET_JOBS,
   SET_JOBS_FETCHED_AT,
   SET_LOCATION_SEARCH,
+  SET_SEARCH_VALUE,
   SET_TOTAL_PAGES,
 } from "../actionTypes";
 
@@ -19,6 +20,7 @@ export const initialState: ApplicationState = {
   jobs: [],
   jobsFetchedAt: null,
   locationSearch: "",
+  searchValue: "",
   totalPages: 1,
 };
 
@@ -47,6 +49,9 @@ const reducer = (
     }
     case SET_LOCATION_SEARCH: {
       return { ...state, locationSearch: action.payload.locationSearch };
+    }
+    case SET_SEARCH_VALUE: {
+      return { ...state, searchValue: action.payload.searchValue };
     }
     case SET_TOTAL_PAGES: {
       return { ...state, totalPages: action.payload.totalPages };

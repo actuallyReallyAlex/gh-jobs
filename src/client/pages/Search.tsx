@@ -52,6 +52,11 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
           {jobsOnPage &&
             jobsOnPage.map((job: Job) => <JobCard job={job} key={job.id} />)}
           {jobsOnPage.length > 0 && <Pagination />}
+          {jobsOnPage.length === 0 && (
+            <p className="text__center" id="no-results">
+              No results. Please modify your search and try again.
+            </p>
+          )}
         </div>
       </div>
       <Copyright />

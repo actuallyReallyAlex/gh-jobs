@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.25.0] - 2020-07-17
+
+### ✏️ Tweaky McTweakerson
+
+### Added
+
+- OptionsPanel tests
+- Note if no results appear
+
+### Changed
+
+- If "How To Apply" is a single link, display a styled link
+- Page title
+- Page description
+- Favicon
+- If `company_url` exists, company title on `Details` page is rendered as a link
+- `searchValue`, `fullTime` are retained in `ApplicationState`
+- `<SearchInput />` contains a `form`, and can be submitted with `enter` key
+
+### Removed
+
+### Fixed
+
 ## [0.24.0] - 2020-07-17
 
 ### 🔧 Fixer Upper

@@ -5,6 +5,7 @@ import {
   setIsLoading,
   setCurrentPage,
   setTotalPages,
+  setSearchValue,
 } from "./actions/application";
 import { getData, unique } from "../util";
 
@@ -31,6 +32,7 @@ export const searchJobs = (
   locationOptions: LocationOption[]
 ): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoading(true));
+  dispatch(setSearchValue(search));
   const state: RootState = getState();
   const { fullTime, locationSearch } = state.application;
 
