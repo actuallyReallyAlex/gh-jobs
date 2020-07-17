@@ -790,3 +790,7 @@ input::placeholder {
   flex-direction: row;
   justify-content: flex-end;
 }
+
+.text__center {
+  text-align: center;
+}

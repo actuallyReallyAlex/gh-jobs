@@ -36,3 +36,28 @@ context("Search", () => {
     cy.get("#search").should("have.value", "developer");
   });
 });
+
+context("Search - No Results", () => {
+  beforeEach(() => {
+    cy.server();
+    cy.route({
+      method: "GET",
+      url: "/jobs",
+      status: 200,
+      response: [],
+      onRequest: (xhr) => {},
+      onResponse: (xhr) => {},
+    });
+    cy.visit("http://localhost:3000");
+  });
+
+  it("Should display note when there are no results", () => {
+    cy.get("#search").type("developer");
+    cy.get(".search__button").click();
+    cy.wait(1000);
+    cy.get("#no-results").should(
+      "have.text",
+      "No results. Please modify your search and try again."
+    );
+  });
+});
