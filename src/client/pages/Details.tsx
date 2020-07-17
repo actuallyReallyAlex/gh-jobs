@@ -97,7 +97,19 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
                 </div>
 
                 <div className="details__company__right">
-                  <p className="details__company">{data.company}</p>
+                  {data.company_url ? (
+                    <a
+                      className="details__company"
+                      href={data.company_url}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      {data.company}
+                    </a>
+                  ) : (
+                    <p className="details__company">{data.company}</p>
+                  )}
+
                   <div className="details__location">
                     <i className="material-icons">public</i>
                     <p>{data.location}</p>

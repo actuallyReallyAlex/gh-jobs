@@ -542,6 +542,7 @@ input::placeholder {
   font-style: normal;
   font-weight: bold;
   line-height: 21px;
+  text-decoration: none;
 }
 
 .details__company__right {

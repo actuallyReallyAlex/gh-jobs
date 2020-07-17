@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Page title
 - Page description
 - Favicon
+- If `company_url` exists, company title on `Details` page is rendered as a link
 
 ### Removed
 
