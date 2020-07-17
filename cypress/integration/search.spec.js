@@ -35,6 +35,13 @@ context("Search", () => {
     cy.reload();
     cy.get("#search").should("have.value", "developer");
   });
+
+  it("Should be able to submit form with enter key", () => {
+    cy.get(".orbit-spinner").should("not.be.visible");
+    cy.get("#search").type("developer");
+    cy.get("#search").type("{enter}");
+    cy.get(".orbit-spinner").should("be.visible");
+  });
 });
 
 context("Search - No Results", () => {

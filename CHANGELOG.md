@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Favicon
 - If `company_url` exists, company title on `Details` page is rendered as a link
 - `searchValue`, `fullTime` are retained in `ApplicationState`
+- `<SearchInput />` contains a `form`, and can be submitted with `enter` key
 
 ### Removed
 
