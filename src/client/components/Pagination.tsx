@@ -53,7 +53,7 @@ const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
       }
     }
     setPageButtons(newPageButtons);
-  }, [currentPage]);
+  }, [currentPage, totalPages]);
 
   return (
     <nav>

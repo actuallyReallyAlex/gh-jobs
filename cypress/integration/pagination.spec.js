@@ -208,7 +208,19 @@ context("Pagination", () => {
     });
   });
 
-  it.only("Should rerender component when a new amount of jobs is to be displayed", () => {
+  it("Should rerender component when a new amount of jobs is to be displayed", () => {
+    cy.fixture("chicagoSearch").then((jobsJson) => {
+      cy.server();
+      cy.route({
+        method: "GET",
+        url: "/jobs/search?full_time=false&description=&location=Chicago",
+        status: 200,
+        response: jobsJson,
+        onRequest: (xhr) => {},
+        onResponse: (xhr) => {},
+      });
+    });
+
     cy.get(".pagination__list").then(($list) => {
       const childList = $list[0].children;
 
@@ -218,7 +230,6 @@ context("Pagination", () => {
         "#app > div.search__container > div.options-panel__container > label:nth-child(3) > span"
       ).click();
       cy.get(".search__button").click();
-      cy.wait(3000);
 
       cy.get(".jobcard__container").then(($jobs) => {
         assert.equal($jobs.length, 3);
