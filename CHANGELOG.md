@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Location Search border radius are now even
+
 ## [0.25.0] - 2020-07-17
 
 ### ✏️ Tweaky McTweakerson
