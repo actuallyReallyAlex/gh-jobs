@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.24.0] - 2020-07-17
+
+### 🔧 Fixer Upper
+
+### Added
+
+- Additional tests
+
+### Changed
+
+### Removed
+
+### Fixed
+
+- `<Pagination />` out of alignment
+- `<Pagination />` not re-rendering when `totalPages` changed
+- `Search` not using correct URL
+
 ## [0.23.0] - 2020-07-16
 
 ### ✨ Backend

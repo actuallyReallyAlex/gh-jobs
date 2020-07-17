@@ -53,10 +53,10 @@ const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
       }
     }
     setPageButtons(newPageButtons);
-  }, [currentPage]);
+  }, [currentPage, totalPages]);
 
   return (
-    <nav>
+    <nav id="pagination">
       <ul className="pagination__list">
         <PaginationNavigation type="left" />
         {pageButtons.map((button) => button)}

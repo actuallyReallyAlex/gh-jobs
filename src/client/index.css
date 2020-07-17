@@ -783,3 +783,9 @@ input::placeholder {
   color: #b7bcce;
   font-size: 18px;
 }
+
+#pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
