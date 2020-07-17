@@ -12,8 +12,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - JobCard class names to follow BEM better
+- README
 
 ### Removed
+
+- `gridjs-react`
 
 ### Fixed
 

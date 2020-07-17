@@ -7,27 +7,14 @@
 
 ---
 
-<p align="center">This application was bootstrapped with <b>create-mern-application</b>
+<p align="center">A tool to help you find your next job.</b>
     <br> 
 </p>
 
 ## 📝 Table of Contents
 
-- [Getting Started](#getting_started)
 - [Built Using](#built_using)
 - [Authors](#authors)
-
-## 🏁 Getting Started <a name = "getting_started"></a>
-
-### Creating a Build
-
-`npm run build`
-
-### Starting Program
-
-Please be sure to start your MongoDB instance prior to starting your application.
-
-`npm start`
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
@@ -35,24 +22,21 @@ Please be sure to start your MongoDB instance prior to starting your application
 
 - [chalk](https://github.com/chalk/chalk) - Terminal string styling done right.
 - [cors](https://github.com/expressjs/cors) - Node.js CORS middleware.
+- [date-fns]() -
 - [express](https://expressjs.com/) - Fast, unopinionated, minimalist web framework for node.
+- [lodash.throttle]() - 
 - [mongoose](https://mongoosejs.com/) - MongoDB object modeling designed to work in an asynchronous environment.
 - [morgan](https://github.com/expressjs/morgan) - HTTP request logger middleware for node.js.
 - [node-fetch](https://github.com/node-fetch/node-fetch) - A light-weight module that brings window.fetch to Node.js.
 - [react](https://reactjs.org/) - A declarative, efficient, and flexible JavaScript library for building user interfaces.
 - [react-dom](https://www.npmjs.com/package/react-dom) - A declarative, efficient, and flexible JavaScript library for building user interfaces.
+- [react-redux]() -
+- [react-router-dom]() -
+- [redux]() - 
+- [redux-thunk]() -
 
 ### DevDependencies
 
-- [@babel/cli](https://www.npmjs.com/package/@babel/cli) - 🐠 Babel is a compiler for writing next generation JavaScript.
-- [@babel/core](https://www.npmjs.com/package/@babel/core) - 🐠 Babel is a compiler for writing next generation JavaScript.
-- [@babel/runtime](https://www.npmjs.com/package/@babel/runtime) - 🐠 Babel is a compiler for writing next generation JavaScript.
-- [@babel/plugin-proposal-class-properties](https://www.npmjs.com/package/@babel/plugin-proposal-class-properties) - 🐠 Babel is a compiler for writing next generation JavaScript.
-- [@babel/plugin-transform-runtime](https://www.npmjs.com/package/@babel/plugin-transform-runtime) - 🐠 Babel is a compiler for writing next generation JavaScript.
-- [@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env) - 🐠 Babel is a compiler for writing next generation JavaScript.
-- [@babel/preset-react](https://www.npmjs.com/package/@babel/preset-react) - 🐠 Babel is a compiler for writing next generation JavaScript.
-- [@svgr/webpack](https://github.com/gregberge/svgr/tree/master/packages/webpack) - Webpack loader for SVGR.
-- [babel-loader](https://github.com/babel/babel-loader) - 📦 Babel loader for webpack.
 - [clean-webpack-plugin](https://github.com/johnagan/clean-webpack-plugin) - A webpack plugin to remove your build folder(s) before building.
 - [copyfiles](https://github.com/calvinmetcalf/copyfiles) - Copy files on the command line.
 - [css-loader](https://github.com/webpack-contrib/css-loader) - CSS Loader.
@@ -69,4 +53,4 @@ Please be sure to start your MongoDB instance prior to starting your application
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- [Alex Lee](YOUR WEBSITE URL) - YOUR TITLE
+- [Alex Lee](https://alexlee.dev/) - Fullstack Application Developer
