@@ -4,7 +4,6 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useParams, Link } from "react-router-dom";
 
 import Copyright from "../components/Copyright";
-import { validURL } from "../util";
 import { Job, RootState } from "../types";
 
 interface DetailsProps {
@@ -15,10 +14,23 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
   const { jobs } = props;
   let { id } = useParams();
   const [data, setData] = React.useState(null);
+  const [applyLink, setApplyLink] = React.useState("");
+
   React.useEffect((): void => {
     const job = jobs.find((job: Job) => job.id === id);
+    const isPlainLink = job.how_to_apply.slice(0, 5) === "<p><a";
+    if (isPlainLink) {
+      const href = job.how_to_apply
+        .split(/(<p><a href=")/gm)[2]
+        .split(/(<\/a><\/p>)/gm)[0]
+        .split(/">/gm)[0];
+
+      setApplyLink(href);
+    }
+
     setData(job);
   }, []);
+
   return (
     <>
       <div className="details__container">
@@ -30,10 +42,10 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
           <div className="details__container__how-to">
             <span className="details__container__label">How to Apply</span>
             {data &&
-              (validURL(data.how_to_apply) ? (
+              (applyLink ? (
                 <a
                   className="details__side__link"
-                  href={data.how_to_apply}
+                  href={applyLink}
                   rel="noopener noreferrer"
                   style={{ marginTop: "16px" }}
                   target="_blank"
