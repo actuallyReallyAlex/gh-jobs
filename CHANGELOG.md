@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.24.0] - _Unreleased_
 
+### 🔧 Fixer Upper
+
 ### Added
 
 - Additional tests
@@ -19,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `<Pagination />` out of alignment
 - `<Pagination />` not re-rendering when `totalPages` changed
+- `Search` not using correct URL
 
 ## [0.23.0] - 2020-07-16
 

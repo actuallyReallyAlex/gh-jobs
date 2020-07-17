@@ -18,3 +18,24 @@ export const checkIfMongoDBIsRunning = async (): Promise<any> =>
       resolve(false);
     }
   });
+
+export const createSearchURL = (
+  page: number,
+  description: string | any,
+  full_time: string | any,
+  location: string | any
+): string => {
+  let url = `https://jobs.github.com/positions.json?page=${page}&`;
+
+  if (full_time === "true") {
+    url += `full_time=true&`;
+  }
+  if (description) {
+    url += `description=${description}&`;
+  }
+  if (location) {
+    url += `location=${location}`;
+  }
+
+  return url;
+};
