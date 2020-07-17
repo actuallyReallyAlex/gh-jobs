@@ -210,7 +210,7 @@ input::placeholder {
   width: 90px;
 }
 
-.jobcard__middle__container {
+.jobcard__container__middle {
   margin-left: 16px;
 }
 
@@ -245,7 +245,7 @@ input::placeholder {
   width: 53px;
 }
 
-.jobcard__right__container {
+.jobcard__container__right {
   align-self: flex-end;
   display: flex;
 }
@@ -621,10 +621,6 @@ input::placeholder {
     margin-top: 13px;
   }
 
-  .jobcard__right__container {
-    max-width: calc(100% - 120px);
-  }
-
   .details__title {
     margin-top: 36px;
   }
@@ -801,6 +797,11 @@ input::placeholder {
 }
 
 #search-form {
+  display: flex;
+  width: 100%;
+}
+
+.jobcard__container__left {
   display: flex;
   width: 100%;
 }

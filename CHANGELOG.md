@@ -11,12 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- JobCard class names to follow BEM better
+
 ### Removed
 
 ### Fixed
 
 - Location Search border radius are now even
 - Copyright not having a space
+- Align Company info in JobCard correctly
 
 ## [0.25.0] - 2020-07-17
 
