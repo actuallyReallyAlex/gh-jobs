@@ -44,11 +44,20 @@ class JobController {
     this.router.get("/jobs/search", async (req: Request, res: Response) => {
       try {
         const { description, full_time, location } = req.query;
+        // TODO - FIX! the url is
+        // https://jobs.github.com/positions.json?full_time=false&description=engineer&location=undefined
+        // let url = `https://jobs.github.com/positions`
+        console.log({ description, full_time, location });
+        console.log(
+          `https://jobs.github.com/positions.json?full_time=${full_time}&description=${description}&location=${location}`
+        );
         const response = await nfetch(
           `https://jobs.github.com/positions.json?full_time=${full_time}&description=${description}&location=${location}`,
           { headers: { "Content-Type": "application/json" }, method: "GET" }
         );
+        console.log(response);
         const jobs: Job[] = await response.json();
+        console.log(jobs.length);
 
         res.send(jobs);
       } catch (error) {
