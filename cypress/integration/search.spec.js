@@ -27,4 +27,12 @@ context("Search", () => {
       assert.equal($jobs.length, 5);
     });
   });
+
+  it("Should retain search value on reload", () => {
+    cy.get("#search").type("developer");
+    cy.get(".search__button").click();
+    cy.wait(1000);
+    cy.reload();
+    cy.get("#search").should("have.value", "developer");
+  });
 });

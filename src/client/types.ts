@@ -15,6 +15,7 @@ export interface ApplicationState {
   jobs: Job[];
   jobsFetchedAt: string;
   locationSearch: string;
+  searchValue: string;
   totalPages: number;
 }
 
