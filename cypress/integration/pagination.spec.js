@@ -207,6 +207,43 @@ context("Pagination", () => {
         });
     });
   });
+
+  it.only("Should rerender component when a new amount of jobs is to be displayed", () => {
+    cy.get(".pagination__list").then(($list) => {
+      const childList = $list[0].children;
+
+      cy.paginationSelect1(childList);
+
+      cy.get(
+        "#app > div.search__container > div.options-panel__container > label:nth-child(3) > span"
+      ).click();
+      cy.get(".search__button").click();
+      cy.wait(3000);
+
+      cy.get(".jobcard__container").then(($jobs) => {
+        assert.equal($jobs.length, 3);
+
+        cy.get(".pagination__list").then(($list) => {
+          const childList = $list[0].children;
+
+          // * Should contain 3 elements
+          assert.equal(childList.length, 3);
+          // * 1st Button should be Left Arrow
+          assert.equal(childList[0].innerText, "chevron_left");
+          // * 1st button should be disabled
+          assert.equal(childList[0].children[0].disabled, true);
+          // * 2nd Button should be "1"
+          assert.equal(childList[1].innerText, "1");
+          // * 2nd Button as "1" should be selected by default
+          assert.equal(childList[1].className, "pagination__item__selected");
+          // * 3rd Button should be Right Arrow
+          assert.equal(childList[2].innerText, "chevron_right");
+          // * 3rd button should be disabled
+          assert.equal(childList[2].children[0].disabled, true);
+        });
+      });
+    });
+  });
 });
 
 context("Pagination - 1 Page", () => {

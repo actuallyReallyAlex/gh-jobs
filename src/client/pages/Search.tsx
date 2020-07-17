@@ -51,6 +51,7 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
         <div className="jobs__container">
           {jobsOnPage &&
             jobsOnPage.map((job: Job) => <JobCard job={job} key={job.id} />)}
+          {/* TODO - FIX this. Should be rerendered differently */}
           {jobsOnPage.length > 0 && <Pagination />}
         </div>
       </div>
