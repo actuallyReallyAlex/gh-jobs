@@ -2,7 +2,7 @@
 
 context("Pagination", () => {
   beforeEach(() => {
-    cy.fixture("jobs").then((jobsJson) => {
+    cy.fixture("jobs50").then((jobsJson) => {
       cy.server();
       cy.route({
         method: "GET",
@@ -205,6 +205,164 @@ context("Pagination", () => {
               cy.paginationSelect1(childList);
             });
         });
+    });
+  });
+});
+
+context("Pagination - 1 Page", () => {
+  beforeEach(() => {
+    cy.fixture("jobs5").then((jobsJson) => {
+      cy.server();
+      cy.route({
+        method: "GET",
+        url: "/jobs",
+        status: 200,
+        response: jobsJson,
+        onRequest: (xhr) => {},
+        onResponse: (xhr) => {},
+      });
+    });
+    cy.visit("http://localhost:3000");
+  });
+
+  it("Should display pagination correctly, when 5 jobs exist", () => {
+    cy.get(".pagination__list").then(($list) => {
+      const childList = $list[0].children;
+
+      // * Should contain 3 elements
+      assert.equal(childList.length, 3);
+      // * 1st Button should be Left Arrow
+      assert.equal(childList[0].innerText, "chevron_left");
+      // * 1st button should be disabled
+      assert.equal(childList[0].children[0].disabled, true);
+      // * 2nd Button should be "1"
+      assert.equal(childList[1].innerText, "1");
+      // * 2nd Button as "1" should be selected by default
+      assert.equal(childList[1].className, "pagination__item__selected");
+      // * 3rd Button should be Right Arrow
+      assert.equal(childList[2].innerText, "chevron_right");
+      // * 3rd button should be disabled
+      assert.equal(childList[2].children[0].disabled, true);
+    });
+  });
+});
+
+context("Pagination - 2 Pages", () => {
+  beforeEach(() => {
+    cy.fixture("jobs10").then((jobsJson) => {
+      cy.server();
+      cy.route({
+        method: "GET",
+        url: "/jobs",
+        status: 200,
+        response: jobsJson,
+        onRequest: (xhr) => {},
+        onResponse: (xhr) => {},
+      });
+    });
+    cy.visit("http://localhost:3000");
+  });
+
+  it("Should display pagination correctly, when 10 jobs exist", () => {
+    cy.get(".pagination__list").then(($list) => {
+      const childList = $list[0].children;
+
+      // * Should contain 4 elements
+      assert.equal(childList.length, 4);
+      // * 1st Button should be Left Arrow
+      assert.equal(childList[0].innerText, "chevron_left");
+      // * 1st button should be disabled
+      assert.equal(childList[0].children[0].disabled, true);
+      // * 2nd Button should be "1"
+      assert.equal(childList[1].innerText, "1");
+      // * 2nd Button as "1" should be selected by default
+      assert.equal(childList[1].className, "pagination__item__selected");
+      // * 3rd Button should be "2"
+      assert.equal(childList[2].innerText, "2");
+      // * 4th Button should be Right Arrow
+      assert.equal(childList[3].innerText, "chevron_right");
+    });
+  });
+});
+
+context("Pagination - 3 Pages", () => {
+  beforeEach(() => {
+    cy.fixture("jobs15").then((jobsJson) => {
+      cy.server();
+      cy.route({
+        method: "GET",
+        url: "/jobs",
+        status: 200,
+        response: jobsJson,
+        onRequest: (xhr) => {},
+        onResponse: (xhr) => {},
+      });
+    });
+    cy.visit("http://localhost:3000");
+  });
+
+  it("Should display pagination correctly, when 15 jobs exist", () => {
+    cy.get(".pagination__list").then(($list) => {
+      const childList = $list[0].children;
+
+      // * Should contain 5 elements
+      assert.equal(childList.length, 5);
+      // * 1st Button should be Left Arrow
+      assert.equal(childList[0].innerText, "chevron_left");
+      // * 1st button should be disabled
+      assert.equal(childList[0].children[0].disabled, true);
+      // * 2nd Button should be "1"
+      assert.equal(childList[1].innerText, "1");
+      // * 2nd Button as "1" should be selected by default
+      assert.equal(childList[1].className, "pagination__item__selected");
+      // * 3rd Button should be "2"
+      assert.equal(childList[2].innerText, "2");
+      // * 4th Button should be "3"
+      assert.equal(childList[3].innerText, "3");
+      // * 5th Button should be Right Arrow
+      assert.equal(childList[4].innerText, "chevron_right");
+    });
+  });
+});
+
+context("Pagination - 4 Pages", () => {
+  beforeEach(() => {
+    cy.fixture("jobs20").then((jobsJson) => {
+      cy.server();
+      cy.route({
+        method: "GET",
+        url: "/jobs",
+        status: 200,
+        response: jobsJson,
+        onRequest: (xhr) => {},
+        onResponse: (xhr) => {},
+      });
+    });
+    cy.visit("http://localhost:3000");
+  });
+
+  it("Should display pagination correctly, when 20 jobs exist", () => {
+    cy.get(".pagination__list").then(($list) => {
+      const childList = $list[0].children;
+
+      // * Should contain 6 elements
+      assert.equal(childList.length, 6);
+      // * 1st Button should be Left Arrow
+      assert.equal(childList[0].innerText, "chevron_left");
+      // * 1st button should be disabled
+      assert.equal(childList[0].children[0].disabled, true);
+      // * 2nd Button should be "1"
+      assert.equal(childList[1].innerText, "1");
+      // * 2nd Button as "1" should be selected by default
+      assert.equal(childList[1].className, "pagination__item__selected");
+      // * 3rd Button should be "2"
+      assert.equal(childList[2].innerText, "2");
+      // * 4th Button should be "3"
+      assert.equal(childList[3].innerText, "3");
+      // * 5th Button should be "4"
+      assert.equal(childList[4].innerText, "4");
+      // * 6th Button should be Right Arrow
+      assert.equal(childList[5].innerText, "chevron_right");
     });
   });
 });
