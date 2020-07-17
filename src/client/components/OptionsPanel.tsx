@@ -6,6 +6,7 @@ import { setFullTime, setLocationSearch } from "../redux/actions/application";
 import { RootState } from "../types";
 
 export interface OptionsPanelProps {
+  fullTime: boolean;
   handleCheckBox: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSetFullTime: (fullTime: boolean) => void;
   handleSetLocationSearch: (locationSearch: string) => void;
@@ -16,6 +17,7 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
   props: OptionsPanelProps
 ) => {
   const {
+    fullTime,
     handleCheckBox,
     handleSetFullTime,
     handleSetLocationSearch,
@@ -31,6 +33,7 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
   return (
     <div className="options-panel__container">
       <Checkbox
+        checked={fullTime}
         label="Full Time"
         onChange={(e) => handleSetFullTime(e.target.checked)}
         value="full-time"
@@ -60,6 +63,7 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
 };
 
 const mapStateToProps = (state: RootState) => ({
+  fullTime: state.application.fullTime,
   locationSearch: state.application.locationSearch,
 });
 

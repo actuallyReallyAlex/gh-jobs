@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.25.0] - _Unreleased_
 
+### ✏️ Tweaky McTweakerson
+
 ### Added
 
 ### Changed
@@ -16,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Page description
 - Favicon
 - If `company_url` exists, company title on `Details` page is rendered as a link
-- `searchValue` is retained in `ApplicationState`
+- `searchValue`, `fullTime` are retained in `ApplicationState`
 
 ### Removed
 
