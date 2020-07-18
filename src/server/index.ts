@@ -1,5 +1,3 @@
-import chalk from "chalk";
-
 import App from "./app";
 import AssetsController from "./controllers/assets";
 import JobController from "./controllers/job";

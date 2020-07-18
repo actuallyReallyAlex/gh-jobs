@@ -32,7 +32,10 @@ class App {
     ];
 
     const corsOptions: CorsOptions = {
-      origin: (requestOrigin: string | undefined, callback: Function): void => {
+      origin: (
+        requestOrigin: string | undefined,
+        callback: (error?: Error, success?: boolean) => void
+      ): void => {
         if (whitelistDomains.indexOf(requestOrigin) !== -1) {
           callback(null, true);
         } else {

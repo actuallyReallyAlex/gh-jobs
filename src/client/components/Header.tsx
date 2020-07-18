@@ -1,8 +1,7 @@
 import * as React from "react";
 
-export interface HeaderProps {}
-
-const Header: React.SFC<HeaderProps> = () => {
+// eslint-disable-next-line
+const Header: React.SFC<{}> = () => {
   return (
     <header>
       <span className="bold">GitHub</span> Jobs

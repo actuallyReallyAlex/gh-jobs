@@ -12,7 +12,7 @@ interface DetailsProps {
 
 const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
   const { jobs } = props;
-  let { id } = useParams();
+  const { id } = useParams();
   const [data, setData] = React.useState(null);
   const [applyLink, setApplyLink] = React.useState("");
 

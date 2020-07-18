@@ -10,12 +10,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `prettier`
+- `eslint`
 
 ### Changed
 
 ### Removed
 
 ### Fixed
+
+- ESLint Errors
 
 ## [0.26.0] - 2020-07-17
 

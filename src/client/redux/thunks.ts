@@ -11,7 +11,7 @@ import { getData, unique } from "../util";
 
 import { AppThunk, Job, LocationOption, RootState } from "../types";
 
-export const getJobs = (): AppThunk => async (dispatch, getState) => {
+export const getJobs = (): AppThunk => async (dispatch) => {
   try {
     const jobs: Job[] = await getData("/jobs");
 
@@ -61,7 +61,7 @@ export const searchJobs = (
         location.value
       )}`;
       const data = await getData(url);
-      jobs.push.apply(jobs, data);
+      jobs.push(...data);
     })
   );
 
@@ -70,7 +70,7 @@ export const searchJobs = (
       fullTime.toString()
     )}&description=${encodeURI(search)}`;
     const data = await getData(url);
-    jobs.push.apply(jobs, data);
+    jobs.push(...data);
   }
 
   const uniqueJobs = unique(jobs);
@@ -81,9 +81,6 @@ export const searchJobs = (
   dispatch(setIsLoading(false));
 };
 
-export const pagination = (pageNumber: number): AppThunk => (
-  dispach,
-  getState
-) => {
+export const pagination = (pageNumber: number): AppThunk => (dispach) => {
   dispach(setCurrentPage(pageNumber));
 };

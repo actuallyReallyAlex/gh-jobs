@@ -9,12 +9,14 @@ export const getData = async (url: string): Promise<Job[]> => {
   return data;
 };
 
+// eslint-disable-next-line
 export const groupBy = (arr: any[], key: any): any =>
   arr.reduce(
     (acc, item) => ((acc[item[key]] = [...(acc[item[key]] || []), item]), acc),
     {}
   );
 
+// eslint-disable-next-line
 export const unique = (arr: any[]): any[] => [...new Set(arr)];
 
 export const validURL = (str: string): boolean => {
@@ -34,7 +36,7 @@ export const validURL = (str: string): boolean => {
  * Loads the state of the application from localStorage if present.
  * @returns {object}
  */
-export const loadState = () => {
+export const loadState = (): any => {
   try {
     const serializedState = localStorage.getItem("state");
     if (serializedState === null) {
@@ -50,7 +52,8 @@ export const loadState = () => {
  * Saves the application state in localStorage.
  * @param {object} state State of the application.
  */
-export const saveState = (state) => {
+// eslint-disable-next-line
+export const saveState = (state: any): void => {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem("state", serializedState);
