@@ -470,6 +470,7 @@ input::placeholder {
   display: flex;
   flex-direction: column;
   margin-top: 36px;
+  overflow-wrap: break-word;
 }
 
 .details__container__label {
