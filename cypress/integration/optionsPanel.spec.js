@@ -4,14 +4,32 @@
 context("Options Panel", () => {
   beforeEach(() => {
     cy.fixture("jobs50").then((jobsJson) => {
-      cy.server();
-      cy.route({
-        method: "GET",
-        url: "/jobs",
-        status: 200,
-        response: jobsJson,
-        onRequest: (xhr) => {},
-        onResponse: (xhr) => {},
+      cy.fixture("jobsSearch1").then((jobsSearch1Json) => {
+        cy.server();
+        cy.route({
+          method: "GET",
+          url: "/jobs",
+          status: 200,
+          response: jobsJson,
+        });
+        cy.route({
+          method: "GET",
+          url: "/jobs/search?full_time=true&description=developer",
+          status: 200,
+          response: jobsSearch1Json,
+        });
+        cy.route({
+          method: "GET",
+          url: "/jobs/search?full_time=false&description=&location=Los Angeles",
+          status: 200,
+          response: jobsSearch1Json,
+        });
+        cy.route({
+          method: "GET",
+          url: "/jobs/search?full_time=false&description=&location=Chicago",
+          status: 200,
+          response: jobsSearch1Json,
+        });
       });
     });
     cy.visit("http://localhost:3000");
