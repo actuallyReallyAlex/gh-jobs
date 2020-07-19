@@ -12,7 +12,7 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
   const { job } = props;
   const handleImageError = () => {
     // TODO - Should set the image to a fallback/just display the div with the not found text
-    alert("IMAGE ERROR - CREATE FUNCTIONALITY");
+    // alert("IMAGE ERROR - CREATE FUNCTIONALITY");
   };
   return (
     <div className="jobcard__container">

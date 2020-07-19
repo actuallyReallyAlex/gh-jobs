@@ -1,12 +1,14 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 
-export interface HeaderProps {}
-
-const Header: React.SFC<HeaderProps> = () => {
+// eslint-disable-next-line
+const Header: React.SFC<{}> = () => {
   return (
-    <header>
-      <span className="bold">GitHub</span> Jobs
-    </header>
+    <Link id="header-link" to="/">
+      <header>
+        <span className="bold">GitHub</span> Jobs
+      </header>
+    </Link>
   );
 };
 

@@ -3,14 +3,22 @@
 context("Search", () => {
   beforeEach(() => {
     cy.fixture("jobs50").then((jobsJson) => {
-      cy.server();
-      cy.route({
-        method: "GET",
-        url: "/jobs",
-        status: 200,
-        response: jobsJson,
-        onRequest: (xhr) => {},
-        onResponse: (xhr) => {},
+      cy.fixture("jobsSearch1").then((searchJson) => {
+        cy.server();
+        cy.route({
+          method: "GET",
+          url: "/jobs",
+          status: 200,
+          response: jobsJson,
+          delay: 1000,
+        });
+        cy.route({
+          method: "GET",
+          url: "/jobs/search?full_time=false&description=developer",
+          status: 200,
+          response: searchJson,
+          delay: 1000,
+        });
       });
     });
     cy.visit("http://localhost:3000");
@@ -52,8 +60,14 @@ context("Search - No Results", () => {
       url: "/jobs",
       status: 200,
       response: [],
-      onRequest: (xhr) => {},
-      onResponse: (xhr) => {},
+      delay: 1000,
+    });
+    cy.route({
+      method: "GET",
+      url: "/jobs/search?full_time=false&description=developer",
+      status: 200,
+      response: [],
+      delay: 1000,
     });
     cy.visit("http://localhost:3000");
   });

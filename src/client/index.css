@@ -19,6 +19,10 @@ body {
   padding: 0;
 }
 
+#header-link {
+  text-decoration: none;
+}
+
 header {
   font-size: 1.5rem;
   font-weight: lighter;
@@ -470,6 +474,7 @@ input::placeholder {
   display: flex;
   flex-direction: column;
   margin-top: 36px;
+  overflow-wrap: break-word;
 }
 
 .details__container__label {
@@ -674,21 +679,21 @@ input::placeholder {
   left: 0%;
   top: 0%;
   animation: orbit-spinner-orbit-one-animation 1200ms linear infinite;
-  border-bottom: 3px solid #00d3ff;
+  border-bottom: 3px solid #b9bdcf;
 }
 
 .orbit-spinner .orbit:nth-child(2) {
   right: 0%;
   top: 0%;
   animation: orbit-spinner-orbit-two-animation 1200ms linear infinite;
-  border-right: 3px solid #00d3ff;
+  border-right: 3px solid #b9bdcf;
 }
 
 .orbit-spinner .orbit:nth-child(3) {
   right: 0%;
   bottom: 0%;
   animation: orbit-spinner-orbit-three-animation 1200ms linear infinite;
-  border-top: 3px solid #00d3ff;
+  border-top: 3px solid #b9bdcf;
 }
 
 @keyframes orbit-spinner-orbit-one-animation {

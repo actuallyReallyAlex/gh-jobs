@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] - 2020-07-19
+
+### 🚀 Initial Release
+
+### Added
+
+- `prettier`
+- `eslint`
+- Stubs for `optionsPanel.spec.js`
+- Stubs for `search.spec.js`
+- Test for `<Details />`
+
+### Changed
+
+- `<LoadingIndicator />` color better reflects theme
+- The `<Header />` is now clickable, and will send you to the Search page
+- `<JobCard />` won't display alert if image is missing
+
+### Removed
+
+### Fixed
+
+- ESLint Errors
+- Text in "How To Apply" section spilling over the container if a long url was present
+- Clicking "Full Time" actually does filter by "Full Time" positions now. GitHub Jobs API for `full_time` does not work.
+
 ## [0.26.0] - 2020-07-17
 
 ### 🔧 Tweaks that Make Em Squeaks

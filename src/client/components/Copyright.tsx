@@ -1,8 +1,7 @@
 import * as React from "react";
 
-export interface CopyrightProps {}
-
-const Copyright: React.SFC<CopyrightProps> = () => {
+// eslint-disable-next-line
+const Copyright: React.SFC<{}> = () => {
   return (
     <p className="copyright">
       Copyright ©&nbsp;

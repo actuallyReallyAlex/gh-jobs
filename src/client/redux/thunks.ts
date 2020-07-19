@@ -11,7 +11,7 @@ import { getData, unique } from "../util";
 
 import { AppThunk, Job, LocationOption, RootState } from "../types";
 
-export const getJobs = (): AppThunk => async (dispatch, getState) => {
+export const getJobs = (): AppThunk => async (dispatch) => {
   try {
     const jobs: Job[] = await getData("/jobs");
 
@@ -26,7 +26,6 @@ export const getJobs = (): AppThunk => async (dispatch, getState) => {
   }
 };
 
-// TODO - `full_time` doesn't really work on GitHub API
 export const searchJobs = (
   search: string,
   locationOptions: LocationOption[]
@@ -61,7 +60,7 @@ export const searchJobs = (
         location.value
       )}`;
       const data = await getData(url);
-      jobs.push.apply(jobs, data);
+      jobs.push(...data);
     })
   );
 
@@ -70,20 +69,21 @@ export const searchJobs = (
       fullTime.toString()
     )}&description=${encodeURI(search)}`;
     const data = await getData(url);
-    jobs.push.apply(jobs, data);
+    jobs.push(...data);
   }
 
   const uniqueJobs = unique(jobs);
 
-  dispatch(setCurrentJobs(uniqueJobs));
+  const finalJobs = uniqueJobs.filter((job: Job) =>
+    fullTime ? job.type === "Full Time" : job
+  );
+
+  dispatch(setCurrentJobs(finalJobs));
   dispatch(setCurrentPage(1));
-  dispatch(setTotalPages(Math.ceil(uniqueJobs.length / 5)));
+  dispatch(setTotalPages(Math.ceil(finalJobs.length / 5)));
   dispatch(setIsLoading(false));
 };
 
-export const pagination = (pageNumber: number): AppThunk => (
-  dispach,
-  getState
-) => {
+export const pagination = (pageNumber: number): AppThunk => (dispach) => {
   dispach(setCurrentPage(pageNumber));
 };
