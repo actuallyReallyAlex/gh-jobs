@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `prettier`
 - `eslint`
 - Stubs for `optionsPanel.spec.js`
+- Stubs for `search.spec.js`
 
 ### Changed
 
