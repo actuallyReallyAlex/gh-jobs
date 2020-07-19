@@ -13,8 +13,26 @@
 
 ## 📝 Table of Contents
 
+- [About](#about)
 - [Built Using](#built_using)
 - [Authors](#authors)
+
+## 📝 About <a name = "about"></a>
+
+This application was originally created as a submission to a [DevChallenges](https://devchallenges.io/challenges) challenge. The [challenge](https://devchallenges.io/challenges/TtUjDt19eIHxNQ4n5jps) was to build an application to complete the following prompt
+
+> Challenge: Create a job search using an API. Use Front-end libraries like React or Vue. Don’t look at the existing solution. Fulfill user stories below:
+
+- [x] User story: I can see a list of jobs in a city by default
+- [x] User story: I can search for jobs with a given keyword
+- [x] User story: I can search for jobs with a city name, zip code or other location
+- [x] User story: I can select one option from at least 4 pre-defined options
+- [x] User story: I can search for a full-time job only
+- [x] User story: I can see a list of jobs with their logo, company name, location, and posted time.
+- [x] User story: When I select a job, I can see job descriptions and how to apply like the given design.
+- [x] User story: When I am on the job details page, I can go back to the search page
+- [x] User story (optional): I can see a list of jobs in the closest city from my location by default
+- [x] User story (optional): I can see jobs in different pages, 5 items each page
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
@@ -42,7 +60,10 @@
 - [css-loader](https://github.com/webpack-contrib/css-loader) - CSS Loader.
 - [cypress](https://www.cypress.io/) - Fast, easy and reliable testing for anything that runs in a browser.
 - [env-cmd](https://github.com/toddbluhm/env-cmd) - Setting the environment from a file.
+- [eslint](https://eslint.org/) - Find and fix problems in your JavaScript code.
+- [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) - React specific linting rules for ESLint.
 - [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin) - Simplifies creation of HTML files to serve your webpack bundles.
+- [prettier](https://prettier.io/) - Prettier is an opinionated code formatter.
 - [rimraf](https://github.com/isaacs/rimraf) - A `rm -rf` util for nodejs.
 - [source-map-loader](https://webpack.js.org/loaders/source-map-loader/) - Source map loader.
 - [start-server-and-test](https://github.com/bahmutov/start-server-and-test) - Starts server, waits for URL, then runs test command; when the tests end, shuts down server.
