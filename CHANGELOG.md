@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - `<LoadingIndicator />` color better reflects theme
+- The `<Header />` is now clickable, and will send you to the Search page
 
 ### Removed
 

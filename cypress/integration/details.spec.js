@@ -14,13 +14,12 @@ context("Search", () => {
     });
     cy.visit("http://localhost:3000");
     cy.wait(1000);
-  });
-
-  it("Should display '<Details />' correctly", () => {
     cy.get(
       "#app > div.search__container > div.jobs__container > div:nth-child(1) > div.jobcard__container__left > div.jobcard__container__middle > a > p"
     ).click();
+  });
 
+  it("Should display '<Details />' correctly", () => {
     cy.get(
       "#app > div.details__container > div.details__side__container > div > span"
     ).should("have.text", "How to Apply");
@@ -33,5 +32,22 @@ context("Search", () => {
     cy.get(
       "#app > div.details__container > div.details__main__container > div.details__container__company > div.details__company__right > a"
     ).should("have.text", "Cool Company");
+  });
+
+  it("Should be able to return to '<Search />'", () => {
+    cy.get("#search").should("not.be.visible");
+
+    cy.get(
+      "#app > div.details__container > div.details__side__container > a > span"
+    ).click();
+    cy.get("#search").should("be.visible");
+
+    cy.get(
+      "#app > div.search__container > div.jobs__container > div:nth-child(1) > div.jobcard__container__left > div.jobcard__container__middle > a > p"
+    ).click();
+    cy.get("#search").should("not.be.visible");
+
+    cy.get("header").click();
+    cy.get("#search").should("be.visible");
   });
 });
