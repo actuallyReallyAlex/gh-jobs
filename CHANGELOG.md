@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `eslint`
 - Stubs for `optionsPanel.spec.js`
 - Stubs for `search.spec.js`
+- Test for `<Details />`
 
 ### Changed
 
