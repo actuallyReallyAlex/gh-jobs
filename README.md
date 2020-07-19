@@ -34,6 +34,8 @@ This application was originally created as a submission to a [DevChallenges](htt
 - [x] User story (optional): I can see a list of jobs in the closest city from my location by default
 - [x] User story (optional): I can see jobs in different pages, 5 items each page
 
+View [my solution](https://devchallenges.io/solutions/Lwb0aAViU0LzUKL6kscT) on DevChallenges.
+
 ## ⛏️ Built Using <a name = "built_using"></a>
 
 ### Dependencies
