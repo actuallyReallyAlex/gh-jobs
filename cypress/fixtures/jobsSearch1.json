@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "type": "",
+    "type": "Contract",
     "url": "http://nbcnews.com/id/justo.html?ante=tellus&vestibulum=in&ante=sagittis&ipsum=dui&primis=vel&in=nisl&faucibus=duis&orci=ac&luctus=nibh&et=fusce&ultrices=lacus&posuere=purus&cubilia=aliquet&curae=at&duis=feugiat&faucibus=non&accumsan=pretium&odio=quis&curabitur=lectus&convallis=suspendisse&duis=potenti&consequat=in&dui=eleifend&nec=quam&nisi=a&volutpat=odio&eleifend=in&donec=hac&ut=habitasse&dolor=platea&morbi=dictumst&vel=maecenas&lectus=ut&in=massa&quam=quis&fringilla=augue&rhoncus=luctus&mauris=tincidunt&enim=nulla&leo=mollis",
     "created_at": "2009-12-26T17:13:11Z",
     "company": "Anderson LLC",
@@ -14,7 +14,7 @@
   },
   {
     "id": 2,
-    "type": "",
+    "type": "Contract",
     "url": "https://posterous.com/et/ultrices/posuere/cubilia/curae/duis.json?nunc=non&purus=velit&phasellus=donec&in=diam&felis=neque&donec=vestibulum&semper=eget&sapien=vulputate&a=ut&libero=ultrices&nam=vel&dui=augue&proin=vestibulum&leo=ante&odio=ipsum&porttitor=primis&id=in&consequat=faucibus&in=orci&consequat=luctus&ut=et&nulla=ultrices&sed=posuere&accumsan=cubilia&felis=curae&ut=donec&at=pharetra&dolor=magna&quis=vestibulum&odio=aliquet&consequat=ultrices&varius=erat",
     "created_at": "2019-10-01T13:09:54Z",
     "company": "Herman-Kuhic",
@@ -27,7 +27,7 @@
   },
   {
     "id": 3,
-    "type": "",
+    "type": "Contract",
     "url": "https://craigslist.org/luctus/rutrum.png?vestibulum=elit&rutrum=proin&rutrum=risus&neque=praesent&aenean=lectus&auctor=vestibulum&gravida=quam&sem=sapien&praesent=varius&id=ut&massa=blandit&id=non&nisl=interdum&venenatis=in&lacinia=ante&aenean=vestibulum&sit=ante&amet=ipsum&justo=primis&morbi=in&ut=faucibus&odio=orci&cras=luctus&mi=et&pede=ultrices&malesuada=posuere&in=cubilia&imperdiet=curae&et=duis&commodo=faucibus&vulputate=accumsan&justo=odio&in=curabitur&blandit=convallis&ultrices=duis&enim=consequat&lorem=dui&ipsum=nec&dolor=nisi&sit=volutpat&amet=eleifend&consectetuer=donec&adipiscing=ut&elit=dolor&proin=morbi&interdum=vel&mauris=lectus&non=in&ligula=quam&pellentesque=fringilla&ultrices=rhoncus&phasellus=mauris&id=enim&sapien=leo&in=rhoncus&sapien=sed&iaculis=vestibulum&congue=sit&vivamus=amet&metus=cursus&arcu=id&adipiscing=turpis&molestie=integer&hendrerit=aliquet&at=massa&vulputate=id&vitae=lobortis&nisl=convallis&aenean=tortor&lectus=risus&pellentesque=dapibus&eget=augue&nunc=vel&donec=accumsan&quis=tellus&orci=nisi&eget=eu&orci=orci&vehicula=mauris&condimentum=lacinia&curabitur=sapien&in=quis&libero=libero&ut=nullam&massa=sit&volutpat=amet&convallis=turpis&morbi=elementum&odio=ligula&odio=vehicula&elementum=consequat&eu=morbi&interdum=a",
     "created_at": "2013-03-11T15:13:15Z",
     "company": "Howe-Becker",
@@ -40,7 +40,7 @@
   },
   {
     "id": 4,
-    "type": "",
+    "type": "Full Time",
     "url": "http://usa.gov/at/diam/nam/tristique/tortor/eu/pede.jsp?in=turpis&blandit=adipiscing&ultrices=lorem&enim=vitae&lorem=mattis&ipsum=nibh&dolor=ligula&sit=nec&amet=sem&consectetuer=duis&adipiscing=aliquam&elit=convallis&proin=nunc",
     "created_at": "2000-12-20T22:53:44Z",
     "company": "Wolff LLC",
@@ -53,7 +53,7 @@
   },
   {
     "id": 5,
-    "type": "",
+    "type": "Contract",
     "url": "http://yelp.com/lectus/aliquam/sit/amet/diam.png?orci=ante&mauris=vel&lacinia=ipsum&sapien=praesent&quis=blandit&libero=lacinia&nullam=erat&sit=vestibulum&amet=sed&turpis=magna&elementum=at&ligula=nunc&vehicula=commodo&consequat=placerat&morbi=praesent&a=blandit&ipsum=nam&integer=nulla&a=integer&nibh=pede&in=justo&quis=lacinia&justo=eget&maecenas=tincidunt&rhoncus=eget&aliquam=tempus&lacus=vel&morbi=pede&quis=morbi&tortor=porttitor&id=lorem&nulla=id&ultrices=ligula&aliquet=suspendisse&maecenas=ornare&leo=consequat&odio=lectus&condimentum=in&id=est&luctus=risus&nec=auctor&molestie=sed&sed=tristique&justo=in&pellentesque=tempus&viverra=sit&pede=amet&ac=sem&diam=fusce&cras=consequat&pellentesque=nulla&volutpat=nisl&dui=nunc&maecenas=nisl&tristique=duis&est=bibendum&et=felis&tempus=sed&semper=interdum&est=venenatis&quam=turpis&pharetra=enim&magna=blandit&ac=mi&consequat=in&metus=porttitor&sapien=pede&ut=justo&nunc=eu&vestibulum=massa&ante=donec&ipsum=dapibus&primis=duis&in=at&faucibus=velit&orci=eu&luctus=est&et=congue&ultrices=elementum&posuere=in&cubilia=hac&curae=habitasse",
     "created_at": "2000-08-30T22:51:20Z",
     "company": "Senger-Gerhold",
@@ -66,7 +66,7 @@
   },
   {
     "id": 6,
-    "type": "",
+    "type": "Contract",
     "url": "http://shinystat.com/ultricies/eu/nibh/quisque/id/justo.xml?at=nisl&turpis=duis&a=bibendum&pede=felis&posuere=sed&nonummy=interdum&integer=venenatis&non=turpis&velit=enim&donec=blandit&diam=mi&neque=in&vestibulum=porttitor&eget=pede&vulputate=justo&ut=eu&ultrices=massa&vel=donec&augue=dapibus&vestibulum=duis&ante=at&ipsum=velit&primis=eu&in=est&faucibus=congue&orci=elementum&luctus=in&et=hac&ultrices=habitasse&posuere=platea&cubilia=dictumst&curae=morbi&donec=vestibulum&pharetra=velit&magna=id&vestibulum=pretium&aliquet=iaculis&ultrices=diam&erat=erat&tortor=fermentum",
     "created_at": "2017-12-17T08:44:18Z",
     "company": "Zulauf, Reynolds and Green",
@@ -79,7 +79,7 @@
   },
   {
     "id": 7,
-    "type": "",
+    "type": "Full Time",
     "url": "http://reverbnation.com/luctus.js?viverra=eu&diam=magna&vitae=vulputate&quam=luctus&suspendisse=cum&potenti=sociis&nullam=natoque&porttitor=penatibus&lacus=et&at=magnis&turpis=dis&donec=parturient&posuere=montes&metus=nascetur&vitae=ridiculus&ipsum=mus&aliquam=vivamus&non=vestibulum&mauris=sagittis&morbi=sapien&non=cum&lectus=sociis&aliquam=natoque&sit=penatibus&amet=et&diam=magnis&in=dis&magna=parturient&bibendum=montes&imperdiet=nascetur&nullam=ridiculus&orci=mus&pede=etiam&venenatis=vel&non=augue&sodales=vestibulum&sed=rutrum&tincidunt=rutrum&eu=neque&felis=aenean&fusce=auctor&posuere=gravida&felis=sem&sed=praesent&lacus=id&morbi=massa&sem=id&mauris=nisl&laoreet=venenatis&ut=lacinia&rhoncus=aenean&aliquet=sit&pulvinar=amet&sed=justo&nisl=morbi&nunc=ut&rhoncus=odio&dui=cras&vel=mi",
     "created_at": "2007-09-30T09:39:32Z",
     "company": "VonRueden and Sons",

@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - ESLint Errors
 - Text in "How To Apply" section spilling over the container if a long url was present
+- Clicking "Full Time" actually does filter by "Full Time" positions now. GitHub Jobs API for `full_time` does not work.
 
 ## [0.26.0] - 2020-07-17
 

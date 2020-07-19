@@ -26,7 +26,6 @@ export const getJobs = (): AppThunk => async (dispatch) => {
   }
 };
 
-// TODO - `full_time` doesn't really work on GitHub API
 export const searchJobs = (
   search: string,
   locationOptions: LocationOption[]
@@ -75,9 +74,13 @@ export const searchJobs = (
 
   const uniqueJobs = unique(jobs);
 
-  dispatch(setCurrentJobs(uniqueJobs));
+  const finalJobs = uniqueJobs.filter((job: Job) =>
+    fullTime ? job.type === "Full Time" : job
+  );
+
+  dispatch(setCurrentJobs(finalJobs));
   dispatch(setCurrentPage(1));
-  dispatch(setTotalPages(Math.ceil(uniqueJobs.length / 5)));
+  dispatch(setTotalPages(Math.ceil(finalJobs.length / 5)));
   dispatch(setIsLoading(false));
 };
 
