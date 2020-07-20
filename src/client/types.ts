@@ -64,5 +64,6 @@ export interface UserAction {
 }
 
 export interface UserState {
+  email: string;
   isLoggedIn: false;
 }

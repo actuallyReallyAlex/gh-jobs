@@ -818,3 +818,14 @@ input::placeholder {
   flex-direction: row;
   justify-content: space-between;
 }
+
+#login-page {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+#login-page > form {
+  max-width: 50%;
+  width: 50%;
+}
