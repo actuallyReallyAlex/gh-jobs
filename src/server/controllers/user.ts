@@ -7,6 +7,7 @@ import auth from "../middleware/auth";
 import User from "../models/User";
 
 import { AuthenticatedRequest, UserDocument, Token } from "../types";
+import { debug } from "webpack";
 
 /**
  * User Controller.
@@ -57,6 +58,84 @@ class UserController {
           }
 
           return res.status(400).send({ error });
+        }
+      }
+    );
+
+    this.router.post(
+      "/login",
+      async (
+        req: express.Request,
+        res: express.Response
+      ): Promise<Response> => {
+        try {
+          if (!validator.isEmail(req.body.email)) {
+            return res.status(400).send({ error: "Invalid email" });
+          }
+
+          const user: UserDocument = await User.findByCredentials(
+            req.body.email,
+            req.body.password
+          );
+
+          if (!user) {
+            return res.status(401).send({ error: "Invalid credentials" });
+          }
+
+          const token = await user.generateAuthToken();
+          // * Set a Cookie with that token
+          res.cookie("ghjobs", token, {
+            maxAge: 60 * 60 * 1000, // 1 hour
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production", // * localhost isn't https
+            sameSite: true,
+          });
+
+          return res.send(user);
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error);
+          return res.status(500).send({});
+        }
+      }
+    );
+
+    this.router.post(
+      "/user/logout",
+      auth,
+      async (req: AuthenticatedRequest, res: Response) => {
+        try {
+          req.user.tokens = req.user.tokens.filter(
+            (token: Token) => token.token !== req.token
+          );
+          await req.user.save();
+
+          res.clearCookie("tgarrettpetersen");
+
+          return res.send({});
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error);
+          return res.status(500).send({ error });
+        }
+      }
+    );
+
+    this.router.post(
+      "/user/logout/all",
+      auth,
+      async (req: AuthenticatedRequest, res: Response) => {
+        try {
+          req.user.tokens = [];
+          await req.user.save();
+
+          res.clearCookie("ghjobs");
+
+          return res.send({});
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error);
+          return res.status(500).send({ error });
         }
       }
     );
