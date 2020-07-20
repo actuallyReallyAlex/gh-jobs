@@ -98,6 +98,8 @@ export const pagination = (pageNumber: number): AppThunk => (dispach) => {
 
 export const logIn = (): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoading(true));
+  dispatch(setFormError(""));
+
   const { user } = getState();
   const { email, password } = user;
 
@@ -123,6 +125,8 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
 
 export const signup = (): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoading(true));
+  dispatch(setFormError(""));
+
   const { user } = getState();
   const { confirmPassword, email, name, password } = user;
 

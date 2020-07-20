@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 
 import Copyright from "../components/Copyright";
+import FormError from "../components/FormError";
 import Input from "../components/Input";
 
 import {
@@ -17,6 +18,7 @@ import { RootState } from "../types";
 export interface SignupProps {
   confirmPassword: string;
   email: string;
+  formError: string;
   handleConfirmPasswordChange: (confirmPassword: string) => void;
   handleEmailChange: (email: string) => void;
   handleNameChange: (name: string) => void;
@@ -30,6 +32,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
   const {
     confirmPassword,
     email,
+    formError,
     handleConfirmPasswordChange,
     handleEmailChange,
     handleNameChange,
@@ -53,6 +56,8 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
           <h1>Create Account</h1>
         </div>
 
+        {formError && <FormError error={formError} />}
+
         <Input
           autoComplete="name"
           icon="account_circle"
@@ -60,6 +65,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
           label="Name"
           onChange={(e) => handleNameChange(e.target.value)}
           placeholder="John Smith"
+          required
           type="text"
           value={name}
         />
@@ -70,6 +76,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
           label="Email Address"
           onChange={(e) => handleEmailChange(e.target.value)}
           placeholder="example@email.com"
+          required
           type="email"
           value={email}
         />
@@ -79,6 +86,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
           id="password"
           label="Password"
           onChange={(e) => handlePasswordChange(e.target.value)}
+          required
           type="password"
           value={password}
         />
@@ -88,6 +96,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
           id="confirm-password"
           label="Confirm Password"
           onChange={(e) => handleConfirmPasswordChange(e.target.value)}
+          required
           type="password"
           value={confirmPassword}
         />
@@ -106,6 +115,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
 const mapStateToProps = (state: RootState) => ({
   confirmPassword: state.user.confirmPassword,
   email: state.user.email,
+  formError: state.user.formError,
   name: state.user.name,
   password: state.user.password,
 });

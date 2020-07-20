@@ -1,15 +1,15 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import Copyright from "../components/Copyright";
+import FormError from "../components/FormError";
 import Input from "../components/Input";
 
 import { setEmail, setPassword } from "../redux/actions/user";
 import { logIn } from "../redux/thunks";
 
 import { RootState } from "../types";
-import { Link } from "react-router-dom";
-import FormError from "../components/FormError";
 
 export interface LoginProps {
   email: string;
