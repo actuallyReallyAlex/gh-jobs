@@ -2,6 +2,7 @@ import {
   SET_CONFIRM_PASSWORD,
   SET_EMAIL,
   SET_IS_LOGGED_IN,
+  SET_NAME,
   SET_PASSWORD,
 } from "../actionTypes";
 
@@ -11,6 +12,7 @@ export const initialState: UserState = {
   confirmPassword: "",
   email: "",
   isLoggedIn: false,
+  name: "",
   password: "",
 };
 
@@ -24,6 +26,9 @@ const reducer = (state = initialState, action: UserAction): UserState => {
     }
     case SET_IS_LOGGED_IN: {
       return { ...state, isLoggedIn: action.payload.isLoggedIn };
+    }
+    case SET_NAME: {
+      return { ...state, name: action.payload.name };
     }
     case SET_PASSWORD: {
       return { ...state, password: action.payload.password };

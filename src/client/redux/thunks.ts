@@ -16,6 +16,7 @@ import {
   LocationOption,
   LoginResponse,
   RootState,
+  SignupResponse,
 } from "../types";
 
 export const getJobs = (): AppThunk => async (dispatch) => {
@@ -117,7 +118,24 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
   alert("USER IS LOGGED IN");
 };
 
-export const signup = (): AppThunk => () => {
-  alert("SIGNUP");
-  console.log("SIGNUP");
+export const signup = (): AppThunk => async (dispatch, getState) => {
+  const { user } = getState();
+  const { confirmPassword, email, name, password } = user;
+
+  const response: SignupResponse = await postData(
+    "/user",
+    JSON.stringify({ confirmPassword, email, name, password })
+  );
+
+  console.log(response);
+
+  if (response.error) {
+    // TODO - Set error
+    return;
+  }
+
+  // TODO - Set user info
+  dispatch(setIsLoggedIn(true));
+
+  alert("USER CREATED");
 };

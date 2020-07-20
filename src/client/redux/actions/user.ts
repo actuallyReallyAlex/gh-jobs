@@ -2,6 +2,7 @@ import {
   SET_CONFIRM_PASSWORD,
   SET_EMAIL,
   SET_IS_LOGGED_IN,
+  SET_NAME,
   SET_PASSWORD,
 } from "../actionTypes";
 
@@ -20,6 +21,11 @@ export const setEmail = (email: string): UserAction => ({
 export const setIsLoggedIn = (isLoggedIn: boolean): UserAction => ({
   type: SET_IS_LOGGED_IN,
   payload: { isLoggedIn },
+});
+
+export const setName = (name: string): UserAction => ({
+  type: SET_NAME,
+  payload: { name },
 });
 
 export const setPassword = (password: string): UserAction => ({

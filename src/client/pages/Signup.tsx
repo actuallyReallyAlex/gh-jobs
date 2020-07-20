@@ -7,6 +7,7 @@ import Input from "../components/Input";
 import {
   setConfirmPassword,
   setEmail,
+  setName,
   setPassword,
 } from "../redux/actions/user";
 import { signup } from "../redux/thunks";
@@ -18,8 +19,10 @@ export interface SignupProps {
   email: string;
   handleConfirmPasswordChange: (confirmPassword: string) => void;
   handleEmailChange: (email: string) => void;
+  handleNameChange: (name: string) => void;
   handlePasswordChange: (password: string) => void;
   handleSignup: () => void;
+  name: string;
   password: string;
 }
 
@@ -29,8 +32,10 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
     email,
     handleConfirmPasswordChange,
     handleEmailChange,
+    handleNameChange,
     handlePasswordChange,
     handleSignup,
+    name,
     password,
   } = props;
   return (
@@ -48,6 +53,16 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
           <h1>Create Account</h1>
         </div>
 
+        <Input
+          autoComplete="name"
+          icon="account_circle"
+          id="name"
+          label="Name"
+          onChange={(e) => handleNameChange(e.target.value)}
+          placeholder="John Smith"
+          type="text"
+          value={name}
+        />
         <Input
           autoComplete="email"
           icon="email"
@@ -68,6 +83,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
           value={password}
         />
         <Input
+          autoComplete="new-password"
           icon="lock"
           id="confirm-password"
           label="Confirm Password"
@@ -75,6 +91,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
           type="password"
           value={confirmPassword}
         />
+
         <button type="submit">Create account</button>
       </form>
       <Copyright />
@@ -85,6 +102,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
 const mapStateToProps = (state: RootState) => ({
   confirmPassword: state.user.confirmPassword,
   email: state.user.email,
+  name: state.user.name,
   password: state.user.password,
 });
 
@@ -92,6 +110,7 @@ const mapDispatchToProps = (dispatch) => ({
   handleConfirmPasswordChange: (confirmPassword: string) =>
     dispatch(setConfirmPassword(confirmPassword)),
   handleEmailChange: (email: string) => dispatch(setEmail(email)),
+  handleNameChange: (name: string) => dispatch(setName(name)),
   handlePasswordChange: (password: string) => dispatch(setPassword(password)),
   handleSignup: () => dispatch(signup()),
 });

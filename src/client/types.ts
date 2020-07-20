@@ -154,6 +154,21 @@ export type RootState = {
 
 export type SearchType = "description" | "location";
 
+export type SignupResponse = SignupResponseError & SignupResponseSuccess;
+
+export interface SignupResponseError {
+  error: string;
+}
+
+export interface SignupResponseSuccess {
+  createdAt: string;
+  email: string;
+  name: string;
+  updatedAt: string;
+  __v: number;
+  _id: string;
+}
+
 export interface UserAction {
   type: string;
   // eslint-disable-next-line
@@ -164,5 +179,6 @@ export interface UserState {
   confirmPassword: string;
   email: string;
   isLoggedIn: false;
+  name: string;
   password: string;
 }
