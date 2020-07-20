@@ -87,3 +87,7 @@ export const searchJobs = (
 export const pagination = (pageNumber: number): AppThunk => (dispach) => {
   dispach(setCurrentPage(pageNumber));
 };
+
+export const logIn = (): AppThunk => (dispatch) => {
+  console.log("LOG IN");
+};
