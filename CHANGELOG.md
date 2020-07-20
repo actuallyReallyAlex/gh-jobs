@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Path for `Details` page is now `/jobs/:id` instead of `/:id`
+- `<Input />` now has optional `autoComplete` and `type` props
 
 ### Removed
 

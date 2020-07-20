@@ -1,16 +1,29 @@
 import * as React from "react";
 
+import { InputAutoComplete, InputType } from "../types";
+
 export interface InputProps {
+  autoComplete?: InputAutoComplete;
   icon?: string;
   id: string;
   label: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
+  type?: InputType;
   value: string;
 }
 
 const Input: React.SFC<InputProps> = (props: InputProps) => {
-  const { icon, id, label, onChange, placeholder, value } = props;
+  const {
+    autoComplete,
+    icon,
+    id,
+    label,
+    onChange,
+    placeholder,
+    type,
+    value,
+  } = props;
   return (
     <div className="input__container">
       <label htmlFor={id}>{label}</label>
@@ -22,15 +35,14 @@ const Input: React.SFC<InputProps> = (props: InputProps) => {
         )}
 
         <input
+          autoComplete={autoComplete ? autoComplete : undefined}
           id={id}
           onChange={onChange}
           placeholder={placeholder}
-          type="text"
+          type={type ? type : "text"}
           value={value}
         />
       </div>
-
-      {/* <button onClick={() => handleLocationSearch()}>Search</button>{" "} */}
     </div>
   );
 };

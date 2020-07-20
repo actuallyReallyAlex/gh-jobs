@@ -1,10 +1,11 @@
-import { SET_EMAIL, SET_IS_LOGGED_IN } from "../actionTypes";
+import { SET_EMAIL, SET_IS_LOGGED_IN, SET_PASSWORD } from "../actionTypes";
 
 import { UserAction, UserState } from "../../types";
 
 export const initialState: UserState = {
   email: "",
   isLoggedIn: false,
+  password: "",
 };
 
 const reducer = (state = initialState, action: UserAction): UserState => {
@@ -14,6 +15,9 @@ const reducer = (state = initialState, action: UserAction): UserState => {
     }
     case SET_IS_LOGGED_IN: {
       return { ...state, isLoggedIn: action.payload.isLoggedIn };
+    }
+    case SET_PASSWORD: {
+      return { ...state, password: action.payload.password };
     }
     default:
       return state;
