@@ -9,6 +9,7 @@ export interface InputProps {
   label: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
+  required?: boolean;
   type?: InputType;
   value: string;
 }
@@ -21,6 +22,7 @@ const Input: React.SFC<InputProps> = (props: InputProps) => {
     label,
     onChange,
     placeholder,
+    required,
     type,
     value,
   } = props;
@@ -39,6 +41,7 @@ const Input: React.SFC<InputProps> = (props: InputProps) => {
           id={id}
           onChange={onChange}
           placeholder={placeholder}
+          required={required ? required : undefined}
           type={type ? type : "text"}
           value={value}
         />

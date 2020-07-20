@@ -1,6 +1,7 @@
 import {
   SET_CONFIRM_PASSWORD,
   SET_EMAIL,
+  SET_FORM_ERROR,
   SET_IS_LOGGED_IN,
   SET_NAME,
   SET_PASSWORD,
@@ -16,6 +17,11 @@ export const setConfirmPassword = (confirmPassword: string): UserAction => ({
 export const setEmail = (email: string): UserAction => ({
   type: SET_EMAIL,
   payload: { email },
+});
+
+export const setFormError = (formError: string): UserAction => ({
+  type: SET_FORM_ERROR,
+  payload: { formError },
 });
 
 export const setIsLoggedIn = (isLoggedIn: boolean): UserAction => ({

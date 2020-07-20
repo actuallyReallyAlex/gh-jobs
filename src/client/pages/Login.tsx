@@ -9,9 +9,11 @@ import { logIn } from "../redux/thunks";
 
 import { RootState } from "../types";
 import { Link } from "react-router-dom";
+import FormError from "../components/FormError";
 
 export interface LoginProps {
   email: string;
+  formError: string;
   handleEmailChange: (email: string) => void;
   handleLogIn: () => void;
   handlePasswordChange: (password: string) => void;
@@ -21,11 +23,13 @@ export interface LoginProps {
 const Login: React.SFC<LoginProps> = (props: LoginProps) => {
   const {
     email,
+    formError,
     handleEmailChange,
     handleLogIn,
     handlePasswordChange,
     password,
   } = props;
+
   return (
     <div id="login-page">
       <form
@@ -41,6 +45,8 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
           <h1>Login</h1>
         </div>
 
+        {formError && <FormError error={formError} />}
+
         <Input
           autoComplete="email"
           icon="email"
@@ -48,6 +54,7 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
           label="Email Address"
           onChange={(e) => handleEmailChange(e.target.value)}
           placeholder="example@email.com"
+          required
           type="email"
           value={email}
         />
@@ -57,6 +64,7 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
           id="password"
           label="Password"
           onChange={(e) => handlePasswordChange(e.target.value)}
+          required
           type="password"
           value={password}
         />
@@ -78,6 +86,7 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
 
 const mapStateToProps = (state: RootState) => ({
   email: state.user.email,
+  formError: state.user.formError,
   password: state.user.password,
 });
 

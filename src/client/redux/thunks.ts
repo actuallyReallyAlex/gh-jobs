@@ -7,7 +7,7 @@ import {
   setTotalPages,
   setSearchValue,
 } from "./actions/application";
-import { setIsLoggedIn } from "./actions/user";
+import { setIsLoggedIn, setFormError } from "./actions/user";
 import { getData, unique, postData } from "../util";
 
 import {
@@ -97,6 +97,7 @@ export const pagination = (pageNumber: number): AppThunk => (dispach) => {
 };
 
 export const logIn = (): AppThunk => async (dispatch, getState) => {
+  dispatch(setIsLoading(true));
   const { user } = getState();
   const { email, password } = user;
 
@@ -108,17 +109,20 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
   console.log(response);
 
   if (response.error) {
-    // TODO - Set error
+    dispatch(setFormError(response.error));
+    dispatch(setIsLoading(false));
     return;
   }
 
   // TODO - Set user info
   dispatch(setIsLoggedIn(true));
 
+  dispatch(setIsLoading(false));
   alert("USER IS LOGGED IN");
 };
 
 export const signup = (): AppThunk => async (dispatch, getState) => {
+  dispatch(setIsLoading(true));
   const { user } = getState();
   const { confirmPassword, email, name, password } = user;
 
@@ -130,12 +134,15 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
   console.log(response);
 
   if (response.error) {
-    // TODO - Set error
+    dispatch(setFormError(response.error));
+    dispatch(setIsLoading(false));
     return;
   }
 
   // TODO - Set user info
   dispatch(setIsLoggedIn(true));
+
+  dispatch(setIsLoading(false));
 
   alert("USER CREATED");
 };

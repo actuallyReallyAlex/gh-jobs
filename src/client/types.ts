@@ -165,6 +165,7 @@ export interface UserAction {
 export interface UserState {
   confirmPassword: string;
   email: string;
+  formError: string;
   isLoggedIn: false;
   name: string;
   password: string;
