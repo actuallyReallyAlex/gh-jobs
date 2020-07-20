@@ -59,7 +59,10 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
           type="password"
           value={password}
         />
-        <button type="submit">Log In</button>
+        <button onClick={() => {}} type="button">
+          Create an account
+        </button>
+        <button type="submit">Log in</button>
       </form>
       <Copyright />
     </div>
