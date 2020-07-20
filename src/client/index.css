@@ -446,7 +446,8 @@ input::placeholder {
 }
 
 .details__side__link,
-.login__action__create {
+.login__action__create,
+.navigation__link {
   align-items: center;
   color: #1e86ff;
   display: flex;
@@ -469,7 +470,8 @@ input::placeholder {
 }
 
 .details__side__link:hover span,
-.login__action__create:hover span {
+.login__action__create:hover span,
+.navigation__link:hover span {
   text-decoration: underline;
 }
 
