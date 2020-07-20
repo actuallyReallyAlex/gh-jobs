@@ -587,64 +587,6 @@ input::placeholder {
   line-height: 24px;
 }
 
-@media only screen and (max-width: 600px) {
-  #app {
-    max-width: 100%;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  .search__container__outer {
-    padding: 35px 5%;
-  }
-
-  [placeholder] {
-    text-overflow: ellipsis;
-  }
-
-  .search__button {
-    padding: 0.375rem 2rem;
-  }
-
-  .search__container,
-  .jobcard__container,
-  .details__container,
-  .details__container__title__inner {
-    flex-direction: column;
-  }
-
-  .options-panel__container,
-  .jobs__container,
-  .details__side__container,
-  .details__main__container {
-    width: 100%;
-  }
-
-  .input__container {
-    max-width: 100%;
-  }
-
-  .jobcard__location p,
-  .jobcard__created p {
-    margin-bottom: 0;
-    margin-top: 0;
-  }
-
-  .jobcard__container {
-    margin-bottom: 13px;
-    margin-top: 13px;
-  }
-
-  .details__title {
-    margin-top: 36px;
-  }
-
-  .details__title__fulltime {
-    margin-left: 0;
-    margin-top: 4px;
-  }
-}
-
 .hidden {
   display: none;
 }
@@ -934,4 +876,68 @@ input::placeholder {
 
 .alert__container > span {
   margin-left: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  #app {
+    max-width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .search__container__outer {
+    padding: 35px 5%;
+  }
+
+  [placeholder] {
+    text-overflow: ellipsis;
+  }
+
+  .search__button {
+    padding: 0.375rem 2rem;
+  }
+
+  .search__container,
+  .jobcard__container,
+  .details__container,
+  .details__container__title__inner,
+  .login__container__actions {
+    flex-direction: column;
+  }
+
+  .options-panel__container,
+  .jobs__container,
+  .details__side__container,
+  .details__main__container,
+  #login-page > form {
+    width: 100%;
+  }
+
+  .input__container {
+    max-width: 100%;
+  }
+
+  .jobcard__location p,
+  .jobcard__created p {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  .jobcard__container {
+    margin-bottom: 13px;
+    margin-top: 13px;
+  }
+
+  .details__title {
+    margin-top: 36px;
+  }
+
+  #log-in {
+    margin-top: 25px;
+  }
+
+  .details__title__fulltime {
+    margin-left: 0;
+    margin-top: 4px;
+  }
 }
