@@ -32,6 +32,13 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
           handleLogIn();
         }}
       >
+        <div className="login__container__title">
+          <span className="avatar">
+            <i className="material-icons">lock</i>
+          </span>
+          <h1>Login</h1>
+        </div>
+
         <Input
           autoComplete="email"
           icon="email"
