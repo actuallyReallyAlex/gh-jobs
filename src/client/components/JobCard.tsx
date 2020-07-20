@@ -34,7 +34,7 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
 
         <div className="jobcard__container__middle">
           <p className="jobcard__company">{job.company}</p>
-          <Link to={`/${job.id}`}>
+          <Link to={`/jobs/${job.id}`}>
             <p className="jobcard__title">{job.title}</p>
           </Link>
           {job.type === "Full Time" && (

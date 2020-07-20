@@ -10,8 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `<Navigation />` component
+- `Login` page
 
 ### Changed
+
+- Path for `Details` page is now `/jobs/:id` instead of `/:id`
 
 ### Removed
 

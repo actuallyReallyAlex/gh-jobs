@@ -4,13 +4,18 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import endOfToday from "date-fns/endOfToday";
 import isWithinInterval from "date-fns/isWithinInterval";
 import startOfToday from "date-fns/startOfToday";
+
 import Details from "./pages/Details";
-import Navigation from "./components/Navigation";
+import Login from "./pages/Login";
 import Search from "./pages/Search";
-import { getJobs } from "./redux/thunks";
-import { RootState } from "./types";
+
 import LoadingIndicator from "./components/LoadingIndicator";
+import Navigation from "./components/Navigation";
+
 import { setIsLoading } from "./redux/actions/application";
+import { getJobs } from "./redux/thunks";
+
+import { RootState } from "./types";
 
 interface AppProps {
   handleGetJobs: () => void;
@@ -49,8 +54,11 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
           <Route exact path="/">
             <Search />
           </Route>
-          <Route path="/:id">
+          <Route path="/jobs/:id">
             <Details />
+          </Route>
+          <Route path="/login">
+            <Login />
           </Route>
         </Switch>
         <LoadingIndicator />
