@@ -9,6 +9,16 @@ export const getData = async (url: string): Promise<Job[]> => {
   return data;
 };
 
+export const postData = async (url: string, body: string): Promise<any> => {
+  const response = await fetch(url, {
+    body,
+    headers: { "Content-Type": "application/json" },
+    method: "POST",
+  });
+  const data: any = await response.json();
+  return data;
+};
+
 // eslint-disable-next-line
 export const groupBy = (arr: any[], key: any): any =>
   arr.reduce(

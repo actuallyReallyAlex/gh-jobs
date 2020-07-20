@@ -117,6 +117,21 @@ export interface LocationOption {
   value: string;
 }
 
+export type LoginResponse = LoginResponseError & LoginResponseSuccess;
+
+export interface LoginResponseError {
+  error: string;
+}
+
+export interface LoginResponseSuccess {
+  createdAt: string;
+  email: string;
+  name: string;
+  updatedAt: string;
+  __v: number;
+  _id: string;
+}
+
 export type PaginationNavigationType = "left" | "right";
 
 export type RootState = {

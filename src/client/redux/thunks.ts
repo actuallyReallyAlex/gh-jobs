@@ -7,9 +7,16 @@ import {
   setTotalPages,
   setSearchValue,
 } from "./actions/application";
-import { getData, unique } from "../util";
+import { setIsLoggedIn } from "./actions/user";
+import { getData, unique, postData } from "../util";
 
-import { AppThunk, Job, LocationOption, RootState } from "../types";
+import {
+  AppThunk,
+  Job,
+  LocationOption,
+  LoginResponse,
+  RootState,
+} from "../types";
 
 export const getJobs = (): AppThunk => async (dispatch) => {
   try {
@@ -88,6 +95,24 @@ export const pagination = (pageNumber: number): AppThunk => (dispach) => {
   dispach(setCurrentPage(pageNumber));
 };
 
-export const logIn = (): AppThunk => (dispatch) => {
-  console.log("LOG IN");
+export const logIn = (): AppThunk => async (dispatch, getState) => {
+  const { user } = getState();
+  const { email, password } = user;
+
+  const response: LoginResponse = await postData(
+    "/user/login",
+    JSON.stringify({ email, password })
+  );
+
+  console.log(response);
+
+  if (response.error) {
+    // TODO - Set error
+    return;
+  }
+
+  // TODO - Set user info
+  dispatch(setIsLoggedIn(true));
+
+  alert("USER IS LOGGED IN");
 };
