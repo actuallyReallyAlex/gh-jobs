@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     password: {
-      minlength: 7,
+      minlength: [7, "Password is too short."],
       required: true,
       trim: true,
       type: String,

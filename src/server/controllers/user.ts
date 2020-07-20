@@ -7,7 +7,6 @@ import auth from "../middleware/auth";
 import User from "../models/User";
 
 import { AuthenticatedRequest, UserDocument, Token } from "../types";
-import { debug } from "webpack";
 
 /**
  * User Controller.
