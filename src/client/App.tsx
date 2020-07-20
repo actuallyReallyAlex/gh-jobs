@@ -8,6 +8,7 @@ import startOfToday from "date-fns/startOfToday";
 import Details from "./pages/Details";
 import Login from "./pages/Login";
 import Search from "./pages/Search";
+import Signup from "./pages/Signup";
 
 import LoadingIndicator from "./components/LoadingIndicator";
 import Navigation from "./components/Navigation";
@@ -59,6 +60,9 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/signup">
+            <Signup />
           </Route>
         </Switch>
         <LoadingIndicator />

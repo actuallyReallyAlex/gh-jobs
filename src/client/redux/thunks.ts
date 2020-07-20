@@ -116,3 +116,8 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
 
   alert("USER IS LOGGED IN");
 };
+
+export const signup = (): AppThunk => () => {
+  alert("SIGNUP");
+  console.log("SIGNUP");
+};

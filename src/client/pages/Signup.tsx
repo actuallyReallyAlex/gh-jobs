@@ -4,41 +4,48 @@ import { connect } from "react-redux";
 import Copyright from "../components/Copyright";
 import Input from "../components/Input";
 
-import { setEmail, setPassword } from "../redux/actions/user";
-import { logIn } from "../redux/thunks";
+import {
+  setConfirmPassword,
+  setEmail,
+  setPassword,
+} from "../redux/actions/user";
+import { signup } from "../redux/thunks";
 
 import { RootState } from "../types";
-import { Link } from "react-router-dom";
 
-export interface LoginProps {
+export interface SignupProps {
+  confirmPassword: string;
   email: string;
+  handleConfirmPasswordChange: (confirmPassword: string) => void;
   handleEmailChange: (email: string) => void;
-  handleLogIn: () => void;
   handlePasswordChange: (password: string) => void;
+  handleSignup: () => void;
   password: string;
 }
 
-const Login: React.SFC<LoginProps> = (props: LoginProps) => {
+const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
   const {
+    confirmPassword,
     email,
+    handleConfirmPasswordChange,
     handleEmailChange,
-    handleLogIn,
     handlePasswordChange,
+    handleSignup,
     password,
   } = props;
   return (
-    <div id="login-page">
+    <div id="signup-page">
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          handleLogIn();
+          handleSignup();
         }}
       >
-        <div className="login__container__title">
+        <div className="signup__container__title">
           <span className="avatar">
             <i className="material-icons">lock</i>
           </span>
-          <h1>Login</h1>
+          <h1>Create Account</h1>
         </div>
 
         <Input
@@ -52,7 +59,7 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
           value={email}
         />
         <Input
-          autoComplete="current-password"
+          autoComplete="new-password"
           icon="lock"
           id="password"
           label="Password"
@@ -60,9 +67,15 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
           type="password"
           value={password}
         />
-
-        <Link to="/signup">Create an account</Link>
-        <button type="submit">Log in</button>
+        <Input
+          icon="lock"
+          id="confirm-password"
+          label="Confirm Password"
+          onChange={(e) => handleConfirmPasswordChange(e.target.value)}
+          type="password"
+          value={confirmPassword}
+        />
+        <button type="submit">Create account</button>
       </form>
       <Copyright />
     </div>
@@ -70,14 +83,17 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
+  confirmPassword: state.user.confirmPassword,
   email: state.user.email,
   password: state.user.password,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  handleConfirmPasswordChange: (confirmPassword: string) =>
+    dispatch(setConfirmPassword(confirmPassword)),
   handleEmailChange: (email: string) => dispatch(setEmail(email)),
-  handleLogIn: () => dispatch(logIn()),
   handlePasswordChange: (password: string) => dispatch(setPassword(password)),
+  handleSignup: () => dispatch(signup()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);
