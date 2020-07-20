@@ -23,6 +23,15 @@ class UserController {
       "/user",
       async (req: Request, res: Response): Promise<Response> => {
         try {
+          const existingUser = await User.findOne({ email: req.body.email });
+
+          if (existingUser) {
+            return res.send({
+              error:
+                "A user with that email address already exists. Please try logging in instead.",
+            });
+          }
+
           const newUser = new User({
             email: req.body.email,
             name: req.body.name,

@@ -69,15 +69,18 @@ context("Signup - Error", () => {
     cy.get("#nav-login").should("be.visible");
   });
 
-  // TODO - Fix this. Should not be able to do this.
-  it.skip("Should not allow to signup with existing account", () => {
+  it("Should not allow to signup with existing account", () => {
     cy.get("#name").type("Bob Test");
     cy.get("#email").type("bobtest@email.com");
     cy.get("#password").type("Red123456!!!");
     cy.get("#confirm-password").type("Red123456!!!");
     cy.get("#signup").click();
-    cy.wait(1500);
-    cy.pause();
+    cy.wait(1000);
+
+    cy.get("#form-error-text").should(
+      "have.text",
+      "A user with that email address already exists. Please try logging in instead."
+    );
   });
 
   it("Should not allow submission of an empty form", () => {
