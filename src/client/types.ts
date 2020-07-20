@@ -55,3 +55,13 @@ export type RootState = {
 };
 
 export type SearchType = "description" | "location";
+
+export interface UserAction {
+  type: string;
+  // eslint-disable-next-line
+  payload: any;
+}
+
+export interface UserState {
+  isLoggedIn: false;
+}
