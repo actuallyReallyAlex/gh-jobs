@@ -13,6 +13,7 @@ export const SET_TOTAL_PAGES = "SET_TOTAL_PAGES";
 export const SET_USER_TYPE = "SET_USER_TYPE";
 
 // * User
+export const SET_CONFIRM_PASSWORD = "SET_CONFIRM_PASSWORD";
 export const SET_EMAIL = "SET_EMAIL";
 export const SET_IS_LOGGED_IN = "SET_IS_LOGGED_IN";
 export const SET_PASSWORD = "SET_PASSWORD";

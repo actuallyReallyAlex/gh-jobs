@@ -148,6 +148,7 @@ export type PaginationNavigationType = "left" | "right";
 
 export type RootState = {
   application: ApplicationState;
+  login: LoginState;
   user: UserState;
 };
 
@@ -160,6 +161,7 @@ export interface UserAction {
 }
 
 export interface UserState {
+  confirmPassword: string;
   email: string;
   isLoggedIn: false;
   password: string;
