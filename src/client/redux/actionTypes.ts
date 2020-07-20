@@ -9,9 +9,6 @@ export const SET_LOCATION_SEARCH = "SET_LOCATION_SEARCH";
 export const SET_SEARCH_VALUE = "SET_SEARCH_VALUE";
 export const SET_TOTAL_PAGES = "SET_TOTAL_PAGES";
 
-// * Login
-export const SET_USER_TYPE = "SET_USER_TYPE";
-
 // * User
 export const SET_CONFIRM_PASSWORD = "SET_CONFIRM_PASSWORD";
 export const SET_EMAIL = "SET_EMAIL";

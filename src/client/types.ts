@@ -117,12 +117,6 @@ export interface LocationOption {
   value: string;
 }
 
-export interface LoginAction {
-  type: string;
-  // eslint-disable-next-line
-  payload: any;
-}
-
 export type LoginResponse = LoginResponseError & LoginResponseSuccess;
 
 export interface LoginResponseError {
@@ -138,17 +132,10 @@ export interface LoginResponseSuccess {
   _id: string;
 }
 
-export interface LoginState {
-  userType: LoginUserType;
-}
-
-export type LoginUserType = "current" | "new";
-
 export type PaginationNavigationType = "left" | "right";
 
 export type RootState = {
   application: ApplicationState;
-  login: LoginState;
   user: UserState;
 };
 
