@@ -5,8 +5,8 @@ import endOfToday from "date-fns/endOfToday";
 import isWithinInterval from "date-fns/isWithinInterval";
 import startOfToday from "date-fns/startOfToday";
 import Details from "./pages/Details";
+import Navigation from "./components/Navigation";
 import Search from "./pages/Search";
-import Header from "./components/Header";
 import { getJobs } from "./redux/thunks";
 import { RootState } from "./types";
 import LoadingIndicator from "./components/LoadingIndicator";
@@ -44,7 +44,7 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
   return (
     <Router>
       <div id="app">
-        <Header />
+        <Navigation />
         <Switch>
           <Route exact path="/">
             <Search />

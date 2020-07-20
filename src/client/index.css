@@ -811,3 +811,10 @@ input::placeholder {
   display: flex;
   width: 100%;
 }
+
+#navigation {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
