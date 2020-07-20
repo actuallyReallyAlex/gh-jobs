@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import cookieParser from "cookie-parser";
 import cors, { CorsOptions } from "cors";
 import express, { Request, Response } from "express";
 import mongoose from "mongoose";
@@ -33,11 +34,13 @@ class App {
       useUnifiedTopology: true,
     });
 
+    this.app.use(cookieParser());
     this.app.use(express.json());
     this.app.use(morgan("dev"));
     const whitelistDomains = [
       "http://localhost:3000",
       "http://localhost:8080",
+      "https://gh-jobs.herokuapp.com",
       undefined,
     ];
 

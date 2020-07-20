@@ -63,7 +63,7 @@ class UserController {
     );
 
     this.router.post(
-      "/login",
+      "/user/login",
       async (
         req: express.Request,
         res: express.Response
@@ -110,7 +110,7 @@ class UserController {
           );
           await req.user.save();
 
-          res.clearCookie("tgarrettpetersen");
+          res.clearCookie("ghjobs");
 
           return res.send({});
         } catch (error) {
