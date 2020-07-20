@@ -1,6 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
+import Copyright from "../components/Copyright";
 import Input from "../components/Input";
 
 import { setEmail, setPassword } from "../redux/actions/user";
@@ -60,6 +61,7 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
         />
         <button type="submit">Log In</button>
       </form>
+      <Copyright />
     </div>
   );
 };
