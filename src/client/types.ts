@@ -52,6 +52,7 @@ export type PaginationNavigationType = "left" | "right";
 
 export type RootState = {
   application: ApplicationState;
+  user: UserState;
 };
 
 export type SearchType = "description" | "location";

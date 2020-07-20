@@ -1,17 +1,26 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import Header from "./Header";
+import { RootState } from "../types";
 
-export interface NavigationProps {}
+export interface NavigationProps {
+  isLoggedIn: boolean;
+}
 
-const Navigation: React.SFC<NavigationProps> = () => {
+const Navigation: React.SFC<NavigationProps> = (props: NavigationProps) => {
+  const { isLoggedIn } = props;
   return (
     <nav id="navigation">
       <Header />
-      <Link to="/login">Login</Link>
+      {!isLoggedIn && <Link to="/login">Login</Link>}
     </nav>
   );
 };
 
-export default Navigation;
+const mapStateToProps = (state: RootState) => ({
+  isLoggedIn: state.user.isLoggedIn,
+});
+
+export default connect(mapStateToProps)(Navigation);
