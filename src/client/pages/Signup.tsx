@@ -1,5 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 import Copyright from "../components/Copyright";
 import FormError from "../components/FormError";
@@ -24,6 +25,7 @@ export interface SignupProps {
   handleNameChange: (name: string) => void;
   handlePasswordChange: (password: string) => void;
   handleSignup: () => void;
+  isLoggedIn: boolean;
   name: string;
   password: string;
 }
@@ -38,84 +40,91 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
     handleNameChange,
     handlePasswordChange,
     handleSignup,
+    isLoggedIn,
     name,
     password,
   } = props;
-  return (
-    <div id="signup-page">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSignup();
-        }}
-      >
-        <div className="signup__container__title">
-          <span className="avatar">
-            <i className="material-icons">lock</i>
-          </span>
-          <h1>Create Account</h1>
-        </div>
 
-        {formError && <FormError error={formError} />}
+  if (isLoggedIn) {
+    return <Redirect to="/" />;
+  } else {
+    return (
+      <div id="signup-page">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSignup();
+          }}
+        >
+          <div className="signup__container__title">
+            <span className="avatar">
+              <i className="material-icons">lock</i>
+            </span>
+            <h1>Create Account</h1>
+          </div>
 
-        <Input
-          autoComplete="name"
-          icon="account_circle"
-          id="name"
-          label="Name"
-          onChange={(e) => handleNameChange(e.target.value)}
-          placeholder="John Smith"
-          required
-          type="text"
-          value={name}
-        />
-        <Input
-          autoComplete="email"
-          icon="email"
-          id="email"
-          label="Email Address"
-          onChange={(e) => handleEmailChange(e.target.value)}
-          placeholder="example@email.com"
-          required
-          type="email"
-          value={email}
-        />
-        <Input
-          autoComplete="new-password"
-          icon="lock"
-          id="password"
-          label="Password"
-          onChange={(e) => handlePasswordChange(e.target.value)}
-          required
-          type="password"
-          value={password}
-        />
-        <Input
-          autoComplete="new-password"
-          icon="lock"
-          id="confirm-password"
-          label="Confirm Password"
-          onChange={(e) => handleConfirmPasswordChange(e.target.value)}
-          required
-          type="password"
-          value={confirmPassword}
-        />
+          {formError && <FormError error={formError} />}
 
-        <div className="signup__container__actions">
-          <button id="signup" type="submit">
-            Create account
-          </button>
-        </div>
-      </form>
-      <Copyright />
-    </div>
-  );
+          <Input
+            autoComplete="name"
+            icon="account_circle"
+            id="name"
+            label="Name"
+            onChange={(e) => handleNameChange(e.target.value)}
+            placeholder="John Smith"
+            required
+            type="text"
+            value={name}
+          />
+          <Input
+            autoComplete="email"
+            icon="email"
+            id="email"
+            label="Email Address"
+            onChange={(e) => handleEmailChange(e.target.value)}
+            placeholder="example@email.com"
+            required
+            type="email"
+            value={email}
+          />
+          <Input
+            autoComplete="new-password"
+            icon="lock"
+            id="password"
+            label="Password"
+            onChange={(e) => handlePasswordChange(e.target.value)}
+            required
+            type="password"
+            value={password}
+          />
+          <Input
+            autoComplete="new-password"
+            icon="lock"
+            id="confirm-password"
+            label="Confirm Password"
+            onChange={(e) => handleConfirmPasswordChange(e.target.value)}
+            required
+            type="password"
+            value={confirmPassword}
+          />
+
+          <div className="signup__container__actions">
+            <button id="signup" type="submit">
+              Create account
+            </button>
+          </div>
+        </form>
+        <Copyright />
+      </div>
+    );
+  }
 };
 
 const mapStateToProps = (state: RootState) => ({
   confirmPassword: state.user.confirmPassword,
   email: state.user.email,
   formError: state.user.formError,
+  isLoggedIn: state.user.isLoggedIn,
   name: state.user.name,
   password: state.user.password,
 });

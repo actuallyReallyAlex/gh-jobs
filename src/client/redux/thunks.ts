@@ -120,7 +120,6 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoggedIn(true));
 
   dispatch(setIsLoading(false));
-  alert("USER IS LOGGED IN");
 };
 
 export const signup = (): AppThunk => async (dispatch, getState) => {
@@ -147,6 +146,4 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoggedIn(true));
 
   dispatch(setIsLoading(false));
-
-  alert("USER CREATED");
 };

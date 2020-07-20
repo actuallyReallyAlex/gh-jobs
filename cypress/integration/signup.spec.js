@@ -37,8 +37,9 @@ context("Signup - Success", () => {
     cy.get("#confirm-password").type("Red123456!!!");
     cy.get("#signup").click();
     cy.wait(1500);
+
     cy.get("#nav-login").should("not.exist");
-    // TODO - Make user go back to `Search`
+    cy.get("#search").should("be.visible");
   });
 
   it("Should be able to get to Login from Signup page", () => {
