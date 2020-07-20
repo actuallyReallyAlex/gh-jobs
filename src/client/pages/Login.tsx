@@ -70,7 +70,11 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
         />
 
         <div className="login__container__actions">
-          <Link className="login__action__create" to="/signup">
+          <Link
+            className="login__action__create"
+            id="create-an-account"
+            to="/signup"
+          >
             <i className="material-icons">account_circle</i>
             <span>Create an account</span>
           </Link>

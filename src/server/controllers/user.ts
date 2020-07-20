@@ -78,7 +78,7 @@ class UserController {
           );
 
           if (!user) {
-            return res.status(401).send({ error: "Invalid credentials" });
+            return res.status(401).send({ error: "Invalid credentials." });
           }
 
           const token = await user.generateAuthToken();

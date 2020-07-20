@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context("Search", () => {
+context("Details", () => {
   beforeEach(() => {
     cy.fixture("jobs50").then((jobsJson) => {
       cy.server();

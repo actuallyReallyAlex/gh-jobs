@@ -9,7 +9,7 @@ const FormError: React.SFC<FormErrorProps> = (props: FormErrorProps) => {
   return (
     <div className="alert__container">
       <i className="material-icons">warning</i>
-      <span>{error}</span>
+      <span id="form-error-text">{error}</span>
     </div>
   );
 };
