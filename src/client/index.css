@@ -827,18 +827,21 @@ input::placeholder {
   justify-content: space-between;
 }
 
-#login-page {
+#login-page,
+#signup-page {
   align-items: center;
   display: flex;
   flex-direction: column;
 }
 
-#login-page > form {
-  max-width: 50%;
+#login-page > form,
+#signup-page > form {
+  max-width: 444px;
   width: 50%;
 }
 
-#login-page > .input__container {
+#login-page > .input__container,
+#signup-page > .input__container {
   display: flex;
   flex-direction: column;
   margin: 0;
@@ -846,13 +849,15 @@ input::placeholder {
   width: 100%;
 }
 
-.login__container__title {
+.login__container__title,
+.signup__container__title {
   align-items: center;
   display: flex;
   flex-direction: column;
 }
 
-.login__container__title > h1 {
+.login__container__title > h1,
+.signup__container__title > h1 {
   color: #282538;
   font-family: Poppins;
   font-style: normal;
@@ -877,18 +882,25 @@ input::placeholder {
   color: #fff;
 }
 
-#login-page > form > .input__container {
+#login-page > form > .input__container,
+#signup-page > form > .input__container {
   max-width: 100%;
 }
 
-.login__container__actions {
+.login__container__actions,
+.signup__container__actions {
   align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-#log-in {
+.signup__container__actions {
+  justify-content: center;
+}
+
+#log-in,
+#signup {
   background-color: rgba(27, 108, 205, 1);
   border: 3px solid rgba(255, 255, 255, 1);
   border-bottom-right-radius: 0.25rem;

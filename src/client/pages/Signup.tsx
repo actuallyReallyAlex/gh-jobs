@@ -92,7 +92,11 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
           value={confirmPassword}
         />
 
-        <button type="submit">Create account</button>
+        <div className="signup__container__actions">
+          <button id="signup" type="submit">
+            Create account
+          </button>
+        </div>
       </form>
       <Copyright />
     </div>
