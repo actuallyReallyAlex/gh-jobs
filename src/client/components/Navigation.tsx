@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import Header from "./Header";
 import { RootState } from "../types";
@@ -11,10 +11,12 @@ export interface NavigationProps {
 
 const Navigation: React.SFC<NavigationProps> = (props: NavigationProps) => {
   const { isLoggedIn } = props;
+  let { pathname } = useLocation();
+
   return (
     <nav id="navigation">
       <Header />
-      {!isLoggedIn && <Link to="/login">Login</Link>}
+      {!isLoggedIn && pathname !== "/login" && <Link to="/login">Login</Link>}
     </nav>
   );
 };

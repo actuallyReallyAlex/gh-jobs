@@ -61,8 +61,15 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
           value={password}
         />
 
-        <Link to="/signup">Create an account</Link>
-        <button type="submit">Log in</button>
+        <div className="login__container__actions">
+          <Link className="login__action__create" to="/signup">
+            <i className="material-icons">account_circle</i>
+            <span>Create an account</span>
+          </Link>
+          <button id="log-in" type="submit">
+            Log in
+          </button>
+        </div>
       </form>
       <Copyright />
     </div>

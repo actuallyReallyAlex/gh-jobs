@@ -445,7 +445,8 @@ input::placeholder {
   width: 75%;
 }
 
-.details__side__link {
+.details__side__link,
+.login__action__create {
   align-items: center;
   color: #1e86ff;
   display: flex;
@@ -457,16 +458,23 @@ input::placeholder {
   text-decoration: none;
 }
 
-.details__side__link i {
+.details__side__link {
   font-size: 14px;
   margin-right: 15px;
 }
 
-.details__side__link:hover span {
+.login__action__create i {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.details__side__link:hover span,
+.login__action__create:hover span {
   text-decoration: underline;
 }
 
-.details__side__link:hover i {
+.details__side__link:hover i,
+.login__action__create:hover i {
   text-decoration: none;
 }
 
@@ -856,7 +864,7 @@ input::placeholder {
 
 .avatar {
   align-items: center;
-  background: #334680;
+  background: #1e86ff;
   border-radius: 50%;
   display: flex;
   height: 40px;
@@ -867,4 +875,35 @@ input::placeholder {
 
 .avatar > i {
   color: #fff;
+}
+
+#login-page > form > .input__container {
+  max-width: 100%;
+}
+
+.login__container__actions {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#log-in {
+  background-color: rgba(27, 108, 205, 1);
+  border: 3px solid rgba(255, 255, 255, 1);
+  border-bottom-right-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 0.375rem 3rem;
+  position: relative;
+  text-align: center;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  user-select: none;
+  vertical-align: middle;
+  z-index: 2;
 }
