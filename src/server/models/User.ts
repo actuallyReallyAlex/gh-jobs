@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema(
     // * Email, Password, etc
     email: {
       lowercase: true,
-      required: true,
+      required: [true, "Email is required."],
       trim: true,
       type: String,
       unique: true,
@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       minlength: [7, "Password is too short."],
-      required: true,
+      required: [true, "Password is required."],
       trim: true,
       type: String,
       validate: (value: any): boolean => {
@@ -42,35 +42,35 @@ const userSchema = new mongoose.Schema(
         // * 5. At least 1 special character
 
         if (value.toLowerCase().includes("password")) {
-          throw new Error(`Password can't contain the string "password"`);
+          throw new Error(`Password can't contain the string "password".`);
         }
 
         if (validator.isLowercase(value)) {
           throw new Error(
-            "Password should contain at least 1 uppercase letter"
+            "Password should contain at least 1 uppercase letter."
           );
         }
 
         if (validator.isUppercase(value)) {
           throw new Error(
-            "Password should contain at least 1 lowercase letter"
+            "Password should contain at least 1 lowercase letter."
           );
         }
 
         if (validator.isNumeric(value)) {
           throw new Error(
-            "Password must contain at least 1 uppercase letter and 1 lowercase letter"
+            "Password must contain at least 1 uppercase letter and 1 lowercase letter."
           );
         }
 
         // eslint-disable-next-line no-restricted-globals
         if (value.split("").every((char: unknown) => isNaN(Number(char)))) {
-          throw new Error("Password should contain at least 1 number");
+          throw new Error("Password should contain at least 1 number.");
         }
 
         if (validator.isAlphanumeric(value)) {
           throw new Error(
-            "Password should contain at least 1 special character"
+            "Password should contain at least 1 special character."
           );
         }
 

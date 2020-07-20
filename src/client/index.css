@@ -901,7 +901,8 @@ input::placeholder {
   .jobcard__container,
   .details__container,
   .details__container__title__inner,
-  .login__container__actions {
+  .login__container__actions,
+  .signup__container__actions {
     flex-direction: column;
   }
 
@@ -909,7 +910,8 @@ input::placeholder {
   .jobs__container,
   .details__side__container,
   .details__main__container,
-  #login-page > form {
+  #login-page > form,
+  #signup-page > form {
     width: 100%;
   }
 
@@ -932,7 +934,8 @@ input::placeholder {
     margin-top: 36px;
   }
 
-  #log-in {
+  #log-in,
+  #sign-up {
     margin-top: 25px;
   }
 
