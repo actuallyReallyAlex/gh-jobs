@@ -229,7 +229,7 @@ context("Pagination", () => {
       cy.get(
         "#app > div.search__container > div.options-panel__container > label:nth-child(3) > span"
       ).click();
-      cy.get(".search__button").click();
+      cy.get("#search-submit").click();
 
       cy.get(".jobcard__container").then(($jobs) => {
         assert.equal($jobs.length, 3);

@@ -3,9 +3,9 @@ import * as React from "react";
 import { ButtonStyle, ButtonType } from "../types";
 
 export interface ButtonProps {
-  id: string;
+  id?: string;
   label: string;
-  onClick: () => void;
+  onClick?: () => void;
   style: ButtonStyle;
   type: ButtonType;
 }
@@ -15,8 +15,8 @@ const Button: React.SFC<ButtonProps> = (props: ButtonProps) => {
   return (
     <button
       className={`button__${style}`}
-      id={id}
-      onClick={onClick}
+      id={id ? id : undefined}
+      onClick={onClick ? onClick : undefined}
       type={type}
     >
       {label}

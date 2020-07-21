@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 
+import Button from "../components/Button";
 import Copyright from "../components/Copyright";
 import FormError from "../components/FormError";
 import Input from "../components/Input";
@@ -83,9 +84,7 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
               <i className="material-icons">account_circle</i>
               <span>Create an account</span>
             </Link>
-            <button id="log-in" type="submit">
-              Log in
-            </button>
+            <Button id="log-in" label="Log in" style="primary" type="submit" />
           </div>
         </form>
         <Copyright />

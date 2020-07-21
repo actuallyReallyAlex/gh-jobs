@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
+import Button from "../components/Button";
 import Copyright from "../components/Copyright";
 import FormError from "../components/FormError";
 import Input from "../components/Input";
@@ -109,9 +110,12 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
           />
 
           <div className="signup__container__actions">
-            <button id="signup" type="submit">
-              Create account
-            </button>
+            <Button
+              id="signup"
+              label="Create account"
+              style="primary"
+              type="submit"
+            />
           </div>
         </form>
         <Copyright />

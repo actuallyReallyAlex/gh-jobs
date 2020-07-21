@@ -1,6 +1,8 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
+import Button from "./Button";
+
 import { searchJobs } from "../redux/thunks";
 
 import { LocationOption, RootState } from "../types";
@@ -38,9 +40,12 @@ const SearchInput: React.SFC<SearchInputProps> = (props: SearchInputProps) => {
             value={search}
           />
           <div className="search__button__container">
-            <button className="search__button" type="submit">
-              Search
-            </button>
+            <Button
+              id="search-submit"
+              label="Search"
+              style="primary"
+              type="submit"
+            />
           </div>
         </form>
       </div>

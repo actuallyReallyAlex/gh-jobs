@@ -46,14 +46,14 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
         <div className="profile__container__actions">
           <Button
             id="edit"
-            label="Edit Profile"
+            label="Edit profile"
             onClick={() => {}}
             style="primary"
             type="button"
           />
           <Button
             id="reset-password"
-            label="Reset Password"
+            label="Reset password"
             onClick={() => {}}
             style="danger"
             type="button"
@@ -63,14 +63,14 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
         <div className="profile__container__actions">
           <Button
             id="log-out"
-            label="Log Out"
+            label="Log out"
             onClick={() => {}}
             style="danger"
             type="button"
           />
           <Button
             id="log-out-all"
-            label="Log Out of All Devices"
+            label="Log out of all devices"
             onClick={() => {}}
             style="danger"
             type="button"
