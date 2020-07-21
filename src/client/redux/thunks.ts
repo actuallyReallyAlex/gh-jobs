@@ -1,3 +1,7 @@
+import endOfToday from "date-fns/endOfToday";
+import isWithinInterval from "date-fns/isWithinInterval";
+import startOfToday from "date-fns/startOfToday";
+
 import {
   setJobs,
   setJobsFetchedAt,
@@ -149,5 +153,46 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
   dispatch(setEmail(response.email));
   dispatch(setName(response.name));
 
+  dispatch(setIsLoading(false));
+};
+
+export const initializeApplication = (): AppThunk => async (
+  dispatch,
+  getState
+) => {
+  dispatch(setIsLoading(true));
+  const state: RootState = getState();
+  const { jobsFetchedAt } = state.application;
+  // * Establish Job Data
+  if (jobsFetchedAt) {
+    const isWithinToday = isWithinInterval(new Date(jobsFetchedAt), {
+      start: startOfToday(),
+      end: endOfToday(),
+    });
+
+    if (!isWithinToday) {
+      dispatch(getJobs());
+    }
+  } else {
+    dispatch(getJobs());
+  }
+
+  // * Establish User Authentication
+  dispatch(checkAuthentication());
+};
+
+export const checkAuthentication = (): AppThunk => async (dispatch) => {
+  try {
+    const response = await fetch("/user/me");
+    if (response.status === 200) {
+      const user: LoginResponse = await response.json();
+      dispatch(setName(user.name));
+      dispatch(setEmail(user.email));
+      dispatch(setIsLoggedIn(true));
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  }
   dispatch(setIsLoading(false));
 };

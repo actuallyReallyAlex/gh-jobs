@@ -70,6 +70,19 @@ class UserController {
       }
     );
 
+    this.router.get(
+      "/user/me",
+      auth,
+      async (req: AuthenticatedRequest, res: Response): Promise<Response> => {
+        try {
+          return res.send(req.user);
+        } catch (error) {
+          console.error(error);
+          return res.status(500).send({ error });
+        }
+      }
+    );
+
     this.router.post(
       "/user/login",
       async (

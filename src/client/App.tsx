@@ -1,9 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import endOfToday from "date-fns/endOfToday";
-import isWithinInterval from "date-fns/isWithinInterval";
-import startOfToday from "date-fns/startOfToday";
 
 import Details from "./pages/Details";
 import Login from "./pages/Login";
@@ -13,39 +10,22 @@ import Signup from "./pages/Signup";
 import LoadingIndicator from "./components/LoadingIndicator";
 import Navigation from "./components/Navigation";
 
-import { setIsLoading } from "./redux/actions/application";
-import { getJobs } from "./redux/thunks";
+import { initializeApplication } from "./redux/thunks";
 
-import { RootState } from "./types";
 import Profile from "./pages/Profile";
 
 interface AppProps {
-  handleGetJobs: () => void;
-  handleSetIsLoading: (isLoading: boolean) => void;
-  jobsFetchedAt: string;
+  handleInitializeApplication: () => void;
 }
 
 /**
  * Application.
  */
 const App: React.SFC<AppProps> = (props: AppProps) => {
-  const { handleGetJobs, handleSetIsLoading, jobsFetchedAt } = props;
+  const { handleInitializeApplication } = props;
 
   React.useEffect(() => {
-    if (jobsFetchedAt) {
-      const isWithinToday = isWithinInterval(new Date(jobsFetchedAt), {
-        start: startOfToday(),
-        end: endOfToday(),
-      });
-
-      if (!isWithinToday) {
-        handleGetJobs();
-      } else {
-        handleSetIsLoading(false);
-      }
-    } else {
-      handleGetJobs();
-    }
+    handleInitializeApplication();
   }, []);
 
   return (
@@ -75,13 +55,8 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  jobsFetchedAt: state.application.jobsFetchedAt,
-});
-
 const mapDispatchToProps = (dispatch) => ({
-  handleGetJobs: () => dispatch(getJobs()),
-  handleSetIsLoading: (isLoading: boolean) => dispatch(setIsLoading(isLoading)),
+  handleInitializeApplication: () => dispatch(initializeApplication()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);
