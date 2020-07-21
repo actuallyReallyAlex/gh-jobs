@@ -11,7 +11,14 @@ import {
   setTotalPages,
   setSearchValue,
 } from "./actions/application";
-import { setIsLoggedIn, setFormError, setName, setEmail } from "./actions/user";
+import {
+  setIsLoggedIn,
+  setFormError,
+  setName,
+  setEmail,
+  setPassword,
+  setConfirmPassword,
+} from "./actions/user";
 import { getData, unique, postData } from "../util";
 
 import {
@@ -190,5 +197,25 @@ export const checkAuthentication = (): AppThunk => async (dispatch) => {
     // eslint-disable-next-line no-console
     console.error(error);
   }
+  dispatch(setIsLoading(false));
+};
+
+export const logOut = (): AppThunk => async (dispatch) => {
+  dispatch(setIsLoading(true));
+  const response = await postData("/user/logout", undefined);
+
+  if (response.error) {
+    // TODO - What to do if this errors
+    console.log(response);
+    return;
+  }
+
+  dispatch(setConfirmPassword(""));
+  dispatch(setEmail(""));
+  dispatch(setFormError(""));
+  dispatch(setName(""));
+  dispatch(setPassword(""));
+  dispatch(setIsLoggedIn(false));
+
   dispatch(setIsLoading(false));
 };

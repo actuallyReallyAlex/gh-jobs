@@ -9,9 +9,9 @@ export const getData = async (url: string): Promise<Job[]> => {
   return data;
 };
 
-export const postData = async (url: string, body: string): Promise<any> => {
+export const postData = async (url: string, body?: string): Promise<any> => {
   const response = await fetch(url, {
-    body,
+    body: body ? body : undefined,
     headers: { "Content-Type": "application/json" },
     method: "POST",
   });
