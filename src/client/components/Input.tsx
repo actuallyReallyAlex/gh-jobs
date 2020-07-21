@@ -4,6 +4,7 @@ import { InputAutoComplete, InputType } from "../types";
 
 export interface InputProps {
   autoComplete?: InputAutoComplete;
+  disabled?: boolean;
   icon?: string;
   id: string;
   label: string;
@@ -17,6 +18,7 @@ export interface InputProps {
 const Input: React.SFC<InputProps> = (props: InputProps) => {
   const {
     autoComplete,
+    disabled,
     icon,
     id,
     label,
@@ -38,6 +40,7 @@ const Input: React.SFC<InputProps> = (props: InputProps) => {
 
         <input
           autoComplete={autoComplete ? autoComplete : undefined}
+          disabled={disabled ? disabled : undefined}
           id={id}
           onChange={onChange}
           placeholder={placeholder}

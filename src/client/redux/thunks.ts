@@ -7,7 +7,7 @@ import {
   setTotalPages,
   setSearchValue,
 } from "./actions/application";
-import { setIsLoggedIn, setFormError } from "./actions/user";
+import { setIsLoggedIn, setFormError, setName, setEmail } from "./actions/user";
 import { getData, unique, postData } from "../util";
 
 import {
@@ -118,6 +118,8 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
 
   // TODO - Set user info
   dispatch(setIsLoggedIn(true));
+  dispatch(setEmail(response.email));
+  dispatch(setName(response.name));
 
   dispatch(setIsLoading(false));
 };
@@ -144,6 +146,8 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
 
   // TODO - Set user info
   dispatch(setIsLoggedIn(true));
+  dispatch(setEmail(response.email));
+  dispatch(setName(response.name));
 
   dispatch(setIsLoading(false));
 };
