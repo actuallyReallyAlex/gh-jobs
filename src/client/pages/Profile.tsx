@@ -42,8 +42,19 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
           value={email}
         />
 
+        <button id="edit" onClick={() => {}} type="button">
+          Edit
+        </button>
+
         <button id="reset-password" onClick={() => {}} type="button">
           Reset Password
+        </button>
+
+        <button id="log-out" onClick={() => {}} type="button">
+          Log Out
+        </button>
+        <button id="log-out-all" onClick={() => {}} type="button">
+          Log Out of All Devices
         </button>
       </form>
     </div>
