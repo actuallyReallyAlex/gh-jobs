@@ -26,6 +26,10 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   Action<string>
 >;
 
+export type ButtonStyle = "primary" | "danger";
+
+export type ButtonType = "button" | "reset" | "submit";
+
 export type InputAutoComplete =
   | "off"
   | "on"

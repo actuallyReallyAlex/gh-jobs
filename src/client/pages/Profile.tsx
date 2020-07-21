@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Input from "../components/Input";
 
 import { RootState } from "../types";
+import Button from "../components/Button";
 
 export interface ProfileProps {
   email: string;
@@ -43,22 +44,37 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
         />
 
         <div className="profile__container__actions">
-          <button id="edit" onClick={() => {}} type="button">
-            Edit Profile
-          </button>
-
-          <button id="reset-password" onClick={() => {}} type="button">
-            Reset Password
-          </button>
+          <Button
+            id="edit"
+            label="Edit Profile"
+            onClick={() => {}}
+            style="primary"
+            type="button"
+          />
+          <Button
+            id="reset-password"
+            label="Reset Password"
+            onClick={() => {}}
+            style="danger"
+            type="button"
+          />
         </div>
 
         <div className="profile__container__actions">
-          <button id="log-out" onClick={() => {}} type="button">
-            Log Out
-          </button>
-          <button id="log-out-all" onClick={() => {}} type="button">
-            Log Out of All Devices
-          </button>
+          <Button
+            id="log-out"
+            label="Log Out"
+            onClick={() => {}}
+            style="danger"
+            type="button"
+          />
+          <Button
+            id="log-out-all"
+            label="Log Out of All Devices"
+            onClick={() => {}}
+            style="danger"
+            type="button"
+          />
         </div>
       </form>
     </div>
