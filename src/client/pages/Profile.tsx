@@ -41,6 +41,10 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
           type="email"
           value={email}
         />
+
+        <button id="reset-password" onClick={() => {}} type="button">
+          Reset Password
+        </button>
       </form>
     </div>
   );
