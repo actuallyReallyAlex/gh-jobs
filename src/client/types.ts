@@ -26,7 +26,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   Action<string>
 >;
 
-export type ButtonStyle = "primary" | "danger";
+export type ButtonStyle = "primary" | "secondary" | "danger";
 
 export type ButtonType = "button" | "reset" | "submit";
 
@@ -171,6 +171,10 @@ export interface UserState {
   email: string;
   formError: string;
   isLoggedIn: false;
+  isResettingPassword: boolean;
   name: string;
   password: string;
+  resetConfirmNewPassword: string;
+  resetCurrentPassword: string;
+  resetNewPassword: string;
 }

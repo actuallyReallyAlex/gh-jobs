@@ -4,6 +4,7 @@ export interface FormErrorProps {
   error: string;
 }
 
+// TODO - Should refactor this to also display successful messages
 const FormError: React.SFC<FormErrorProps> = (props: FormErrorProps) => {
   const { error } = props;
   return (

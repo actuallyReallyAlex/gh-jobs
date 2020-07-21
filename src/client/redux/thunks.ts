@@ -18,8 +18,12 @@ import {
   setEmail,
   setPassword,
   setConfirmPassword,
+  setResetConfirmNewPassword,
+  setResetCurrentPassword,
+  setResetNewPassword,
+  setIsResettingPassword,
 } from "./actions/user";
-import { getData, unique, postData } from "../util";
+import { getData, unique, patchData, postData } from "../util";
 
 import {
   AppThunk,
@@ -238,4 +242,53 @@ export const logOutAll = (): AppThunk => async (dispatch) => {
   dispatch(setIsLoggedIn(false));
 
   dispatch(setIsLoading(false));
+};
+
+export const resetPassword = (): AppThunk => async (dispatch, getState) => {
+  dispatch(setIsLoading(true));
+  const state: RootState = getState();
+
+  const {
+    isResettingPassword,
+    resetConfirmNewPassword,
+    resetCurrentPassword,
+    resetNewPassword,
+  } = state.user;
+
+  // TODO - Validation
+  // TODOO - Make sure `resetConfirmNewPassword` matches `resetNewPassword`
+
+  try {
+    const response: LoginResponse = await patchData(
+      "/user/me",
+      JSON.stringify({
+        currentPassword: resetCurrentPassword,
+        newPassword: resetNewPassword,
+      })
+    );
+
+    if (response.error) {
+      dispatch(setFormError(response.error));
+      dispatch(setIsLoading(false));
+      return;
+    }
+
+    dispatch(setFormError("Password reset successfully."));
+    dispatch(setResetConfirmNewPassword(""));
+    dispatch(setResetCurrentPassword(""));
+    dispatch(setResetNewPassword(""));
+    dispatch(setIsResettingPassword(false));
+    dispatch(setIsLoading(false));
+  } catch (error) {
+    console.error(error);
+    dispatch(setFormError(error));
+    dispatch(setIsLoading(false));
+  }
+};
+
+export const cancelResetPassword = (): AppThunk => (dispatch) => {
+  dispatch(setResetConfirmNewPassword(""));
+  dispatch(setResetCurrentPassword(""));
+  dispatch(setResetNewPassword(""));
+  dispatch(setIsResettingPassword(false));
 };

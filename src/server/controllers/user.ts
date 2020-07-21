@@ -160,6 +160,66 @@ class UserController {
         }
       }
     );
+
+    this.router.patch(
+      "/user/me",
+      auth,
+      async (req: AuthenticatedRequest, res: Response) => {
+        try {
+          // if (req.body.email) {
+          //   const newEmail = req.body.email;
+
+          //   if (!newEmail || !validator.isEmail(newEmail)) {
+          //     return res.status(400).send({ error: "Invalid email" });
+          //   }
+
+          //   req.user.email = newEmail;
+          //   await req.user.save();
+
+          //   return res.send(req.user);
+          // }
+
+          const { currentPassword, newPassword } = req.body;
+
+          // * Check if currrentPassword matches password in DB
+          const isMatch = await bcrypt.compare(
+            currentPassword,
+            req.user.password
+          );
+          if (!isMatch) {
+            return res.status(401).send({ error: "Invalid credentials" });
+          }
+
+          // TODO - Server Side Password validation
+
+          // * Set newPassword
+          req.user.password = newPassword;
+          await req.user.save();
+
+          // * Send User as respoonse
+          return res.send(req.user);
+        } catch (error) {
+          // TODO - Is this needed anymore?
+          if (error.errors.password) {
+            // * Min Length Validation Error
+            if (error.errors.password.kind === "minlength") {
+              return res.status(400).send({
+                error: "Password must be a minimum of 7 characters.",
+              });
+            }
+            // * Password Validation Error
+            return res
+              .status(400)
+              .send({ error: error.errors.password.message });
+          }
+
+          // eslint-disable-next-line no-console
+          console.error(error);
+
+          return res.status(500).send({ error });
+        }
+      }
+    );
   }
 }
 

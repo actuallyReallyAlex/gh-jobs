@@ -1,5 +1,6 @@
 import { Job } from "./types";
 
+// TODO - Combine getData(), postData(), and patchData() into 1 single 'fetch()' type method
 export const getData = async (url: string): Promise<Job[]> => {
   const response = await fetch(url, {
     headers: { "Content-Type": "application/json" },
@@ -14,6 +15,16 @@ export const postData = async (url: string, body?: string): Promise<any> => {
     body: body ? body : undefined,
     headers: { "Content-Type": "application/json" },
     method: "POST",
+  });
+  const data: any = await response.json();
+  return data;
+};
+
+export const patchData = async (url: string, body?: string): Promise<any> => {
+  const response = await fetch(url, {
+    body: body ? body : undefined,
+    headers: { "Content-Type": "application/json" },
+    method: "PATCH",
   });
   const data: any = await response.json();
   return data;
