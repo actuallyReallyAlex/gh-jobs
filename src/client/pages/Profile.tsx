@@ -13,7 +13,7 @@ export interface ProfileProps {
 const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
   const { email, name } = props;
   return (
-    <div id="profile">
+    <div id="profile-page">
       <form>
         <div className="profile__container__title">
           <span className="avatar">
@@ -42,20 +42,24 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
           value={email}
         />
 
-        <button id="edit" onClick={() => {}} type="button">
-          Edit
-        </button>
+        <div className="profile__container__actions">
+          <button id="edit" onClick={() => {}} type="button">
+            Edit Profile
+          </button>
 
-        <button id="reset-password" onClick={() => {}} type="button">
-          Reset Password
-        </button>
+          <button id="reset-password" onClick={() => {}} type="button">
+            Reset Password
+          </button>
+        </div>
 
-        <button id="log-out" onClick={() => {}} type="button">
-          Log Out
-        </button>
-        <button id="log-out-all" onClick={() => {}} type="button">
-          Log Out of All Devices
-        </button>
+        <div className="profile__container__actions">
+          <button id="log-out" onClick={() => {}} type="button">
+            Log Out
+          </button>
+          <button id="log-out-all" onClick={() => {}} type="button">
+            Log Out of All Devices
+          </button>
+        </div>
       </form>
     </div>
   );

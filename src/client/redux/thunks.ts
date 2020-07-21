@@ -112,8 +112,6 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
     JSON.stringify({ email, password })
   );
 
-  console.log(response);
-
   if (response.error) {
     dispatch(setFormError(response.error));
     dispatch(setIsLoading(false));
@@ -139,8 +137,6 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
     "/user",
     JSON.stringify({ confirmPassword, email, name, password })
   );
-
-  console.log(response);
 
   if (response.error) {
     dispatch(setFormError(response.error));
