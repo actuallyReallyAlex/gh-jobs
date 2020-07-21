@@ -5,19 +5,20 @@ import { Redirect } from "react-router-dom";
 import Button from "../components/Button";
 import Input from "../components/Input";
 
-import { logOut } from "../redux/thunks";
+import { logOut, logOutAll } from "../redux/thunks";
 
 import { RootState } from "../types";
 
 export interface ProfileProps {
   email: string;
   handleLogOut: () => void;
+  handleLogOutAll: () => void;
   isLoggedIn: boolean;
   name: string;
 }
 
 const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
-  const { email, handleLogOut, isLoggedIn, name } = props;
+  const { email, handleLogOut, handleLogOutAll, isLoggedIn, name } = props;
 
   if (!isLoggedIn) {
     return <Redirect to="/" />;
@@ -80,7 +81,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
             <Button
               id="log-out-all"
               label="Log out of all devices"
-              onClick={() => {}}
+              onClick={() => handleLogOutAll()}
               style="danger"
               type="button"
             />
@@ -99,6 +100,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleLogOut: () => dispatch(logOut()),
+  handleLogOutAll: () => dispatch(logOutAll()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

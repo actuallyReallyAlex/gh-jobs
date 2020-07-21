@@ -219,3 +219,23 @@ export const logOut = (): AppThunk => async (dispatch) => {
 
   dispatch(setIsLoading(false));
 };
+
+export const logOutAll = (): AppThunk => async (dispatch) => {
+  dispatch(setIsLoading(true));
+  const response = await postData("/user/logout/all", undefined);
+
+  if (response.error) {
+    // TODO - What to do if this errors
+    console.log(response);
+    return;
+  }
+
+  dispatch(setConfirmPassword(""));
+  dispatch(setEmail(""));
+  dispatch(setFormError(""));
+  dispatch(setName(""));
+  dispatch(setPassword(""));
+  dispatch(setIsLoggedIn(false));
+
+  dispatch(setIsLoading(false));
+};
