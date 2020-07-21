@@ -903,8 +903,13 @@ input::placeholder {
   .details__container,
   .details__container__title__inner,
   .login__container__actions,
-  .signup__container__actions {
+  .signup__container__actions,
+  .profile__container__actions {
     flex-direction: column;
+  }
+
+  .profile__container__actions {
+    align-items: normal;
   }
 
   .options-panel__container,
@@ -912,7 +917,8 @@ input::placeholder {
   .details__side__container,
   .details__main__container,
   #login-page > form,
-  #signup-page > form {
+  #signup-page > form,
+  #profile-page > form {
     width: 100%;
   }
 

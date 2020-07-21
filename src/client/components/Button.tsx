@@ -10,6 +10,7 @@ export interface ButtonProps {
   type: ButtonType;
 }
 
+// TODO - Secondary style
 const Button: React.SFC<ButtonProps> = (props: ButtonProps) => {
   const { id, label, onClick, style, type } = props;
   return (
