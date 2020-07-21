@@ -17,6 +17,7 @@ import { setIsLoading } from "./redux/actions/application";
 import { getJobs } from "./redux/thunks";
 
 import { RootState } from "./types";
+import Profile from "./pages/Profile";
 
 interface AppProps {
   handleGetJobs: () => void;
@@ -63,6 +64,9 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
           </Route>
           <Route path="/signup">
             <Signup />
+          </Route>
+          <Route path="/profile">
+            <Profile />
           </Route>
         </Switch>
         <LoadingIndicator />
