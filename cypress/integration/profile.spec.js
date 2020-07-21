@@ -94,4 +94,48 @@ context("Profile", () => {
 
     cy.get("#cancel").click();
   });
+
+  it("Should be able to reset the password", () => {
+    cy.get("#reset-password").click();
+    cy.get("h1").should("have.text", "Reset Password");
+    cy.get("#current-password").type("Red123456!!!");
+    cy.get("#new-password").type("Blue123456!!!");
+    cy.get("#confirm-new-password").type("Blue123456!!!");
+    cy.get("#reset").click();
+
+    cy.wait(1500);
+
+    cy.get("h1").should("have.text", "Profile");
+    cy.get("#form-error-text").should(
+      "have.text",
+      "Password reset successfully."
+    );
+
+    // * Reset to normal data (Cleanup)
+    cy.get("#reset-password").click();
+    cy.get("h1").should("have.text", "Reset Password");
+    cy.get("#current-password").type("Blue123456!!!");
+    cy.get("#new-password").type("Red123456!!!");
+    cy.get("#confirm-new-password").type("Red123456!!!");
+    cy.get("#reset").click();
+    cy.get("h1").should("have.text", "Profile");
+    cy.get("#form-error-text").should(
+      "have.text",
+      "Password reset successfully."
+    );
+  });
+
+  it("Should not be able to reset password when using invalid credentials", () => {
+    cy.get("#reset-password").click();
+    cy.get("h1").should("have.text", "Reset Password");
+    cy.get("#current-password").type("Blue123456!!!");
+    cy.get("#new-password").type("Red123456!!!");
+    cy.get("#confirm-new-password").type("Red123456!!!");
+    cy.get("#reset").click();
+
+    cy.wait(1500);
+
+    cy.get("h1").should("have.text", "Reset Password");
+    cy.get("#form-error-text").should("have.text", "Invalid credentials.");
+  });
 });
