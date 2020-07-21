@@ -21,6 +21,11 @@ const Navigation: React.SFC<NavigationProps> = (props: NavigationProps) => {
           <span>Login</span>
         </Link>
       )}
+      {isLoggedIn && pathname !== "/profile" && (
+        <Link className="navigation__link" id="nav-profile" to="/profile">
+          <span>Profile</span>
+        </Link>
+      )}
     </nav>
   );
 };
