@@ -84,6 +84,14 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
     resetNewPassword,
   } = props;
 
+  let heading = "Profile";
+
+  if (isResettingPassword) {
+    heading = "Reset Password";
+  } else if (isEditingProfile) {
+    heading = "Edit Profile";
+  }
+
   if (!isLoggedIn) {
     return <Redirect to="/" />;
   } else {
@@ -94,7 +102,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
             <span className="avatar">
               <i className="material-icons">account_circle</i>
             </span>
-            <h1>{!isResettingPassword ? "Profile" : "Reset Password"}</h1>
+            <h1>{heading}</h1>
           </div>
 
           {formError && <FormError error={formError} />}
@@ -157,7 +165,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
             <>
               <Input
                 icon="account_circle"
-                id="name"
+                id="edit-name"
                 label="Name"
                 onChange={(e) => handleSetEditName(e.target.value)}
                 type="text"
@@ -166,7 +174,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
 
               <Input
                 icon="email"
-                id="email"
+                id="edit-email"
                 label="Email Address"
                 onChange={(e) => handleSetEditEmail(e.target.value)}
                 type="email"
@@ -183,7 +191,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
                 />
                 {/* TODO - Disabled State */}
                 <Button
-                  id="edit"
+                  id="edit-confirm"
                   label="Confirm edit"
                   onClick={() => handleEditProfile()}
                   style="danger"
