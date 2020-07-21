@@ -121,6 +121,7 @@ export interface LocationOption {
   value: string;
 }
 
+// TODO - Rename/Refactor this - it's not *just* a LoginResponse. It's kind of an everythign response
 export type LoginResponse = LoginResponseError & LoginResponseSuccess;
 
 export interface LoginResponseError {
@@ -168,8 +169,11 @@ export interface UserAction {
 
 export interface UserState {
   confirmPassword: string;
+  editEmail: string;
+  editName: string;
   email: string;
   formError: string;
+  isEditingProfile: boolean;
   isLoggedIn: false;
   isResettingPassword: boolean;
   name: string;

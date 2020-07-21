@@ -166,18 +166,25 @@ class UserController {
       auth,
       async (req: AuthenticatedRequest, res: Response) => {
         try {
-          // if (req.body.email) {
-          //   const newEmail = req.body.email;
+          if (req.body.email || req.body.name) {
+            // * New Email / New Name
+            const newEmail = req.body.email;
+            const newName = req.body.name;
 
-          //   if (!newEmail || !validator.isEmail(newEmail)) {
-          //     return res.status(400).send({ error: "Invalid email" });
-          //   }
+            if (!newEmail || !validator.isEmail(newEmail)) {
+              return res.status(400).send({ error: "Invalid email." });
+            }
 
-          //   req.user.email = newEmail;
-          //   await req.user.save();
+            if (!newName || validator.isEmpty(newName)) {
+              return res.status(400).send({ error: "Invalid name." });
+            }
 
-          //   return res.send(req.user);
-          // }
+            req.user.email = newEmail;
+            req.user.name = newName;
+            await req.user.save();
+
+            return res.send(req.user);
+          }
 
           const { currentPassword, newPassword } = req.body;
 
@@ -187,7 +194,7 @@ class UserController {
             req.user.password
           );
           if (!isMatch) {
-            return res.status(401).send({ error: "Invalid credentials" });
+            return res.status(401).send({ error: "Invalid credentials." });
           }
 
           // TODO - Server Side Password validation

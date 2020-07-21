@@ -22,6 +22,9 @@ import {
   setResetCurrentPassword,
   setResetNewPassword,
   setIsResettingPassword,
+  setIsEditingProfile,
+  setEditEmail,
+  setEditName,
 } from "./actions/user";
 import { getData, unique, patchData, postData } from "../util";
 
@@ -256,7 +259,7 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
   } = state.user;
 
   // TODO - Validation
-  // TODOO - Make sure `resetConfirmNewPassword` matches `resetNewPassword`
+  // TODO - Make sure `resetConfirmNewPassword` matches `resetNewPassword`
 
   try {
     const response: LoginResponse = await patchData(
@@ -290,5 +293,55 @@ export const cancelResetPassword = (): AppThunk => (dispatch) => {
   dispatch(setResetConfirmNewPassword(""));
   dispatch(setResetCurrentPassword(""));
   dispatch(setResetNewPassword(""));
+  dispatch(setFormError(""));
   dispatch(setIsResettingPassword(false));
+};
+
+export const clickEditProfile = (): AppThunk => (dispatch, getState) => {
+  const state: RootState = getState();
+
+  const { email, name } = state.user;
+
+  dispatch(setFormError(""));
+  dispatch(setEditEmail(email));
+  dispatch(setEditName(name));
+  dispatch(setIsEditingProfile(true));
+};
+
+export const cancelEditProfile = (): AppThunk => (dispatch) => {
+  dispatch(setEditEmail(""));
+  dispatch(setEditName(""));
+  dispatch(setFormError(""));
+  dispatch(setIsEditingProfile(false));
+};
+
+export const editProfile = (): AppThunk => async (dispatch, getState) => {
+  dispatch(setIsLoading(true));
+  const state: RootState = getState();
+
+  const { editEmail, editName } = state.user;
+  try {
+    const response: LoginResponse = await patchData(
+      "/user/me",
+      JSON.stringify({ email: editEmail, name: editName })
+    );
+
+    if (response.error) {
+      dispatch(setFormError(response.error));
+      dispatch(setIsLoading(false));
+      return;
+    }
+
+    dispatch(setFormError("Profile information updated successfully."));
+    dispatch(setEditEmail(""));
+    dispatch(setEditName(""));
+    dispatch(setEmail(response.email));
+    dispatch(setName(response.name));
+    dispatch(setIsEditingProfile(false));
+    dispatch(setIsLoading(false));
+  } catch (error) {
+    console.error(error);
+    dispatch(setFormError(error));
+    dispatch(setIsLoading(false));
+  }
 };

@@ -7,6 +7,8 @@ import FormError from "../components/FormError";
 import Input from "../components/Input";
 
 import {
+  setEditEmail,
+  setEditName,
   setIsResettingPassword,
   setResetConfirmNewPassword,
   setResetCurrentPassword,
@@ -18,22 +20,33 @@ import {
   logOutAll,
   resetPassword,
   cancelResetPassword,
+  clickEditProfile,
+  cancelEditProfile,
+  editProfile,
 } from "../redux/thunks";
 
 import { RootState } from "../types";
 
 export interface ProfileProps {
+  editEmail: string;
+  editName: string;
   email: string;
   formError: string;
+  handleCancelEditProfile: () => void;
   handleCancelResetPassword: () => void;
   handleClearFormError: () => void;
+  handleClickEditProfile: () => void;
+  handleEditProfile: () => void;
   handleLogOut: () => void;
   handleLogOutAll: () => void;
   handleResetPassword: () => void;
+  handleSetEditEmail: (editEmail: string) => void;
+  handleSetEditName: (editName: string) => void;
   handleSetIsResettingPassword: (isResettingPassword: boolean) => void;
   handleSetResetConfirmNewPassword: (resetConfirmNewPassword: string) => void;
   handleSetResetCurrentPassword: (resetCurrentPassword: string) => void;
   handleSetResetNewPassword: (resetNewPassword: string) => void;
+  isEditingProfile: boolean;
   isLoggedIn: boolean;
   isResettingPassword: boolean;
   name: string;
@@ -44,17 +57,25 @@ export interface ProfileProps {
 
 const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
   const {
+    editEmail,
+    editName,
     email,
     formError,
+    handleCancelEditProfile,
     handleCancelResetPassword,
     handleClearFormError,
+    handleClickEditProfile,
+    handleEditProfile,
     handleLogOut,
     handleLogOutAll,
     handleResetPassword,
+    handleSetEditEmail,
+    handleSetEditName,
     handleSetIsResettingPassword,
     handleSetResetConfirmNewPassword,
     handleSetResetCurrentPassword,
     handleSetResetNewPassword,
+    isEditingProfile,
     isLoggedIn,
     isResettingPassword,
     name,
@@ -132,7 +153,47 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
             </>
           )}
 
-          {!isResettingPassword && (
+          {!isResettingPassword && isEditingProfile && (
+            <>
+              <Input
+                icon="account_circle"
+                id="name"
+                label="Name"
+                onChange={(e) => handleSetEditName(e.target.value)}
+                type="text"
+                value={editName}
+              />
+
+              <Input
+                icon="email"
+                id="email"
+                label="Email Address"
+                onChange={(e) => handleSetEditEmail(e.target.value)}
+                type="email"
+                value={editEmail}
+              />
+
+              <div className="profile__container__actions">
+                <Button
+                  id="cancel"
+                  label="Cancel"
+                  onClick={() => handleCancelEditProfile()}
+                  style="secondary"
+                  type="button"
+                />
+                {/* TODO - Disabled State */}
+                <Button
+                  id="edit"
+                  label="Confirm edit"
+                  onClick={() => handleEditProfile()}
+                  style="danger"
+                  type="button"
+                />
+              </div>
+            </>
+          )}
+
+          {!isResettingPassword && !isEditingProfile && (
             <>
               <Input
                 disabled
@@ -158,7 +219,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
                 <Button
                   id="edit"
                   label="Edit profile"
-                  onClick={() => {}}
+                  onClick={() => handleClickEditProfile()}
                   style="primary"
                   type="button"
                 />
@@ -199,8 +260,11 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
+  editEmail: state.user.editEmail,
+  editName: state.user.editName,
   email: state.user.email,
   formError: state.user.formError,
+  isEditingProfile: state.user.isEditingProfile,
   isLoggedIn: state.user.isLoggedIn,
   isResettingPassword: state.user.isResettingPassword,
   name: state.user.name,
@@ -210,11 +274,16 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  handleCancelEditProfile: () => dispatch(cancelEditProfile()),
   handleCancelResetPassword: () => dispatch(cancelResetPassword()),
   handleClearFormError: () => dispatch(setFormError("")),
+  handleClickEditProfile: () => dispatch(clickEditProfile()),
+  handleEditProfile: () => dispatch(editProfile()),
   handleLogOut: () => dispatch(logOut()),
   handleLogOutAll: () => dispatch(logOutAll()),
   handleResetPassword: () => dispatch(resetPassword()),
+  handleSetEditEmail: (editEmail: string) => dispatch(setEditEmail(editEmail)),
+  handleSetEditName: (editName: string) => dispatch(setEditName(editName)),
   handleSetIsResettingPassword: (isResettingPassword: boolean) =>
     dispatch(setIsResettingPassword(isResettingPassword)),
   handleSetResetConfirmNewPassword: (resetConfirmNewPassword: string) =>
