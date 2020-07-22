@@ -140,6 +140,8 @@ export interface ServerResponseUser {
 
 export type PaginationNavigationType = "left" | "right";
 
+export type RequestMethod = "GET" | "PATCH" | "POST";
+
 export type RootState = {
   application: ApplicationState;
   user: UserState;

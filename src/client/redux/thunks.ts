@@ -26,7 +26,7 @@ import {
   setResetCurrentPassword,
   setResetNewPassword,
 } from "./actions/user";
-import { getData, patchData, postData, unique } from "../util";
+import { fetchServerData, unique } from "../util";
 
 import {
   AppThunk,
@@ -42,7 +42,7 @@ import {
 
 export const getJobs = (): AppThunk => async (dispatch) => {
   try {
-    const jobs: Job[] = await getData("/jobs");
+    const jobs: Job[] = await fetchServerData("/jobs", "GET");
 
     dispatch(setJobs(jobs));
     dispatch(setJobsFetchedAt(new Date().toString()));
@@ -88,7 +88,7 @@ export const searchJobs = (
       )}&description=${encodeURI(search)}&location=${encodeURI(
         location.value
       )}`;
-      const data = await getData(url);
+      const data = await fetchServerData(url, "GET");
       jobs.push(...data);
     })
   );
@@ -97,7 +97,7 @@ export const searchJobs = (
     const url = `/jobs/search?full_time=${encodeURI(
       fullTime.toString()
     )}&description=${encodeURI(search)}`;
-    const data = await getData(url);
+    const data = await fetchServerData(url, "GET");
     jobs.push(...data);
   }
 
@@ -124,8 +124,9 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
   const { user } = getState();
   const { email, password } = user;
 
-  const response: LoginResponse = await postData(
+  const response: LoginResponse = await fetchServerData(
     "/user/login",
+    "POST",
     JSON.stringify({ email, password })
   );
 
@@ -155,8 +156,9 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
     return;
   }
 
-  const response: SignupResponse = await postData(
+  const response: SignupResponse = await fetchServerData(
     "/user",
+    "POST",
     JSON.stringify({ confirmPassword, email, name, password })
   );
 
@@ -216,7 +218,7 @@ export const checkAuthentication = (): AppThunk => async (dispatch) => {
 
 export const logOut = (): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
-  const response = await postData("/user/logout", undefined);
+  const response = await fetchServerData("/user/logout", "POST");
 
   if (response.error) {
     // TODO - What to do if this errors
@@ -236,7 +238,7 @@ export const logOut = (): AppThunk => async (dispatch) => {
 
 export const logOutAll = (): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
-  const response = await postData("/user/logout/all", undefined);
+  const response = await fetchServerData("/user/logout/all", "POST");
 
   if (response.error) {
     // TODO - What to do if this errors
@@ -274,8 +276,9 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
   }
 
   try {
-    const response: ResetPasswordResponse = await patchData(
+    const response: ResetPasswordResponse = await fetchServerData(
       "/user/me",
+      "PATCH",
       JSON.stringify({
         currentPassword: resetCurrentPassword,
         newPassword: resetNewPassword,
@@ -333,8 +336,9 @@ export const editProfile = (): AppThunk => async (dispatch, getState) => {
 
   const { editEmail, editName } = state.user;
   try {
-    const response: EditProfileResponse = await patchData(
+    const response: EditProfileResponse = await fetchServerData(
       "/user/me",
+      "PATCH",
       JSON.stringify({ email: editEmail, name: editName })
     );
 
