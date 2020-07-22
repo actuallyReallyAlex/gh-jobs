@@ -1,5 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import Button from "./Button";
 import Input from "./Input";
@@ -84,6 +85,15 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
           id="log-out-all"
           label="Log out of all devices"
           onClick={() => handleLogOutAll()}
+          style="danger"
+          type="button"
+        />
+      </div>
+
+      <div className="profile__container__actions">
+        <Button
+          id="delete-profile"
+          label="Delete profile"
           style="danger"
           type="button"
         />
