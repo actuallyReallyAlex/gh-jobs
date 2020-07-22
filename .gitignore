@@ -3,3 +3,4 @@ build/
 dist/
 cypress/screenshots/
 cypress/videos/
+.env-cmdrc.json
