@@ -836,6 +836,7 @@ input::placeholder {
 }
 
 .button__primary,
+.button__secondary,
 .button__danger {
   border: 3px solid rgba(255, 255, 255, 1);
   border-bottom-right-radius: 0.25rem;
@@ -857,6 +858,10 @@ input::placeholder {
 
 .button__primary {
   background-color: rgba(27, 108, 205, 1);
+}
+
+.button__secondary {
+  background-color: #b9bdcf;
 }
 
 .button__danger {
