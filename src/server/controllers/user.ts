@@ -56,8 +56,9 @@ class UserController {
 
           return res.status(201).send(newUser);
         } catch (error) {
-          // eslint-disable-next-line no-console
-          console.error(error);
+          if (process.env.NODE_ENV !== "test") {
+            console.error(error);
+          }
 
           if (error.errors.email) {
             return res.status(400).send({ error: error.errors.email.message });
@@ -81,7 +82,9 @@ class UserController {
         try {
           return res.send(req.user);
         } catch (error) {
-          console.error(error);
+          if (process.env.NODE_ENV !== "test") {
+            console.error(error);
+          }
           return res.status(500).send({ error });
         }
       }
@@ -118,8 +121,9 @@ class UserController {
 
           return res.send(user);
         } catch (error) {
-          // eslint-disable-next-line no-console
-          console.error(error);
+          if (process.env.NODE_ENV !== "test") {
+            console.error(error);
+          }
           return res.status(500).send({});
         }
       }
@@ -139,8 +143,9 @@ class UserController {
 
           return res.send({});
         } catch (error) {
-          // eslint-disable-next-line no-console
-          console.error(error);
+          if (process.env.NODE_ENV !== "test") {
+            console.error(error);
+          }
           return res.status(500).send({ error });
         }
       }
@@ -158,8 +163,9 @@ class UserController {
 
           return res.send({});
         } catch (error) {
-          // eslint-disable-next-line no-console
-          console.error(error);
+          if (process.env.NODE_ENV !== "test") {
+            console.error(error);
+          }
           return res.status(500).send({ error });
         }
       }
@@ -224,8 +230,9 @@ class UserController {
               .send({ error: error.errors.password.message });
           }
 
-          // eslint-disable-next-line no-console
-          console.error(error);
+          if (process.env.NODE_ENV !== "test") {
+            console.error(error);
+          }
 
           return res.status(500).send({ error });
         }
