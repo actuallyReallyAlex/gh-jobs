@@ -7,34 +7,19 @@ import Notification from "../components/Notification";
 import Input from "../components/Input";
 
 import { setNotificationMessage } from "../redux/actions/application";
-import {
-  setEditEmail,
-  setEditName,
-  setIsResettingPassword,
-} from "../redux/actions/user";
-import {
-  cancelEditProfile,
-  clickEditProfile,
-  editProfile,
-  logOut,
-  logOutAll,
-} from "../redux/thunks";
+import { setIsResettingPassword } from "../redux/actions/user";
+import { clickEditProfile, logOut, logOutAll } from "../redux/thunks";
 
 import { RootState } from "../types";
+import ProfileEdit from "../components/ProfileEdit";
 import ProfileReset from "../components/ProfileReset";
 
 export interface ProfileProps {
-  editEmail: string;
-  editName: string;
   email: string;
-  handleCancelEditProfile: () => void;
   handleClearFormError: () => void;
   handleClickEditProfile: () => void;
-  handleEditProfile: () => void;
   handleLogOut: () => void;
   handleLogOutAll: () => void;
-  handleSetEditEmail: (editEmail: string) => void;
-  handleSetEditName: (editName: string) => void;
   handleSetIsResettingPassword: (isResettingPassword: boolean) => void;
   isEditingProfile: boolean;
   isLoggedIn: boolean;
@@ -45,17 +30,11 @@ export interface ProfileProps {
 
 const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
   const {
-    editEmail,
-    editName,
     email,
-    handleCancelEditProfile,
     handleClearFormError,
     handleClickEditProfile,
-    handleEditProfile,
     handleLogOut,
     handleLogOutAll,
-    handleSetEditEmail,
-    handleSetEditName,
     handleSetIsResettingPassword,
     isEditingProfile,
     isLoggedIn,
@@ -91,49 +70,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
 
           {isResettingPassword && <ProfileReset />}
 
-          {!isResettingPassword && isEditingProfile && (
-            <>
-              <Input
-                icon="account_circle"
-                id="edit-name"
-                label="Name"
-                onChange={(e) => handleSetEditName(e.target.value)}
-                type="text"
-                value={editName}
-              />
-
-              <Input
-                icon="email"
-                id="edit-email"
-                label="Email Address"
-                onChange={(e) => handleSetEditEmail(e.target.value)}
-                type="email"
-                value={editEmail}
-              />
-
-              <div className="profile__container__actions">
-                <Button
-                  id="cancel"
-                  label="Cancel"
-                  onClick={() => handleCancelEditProfile()}
-                  style="secondary"
-                  type="button"
-                />
-                <Button
-                  disabled={
-                    editName === "" ||
-                    (editName === name && editEmail === email) ||
-                    editEmail === ""
-                  }
-                  id="edit-confirm"
-                  label="Confirm edit"
-                  onClick={() => handleEditProfile()}
-                  style="danger"
-                  type="button"
-                />
-              </div>
-            </>
-          )}
+          {!isResettingPassword && isEditingProfile && <ProfileEdit />}
 
           {!isResettingPassword && !isEditingProfile && (
             <>
@@ -200,8 +137,6 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  editEmail: state.user.editEmail,
-  editName: state.user.editName,
   email: state.user.email,
   isEditingProfile: state.user.isEditingProfile,
   isLoggedIn: state.user.isLoggedIn,
@@ -211,14 +146,10 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleCancelEditProfile: () => dispatch(cancelEditProfile()),
   handleClearFormError: () => dispatch(setNotificationMessage("")),
   handleClickEditProfile: () => dispatch(clickEditProfile()),
-  handleEditProfile: () => dispatch(editProfile()),
   handleLogOut: () => dispatch(logOut()),
   handleLogOutAll: () => dispatch(logOutAll()),
-  handleSetEditEmail: (editEmail: string) => dispatch(setEditEmail(editEmail)),
-  handleSetEditName: (editName: string) => dispatch(setEditName(editName)),
   handleSetIsResettingPassword: (isResettingPassword: boolean) =>
     dispatch(setIsResettingPassword(isResettingPassword)),
 });
