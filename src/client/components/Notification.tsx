@@ -14,7 +14,6 @@ export interface NotificationProps {
   type: NotificationType;
 }
 
-// TODO - Need to reset message after like 5 seconds or so
 const Notification: React.SFC<NotificationProps> = (
   props: NotificationProps
 ) => {

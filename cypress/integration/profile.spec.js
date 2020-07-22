@@ -79,6 +79,20 @@ context("Profile", () => {
     cy.get("#email").should("have.value", "bobtest@email.com");
   });
 
+  it("Should not allow to submit edit profile form if information is not changed", () => {
+    cy.get("#edit").click();
+    cy.get("h1").should("have.text", "Edit Profile");
+    cy.get("#edit-confirm").should("be.disabled");
+  });
+
+  it("Should not allow to submit edit profile form if information is blank", () => {
+    cy.get("#edit").click();
+    cy.get("h1").should("have.text", "Edit Profile");
+    cy.get("#edit-name").clear();
+    cy.get("#edit-email").clear();
+    cy.get("#edit-confirm").should("be.disabled");
+  });
+
   it("Should not allow to set newEmail to an invalid email", () => {
     cy.get("#edit").click();
     cy.get("h1").should("have.text", "Edit Profile");
@@ -123,6 +137,21 @@ context("Profile", () => {
       "have.text",
       "Password reset successfully."
     );
+  });
+
+  it("Should not allow to submit reset password form if information is not changed", () => {
+    cy.get("#reset-password").click();
+    cy.get("h1").should("have.text", "Reset Password");
+    cy.get("#reset").should("be.disabled");
+  });
+
+  it("Should not allow to submit reset password form if information is blank", () => {
+    cy.get("#reset-password").click();
+    cy.get("h1").should("have.text", "Reset Password");
+    cy.get("#current-password").clear();
+    cy.get("#new-password").clear();
+    cy.get("#confirm-new-password").clear();
+    cy.get("#reset").should("be.disabled");
   });
 
   it("Should not be able to reset password when using invalid credentials", () => {

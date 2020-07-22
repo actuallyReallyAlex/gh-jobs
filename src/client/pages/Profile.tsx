@@ -151,8 +151,12 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
                   style="secondary"
                   type="button"
                 />
-                {/* TODO - Disabled State */}
                 <Button
+                  disabled={
+                    resetCurrentPassword === "" ||
+                    resetNewPassword === "" ||
+                    resetConfirmNewPassword === ""
+                  }
                   id="reset"
                   label="Confirm reset"
                   onClick={() => handleResetPassword()}
@@ -191,8 +195,12 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
                   style="secondary"
                   type="button"
                 />
-                {/* TODO - Disabled State */}
                 <Button
+                  disabled={
+                    editName === "" ||
+                    (editName === name && editEmail === email) ||
+                    editEmail === ""
+                  }
                   id="edit-confirm"
                   label="Confirm edit"
                   onClick={() => handleEditProfile()}
