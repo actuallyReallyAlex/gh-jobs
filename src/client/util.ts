@@ -4,6 +4,7 @@ export const fetchServerData = async (
   url: string,
   method: RequestMethod,
   body?: string
+  // eslint-disable-next-line
 ): Promise<any> => {
   const response = await fetch(url, {
     body: body ? body : undefined,
@@ -41,6 +42,7 @@ export const validURL = (str: string): boolean => {
  * Loads the state of the application from localStorage if present.
  * @returns {object}
  */
+// eslint-disable-next-line
 export const loadState = (): any => {
   try {
     const serializedState = localStorage.getItem("state");

@@ -11,7 +11,7 @@ export interface NavigationProps {
 
 const Navigation: React.SFC<NavigationProps> = (props: NavigationProps) => {
   const { isLoggedIn } = props;
-  let { pathname } = useLocation();
+  const { pathname } = useLocation();
 
   return (
     <nav id="navigation">

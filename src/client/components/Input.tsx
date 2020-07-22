@@ -8,7 +8,7 @@ export interface InputProps {
   icon?: string;
   id: string;
   label: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   required?: boolean;
   type?: InputType;
@@ -42,7 +42,7 @@ const Input: React.SFC<InputProps> = (props: InputProps) => {
           autoComplete={autoComplete ? autoComplete : undefined}
           disabled={disabled ? disabled : undefined}
           id={id}
-          onChange={onChange}
+          onChange={onChange ? onChange : undefined}
           placeholder={placeholder}
           required={required ? required : undefined}
           type={type ? type : "text"}

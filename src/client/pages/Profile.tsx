@@ -218,7 +218,6 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
                 icon="account_circle"
                 id="name"
                 label="Name"
-                onChange={() => {}}
                 type="text"
                 value={name}
               />
@@ -228,7 +227,6 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
                 icon="email"
                 id="email"
                 label="Email Address"
-                onChange={() => {}}
                 type="email"
                 value={email}
               />

@@ -1,4 +1,4 @@
-import express, { Request, Router } from "express";
+import { Request, Router } from "express";
 import { Document, Model } from "mongoose";
 
 export interface AuthenticatedRequest extends Request {
