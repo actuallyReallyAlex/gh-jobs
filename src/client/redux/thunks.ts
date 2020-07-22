@@ -3,37 +3,40 @@ import isWithinInterval from "date-fns/isWithinInterval";
 import startOfToday from "date-fns/startOfToday";
 
 import {
+  setCurrentJobs,
+  setCurrentPage,
+  setIsLoading,
   setJobs,
   setJobsFetchedAt,
-  setCurrentJobs,
-  setIsLoading,
-  setCurrentPage,
-  setTotalPages,
   setSearchValue,
+  setTotalPages,
 } from "./actions/application";
 import {
+  setConfirmPassword,
+  setEditEmail,
+  setEditName,
+  setEmail,
+  setIsEditingProfile,
   setIsLoggedIn,
+  setIsResettingPassword,
   setFormError,
   setName,
-  setEmail,
   setPassword,
-  setConfirmPassword,
   setResetConfirmNewPassword,
   setResetCurrentPassword,
   setResetNewPassword,
-  setIsResettingPassword,
-  setIsEditingProfile,
-  setEditEmail,
-  setEditName,
 } from "./actions/user";
-import { getData, unique, patchData, postData } from "../util";
+import { getData, patchData, postData, unique } from "../util";
 
 import {
   AppThunk,
+  EditProfileResponse,
   Job,
   LocationOption,
   LoginResponse,
+  ResetPasswordResponse,
   RootState,
+  ServerResponseUser,
   SignupResponse,
 } from "../types";
 
@@ -132,7 +135,6 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
     return;
   }
 
-  // TODO - Set user info
   dispatch(setIsLoggedIn(true));
   dispatch(setEmail(response.email));
   dispatch(setName(response.name));
@@ -164,7 +166,6 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
     return;
   }
 
-  // TODO - Set user info
   dispatch(setIsLoggedIn(true));
   dispatch(setEmail(response.email));
   dispatch(setName(response.name));
@@ -201,7 +202,7 @@ export const checkAuthentication = (): AppThunk => async (dispatch) => {
   try {
     const response = await fetch("/user/me");
     if (response.status === 200) {
-      const user: LoginResponse = await response.json();
+      const user: ServerResponseUser = await response.json();
       dispatch(setName(user.name));
       dispatch(setEmail(user.email));
       dispatch(setIsLoggedIn(true));
@@ -273,7 +274,7 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
   }
 
   try {
-    const response: LoginResponse = await patchData(
+    const response: ResetPasswordResponse = await patchData(
       "/user/me",
       JSON.stringify({
         currentPassword: resetCurrentPassword,
@@ -332,7 +333,7 @@ export const editProfile = (): AppThunk => async (dispatch, getState) => {
 
   const { editEmail, editName } = state.user;
   try {
-    const response: LoginResponse = await patchData(
+    const response: EditProfileResponse = await patchData(
       "/user/me",
       JSON.stringify({ email: editEmail, name: editName })
     );

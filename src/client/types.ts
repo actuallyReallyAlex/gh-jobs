@@ -121,14 +121,15 @@ export interface LocationOption {
   value: string;
 }
 
-// TODO - Rename/Refactor this - it's not *just* a LoginResponse. It's kind of an everythign response
-export type LoginResponse = LoginResponseError & LoginResponseSuccess;
+export type EditProfileResponse = ServerResponseError & ServerResponseUser;
+export type LoginResponse = ServerResponseError & ServerResponseUser;
+export type ResetPasswordResponse = ServerResponseError & ServerResponseUser;
 
-export interface LoginResponseError {
+export interface ServerResponseError {
   error: string;
 }
 
-export interface LoginResponseSuccess {
+export interface ServerResponseUser {
   createdAt: string;
   email: string;
   name: string;
