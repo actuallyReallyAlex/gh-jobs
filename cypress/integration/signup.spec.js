@@ -187,4 +187,14 @@ context("Signup - Error", () => {
       "Password should contain at least 1 special character."
     );
   });
+
+  it("Should not allow submission of form when 'confirmPassword' and 'password' do not match", () => {
+    cy.get("#name").type("Bob Test");
+    cy.get("#email").type("bobtest2@email.com");
+    cy.get("#password").type("Red123456!!!");
+    cy.get("#confirm-password").type("Blue123456!!!");
+    cy.get("#signup").click();
+
+    cy.get("#form-error-text").should("have.text", "Passwords do not match.");
+  });
 });

@@ -26,10 +26,14 @@ class UserController {
           const existingUser = await User.findOne({ email: req.body.email });
 
           if (existingUser) {
-            return res.send({
+            return res.status(400).send({
               error:
                 "A user with that email address already exists. Please try logging in instead.",
             });
+          }
+
+          if (req.body.confirmPassword !== req.body.password) {
+            return res.status(400).send({ error: "Passwords do not match." });
           }
 
           const newUser = new User({

@@ -147,6 +147,12 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
   const { user } = getState();
   const { confirmPassword, email, name, password } = user;
 
+  if (confirmPassword !== password) {
+    dispatch(setFormError("Passwords do not match."));
+    dispatch(setIsLoading(false));
+    return;
+  }
+
   const response: SignupResponse = await postData(
     "/user",
     JSON.stringify({ confirmPassword, email, name, password })
