@@ -181,6 +181,7 @@ export interface UserState {
   editEmail: string;
   editName: string;
   email: string;
+  isDeletingProfile: boolean;
   isEditingProfile: boolean;
   isLoggedIn: false;
   isResettingPassword: boolean;
