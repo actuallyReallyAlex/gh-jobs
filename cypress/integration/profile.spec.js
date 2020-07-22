@@ -139,6 +139,20 @@ context("Profile", () => {
     cy.get("#form-error-text").should("have.text", "Invalid credentials.");
   });
 
+  it("Should not be able to reset password if passwords do not match", () => {
+    cy.get("#reset-password").click();
+    cy.get("h1").should("have.text", "Reset Password");
+    cy.get("#current-password").type("Red123456!!!");
+    cy.get("#new-password").type("Blue123456!!!");
+    cy.get("#confirm-new-password").type("Yellow123456!!!");
+    cy.get("#reset").click();
+
+    cy.wait(1500);
+
+    cy.get("h1").should("have.text", "Reset Password");
+    cy.get("#form-error-text").should("have.text", "Passwords do not match.");
+  });
+
   it("Should be able to log out on this device", () => {
     cy.get("#log-out").click();
     cy.get("#nav-login").should("exist");

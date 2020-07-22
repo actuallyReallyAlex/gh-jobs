@@ -265,7 +265,12 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
   } = state.user;
 
   // TODO - Validation
-  // TODO - Make sure `resetConfirmNewPassword` matches `resetNewPassword`
+
+  if (resetConfirmNewPassword !== resetNewPassword) {
+    dispatch(setFormError("Passwords do not match."));
+    dispatch(setIsLoading(false));
+    return;
+  }
 
   try {
     const response: LoginResponse = await patchData(
