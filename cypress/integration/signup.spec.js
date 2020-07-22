@@ -77,7 +77,7 @@ context("Signup - Error", () => {
     cy.get("#signup").click();
     cy.wait(1000);
 
-    cy.get("#form-error-text").should(
+    cy.get("#notification-text").should(
       "have.text",
       "A user with that email address already exists. Please try logging in instead."
     );
@@ -107,7 +107,7 @@ context("Signup - Error", () => {
     cy.get("#confirm-password").type("Red123456!");
     cy.get("#signup").click();
 
-    cy.get("#form-error-text").should("have.text", "Email is invalid.");
+    cy.get("#notification-text").should("have.text", "Email is invalid.");
   });
 
   it("Should not allow password to be less than 7 characters long", () => {
@@ -117,7 +117,7 @@ context("Signup - Error", () => {
     cy.get("#confirm-password").type("Red1!");
     cy.get("#signup").click();
 
-    cy.get("#form-error-text").should(
+    cy.get("#notification-text").should(
       "have.text",
       "Password must be a minimum of 7 characters."
     );
@@ -130,7 +130,7 @@ context("Signup - Error", () => {
     cy.get("#confirm-password").type("Redpassword123!");
     cy.get("#signup").click();
 
-    cy.get("#form-error-text").should(
+    cy.get("#notification-text").should(
       "have.text",
       `Password can't contain the string "password".`
     );
@@ -143,7 +143,7 @@ context("Signup - Error", () => {
     cy.get("#confirm-password").type("red123456!");
     cy.get("#signup").click();
 
-    cy.get("#form-error-text").should(
+    cy.get("#notification-text").should(
       "have.text",
       `Password should contain at least 1 uppercase letter.`
     );
@@ -156,7 +156,7 @@ context("Signup - Error", () => {
     cy.get("#confirm-password").type("RED123456!");
     cy.get("#signup").click();
 
-    cy.get("#form-error-text").should(
+    cy.get("#notification-text").should(
       "have.text",
       `Password should contain at least 1 lowercase letter.`
     );
@@ -169,7 +169,7 @@ context("Signup - Error", () => {
     cy.get("#confirm-password").type("RedRedRed!");
     cy.get("#signup").click();
 
-    cy.get("#form-error-text").should(
+    cy.get("#notification-text").should(
       "have.text",
       "Password should contain at least 1 number."
     );
@@ -182,7 +182,7 @@ context("Signup - Error", () => {
     cy.get("#confirm-password").type("Red123456");
     cy.get("#signup").click();
 
-    cy.get("#form-error-text").should(
+    cy.get("#notification-text").should(
       "have.text",
       "Password should contain at least 1 special character."
     );
@@ -195,6 +195,6 @@ context("Signup - Error", () => {
     cy.get("#confirm-password").type("Blue123456!!!");
     cy.get("#signup").click();
 
-    cy.get("#form-error-text").should("have.text", "Passwords do not match.");
+    cy.get("#notification-text").should("have.text", "Passwords do not match.");
   });
 });

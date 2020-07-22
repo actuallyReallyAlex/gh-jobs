@@ -15,6 +15,8 @@ export interface ApplicationState {
   jobs: Job[];
   jobsFetchedAt: string;
   locationSearch: string;
+  notificationMessage: string;
+  notificationType: NotificationType;
   searchValue: string;
   totalPages: number;
 }
@@ -29,6 +31,8 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 export type ButtonStyle = "primary" | "secondary" | "danger";
 
 export type ButtonType = "button" | "reset" | "submit";
+
+export type EditProfileResponse = ServerResponseError & ServerResponseUser;
 
 export type InputAutoComplete =
   | "off"
@@ -121,9 +125,22 @@ export interface LocationOption {
   value: string;
 }
 
-export type EditProfileResponse = ServerResponseError & ServerResponseUser;
 export type LoginResponse = ServerResponseError & ServerResponseUser;
+
+export type NotificationType = "error" | "info" | "warning";
+
+export type PaginationNavigationType = "left" | "right";
+
+export type RequestMethod = "GET" | "PATCH" | "POST";
+
 export type ResetPasswordResponse = ServerResponseError & ServerResponseUser;
+
+export type RootState = {
+  application: ApplicationState;
+  user: UserState;
+};
+
+export type SearchType = "description" | "location";
 
 export interface ServerResponseError {
   error: string;
@@ -137,17 +154,6 @@ export interface ServerResponseUser {
   __v: number;
   _id: string;
 }
-
-export type PaginationNavigationType = "left" | "right";
-
-export type RequestMethod = "GET" | "PATCH" | "POST";
-
-export type RootState = {
-  application: ApplicationState;
-  user: UserState;
-};
-
-export type SearchType = "description" | "location";
 
 export type SignupResponse = SignupResponseError & SignupResponseSuccess;
 
@@ -175,7 +181,6 @@ export interface UserState {
   editEmail: string;
   editName: string;
   email: string;
-  formError: string;
   isEditingProfile: boolean;
   isLoggedIn: false;
   isResettingPassword: boolean;

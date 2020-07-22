@@ -10,6 +10,8 @@ import {
   setJobsFetchedAt,
   setSearchValue,
   setTotalPages,
+  setNotificationMessage,
+  setNotificationType,
 } from "./actions/application";
 import {
   setConfirmPassword,
@@ -19,7 +21,6 @@ import {
   setIsEditingProfile,
   setIsLoggedIn,
   setIsResettingPassword,
-  setFormError,
   setName,
   setPassword,
   setResetConfirmNewPassword,
@@ -119,7 +120,7 @@ export const pagination = (pageNumber: number): AppThunk => (dispach) => {
 
 export const logIn = (): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoading(true));
-  dispatch(setFormError(""));
+  dispatch(setNotificationMessage(""));
 
   const { user } = getState();
   const { email, password } = user;
@@ -131,7 +132,8 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
   );
 
   if (response.error) {
-    dispatch(setFormError(response.error));
+    dispatch(setNotificationMessage(response.error));
+    dispatch(setNotificationType("error"));
     dispatch(setIsLoading(false));
     return;
   }
@@ -145,13 +147,14 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
 
 export const signup = (): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoading(true));
-  dispatch(setFormError(""));
+  dispatch(setNotificationMessage(""));
 
   const { user } = getState();
   const { confirmPassword, email, name, password } = user;
 
   if (confirmPassword !== password) {
-    dispatch(setFormError("Passwords do not match."));
+    dispatch(setNotificationMessage("Passwords do not match."));
+    dispatch(setNotificationType("error"));
     dispatch(setIsLoading(false));
     return;
   }
@@ -163,7 +166,8 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
   );
 
   if (response.error) {
-    dispatch(setFormError(response.error));
+    dispatch(setNotificationMessage(response.error));
+    dispatch(setNotificationType("error"));
     dispatch(setIsLoading(false));
     return;
   }
@@ -228,7 +232,7 @@ export const logOut = (): AppThunk => async (dispatch) => {
 
   dispatch(setConfirmPassword(""));
   dispatch(setEmail(""));
-  dispatch(setFormError(""));
+  dispatch(setNotificationMessage(""));
   dispatch(setName(""));
   dispatch(setPassword(""));
   dispatch(setIsLoggedIn(false));
@@ -248,7 +252,7 @@ export const logOutAll = (): AppThunk => async (dispatch) => {
 
   dispatch(setConfirmPassword(""));
   dispatch(setEmail(""));
-  dispatch(setFormError(""));
+  dispatch(setNotificationMessage(""));
   dispatch(setName(""));
   dispatch(setPassword(""));
   dispatch(setIsLoggedIn(false));
@@ -270,7 +274,8 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
   // TODO - Validation
 
   if (resetConfirmNewPassword !== resetNewPassword) {
-    dispatch(setFormError("Passwords do not match."));
+    dispatch(setNotificationMessage("Passwords do not match."));
+    dispatch(setNotificationType("error"));
     dispatch(setIsLoading(false));
     return;
   }
@@ -286,12 +291,14 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
     );
 
     if (response.error) {
-      dispatch(setFormError(response.error));
+      dispatch(setNotificationMessage(response.error));
+      dispatch(setNotificationType("error"));
       dispatch(setIsLoading(false));
       return;
     }
 
-    dispatch(setFormError("Password reset successfully."));
+    dispatch(setNotificationMessage("Password reset successfully."));
+    dispatch(setNotificationType("info"));
     dispatch(setResetConfirmNewPassword(""));
     dispatch(setResetCurrentPassword(""));
     dispatch(setResetNewPassword(""));
@@ -299,7 +306,8 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
-    dispatch(setFormError(error));
+    dispatch(setNotificationMessage(error));
+    dispatch(setNotificationType("error"));
     dispatch(setIsLoading(false));
   }
 };
@@ -308,7 +316,7 @@ export const cancelResetPassword = (): AppThunk => (dispatch) => {
   dispatch(setResetConfirmNewPassword(""));
   dispatch(setResetCurrentPassword(""));
   dispatch(setResetNewPassword(""));
-  dispatch(setFormError(""));
+  dispatch(setNotificationMessage(""));
   dispatch(setIsResettingPassword(false));
 };
 
@@ -317,7 +325,7 @@ export const clickEditProfile = (): AppThunk => (dispatch, getState) => {
 
   const { email, name } = state.user;
 
-  dispatch(setFormError(""));
+  dispatch(setNotificationMessage(""));
   dispatch(setEditEmail(email));
   dispatch(setEditName(name));
   dispatch(setIsEditingProfile(true));
@@ -326,7 +334,7 @@ export const clickEditProfile = (): AppThunk => (dispatch, getState) => {
 export const cancelEditProfile = (): AppThunk => (dispatch) => {
   dispatch(setEditEmail(""));
   dispatch(setEditName(""));
-  dispatch(setFormError(""));
+  dispatch(setNotificationMessage(""));
   dispatch(setIsEditingProfile(false));
 };
 
@@ -343,12 +351,16 @@ export const editProfile = (): AppThunk => async (dispatch, getState) => {
     );
 
     if (response.error) {
-      dispatch(setFormError(response.error));
+      dispatch(setNotificationMessage(response.error));
+      dispatch(setNotificationType("error"));
       dispatch(setIsLoading(false));
       return;
     }
 
-    dispatch(setFormError("Profile information updated successfully."));
+    dispatch(
+      setNotificationMessage("Profile information updated successfully.")
+    );
+    dispatch(setNotificationType("info"));
     dispatch(setEditEmail(""));
     dispatch(setEditName(""));
     dispatch(setEmail(response.email));
@@ -357,7 +369,8 @@ export const editProfile = (): AppThunk => async (dispatch, getState) => {
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
-    dispatch(setFormError(error));
+    dispatch(setNotificationMessage(error));
+    dispatch(setNotificationType("error"));
     dispatch(setIsLoading(false));
   }
 };

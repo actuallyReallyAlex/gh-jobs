@@ -4,7 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 
 import Button from "../components/Button";
 import Copyright from "../components/Copyright";
-import FormError from "../components/FormError";
+import Notification from "../components/Notification";
 import Input from "../components/Input";
 
 import { setEmail, setPassword } from "../redux/actions/user";
@@ -14,7 +14,7 @@ import { RootState } from "../types";
 
 export interface LoginProps {
   email: string;
-  formError: string;
+  notificationMessage: string;
   handleEmailChange: (email: string) => void;
   handleLogIn: () => void;
   handlePasswordChange: (password: string) => void;
@@ -25,7 +25,7 @@ export interface LoginProps {
 const Login: React.SFC<LoginProps> = (props: LoginProps) => {
   const {
     email,
-    formError,
+    notificationMessage,
     handleEmailChange,
     handleLogIn,
     handlePasswordChange,
@@ -51,7 +51,9 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
             <h1>Login</h1>
           </div>
 
-          {formError && <FormError error={formError} />}
+          {notificationMessage && (
+            <Notification message={notificationMessage} type="info" />
+          )}
 
           <Input
             autoComplete="email"
@@ -95,7 +97,7 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
 
 const mapStateToProps = (state: RootState) => ({
   email: state.user.email,
-  formError: state.user.formError,
+  notificationMessage: state.application.notificationMessage,
   isLoggedIn: state.user.isLoggedIn,
   password: state.user.password,
 });

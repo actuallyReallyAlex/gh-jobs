@@ -6,6 +6,8 @@ import {
   SET_JOBS,
   SET_JOBS_FETCHED_AT,
   SET_LOCATION_SEARCH,
+  SET_NOTIFICATION_MESSAGE,
+  SET_NOTIFICATION_TYPE,
   SET_SEARCH_VALUE,
   SET_TOTAL_PAGES,
 } from "../actionTypes";
@@ -20,6 +22,8 @@ export const initialState: ApplicationState = {
   jobs: [],
   jobsFetchedAt: null,
   locationSearch: "",
+  notificationMessage: "",
+  notificationType: "info",
   searchValue: "",
   totalPages: 1,
 };
@@ -49,6 +53,15 @@ const reducer = (
     }
     case SET_LOCATION_SEARCH: {
       return { ...state, locationSearch: action.payload.locationSearch };
+    }
+    case SET_NOTIFICATION_MESSAGE: {
+      return {
+        ...state,
+        notificationMessage: action.payload.notificationMessage,
+      };
+    }
+    case SET_NOTIFICATION_TYPE: {
+      return { ...state, notificationType: action.payload.notificationType };
     }
     case SET_SEARCH_VALUE: {
       return { ...state, searchValue: action.payload.searchValue };

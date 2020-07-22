@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 
 import Button from "../components/Button";
 import Copyright from "../components/Copyright";
-import FormError from "../components/FormError";
+import Notification from "../components/Notification";
 import Input from "../components/Input";
 
 import {
@@ -20,7 +20,7 @@ import { RootState } from "../types";
 export interface SignupProps {
   confirmPassword: string;
   email: string;
-  formError: string;
+  notificationMessage: string;
   handleConfirmPasswordChange: (confirmPassword: string) => void;
   handleEmailChange: (email: string) => void;
   handleNameChange: (name: string) => void;
@@ -35,7 +35,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
   const {
     confirmPassword,
     email,
-    formError,
+    notificationMessage,
     handleConfirmPasswordChange,
     handleEmailChange,
     handleNameChange,
@@ -64,7 +64,9 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
             <h1>Create Account</h1>
           </div>
 
-          {formError && <FormError error={formError} />}
+          {notificationMessage && (
+            <Notification message={notificationMessage} type="info" />
+          )}
 
           <Input
             autoComplete="name"
@@ -127,7 +129,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
 const mapStateToProps = (state: RootState) => ({
   confirmPassword: state.user.confirmPassword,
   email: state.user.email,
-  formError: state.user.formError,
+  notificationMessage: state.application.notificationMessage,
   isLoggedIn: state.user.isLoggedIn,
   name: state.user.name,
   password: state.user.password,

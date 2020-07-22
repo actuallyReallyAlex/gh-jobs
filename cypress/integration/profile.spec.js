@@ -43,14 +43,14 @@ context("Profile", () => {
     cy.wait(1500);
 
     cy.get("h1").should("have.text", "Profile");
-    cy.get("#form-error-text").should(
+    cy.get("#notification-text").should(
       "have.text",
       "Profile information updated successfully."
     );
 
     // * Reset to normal data (Cleanup)
     cy.get("#edit").click();
-    cy.get("#form-error-text").should("not.exist");
+    cy.get("#notification-text").should("not.exist");
     cy.get("#edit-name").clear();
     cy.get("#edit-name").type("Bob Test");
     cy.get("#edit-email").clear();
@@ -74,7 +74,7 @@ context("Profile", () => {
     cy.get("#cancel").click();
 
     cy.get("h1").should("have.text", "Profile");
-    cy.get("#form-error-text").should("not.exist");
+    cy.get("#notification-text").should("not.exist");
     cy.get("#name").should("have.value", "Bob Test");
     cy.get("#email").should("have.value", "bobtest@email.com");
   });
@@ -90,7 +90,7 @@ context("Profile", () => {
     cy.wait(1500);
 
     cy.get("h1").should("have.text", "Edit Profile");
-    cy.get("#form-error-text").should("have.text", "Invalid email.");
+    cy.get("#notification-text").should("have.text", "Invalid email.");
 
     cy.get("#cancel").click();
   });
@@ -106,7 +106,7 @@ context("Profile", () => {
     cy.wait(1500);
 
     cy.get("h1").should("have.text", "Profile");
-    cy.get("#form-error-text").should(
+    cy.get("#notification-text").should(
       "have.text",
       "Password reset successfully."
     );
@@ -119,7 +119,7 @@ context("Profile", () => {
     cy.get("#confirm-new-password").type("Red123456!!!");
     cy.get("#reset").click();
     cy.get("h1").should("have.text", "Profile");
-    cy.get("#form-error-text").should(
+    cy.get("#notification-text").should(
       "have.text",
       "Password reset successfully."
     );
@@ -136,7 +136,7 @@ context("Profile", () => {
     cy.wait(1500);
 
     cy.get("h1").should("have.text", "Reset Password");
-    cy.get("#form-error-text").should("have.text", "Invalid credentials.");
+    cy.get("#notification-text").should("have.text", "Invalid credentials.");
   });
 
   it("Should not be able to reset password if passwords do not match", () => {
@@ -150,7 +150,7 @@ context("Profile", () => {
     cy.wait(1500);
 
     cy.get("h1").should("have.text", "Reset Password");
-    cy.get("#form-error-text").should("have.text", "Passwords do not match.");
+    cy.get("#notification-text").should("have.text", "Passwords do not match.");
   });
 
   it("Should be able to log out on this device", () => {

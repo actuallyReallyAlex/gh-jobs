@@ -3,7 +3,6 @@ import {
   SET_EDIT_EMAIL,
   SET_EDIT_NAME,
   SET_EMAIL,
-  SET_FORM_ERROR,
   SET_IS_EDITING_PROFILE,
   SET_IS_LOGGED_IN,
   SET_IS_RESETTING_PASSWORD,
@@ -21,7 +20,6 @@ export const initialState: UserState = {
   editEmail: "",
   editName: "",
   email: "",
-  formError: "",
   isEditingProfile: false,
   isLoggedIn: false,
   isResettingPassword: false,
@@ -46,9 +44,6 @@ const reducer = (state = initialState, action: UserAction): UserState => {
     }
     case SET_EMAIL: {
       return { ...state, email: action.payload.email };
-    }
-    case SET_FORM_ERROR: {
-      return { ...state, formError: action.payload.formError };
     }
     case SET_IS_EDITING_PROFILE: {
       return { ...state, isEditingProfile: action.payload.isEditingProfile };

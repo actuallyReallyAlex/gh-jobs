@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import Button from "../components/Button";
-import FormError from "../components/FormError";
+import Notification from "../components/Notification";
 import Input from "../components/Input";
 
+import { setNotificationMessage } from "../redux/actions/application";
 import {
   setEditEmail,
   setEditName,
@@ -13,16 +14,15 @@ import {
   setResetConfirmNewPassword,
   setResetCurrentPassword,
   setResetNewPassword,
-  setFormError,
 } from "../redux/actions/user";
 import {
+  cancelEditProfile,
+  cancelResetPassword,
+  clickEditProfile,
+  editProfile,
   logOut,
   logOutAll,
   resetPassword,
-  cancelResetPassword,
-  clickEditProfile,
-  cancelEditProfile,
-  editProfile,
 } from "../redux/thunks";
 
 import { RootState } from "../types";
@@ -31,7 +31,6 @@ export interface ProfileProps {
   editEmail: string;
   editName: string;
   email: string;
-  formError: string;
   handleCancelEditProfile: () => void;
   handleCancelResetPassword: () => void;
   handleClearFormError: () => void;
@@ -50,6 +49,7 @@ export interface ProfileProps {
   isLoggedIn: boolean;
   isResettingPassword: boolean;
   name: string;
+  notificationMessage: string;
   resetConfirmNewPassword: string;
   resetCurrentPassword: string;
   resetNewPassword: string;
@@ -60,7 +60,6 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
     editEmail,
     editName,
     email,
-    formError,
     handleCancelEditProfile,
     handleCancelResetPassword,
     handleClearFormError,
@@ -79,6 +78,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
     isLoggedIn,
     isResettingPassword,
     name,
+    notificationMessage,
     resetConfirmNewPassword,
     resetCurrentPassword,
     resetNewPassword,
@@ -105,7 +105,9 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
             <h1>{heading}</h1>
           </div>
 
-          {formError && <FormError error={formError} />}
+          {notificationMessage && (
+            <Notification message={notificationMessage} type="info" />
+          )}
 
           {isResettingPassword && (
             <>
@@ -271,11 +273,11 @@ const mapStateToProps = (state: RootState) => ({
   editEmail: state.user.editEmail,
   editName: state.user.editName,
   email: state.user.email,
-  formError: state.user.formError,
   isEditingProfile: state.user.isEditingProfile,
   isLoggedIn: state.user.isLoggedIn,
   isResettingPassword: state.user.isResettingPassword,
   name: state.user.name,
+  notificationMessage: state.application.notificationMessage,
   resetConfirmNewPassword: state.user.resetConfirmNewPassword,
   resetCurrentPassword: state.user.resetCurrentPassword,
   resetNewPassword: state.user.resetNewPassword,
@@ -284,7 +286,7 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch) => ({
   handleCancelEditProfile: () => dispatch(cancelEditProfile()),
   handleCancelResetPassword: () => dispatch(cancelResetPassword()),
-  handleClearFormError: () => dispatch(setFormError("")),
+  handleClearFormError: () => dispatch(setNotificationMessage("")),
   handleClickEditProfile: () => dispatch(clickEditProfile()),
   handleEditProfile: () => dispatch(editProfile()),
   handleLogOut: () => dispatch(logOut()),
