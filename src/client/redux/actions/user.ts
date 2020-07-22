@@ -3,6 +3,7 @@ import {
   SET_EDIT_EMAIL,
   SET_EDIT_NAME,
   SET_EMAIL,
+  SET_IS_DELETING_PROFILE,
   SET_IS_EDITING_PROFILE,
   SET_IS_LOGGED_IN,
   SET_IS_RESETTING_PASSWORD,
@@ -33,6 +34,13 @@ export const setEditName = (editName: string): UserAction => ({
 export const setEmail = (email: string): UserAction => ({
   type: SET_EMAIL,
   payload: { email },
+});
+
+export const setIsDeletingProfile = (
+  isDeletingProfile: boolean
+): UserAction => ({
+  type: SET_IS_DELETING_PROFILE,
+  payload: { isDeletingProfile },
 });
 
 export const setIsEditingProfile = (isEditingProfile: boolean): UserAction => ({
