@@ -11,48 +11,36 @@ import {
   setEditEmail,
   setEditName,
   setIsResettingPassword,
-  setResetConfirmNewPassword,
-  setResetCurrentPassword,
-  setResetNewPassword,
 } from "../redux/actions/user";
 import {
   cancelEditProfile,
-  cancelResetPassword,
   clickEditProfile,
   editProfile,
   logOut,
   logOutAll,
-  resetPassword,
 } from "../redux/thunks";
 
 import { RootState } from "../types";
+import ProfileReset from "../components/ProfileReset";
 
 export interface ProfileProps {
   editEmail: string;
   editName: string;
   email: string;
   handleCancelEditProfile: () => void;
-  handleCancelResetPassword: () => void;
   handleClearFormError: () => void;
   handleClickEditProfile: () => void;
   handleEditProfile: () => void;
   handleLogOut: () => void;
   handleLogOutAll: () => void;
-  handleResetPassword: () => void;
   handleSetEditEmail: (editEmail: string) => void;
   handleSetEditName: (editName: string) => void;
   handleSetIsResettingPassword: (isResettingPassword: boolean) => void;
-  handleSetResetConfirmNewPassword: (resetConfirmNewPassword: string) => void;
-  handleSetResetCurrentPassword: (resetCurrentPassword: string) => void;
-  handleSetResetNewPassword: (resetNewPassword: string) => void;
   isEditingProfile: boolean;
   isLoggedIn: boolean;
   isResettingPassword: boolean;
   name: string;
   notificationMessage: string;
-  resetConfirmNewPassword: string;
-  resetCurrentPassword: string;
-  resetNewPassword: string;
 }
 
 const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
@@ -61,27 +49,19 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
     editName,
     email,
     handleCancelEditProfile,
-    handleCancelResetPassword,
     handleClearFormError,
     handleClickEditProfile,
     handleEditProfile,
     handleLogOut,
     handleLogOutAll,
-    handleResetPassword,
     handleSetEditEmail,
     handleSetEditName,
     handleSetIsResettingPassword,
-    handleSetResetConfirmNewPassword,
-    handleSetResetCurrentPassword,
-    handleSetResetNewPassword,
     isEditingProfile,
     isLoggedIn,
     isResettingPassword,
     name,
     notificationMessage,
-    resetConfirmNewPassword,
-    resetCurrentPassword,
-    resetNewPassword,
   } = props;
 
   let heading = "Profile";
@@ -109,63 +89,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
             <Notification message={notificationMessage} type="info" />
           )}
 
-          {isResettingPassword && (
-            <>
-              <Input
-                autoComplete="current-password"
-                icon="lock"
-                id="current-password"
-                label="Current Password"
-                onChange={(e) => handleSetResetCurrentPassword(e.target.value)}
-                type="password"
-                value={resetCurrentPassword}
-              />
-
-              <Input
-                autoComplete="new-password"
-                icon="lock"
-                id="new-password"
-                label="New Password"
-                onChange={(e) => handleSetResetNewPassword(e.target.value)}
-                type="password"
-                value={resetNewPassword}
-              />
-
-              <Input
-                autoComplete="new-password"
-                icon="lock"
-                id="confirm-new-password"
-                label="Confirm New Password"
-                onChange={(e) =>
-                  handleSetResetConfirmNewPassword(e.target.value)
-                }
-                type="password"
-                value={resetConfirmNewPassword}
-              />
-
-              <div className="profile__container__actions">
-                <Button
-                  id="cancel"
-                  label="Cancel"
-                  onClick={() => handleCancelResetPassword()}
-                  style="secondary"
-                  type="button"
-                />
-                <Button
-                  disabled={
-                    resetCurrentPassword === "" ||
-                    resetNewPassword === "" ||
-                    resetConfirmNewPassword === ""
-                  }
-                  id="reset"
-                  label="Confirm reset"
-                  onClick={() => handleResetPassword()}
-                  style="danger"
-                  type="button"
-                />
-              </div>
-            </>
-          )}
+          {isResettingPassword && <ProfileReset />}
 
           {!isResettingPassword && isEditingProfile && (
             <>
@@ -284,30 +208,19 @@ const mapStateToProps = (state: RootState) => ({
   isResettingPassword: state.user.isResettingPassword,
   name: state.user.name,
   notificationMessage: state.application.notificationMessage,
-  resetConfirmNewPassword: state.user.resetConfirmNewPassword,
-  resetCurrentPassword: state.user.resetCurrentPassword,
-  resetNewPassword: state.user.resetNewPassword,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   handleCancelEditProfile: () => dispatch(cancelEditProfile()),
-  handleCancelResetPassword: () => dispatch(cancelResetPassword()),
   handleClearFormError: () => dispatch(setNotificationMessage("")),
   handleClickEditProfile: () => dispatch(clickEditProfile()),
   handleEditProfile: () => dispatch(editProfile()),
   handleLogOut: () => dispatch(logOut()),
   handleLogOutAll: () => dispatch(logOutAll()),
-  handleResetPassword: () => dispatch(resetPassword()),
   handleSetEditEmail: (editEmail: string) => dispatch(setEditEmail(editEmail)),
   handleSetEditName: (editName: string) => dispatch(setEditName(editName)),
   handleSetIsResettingPassword: (isResettingPassword: boolean) =>
     dispatch(setIsResettingPassword(isResettingPassword)),
-  handleSetResetConfirmNewPassword: (resetConfirmNewPassword: string) =>
-    dispatch(setResetConfirmNewPassword(resetConfirmNewPassword)),
-  handleSetResetCurrentPassword: (resetCurrentPassword: string) =>
-    dispatch(setResetCurrentPassword(resetCurrentPassword)),
-  handleSetResetNewPassword: (resetNewPassword: string) =>
-    dispatch(setResetNewPassword(resetNewPassword)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
