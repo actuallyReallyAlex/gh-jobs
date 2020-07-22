@@ -207,8 +207,6 @@ class UserController {
             return res.status(401).send({ error: "Invalid credentials." });
           }
 
-          // TODO - Server Side Password validation
-
           // * Set newPassword
           req.user.password = newPassword;
           await req.user.save();
@@ -216,7 +214,6 @@ class UserController {
           // * Send User as respoonse
           return res.send(req.user);
         } catch (error) {
-          // TODO - Is this needed anymore?
           if (error.errors.password) {
             // * Min Length Validation Error
             if (error.errors.password.kind === "minlength") {

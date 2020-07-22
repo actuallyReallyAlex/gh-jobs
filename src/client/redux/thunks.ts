@@ -227,8 +227,13 @@ export const logOut = (): AppThunk => async (dispatch) => {
   const response = await fetchServerData("/user/logout", "POST");
 
   if (response.error) {
-    // TODO - What to do if this errors
-    console.log(response);
+    console.error(response.error);
+    dispatch(setNotificationType("error"));
+    dispatch(
+      setNotificationMessage(
+        "Error when attempting to log out. Please try again or contact the developer."
+      )
+    );
     return;
   }
 
@@ -247,8 +252,13 @@ export const logOutAll = (): AppThunk => async (dispatch) => {
   const response = await fetchServerData("/user/logout/all", "POST");
 
   if (response.error) {
-    // TODO - What to do if this errors
-    console.log(response);
+    console.error(response.error);
+    dispatch(setNotificationType("error"));
+    dispatch(
+      setNotificationMessage(
+        "Error when attempting to log out. Please try again or contact the developer."
+      )
+    );
     return;
   }
 
@@ -267,13 +277,10 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
   const state: RootState = getState();
 
   const {
-    isResettingPassword,
     resetConfirmNewPassword,
     resetCurrentPassword,
     resetNewPassword,
   } = state.user;
-
-  // TODO - Validation
 
   if (resetConfirmNewPassword !== resetNewPassword) {
     dispatch(setNotificationMessage("Passwords do not match."));
