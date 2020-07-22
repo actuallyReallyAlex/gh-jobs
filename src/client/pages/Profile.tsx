@@ -2,44 +2,25 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
-import Button from "../components/Button";
 import Notification from "../components/Notification";
-import Input from "../components/Input";
-
-import { setNotificationMessage } from "../redux/actions/application";
-import { setIsResettingPassword } from "../redux/actions/user";
-import { clickEditProfile, logOut, logOutAll } from "../redux/thunks";
-
-import { RootState } from "../types";
+import ProfileDisplay from "../components/ProfileDisplay";
 import ProfileEdit from "../components/ProfileEdit";
 import ProfileReset from "../components/ProfileReset";
 
+import { RootState } from "../types";
+
 export interface ProfileProps {
-  email: string;
-  handleClearFormError: () => void;
-  handleClickEditProfile: () => void;
-  handleLogOut: () => void;
-  handleLogOutAll: () => void;
-  handleSetIsResettingPassword: (isResettingPassword: boolean) => void;
   isEditingProfile: boolean;
   isLoggedIn: boolean;
   isResettingPassword: boolean;
-  name: string;
   notificationMessage: string;
 }
 
 const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
   const {
-    email,
-    handleClearFormError,
-    handleClickEditProfile,
-    handleLogOut,
-    handleLogOutAll,
-    handleSetIsResettingPassword,
     isEditingProfile,
     isLoggedIn,
     isResettingPassword,
-    name,
     notificationMessage,
   } = props;
 
@@ -72,64 +53,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
 
           {!isResettingPassword && isEditingProfile && <ProfileEdit />}
 
-          {!isResettingPassword && !isEditingProfile && (
-            <>
-              <Input
-                disabled
-                icon="account_circle"
-                id="name"
-                label="Name"
-                type="text"
-                value={name}
-              />
-
-              <Input
-                disabled
-                icon="email"
-                id="email"
-                label="Email Address"
-                type="email"
-                value={email}
-              />
-
-              <div className="profile__container__actions">
-                <Button
-                  id="edit"
-                  label="Edit profile"
-                  onClick={() => handleClickEditProfile()}
-                  style="primary"
-                  type="button"
-                />
-                <Button
-                  id="reset-password"
-                  label="Reset password"
-                  onClick={() => {
-                    handleClearFormError();
-                    handleSetIsResettingPassword(true);
-                  }}
-                  style="danger"
-                  type="button"
-                />
-              </div>
-
-              <div className="profile__container__actions">
-                <Button
-                  id="log-out"
-                  label="Log out"
-                  onClick={() => handleLogOut()}
-                  style="danger"
-                  type="button"
-                />
-                <Button
-                  id="log-out-all"
-                  label="Log out of all devices"
-                  onClick={() => handleLogOutAll()}
-                  style="danger"
-                  type="button"
-                />
-              </div>
-            </>
-          )}
+          {!isResettingPassword && !isEditingProfile && <ProfileDisplay />}
         </form>
       </div>
     );
@@ -137,21 +61,10 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  email: state.user.email,
   isEditingProfile: state.user.isEditingProfile,
   isLoggedIn: state.user.isLoggedIn,
   isResettingPassword: state.user.isResettingPassword,
-  name: state.user.name,
   notificationMessage: state.application.notificationMessage,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  handleClearFormError: () => dispatch(setNotificationMessage("")),
-  handleClickEditProfile: () => dispatch(clickEditProfile()),
-  handleLogOut: () => dispatch(logOut()),
-  handleLogOutAll: () => dispatch(logOutAll()),
-  handleSetIsResettingPassword: (isResettingPassword: boolean) =>
-    dispatch(setIsResettingPassword(isResettingPassword)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps)(Profile);
