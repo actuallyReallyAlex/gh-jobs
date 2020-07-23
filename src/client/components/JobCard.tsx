@@ -44,15 +44,24 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
       </div>
 
       <div className="jobcard__container__right">
-        <div className="jobcard__location">
-          <i className="material-icons">public</i>
-          <p>{job.location}</p>
+        <div className="jobcard__actions">
+          <button>
+            <i className="material-icons">bookmark</i>
+          </button>
         </div>
-        <div className="jobcard__created">
-          <i className="material-icons">access_time</i>
-          <p>
-            {formatDistanceToNow(new Date(job.created_at), { addSuffix: true })}
-          </p>
+        <div className="jobcard__info">
+          <div className="jobcard__location">
+            <i className="material-icons">public</i>
+            <p>{job.location}</p>
+          </div>
+          <div className="jobcard__created">
+            <i className="material-icons">access_time</i>
+            <p>
+              {formatDistanceToNow(new Date(job.created_at), {
+                addSuffix: true,
+              })}
+            </p>
+          </div>
         </div>
       </div>
     </div>
