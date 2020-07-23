@@ -32,12 +32,14 @@ import {
 import { fetchServerData, unique } from "../util";
 
 import {
+  AddSavedJobResponse,
   AppThunk,
   DeleteProfileResponse,
   EditProfileResponse,
   Job,
   LocationOption,
   LoginResponse,
+  RemoveSavedJobResponse,
   ResetPasswordResponse,
   RootState,
   ServerResponseUser,
@@ -432,6 +434,66 @@ export const deleteProfile = (): AppThunk => async (dispatch) => {
     dispatch(setSavedJobs([]));
     dispatch(setIsDeletingProfile(false));
     dispatch(setIsLoggedIn(false));
+    dispatch(setIsLoading(false));
+  } catch (error) {
+    console.error(error);
+    dispatch(setNotificationMessage(error));
+    dispatch(setNotificationType("error"));
+    dispatch(setIsLoading(false));
+  }
+};
+
+export const addSavedJob = (job: Job): AppThunk => async (dispatch) => {
+  dispatch(setIsLoading(true));
+  try {
+    const response: AddSavedJobResponse = await fetchServerData(
+      "/user/savedJobs",
+      "PATCH",
+      JSON.stringify({ method: "ADD", job })
+    );
+
+    if (response.error) {
+      dispatch(setNotificationMessage(response.error));
+      dispatch(setNotificationType("error"));
+      dispatch(setIsLoading(false));
+      return;
+    }
+
+    const { savedJobs } = response;
+
+    dispatch(setSavedJobs(savedJobs));
+    dispatch(setNotificationMessage("Job saved successfully."));
+    dispatch(setNotificationType("info"));
+    dispatch(setIsLoading(false));
+  } catch (error) {
+    console.error(error);
+    dispatch(setNotificationMessage(error));
+    dispatch(setNotificationType("error"));
+    dispatch(setIsLoading(false));
+  }
+};
+
+export const removeSavedJob = (job: Job): AppThunk => async (dispatch) => {
+  dispatch(setIsLoading(true));
+  try {
+    const response: AddSavedJobResponse = await fetchServerData(
+      "/user/savedJobs",
+      "PATCH",
+      JSON.stringify({ method: "REMOVE", job })
+    );
+
+    if (response.error) {
+      dispatch(setNotificationMessage(response.error));
+      dispatch(setNotificationType("error"));
+      dispatch(setIsLoading(false));
+      return;
+    }
+
+    const { savedJobs } = response;
+
+    dispatch(setSavedJobs(savedJobs));
+    dispatch(setNotificationMessage("Job removed successfully."));
+    dispatch(setNotificationType("info"));
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);

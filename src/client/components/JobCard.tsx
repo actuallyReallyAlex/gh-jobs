@@ -1,19 +1,29 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { Link } from "react-router-dom";
 
-import { Job } from "../types";
+import { addSavedJob, removeSavedJob } from "../redux/thunks";
+
+import { Job, RootState } from "../types";
 
 export interface JobCardProps {
+  handleAddSavedJob: (job: Job) => void;
+  handleRemoveSavedJob: (job: Job) => void;
   job: Job;
+  savedJobs: Job[];
 }
 
 const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
-  const { job } = props;
+  const { handleAddSavedJob, handleRemoveSavedJob, job, savedJobs } = props;
   const handleImageError = () => {
     // TODO - Should set the image to a fallback/just display the div with the not found text
     // alert("IMAGE ERROR - CREATE FUNCTIONALITY");
   };
+
+  const jobIsSaved =
+    savedJobs.findIndex((savedJob: Job) => savedJob.id === job.id) >= 0;
+
   return (
     <div className="jobcard__container">
       <div className="jobcard__container__left">
@@ -45,7 +55,19 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
 
       <div className="jobcard__container__right">
         <div className="jobcard__actions">
-          <button>
+          <button
+            className={
+              jobIsSaved
+                ? "jobcard__save__selected"
+                : "jobcard__save__deselected"
+            }
+            id={jobIsSaved ? `remove-job-${job.id}` : `save-job-${job.id}`}
+            onClick={
+              jobIsSaved
+                ? () => handleRemoveSavedJob(job)
+                : () => handleAddSavedJob(job)
+            }
+          >
             <i className="material-icons">bookmark</i>
           </button>
         </div>
@@ -68,4 +90,13 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
   );
 };
 
-export default JobCard;
+const mapStateToProps = (state: RootState) => ({
+  savedJobs: state.user.savedJobs,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  handleAddSavedJob: (job: Job) => dispatch(addSavedJob(job)),
+  handleRemoveSavedJob: (job: Job) => dispatch(removeSavedJob(job)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(JobCard);

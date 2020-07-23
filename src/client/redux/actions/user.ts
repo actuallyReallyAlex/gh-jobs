@@ -1,6 +1,4 @@
 import {
-  ADD_SAVED_JOB,
-  REMOVE_SAVED_JOB,
   SET_CONFIRM_PASSWORD,
   SET_EDIT_EMAIL,
   SET_EDIT_NAME,
@@ -18,16 +16,6 @@ import {
 } from "../actionTypes";
 
 import { Job, UserAction } from "../../types";
-
-export const addSavedJobs = (job: Job): UserAction => ({
-  type: ADD_SAVED_JOB,
-  payload: { job },
-});
-
-export const removeSavedJob = (job: Job): UserAction => ({
-  type: REMOVE_SAVED_JOB,
-  payload: { job },
-});
 
 export const setConfirmPassword = (confirmPassword: string): UserAction => ({
   type: SET_CONFIRM_PASSWORD,

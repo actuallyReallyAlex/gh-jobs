@@ -163,8 +163,8 @@ input::placeholder {
   justify-content: flex-end;
 }
 
-.jobcard__actions button,
-.jobcard__actions__selected button {
+.jobcard__save__selected,
+.jobcard__save__deselected {
   background: transparent;
   border: none;
   color: #b9bdcf;
@@ -172,13 +172,14 @@ input::placeholder {
   padding: 0;
 }
 
-.jobcard__actions button:hover {
+.jobcard__save__selected {
   color: #1e86ff;
-  cursor: pointer;
 }
 
-.jobcar__actions__selected button {
+.jobcard__save__selected:hover,
+.jobcard__save__deselected:hover {
   color: #1e86ff;
+  cursor: pointer;
 }
 
 .jobcard__info {

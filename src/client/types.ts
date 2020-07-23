@@ -1,6 +1,8 @@
 import { Action } from "redux";
 import { ThunkAction } from "redux-thunk";
 
+export type AddSavedJobResponse = ServerResponseError & ServerResponseUser;
+
 export interface ApplicationAction {
   type: string;
   // eslint-disable-next-line
@@ -132,6 +134,8 @@ export type LoginResponse = ServerResponseError & ServerResponseUser;
 export type NotificationType = "error" | "info" | "warning";
 
 export type PaginationNavigationType = "left" | "right";
+
+export type RemoveSavedJobResponse = ServerResponseError & ServerResponseUser;
 
 export type RequestMethod = "DELETE" | "GET" | "PATCH" | "POST";
 

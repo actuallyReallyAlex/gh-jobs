@@ -10,8 +10,6 @@ export const SET_SEARCH_VALUE = "SET_SEARCH_VALUE";
 export const SET_TOTAL_PAGES = "SET_TOTAL_PAGES";
 
 // * User
-export const ADD_SAVED_JOB = "ADD_SAVED_JOB";
-export const REMOVE_SAVED_JOB = "REMOVE_SAVED_JOB";
 export const SET_CONFIRM_PASSWORD = "SET_CONFIRM_PASSWORD";
 export const SET_EDIT_EMAIL = "SET_EDIT_EMAIL";
 export const SET_EDIT_NAME = "SET_EDIT_NAME";
