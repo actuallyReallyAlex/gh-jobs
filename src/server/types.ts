@@ -10,6 +10,8 @@ export type Controller = {
   router: Router;
 };
 
+export type EditSavedJobsMethod = "ADD" | "REMOVE";
+
 export interface Job {
   company: string;
   company_logo: string;
@@ -37,6 +39,7 @@ export interface UserDocument extends Document {
   generateAuthToken(): Promise<string>;
   password: string;
   name: string;
+  savedJobs: Job[];
   tokens: Token[];
 }
 

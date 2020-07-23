@@ -7,7 +7,13 @@ import auth from "../middleware/auth";
 
 import User from "../models/User";
 
-import { AuthenticatedRequest, UserDocument, Token } from "../types";
+import {
+  AuthenticatedRequest,
+  EditSavedJobsMethod,
+  Job,
+  Token,
+  UserDocument,
+} from "../types";
 
 /**
  * User Controller.
@@ -183,6 +189,36 @@ class UserController {
           }
           return res.status(500).send({ error });
         }
+      }
+    );
+
+    this.router.patch(
+      "/user/savedJobs",
+      auth,
+      async (req: AuthenticatedRequest, res: Response) => {
+        const method: EditSavedJobsMethod = req.body.method;
+        const job: Job = req.body.job;
+        const currentSavedJobs = req.user.savedJobs;
+        let newJobs;
+
+        if (method !== "ADD" && method !== "REMOVE") {
+          // * Request is incorrect - error
+          // ! Should never happen
+          return res.status(400).send({ error: "Invalid request." });
+        }
+
+        if (method === "ADD") {
+          // * User is attempting to add a saved job
+          newJobs = [...currentSavedJobs, job];
+        } else if (method === "REMOVE") {
+          // * User is attempting to remove a saved job
+          newJobs = currentSavedJobs.filter(
+            (savedJob: Job) => savedJob.id !== job.id
+          );
+        }
+        req.user.savedJobs = newJobs;
+        await req.user.save();
+        return res.send(req.user);
       }
     );
 
