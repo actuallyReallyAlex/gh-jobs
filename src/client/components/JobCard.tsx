@@ -10,12 +10,19 @@ import { Job, RootState } from "../types";
 export interface JobCardProps {
   handleAddSavedJob: (job: Job) => void;
   handleRemoveSavedJob: (job: Job) => void;
+  isLoggedIn: boolean;
   job: Job;
   savedJobs: Job[];
 }
 
 const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
-  const { handleAddSavedJob, handleRemoveSavedJob, job, savedJobs } = props;
+  const {
+    handleAddSavedJob,
+    handleRemoveSavedJob,
+    isLoggedIn,
+    job,
+    savedJobs,
+  } = props;
   const handleImageError = () => {
     // TODO - Should set the image to a fallback/just display the div with the not found text
     // alert("IMAGE ERROR - CREATE FUNCTIONALITY");
@@ -55,21 +62,23 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
 
       <div className="jobcard__container__right">
         <div className="jobcard__actions">
-          <button
-            className={
-              jobIsSaved
-                ? "jobcard__save__selected"
-                : "jobcard__save__deselected"
-            }
-            id={jobIsSaved ? `remove-job-${job.id}` : `save-job-${job.id}`}
-            onClick={
-              jobIsSaved
-                ? () => handleRemoveSavedJob(job)
-                : () => handleAddSavedJob(job)
-            }
-          >
-            <i className="material-icons">bookmark</i>
-          </button>
+          {isLoggedIn && (
+            <button
+              className={
+                jobIsSaved
+                  ? "jobcard__save__selected"
+                  : "jobcard__save__deselected"
+              }
+              id={jobIsSaved ? `remove-job-${job.id}` : `save-job-${job.id}`}
+              onClick={
+                jobIsSaved
+                  ? () => handleRemoveSavedJob(job)
+                  : () => handleAddSavedJob(job)
+              }
+            >
+              <i className="material-icons">bookmark</i>
+            </button>
+          )}
         </div>
         <div className="jobcard__info">
           <div className="jobcard__location">
@@ -91,6 +100,7 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
+  isLoggedIn: state.user.isLoggedIn,
   savedJobs: state.user.savedJobs,
 });
 
