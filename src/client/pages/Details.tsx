@@ -53,9 +53,10 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
     setData(job);
   }, []);
 
-  const jobIsSaved = data
-    ? savedJobs.findIndex((savedJob: Job) => savedJob.id === data.id) >= 0
-    : false;
+  const jobIsSaved =
+    savedJobs && data
+      ? savedJobs.findIndex((savedJob: Job) => savedJob.id === data.id) >= 0
+      : false;
 
   return (
     <>
@@ -99,7 +100,12 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
                   <h2 className="details__title">{data.title}</h2>
                   <div className="details__container__actions">
                     {data.type === "Full Time" && (
-                      <p className="details__title__fulltime">Full Time</p>
+                      <p
+                        className="details__title__fulltime"
+                        id="full-time-indicator"
+                      >
+                        Full Time
+                      </p>
                     )}
                     {isLoggedIn && (
                       <button

@@ -26,9 +26,7 @@ context("Details", () => {
     cy.get(
       "#app > div.details__container > div.details__main__container > div.details__container__title > div.details__container__title__inner > h2"
     ).should("have.text", "Cloud DevOps Engineer");
-    cy.get(
-      "#app > div.details__container > div.details__main__container > div.details__container__title > div.details__container__title__inner > p"
-    ).should("have.text", "Full Time");
+    cy.get("#full-time-indicator").should("have.text", "Full Time");
     cy.get(
       "#app > div.details__container > div.details__main__container > div.details__container__company > div.details__company__right > a"
     ).should("have.text", "Cool Company");

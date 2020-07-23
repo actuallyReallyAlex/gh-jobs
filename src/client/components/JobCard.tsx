@@ -28,8 +28,9 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
     // alert("IMAGE ERROR - CREATE FUNCTIONALITY");
   };
 
-  const jobIsSaved =
-    savedJobs.findIndex((savedJob: Job) => savedJob.id === job.id) >= 0;
+  const jobIsSaved = savedJobs
+    ? savedJobs.findIndex((savedJob: Job) => savedJob.id === job.id) >= 0
+    : false;
 
   return (
     <div className="jobcard__container">
