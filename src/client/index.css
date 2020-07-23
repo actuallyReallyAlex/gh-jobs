@@ -172,7 +172,7 @@ input::placeholder {
 .jobcard__info {
   align-self: flex-end;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .jobcard__logo__not-found,
@@ -251,7 +251,6 @@ input::placeholder {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  outline: 1px solid red;
 }
 
 .jobcard__location,
@@ -265,11 +264,16 @@ input::placeholder {
 .jobcard__created i {
   color: #b9bdcf;
   font-size: 15px;
-  margin-right: 7.5px;
+  margin-right: 5px;
+}
+
+.jobcard__created {
+  margin-top: 15px;
 }
 
 .jobcard__created p,
 .jobcard__location p {
+  margin: 0;
   max-width: 160px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -288,10 +292,13 @@ input::placeholder {
 .details__created {
   align-items: center;
   display: flex;
-  margin-left: 28.5px;
 }
 
 .jobcard__created,
+.jobcard__location {
+  justify-content: flex-end;
+}
+
 .details__created i {
   color: #b9bdcf;
   font-size: 15px;
@@ -768,7 +775,6 @@ input::placeholder {
 
 .jobcard__container__left {
   display: flex;
-  outline: 1px solid blue;
   width: 100%;
 }
 
@@ -925,13 +931,6 @@ input::placeholder {
   color: #856404;
 }
 
-@media only screen and (max-width: 1000px) {
-  .jobcard__created p,
-  .jobcard__location p {
-    max-width: 120px;
-  }
-}
-
 @media only screen and (max-width: 800px) {
   .search__container {
     flex-direction: column;
@@ -940,11 +939,6 @@ input::placeholder {
   .options-panel__container,
   .jobs__container {
     width: 100%;
-  }
-
-  .jobcard__created p,
-  .jobcard__location p {
-    max-width: 100px;
   }
 }
 
@@ -968,7 +962,6 @@ input::placeholder {
   }
 
   .search__container,
-  .jobcard__container,
   .details__container,
   .details__container__title__inner,
   .login__container__actions,
@@ -1018,5 +1011,12 @@ input::placeholder {
   .details__title__fulltime {
     margin-left: 0;
     margin-top: 4px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .jobcard__location p,
+  .jobcard__created p {
+    max-width: 65px;
   }
 }
