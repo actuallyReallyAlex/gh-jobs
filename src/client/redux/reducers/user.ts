@@ -30,6 +30,7 @@ export const initialState: UserState = {
   resetConfirmNewPassword: "",
   resetCurrentPassword: "",
   resetNewPassword: "",
+  savedJobs: [],
 };
 
 const reducer = (state = initialState, action: UserAction): UserState => {

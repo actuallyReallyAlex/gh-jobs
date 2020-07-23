@@ -192,4 +192,5 @@ export interface UserState {
   resetConfirmNewPassword: string;
   resetCurrentPassword: string;
   resetNewPassword: string;
+  savedJobs: Job[];
 }
