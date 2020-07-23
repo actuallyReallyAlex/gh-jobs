@@ -193,4 +193,82 @@ context("Profile", () => {
     cy.get("#nav-login").should("exist");
     cy.get("#search").should("be.visible");
   });
+
+  it("Should be able to delete a user profile", () => {
+    cy.get("#log-out").click();
+    cy.wait(1500);
+    cy.get("#nav-login").should("exist");
+    cy.get("#search").should("be.visible");
+    cy.get("#nav-login").click();
+    cy.get("h1").should("have.text", "Login");
+    cy.get("#create-an-account").click();
+    cy.get("h1").should("have.text", "Create Account");
+    cy.get("#nav-login").should("be.visible");
+    cy.get("#name").type("Delete Test");
+    cy.get("#email").type("deletetest@email.com");
+    cy.get("#password").type("Red123456!!!");
+    cy.get("#confirm-password").type("Red123456!!!");
+    cy.get("#signup").click();
+    cy.wait(1500);
+    cy.get("#nav-login").should("not.exist");
+    cy.get("#search").should("be.visible");
+    cy.get("#nav-profile").click();
+    cy.get("h1").should("have.text", "Profile");
+
+    cy.get("#delete-profile").click();
+    cy.get("h1").should("have.text", "Delete Profile");
+    cy.get("#notification-text").should(
+      "have.text",
+      "Are you sure you would like to delete your profile? This can not be reversed."
+    );
+    cy.get("#delete-profile-confirm").click();
+    cy.wait(1500);
+    cy.get("#nav-login").should("exist");
+    cy.get("#search").should("be.visible");
+  });
+
+  it("Should be able to cancel deleting a user profile", () => {
+    cy.get("#log-out").click();
+    cy.wait(1500);
+    cy.get("#nav-login").should("exist");
+    cy.get("#search").should("be.visible");
+    cy.get("#nav-login").click();
+    cy.get("h1").should("have.text", "Login");
+    cy.get("#create-an-account").click();
+    cy.get("h1").should("have.text", "Create Account");
+    cy.get("#nav-login").should("be.visible");
+    cy.get("#name").type("Delete Test");
+    cy.get("#email").type("deletetest@email.com");
+    cy.get("#password").type("Red123456!!!");
+    cy.get("#confirm-password").type("Red123456!!!");
+    cy.get("#signup").click();
+    cy.wait(1500);
+    cy.get("#nav-login").should("not.exist");
+    cy.get("#search").should("be.visible");
+    cy.get("#nav-profile").click();
+    cy.get("h1").should("have.text", "Profile");
+
+    cy.get("#delete-profile").click();
+    cy.get("h1").should("have.text", "Delete Profile");
+    cy.get("#notification-text").should(
+      "have.text",
+      "Are you sure you would like to delete your profile? This can not be reversed."
+    );
+    cy.get("#cancel").click();
+    cy.get("h1").should("have.text", "Profile");
+    cy.get("#name").should("have.value", "Delete Test");
+    cy.get("#email").should("have.value", "deletetest@email.com");
+
+    // * Cleanup
+    cy.get("#delete-profile").click();
+    cy.get("h1").should("have.text", "Delete Profile");
+    cy.get("#notification-text").should(
+      "have.text",
+      "Are you sure you would like to delete your profile? This can not be reversed."
+    );
+    cy.get("#delete-profile-confirm").click();
+    cy.wait(1500);
+    cy.get("#nav-login").should("exist");
+    cy.get("#search").should("be.visible");
+  });
 });

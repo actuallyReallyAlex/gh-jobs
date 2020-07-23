@@ -403,7 +403,7 @@ export const clickDeleteProfile = (): AppThunk => (dispatch) => {
   dispatch(setIsDeletingProfile(true));
 };
 
-export const deleteProfile = (): AppThunk => async (dispatch, getState) => {
+export const deleteProfile = (): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
 
   try {
