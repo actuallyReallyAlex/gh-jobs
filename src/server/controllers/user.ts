@@ -249,6 +249,22 @@ class UserController {
         }
       }
     );
+
+    this.router.delete(
+      "/user/me",
+      auth,
+      async (req: AuthenticatedRequest, res: Response) => {
+        try {
+          await req.user.remove();
+          res.send(req.user);
+        } catch (error) {
+          if (process.env.NODE_ENV !== "test") {
+            console.error(error);
+          }
+          res.status(500).send({ error });
+        }
+      }
+    );
   }
 }
 
