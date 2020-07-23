@@ -49,7 +49,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
   } else {
     return (
       <div id="profile-page">
-        <form>
+        <form className={isViewingSavedJobs ? "saved" : undefined}>
           <div className="profile__container__title">
             <span className="avatar">
               <i className="material-icons">account_circle</i>

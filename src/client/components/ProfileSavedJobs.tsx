@@ -32,7 +32,7 @@ const ProfileSavedJobs: React.SFC<ProfileSavedJobsProps> = (
   );
   return (
     <>
-      <div className="jobs__container">
+      <div className="jobs__container saved">
         {notificationMessage && (
           <Notification message={notificationMessage} type={notificationType} />
         )}

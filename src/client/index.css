@@ -349,6 +349,10 @@ input::placeholder {
   width: 75%;
 }
 
+.jobs__container.saved {
+  width: 100%;
+}
+
 .checkbox__container {
   display: block;
   color: #334680;
@@ -826,6 +830,11 @@ input::placeholder {
 #profile-page > form {
   max-width: 444px;
   width: 50%;
+}
+
+#profile-page > form.saved {
+  max-width: 800px;
+  width: 100%;
 }
 
 #login-page > .input__container,
