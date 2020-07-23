@@ -4,16 +4,19 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useParams, Link } from "react-router-dom";
 
 import Copyright from "../components/Copyright";
+import Notification from "../components/Notification";
 
 import { addSavedJob, removeSavedJob } from "../redux/thunks";
 
-import { Job, RootState } from "../types";
+import { Job, NotificationType, RootState } from "../types";
 
 interface DetailsProps {
   handleAddSavedJob: (job: Job) => void;
   handleRemoveSavedJob: (job: Job) => void;
   isLoggedIn: boolean;
   jobs: Job[];
+  notificationMessage: string;
+  notificationType: NotificationType;
   savedJobs: Job[];
 }
 
@@ -23,6 +26,8 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
     handleRemoveSavedJob,
     isLoggedIn,
     jobs,
+    notificationMessage,
+    notificationType,
     savedJobs,
   } = props;
   const { id } = useParams();
@@ -81,6 +86,12 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
         </div>
 
         <div className="details__main__container">
+          {notificationMessage && (
+            <Notification
+              message={notificationMessage}
+              type={notificationType}
+            />
+          )}
           {data && (
             <>
               <div className="details__container__title">
@@ -176,6 +187,8 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
 const mapStateToProps = (state: RootState) => ({
   isLoggedIn: state.user.isLoggedIn,
   jobs: state.application.jobs,
+  notificationMessage: state.application.notificationMessage,
+  notificationType: state.application.notificationType,
   savedJobs: state.user.savedJobs,
 });
 
