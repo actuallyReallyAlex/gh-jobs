@@ -163,10 +163,22 @@ input::placeholder {
   justify-content: flex-end;
 }
 
-.jobcard__actions button {
+.jobcard__actions button,
+.jobcard__actions__selected button {
   background: transparent;
   border: none;
   color: #b9bdcf;
+  margin: 0;
+  padding: 0;
+}
+
+.jobcard__actions button:hover {
+  color: #1e86ff;
+  cursor: pointer;
+}
+
+.jobcar__actions__selected button {
+  color: #1e86ff;
 }
 
 .jobcard__info {
