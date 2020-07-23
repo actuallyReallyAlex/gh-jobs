@@ -18,6 +18,7 @@ import {
   setEditEmail,
   setEditName,
   setEmail,
+  setIsDeletingProfile,
   setIsEditingProfile,
   setIsLoggedIn,
   setIsResettingPassword,
@@ -26,7 +27,7 @@ import {
   setResetConfirmNewPassword,
   setResetCurrentPassword,
   setResetNewPassword,
-  setIsDeletingProfile,
+  setSavedJobs,
 } from "./actions/user";
 import { fetchServerData, unique } from "../util";
 
@@ -143,6 +144,7 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoggedIn(true));
   dispatch(setEmail(response.email));
   dispatch(setName(response.name));
+  dispatch(setSavedJobs(response.savedJobs));
 
   dispatch(setIsLoading(false));
 };
@@ -179,6 +181,7 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
   dispatch(setName(response.name));
   dispatch(setPassword(""));
   dispatch(setConfirmPassword(""));
+  dispatch(setSavedJobs(response.savedJobs));
 
   dispatch(setIsLoading(false));
 };
@@ -217,6 +220,7 @@ export const checkAuthentication = (): AppThunk => async (dispatch) => {
       const user: ServerResponseUser = await response.json();
       dispatch(setName(user.name));
       dispatch(setEmail(user.email));
+      dispatch(setSavedJobs(user.savedJobs));
       dispatch(setIsLoggedIn(true));
     }
   } catch (error) {
@@ -246,6 +250,7 @@ export const logOut = (): AppThunk => async (dispatch) => {
   dispatch(setNotificationMessage(""));
   dispatch(setName(""));
   dispatch(setPassword(""));
+  dispatch(setSavedJobs([]));
   dispatch(setIsLoggedIn(false));
 
   dispatch(setIsLoading(false));
@@ -271,6 +276,7 @@ export const logOutAll = (): AppThunk => async (dispatch) => {
   dispatch(setNotificationMessage(""));
   dispatch(setName(""));
   dispatch(setPassword(""));
+  dispatch(setSavedJobs([]));
   dispatch(setIsLoggedIn(false));
 
   dispatch(setIsLoading(false));
@@ -423,6 +429,7 @@ export const deleteProfile = (): AppThunk => async (dispatch) => {
     dispatch(setNotificationMessage("Profile deleted successfully."));
     dispatch(setEmail(""));
     dispatch(setName(""));
+    dispatch(setSavedJobs([]));
     dispatch(setIsDeletingProfile(false));
     dispatch(setIsLoggedIn(false));
     dispatch(setIsLoading(false));

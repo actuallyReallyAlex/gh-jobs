@@ -152,6 +152,7 @@ export interface ServerResponseUser {
   createdAt: string;
   email: string;
   name: string;
+  savedJobs: Job[];
   updatedAt: string;
   __v: number;
   _id: string;
@@ -167,6 +168,7 @@ export interface SignupResponseSuccess {
   createdAt: string;
   email: string;
   name: string;
+  savedJobs: Job[];
   updatedAt: string;
   __v: number;
   _id: string;
