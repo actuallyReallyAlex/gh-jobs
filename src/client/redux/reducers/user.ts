@@ -12,6 +12,7 @@ import {
   SET_RESET_CONFIRM_NEW_PASSWORD,
   SET_RESET_CURRENT_PASSWORD,
   SET_RESET_NEW_PASSWORD,
+  SET_SAVED_JOBS,
 } from "../actionTypes";
 
 import { UserAction, UserState } from "../../types";
@@ -55,7 +56,8 @@ const reducer = (state = initialState, action: UserAction): UserState => {
     case SET_PASSWORD:
     case SET_RESET_CONFIRM_NEW_PASSWORD:
     case SET_RESET_CURRENT_PASSWORD:
-    case SET_RESET_NEW_PASSWORD: {
+    case SET_RESET_NEW_PASSWORD:
+    case SET_SAVED_JOBS: {
       return { ...state, [key]: value };
     }
     default:

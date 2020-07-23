@@ -14,6 +14,7 @@ import {
   SET_RESET_CONFIRM_NEW_PASSWORD,
   SET_RESET_CURRENT_PASSWORD,
   SET_RESET_NEW_PASSWORD,
+  SET_SAVED_JOBS,
 } from "../actionTypes";
 
 import { Job, UserAction } from "../../types";
@@ -99,4 +100,9 @@ export const setResetCurrentPassword = (
 export const setResetNewPassword = (resetNewPassword: string): UserAction => ({
   type: SET_RESET_NEW_PASSWORD,
   payload: { resetNewPassword },
+});
+
+export const setSavedJobs = (savedJobs: Job[]): UserAction => ({
+  type: SET_SAVED_JOBS,
+  payload: { savedJobs },
 });
