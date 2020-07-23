@@ -32,6 +32,8 @@ export type ButtonStyle = "primary" | "secondary" | "danger";
 
 export type ButtonType = "button" | "reset" | "submit";
 
+export type DeleteProfileResponse = ServerResponseError & ServerResponseUser;
+
 export type EditProfileResponse = ServerResponseError & ServerResponseUser;
 
 export type InputAutoComplete =
@@ -131,7 +133,7 @@ export type NotificationType = "error" | "info" | "warning";
 
 export type PaginationNavigationType = "left" | "right";
 
-export type RequestMethod = "GET" | "PATCH" | "POST";
+export type RequestMethod = "DELETE" | "GET" | "PATCH" | "POST";
 
 export type ResetPasswordResponse = ServerResponseError & ServerResponseUser;
 

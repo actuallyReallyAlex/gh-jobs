@@ -32,6 +32,7 @@ import { fetchServerData, unique } from "../util";
 
 import {
   AppThunk,
+  DeleteProfileResponse,
   EditProfileResponse,
   Job,
   LocationOption,
@@ -176,6 +177,8 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoggedIn(true));
   dispatch(setEmail(response.email));
   dispatch(setName(response.name));
+  dispatch(setPassword(""));
+  dispatch(setConfirmPassword(""));
 
   dispatch(setIsLoading(false));
 };
@@ -400,6 +403,33 @@ export const clickDeleteProfile = (): AppThunk => (dispatch) => {
   dispatch(setIsDeletingProfile(true));
 };
 
-export const deleteProfile = (): AppThunk => () => {
-  alert("DELETE PROFILE");
+export const deleteProfile = (): AppThunk => async (dispatch, getState) => {
+  dispatch(setIsLoading(true));
+
+  try {
+    const response: DeleteProfileResponse = await fetchServerData(
+      "/user/me",
+      "DELETE"
+    );
+
+    if (response.error) {
+      dispatch(setNotificationMessage(response.error));
+      dispatch(setNotificationType("error"));
+      dispatch(setIsLoading(false));
+      return;
+    }
+
+    dispatch(setNotificationType("info"));
+    dispatch(setNotificationMessage("Profile deleted successfully."));
+    dispatch(setEmail(""));
+    dispatch(setName(""));
+    dispatch(setIsDeletingProfile(false));
+    dispatch(setIsLoggedIn(false));
+    dispatch(setIsLoading(false));
+  } catch (error) {
+    console.error(error);
+    dispatch(setNotificationMessage(error));
+    dispatch(setNotificationType("error"));
+    dispatch(setIsLoading(false));
+  }
 };

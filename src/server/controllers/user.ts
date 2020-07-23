@@ -255,6 +255,7 @@ class UserController {
       auth,
       async (req: AuthenticatedRequest, res: Response) => {
         try {
+          res.clearCookie("ghjobs");
           await req.user.remove();
           res.send(req.user);
         } catch (error) {
