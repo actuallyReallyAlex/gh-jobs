@@ -140,8 +140,8 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
   );
 
   if (response.error) {
-    dispatch(setNotificationMessage(response.error));
     dispatch(setNotificationType("error"));
+    dispatch(setNotificationMessage(response.error));
     dispatch(setIsLoading(false));
     return;
   }
@@ -162,8 +162,8 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
   const { confirmPassword, email, name, password } = user;
 
   if (confirmPassword !== password) {
-    dispatch(setNotificationMessage("Passwords do not match."));
     dispatch(setNotificationType("error"));
+    dispatch(setNotificationMessage("Passwords do not match."));
     dispatch(setIsLoading(false));
     return;
   }
@@ -175,8 +175,8 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
   );
 
   if (response.error) {
-    dispatch(setNotificationMessage(response.error));
     dispatch(setNotificationType("error"));
+    dispatch(setNotificationMessage(response.error));
     dispatch(setIsLoading(false));
     return;
   }
@@ -196,8 +196,8 @@ export const initializeApplication = (): AppThunk => async (
   getState
 ) => {
   dispatch(setIsLoading(true));
-  dispatch(setNotificationMessage(""));
   dispatch(setNotificationType("info"));
+  dispatch(setNotificationMessage(""));
   const state: RootState = getState();
   const { jobsFetchedAt } = state.application;
   // * Establish Job Data
@@ -298,8 +298,8 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
   } = state.user;
 
   if (resetConfirmNewPassword !== resetNewPassword) {
-    dispatch(setNotificationMessage("Passwords do not match."));
     dispatch(setNotificationType("error"));
+    dispatch(setNotificationMessage("Passwords do not match."));
     dispatch(setIsLoading(false));
     return;
   }
@@ -315,14 +315,14 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
     );
 
     if (response.error) {
-      dispatch(setNotificationMessage(response.error));
       dispatch(setNotificationType("error"));
+      dispatch(setNotificationMessage(response.error));
       dispatch(setIsLoading(false));
       return;
     }
 
-    dispatch(setNotificationMessage("Password reset successfully."));
     dispatch(setNotificationType("info"));
+    dispatch(setNotificationMessage("Password reset successfully."));
     dispatch(setResetConfirmNewPassword(""));
     dispatch(setResetCurrentPassword(""));
     dispatch(setResetNewPassword(""));
@@ -330,8 +330,8 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
-    dispatch(setNotificationMessage(error));
     dispatch(setNotificationType("error"));
+    dispatch(setNotificationMessage(error));
     dispatch(setIsLoading(false));
   }
 };
@@ -375,16 +375,16 @@ export const editProfile = (): AppThunk => async (dispatch, getState) => {
     );
 
     if (response.error) {
-      dispatch(setNotificationMessage(response.error));
       dispatch(setNotificationType("error"));
+      dispatch(setNotificationMessage(response.error));
       dispatch(setIsLoading(false));
       return;
     }
 
+    dispatch(setNotificationType("info"));
     dispatch(
       setNotificationMessage("Profile information updated successfully.")
     );
-    dispatch(setNotificationType("info"));
     dispatch(setEditEmail(""));
     dispatch(setEditName(""));
     dispatch(setEmail(response.email));
@@ -393,8 +393,8 @@ export const editProfile = (): AppThunk => async (dispatch, getState) => {
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
-    dispatch(setNotificationMessage(error));
     dispatch(setNotificationType("error"));
+    dispatch(setNotificationMessage(error));
     dispatch(setIsLoading(false));
   }
 };
@@ -424,8 +424,8 @@ export const deleteProfile = (): AppThunk => async (dispatch) => {
     );
 
     if (response.error) {
-      dispatch(setNotificationMessage(response.error));
       dispatch(setNotificationType("error"));
+      dispatch(setNotificationMessage(response.error));
       dispatch(setIsLoading(false));
       return;
     }
@@ -440,8 +440,8 @@ export const deleteProfile = (): AppThunk => async (dispatch) => {
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
-    dispatch(setNotificationMessage(error));
     dispatch(setNotificationType("error"));
+    dispatch(setNotificationMessage(error));
     dispatch(setIsLoading(false));
   }
 };
@@ -456,8 +456,8 @@ export const addSavedJob = (job: Job): AppThunk => async (dispatch) => {
     );
 
     if (response.error) {
-      dispatch(setNotificationMessage(response.error));
       dispatch(setNotificationType("error"));
+      dispatch(setNotificationMessage(response.error));
       dispatch(setIsLoading(false));
       return;
     }
@@ -467,13 +467,13 @@ export const addSavedJob = (job: Job): AppThunk => async (dispatch) => {
     dispatch(setSavedJobs(savedJobs));
     dispatch(setSavedJobsCurrentPage(1));
     dispatch(setSavedJobsTotalPages(Math.ceil(savedJobs.length / 5)));
-    dispatch(setNotificationMessage("Job saved successfully."));
     dispatch(setNotificationType("info"));
+    dispatch(setNotificationMessage("Job saved successfully."));
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
-    dispatch(setNotificationMessage(error));
     dispatch(setNotificationType("error"));
+    dispatch(setNotificationMessage(error));
     dispatch(setIsLoading(false));
   }
 };
@@ -481,15 +481,15 @@ export const addSavedJob = (job: Job): AppThunk => async (dispatch) => {
 export const removeSavedJob = (job: Job): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
   try {
-    const response: AddSavedJobResponse = await fetchServerData(
+    const response: RemoveSavedJobResponse = await fetchServerData(
       "/user/savedJobs",
       "PATCH",
       JSON.stringify({ method: "REMOVE", job })
     );
 
     if (response.error) {
-      dispatch(setNotificationMessage(response.error));
       dispatch(setNotificationType("error"));
+      dispatch(setNotificationMessage(response.error));
       dispatch(setIsLoading(false));
       return;
     }
@@ -499,13 +499,13 @@ export const removeSavedJob = (job: Job): AppThunk => async (dispatch) => {
     dispatch(setSavedJobs(savedJobs));
     dispatch(setSavedJobsCurrentPage(1));
     dispatch(setSavedJobsTotalPages(Math.ceil(savedJobs.length / 5)));
-    dispatch(setNotificationMessage("Job removed successfully."));
     dispatch(setNotificationType("info"));
+    dispatch(setNotificationMessage("Job removed successfully."));
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
-    dispatch(setNotificationMessage(error));
     dispatch(setNotificationType("error"));
+    dispatch(setNotificationMessage(error));
     dispatch(setIsLoading(false));
   }
 };

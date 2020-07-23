@@ -9,6 +9,10 @@ import Pagination from "../components/Pagination";
 import SearchInput from "../components/SearchInput";
 
 import { Job, LocationOption, NotificationType, RootState } from "../types";
+import {
+  setNotificationMessage,
+  setNotificationType,
+} from "../redux/actions/application";
 
 export interface SearchProps {
   currentJobs: Job[];
@@ -16,6 +20,7 @@ export interface SearchProps {
   notificationMessage: string;
   notificationType: NotificationType;
   totalPages: number;
+  lol: () => void;
 }
 
 const Search: React.SFC<SearchProps> = (props: SearchProps) => {
@@ -25,6 +30,7 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
     notificationMessage,
     notificationType,
     totalPages,
+    lol,
   } = props;
 
   const jobsOnPage = currentJobs.slice(currentPage * 5 - 5, currentPage * 5);
@@ -55,6 +61,7 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
 
   return (
     <>
+      <button onClick={() => lol()}>LOL</button>
       <SearchInput locationOptions={locationOptions} />
       <div className="search__container">
         <OptionsPanel handleCheckBox={handleCheckBox} />
@@ -90,4 +97,11 @@ const mapStateToProps = (state: RootState) => ({
   totalPages: state.application.totalPages,
 });
 
-export default connect(mapStateToProps)(Search);
+const mapDispatchToProps = (dispatch) => ({
+  lol: () => {
+    dispatch(setNotificationType("error"));
+    dispatch(setNotificationMessage("LOL"));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
