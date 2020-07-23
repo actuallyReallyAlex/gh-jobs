@@ -26,6 +26,7 @@ import {
   setResetConfirmNewPassword,
   setResetCurrentPassword,
   setResetNewPassword,
+  setIsDeletingProfile,
 } from "./actions/user";
 import { fetchServerData, unique } from "../util";
 
@@ -114,8 +115,8 @@ export const searchJobs = (
   dispatch(setIsLoading(false));
 };
 
-export const pagination = (pageNumber: number): AppThunk => (dispach) => {
-  dispach(setCurrentPage(pageNumber));
+export const pagination = (pageNumber: number): AppThunk => (dispatch) => {
+  dispatch(setCurrentPage(pageNumber));
 };
 
 export const logIn = (): AppThunk => async (dispatch, getState) => {
@@ -382,4 +383,23 @@ export const editProfile = (): AppThunk => async (dispatch, getState) => {
     dispatch(setNotificationType("error"));
     dispatch(setIsLoading(false));
   }
+};
+
+export const cancelDeleteProfile = (): AppThunk => (dispatch) => {
+  dispatch(setNotificationMessage(""));
+  dispatch(setIsDeletingProfile(false));
+};
+
+export const clickDeleteProfile = (): AppThunk => (dispatch) => {
+  dispatch(setNotificationType("warning"));
+  dispatch(
+    setNotificationMessage(
+      "Are you sure you would like to delete your profile? This can not be reversed."
+    )
+  );
+  dispatch(setIsDeletingProfile(true));
+};
+
+export const deleteProfile = (): AppThunk => () => {
+  alert("DELETE PROFILE");
 };

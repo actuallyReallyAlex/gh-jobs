@@ -1,19 +1,24 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
 import Button from "./Button";
 import Input from "./Input";
 
 import { setNotificationMessage } from "../redux/actions/application";
 import { setIsResettingPassword } from "../redux/actions/user";
-import { clickEditProfile, logOut, logOutAll } from "../redux/thunks";
+import {
+  clickEditProfile,
+  clickDeleteProfile,
+  logOut,
+  logOutAll,
+} from "../redux/thunks";
 
 import { RootState } from "../types";
 
 export interface ProfileDisplayProps {
   email: string;
   handleClearFormError: () => void;
+  handleClickDeleteProfile: () => void;
   handleClickEditProfile: () => void;
   handleLogOut: () => void;
   handleLogOutAll: () => void;
@@ -27,6 +32,7 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
   const {
     email,
     handleClearFormError,
+    handleClickDeleteProfile,
     handleClickEditProfile,
     handleLogOut,
     handleLogOutAll,
@@ -94,6 +100,7 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
         <Button
           id="delete-profile"
           label="Delete profile"
+          onClick={() => handleClickDeleteProfile()}
           style="danger"
           type="button"
         />
@@ -109,6 +116,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleClearFormError: () => dispatch(setNotificationMessage("")),
+  handleClickDeleteProfile: () => dispatch(clickDeleteProfile()),
   handleClickEditProfile: () => dispatch(clickEditProfile()),
   handleLogOut: () => dispatch(logOut()),
   handleLogOutAll: () => dispatch(logOutAll()),

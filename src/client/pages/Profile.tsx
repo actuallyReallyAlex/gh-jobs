@@ -3,25 +3,30 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import Notification from "../components/Notification";
+import ProfileDelete from "../components/ProfileDelete";
 import ProfileDisplay from "../components/ProfileDisplay";
 import ProfileEdit from "../components/ProfileEdit";
 import ProfileReset from "../components/ProfileReset";
 
-import { RootState } from "../types";
+import { NotificationType, RootState } from "../types";
 
 export interface ProfileProps {
+  isDeletingProfile: boolean;
   isEditingProfile: boolean;
   isLoggedIn: boolean;
   isResettingPassword: boolean;
   notificationMessage: string;
+  notificationType: NotificationType;
 }
 
 const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
   const {
+    isDeletingProfile,
     isEditingProfile,
     isLoggedIn,
     isResettingPassword,
     notificationMessage,
+    notificationType,
   } = props;
 
   let heading = "Profile";
@@ -30,6 +35,8 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
     heading = "Reset Password";
   } else if (isEditingProfile) {
     heading = "Edit Profile";
+  } else if (isDeletingProfile) {
+    heading = "Delete Profile";
   }
 
   if (!isLoggedIn) {
@@ -46,14 +53,21 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
           </div>
 
           {notificationMessage && (
-            <Notification message={notificationMessage} type="info" />
+            <Notification
+              message={notificationMessage}
+              type={notificationType}
+            />
           )}
 
           {isResettingPassword && <ProfileReset />}
 
-          {!isResettingPassword && isEditingProfile && <ProfileEdit />}
+          {isEditingProfile && <ProfileEdit />}
 
-          {!isResettingPassword && !isEditingProfile && <ProfileDisplay />}
+          {isDeletingProfile && <ProfileDelete />}
+
+          {!isResettingPassword && !isEditingProfile && !isDeletingProfile && (
+            <ProfileDisplay />
+          )}
         </form>
       </div>
     );
@@ -61,10 +75,12 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
+  isDeletingProfile: state.user.isDeletingProfile,
   isEditingProfile: state.user.isEditingProfile,
   isLoggedIn: state.user.isLoggedIn,
   isResettingPassword: state.user.isResettingPassword,
   notificationMessage: state.application.notificationMessage,
+  notificationType: state.application.notificationType,
 });
 
 export default connect(mapStateToProps)(Profile);
