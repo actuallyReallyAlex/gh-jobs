@@ -7,6 +7,7 @@ import ProfileDelete from "../components/ProfileDelete";
 import ProfileDisplay from "../components/ProfileDisplay";
 import ProfileEdit from "../components/ProfileEdit";
 import ProfileReset from "../components/ProfileReset";
+import ProfileSavedJobs from "../components/ProfileSavedJobs";
 
 import { NotificationType, RootState } from "../types";
 
@@ -15,6 +16,7 @@ export interface ProfileProps {
   isEditingProfile: boolean;
   isLoggedIn: boolean;
   isResettingPassword: boolean;
+  isViewingSavedJobs: boolean;
   notificationMessage: string;
   notificationType: NotificationType;
 }
@@ -25,6 +27,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
     isEditingProfile,
     isLoggedIn,
     isResettingPassword,
+    isViewingSavedJobs,
     notificationMessage,
     notificationType,
   } = props;
@@ -37,6 +40,8 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
     heading = "Edit Profile";
   } else if (isDeletingProfile) {
     heading = "Delete Profile";
+  } else if (isViewingSavedJobs) {
+    heading = "Saved Jobs";
   }
 
   if (!isLoggedIn) {
@@ -65,9 +70,12 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
 
           {isDeletingProfile && <ProfileDelete />}
 
-          {!isResettingPassword && !isEditingProfile && !isDeletingProfile && (
-            <ProfileDisplay />
-          )}
+          {isViewingSavedJobs && <ProfileSavedJobs />}
+
+          {!isResettingPassword &&
+            !isEditingProfile &&
+            !isDeletingProfile &&
+            !isViewingSavedJobs && <ProfileDisplay />}
         </form>
       </div>
     );
@@ -79,6 +87,7 @@ const mapStateToProps = (state: RootState) => ({
   isEditingProfile: state.user.isEditingProfile,
   isLoggedIn: state.user.isLoggedIn,
   isResettingPassword: state.user.isResettingPassword,
+  isViewingSavedJobs: state.user.isViewingSavedJobs,
   notificationMessage: state.application.notificationMessage,
   notificationType: state.application.notificationType,
 });

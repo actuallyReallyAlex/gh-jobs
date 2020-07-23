@@ -9,6 +9,7 @@ import { setIsResettingPassword } from "../redux/actions/user";
 import {
   clickEditProfile,
   clickDeleteProfile,
+  clickViewSavedJobs,
   logOut,
   logOutAll,
 } from "../redux/thunks";
@@ -20,6 +21,7 @@ export interface ProfileDisplayProps {
   handleClearFormError: () => void;
   handleClickDeleteProfile: () => void;
   handleClickEditProfile: () => void;
+  handleClickViewSavedJobs: () => void;
   handleLogOut: () => void;
   handleLogOutAll: () => void;
   handleSetIsResettingPassword: (isResettingPassword: boolean) => void;
@@ -34,6 +36,7 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
     handleClearFormError,
     handleClickDeleteProfile,
     handleClickEditProfile,
+    handleClickViewSavedJobs,
     handleLogOut,
     handleLogOutAll,
     handleSetIsResettingPassword,
@@ -68,13 +71,10 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
           type="button"
         />
         <Button
-          id="reset-password"
-          label="Reset password"
-          onClick={() => {
-            handleClearFormError();
-            handleSetIsResettingPassword(true);
-          }}
-          style="danger"
+          id="view-saved-jobs"
+          label="View saved jobs"
+          onClick={() => handleClickViewSavedJobs()}
+          style="secondary"
           type="button"
         />
       </div>
@@ -104,6 +104,16 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
           style="danger"
           type="button"
         />
+        <Button
+          id="reset-password"
+          label="Reset password"
+          onClick={() => {
+            handleClearFormError();
+            handleSetIsResettingPassword(true);
+          }}
+          style="danger"
+          type="button"
+        />
       </div>
     </>
   );
@@ -118,6 +128,7 @@ const mapDispatchToProps = (dispatch) => ({
   handleClearFormError: () => dispatch(setNotificationMessage("")),
   handleClickDeleteProfile: () => dispatch(clickDeleteProfile()),
   handleClickEditProfile: () => dispatch(clickEditProfile()),
+  handleClickViewSavedJobs: () => dispatch(clickViewSavedJobs()),
   handleLogOut: () => dispatch(logOut()),
   handleLogOutAll: () => dispatch(logOutAll()),
   handleSetIsResettingPassword: (isResettingPassword: boolean) =>

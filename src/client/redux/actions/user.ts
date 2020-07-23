@@ -7,12 +7,15 @@ import {
   SET_IS_EDITING_PROFILE,
   SET_IS_LOGGED_IN,
   SET_IS_RESETTING_PASSWORD,
+  SET_IS_VIEWING_SAVED_JOBS,
   SET_NAME,
   SET_PASSWORD,
   SET_RESET_CONFIRM_NEW_PASSWORD,
   SET_RESET_CURRENT_PASSWORD,
   SET_RESET_NEW_PASSWORD,
   SET_SAVED_JOBS,
+  SET_SAVED_JOBS_CURRENT_PAGE,
+  SET_SAVED_JOBS_TOTAL_PAGES,
 } from "../actionTypes";
 
 import { Job, UserAction } from "../../types";
@@ -61,6 +64,13 @@ export const setIsResettingPassword = (
   payload: { isResettingPassword },
 });
 
+export const setIsViewingSavedJobs = (
+  isViewingSavedJobs: boolean
+): UserAction => ({
+  type: SET_IS_VIEWING_SAVED_JOBS,
+  payload: { isViewingSavedJobs },
+});
+
 export const setName = (name: string): UserAction => ({
   type: SET_NAME,
   payload: { name },
@@ -93,4 +103,18 @@ export const setResetNewPassword = (resetNewPassword: string): UserAction => ({
 export const setSavedJobs = (savedJobs: Job[]): UserAction => ({
   type: SET_SAVED_JOBS,
   payload: { savedJobs },
+});
+
+export const setSavedJobsCurrentPage = (
+  savedJobsCurrentPage: number
+): UserAction => ({
+  type: SET_SAVED_JOBS_CURRENT_PAGE,
+  payload: { savedJobsCurrentPage },
+});
+
+export const setSavedJobsTotalPages = (
+  savedJobsTotalPages: number
+): UserAction => ({
+  type: SET_SAVED_JOBS_TOTAL_PAGES,
+  payload: { savedJobsTotalPages },
 });

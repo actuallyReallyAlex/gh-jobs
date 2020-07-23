@@ -193,10 +193,13 @@ export interface UserState {
   isEditingProfile: boolean;
   isLoggedIn: false;
   isResettingPassword: boolean;
+  isViewingSavedJobs: boolean;
   name: string;
   password: string;
   resetConfirmNewPassword: string;
   resetCurrentPassword: string;
   resetNewPassword: string;
   savedJobs: Job[];
+  savedJobsCurrentPage: number;
+  savedJobsTotalPages: number;
 }

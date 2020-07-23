@@ -7,12 +7,15 @@ import {
   SET_IS_EDITING_PROFILE,
   SET_IS_LOGGED_IN,
   SET_IS_RESETTING_PASSWORD,
+  SET_IS_VIEWING_SAVED_JOBS,
   SET_NAME,
   SET_PASSWORD,
   SET_RESET_CONFIRM_NEW_PASSWORD,
   SET_RESET_CURRENT_PASSWORD,
   SET_RESET_NEW_PASSWORD,
   SET_SAVED_JOBS,
+  SET_SAVED_JOBS_CURRENT_PAGE,
+  SET_SAVED_JOBS_TOTAL_PAGES,
 } from "../actionTypes";
 
 import { UserAction, UserState } from "../../types";
@@ -26,12 +29,15 @@ export const initialState: UserState = {
   isEditingProfile: false,
   isLoggedIn: false,
   isResettingPassword: false,
+  isViewingSavedJobs: false,
   name: "",
   password: "",
   resetConfirmNewPassword: "",
   resetCurrentPassword: "",
   resetNewPassword: "",
   savedJobs: [],
+  savedJobsCurrentPage: 1,
+  savedJobsTotalPages: 1,
 };
 
 const reducer = (state = initialState, action: UserAction): UserState => {
@@ -52,12 +58,15 @@ const reducer = (state = initialState, action: UserAction): UserState => {
     case SET_IS_EDITING_PROFILE:
     case SET_IS_LOGGED_IN:
     case SET_IS_RESETTING_PASSWORD:
+    case SET_IS_VIEWING_SAVED_JOBS:
     case SET_NAME:
     case SET_PASSWORD:
     case SET_RESET_CONFIRM_NEW_PASSWORD:
     case SET_RESET_CURRENT_PASSWORD:
     case SET_RESET_NEW_PASSWORD:
-    case SET_SAVED_JOBS: {
+    case SET_SAVED_JOBS:
+    case SET_SAVED_JOBS_CURRENT_PAGE:
+    case SET_SAVED_JOBS_TOTAL_PAGES: {
       return { ...state, [key]: value };
     }
     default:

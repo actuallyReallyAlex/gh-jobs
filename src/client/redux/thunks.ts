@@ -21,6 +21,7 @@ import {
   setIsDeletingProfile,
   setIsEditingProfile,
   setIsLoggedIn,
+  setIsViewingSavedJobs,
   setIsResettingPassword,
   setName,
   setPassword,
@@ -28,6 +29,8 @@ import {
   setResetCurrentPassword,
   setResetNewPassword,
   setSavedJobs,
+  setSavedJobsCurrentPage,
+  setSavedJobsTotalPages,
 } from "./actions/user";
 import { fetchServerData, unique } from "../util";
 
@@ -462,6 +465,8 @@ export const addSavedJob = (job: Job): AppThunk => async (dispatch) => {
     const { savedJobs } = response;
 
     dispatch(setSavedJobs(savedJobs));
+    dispatch(setSavedJobsCurrentPage(1));
+    dispatch(setSavedJobsTotalPages(Math.ceil(savedJobs.length / 5)));
     dispatch(setNotificationMessage("Job saved successfully."));
     dispatch(setNotificationType("info"));
     dispatch(setIsLoading(false));
@@ -492,6 +497,8 @@ export const removeSavedJob = (job: Job): AppThunk => async (dispatch) => {
     const { savedJobs } = response;
 
     dispatch(setSavedJobs(savedJobs));
+    dispatch(setSavedJobsCurrentPage(1));
+    dispatch(setSavedJobsTotalPages(Math.ceil(savedJobs.length / 5)));
     dispatch(setNotificationMessage("Job removed successfully."));
     dispatch(setNotificationType("info"));
     dispatch(setIsLoading(false));
@@ -501,4 +508,8 @@ export const removeSavedJob = (job: Job): AppThunk => async (dispatch) => {
     dispatch(setNotificationType("error"));
     dispatch(setIsLoading(false));
   }
+};
+
+export const clickViewSavedJobs = (): AppThunk => (dispatch) => {
+  dispatch(setIsViewingSavedJobs(true));
 };

@@ -15,6 +15,7 @@ export interface SearchProps {
   currentPage: number;
   notificationMessage: string;
   notificationType: NotificationType;
+  totalPages: number;
 }
 
 const Search: React.SFC<SearchProps> = (props: SearchProps) => {
@@ -23,6 +24,7 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
     currentPage,
     notificationMessage,
     notificationType,
+    totalPages,
   } = props;
 
   const jobsOnPage = currentJobs.slice(currentPage * 5 - 5, currentPage * 5);
@@ -65,7 +67,9 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
           )}
           {jobsOnPage &&
             jobsOnPage.map((job: Job) => <JobCard job={job} key={job.id} />)}
-          {jobsOnPage.length > 0 && <Pagination />}
+          {jobsOnPage.length > 0 && (
+            <Pagination currentPage={currentPage} totalPages={totalPages} />
+          )}
           {jobsOnPage.length === 0 && (
             <p className="text__center" id="no-results">
               No results. Please modify your search and try again.
@@ -83,6 +87,7 @@ const mapStateToProps = (state: RootState) => ({
   currentPage: state.application.currentPage,
   notificationMessage: state.application.notificationMessage,
   notificationType: state.application.notificationType,
+  totalPages: state.application.totalPages,
 });
 
 export default connect(mapStateToProps)(Search);
