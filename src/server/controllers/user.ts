@@ -41,6 +41,7 @@ class UserController {
             email: req.body.email,
             name: req.body.name,
             password: req.body.password,
+            savedJobs: [],
           });
 
           const token = await newUser.generateAuthToken();

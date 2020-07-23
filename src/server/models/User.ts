@@ -77,6 +77,21 @@ const userSchema = new mongoose.Schema(
         return true;
       },
     },
+    savedJobs: [
+      {
+        company: String,
+        company_logo: String,
+        company_url: String,
+        created_at: String,
+        description: String,
+        how_to_apply: String,
+        id: String,
+        location: String,
+        title: String,
+        type: String,
+        url: String,
+      },
+    ],
     tokens: [
       {
         token: {
