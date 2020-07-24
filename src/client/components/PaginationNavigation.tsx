@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { setCurrentPage } from "../redux/actions/application";
 
-import { PaginationNavigationType, RootState } from "../types";
+import { PaginationNavigationType } from "../types";
 
 export interface PaginationNavigationProps {
   currentPage: number;
@@ -53,11 +53,6 @@ const PaginationNavigation: React.SFC<PaginationNavigationProps> = (
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  currentPage: state.application.currentPage,
-  totalPages: state.application.totalPages,
-});
-
 const mapDispatchToProps = (dispatch) => ({
   handleDecrement: (currentPage: number) =>
     dispatch(setCurrentPage(currentPage - 1)),
@@ -65,7 +60,4 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(setCurrentPage(currentPage + 1)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PaginationNavigation);
+export default connect(null, mapDispatchToProps)(PaginationNavigation);

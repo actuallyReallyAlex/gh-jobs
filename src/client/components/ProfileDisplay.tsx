@@ -14,7 +14,7 @@ import {
   logOutAll,
 } from "../redux/thunks";
 
-import { RootState } from "../types";
+import { Job, RootState } from "../types";
 
 export interface ProfileDisplayProps {
   email: string;
@@ -26,6 +26,7 @@ export interface ProfileDisplayProps {
   handleLogOutAll: () => void;
   handleSetIsResettingPassword: (isResettingPassword: boolean) => void;
   name: string;
+  savedJobs: Job[];
 }
 
 const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
@@ -41,6 +42,7 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
     handleLogOutAll,
     handleSetIsResettingPassword,
     name,
+    savedJobs,
   } = props;
   return (
     <>
@@ -71,6 +73,7 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
           type="button"
         />
         <Button
+          disabled={savedJobs.length === 0}
           id="view-saved-jobs"
           label="View saved jobs"
           onClick={() => handleClickViewSavedJobs()}
@@ -122,6 +125,7 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
 const mapStateToProps = (state: RootState) => ({
   email: state.user.email,
   name: state.user.name,
+  savedJobs: state.user.savedJobs,
 });
 
 const mapDispatchToProps = (dispatch) => ({
