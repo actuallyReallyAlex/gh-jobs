@@ -8,10 +8,10 @@ export const checkIfMongoDBIsRunning = async (): Promise<boolean> =>
     try {
       if (!process.env.MONGODB_URL) throw new Error("No MONGODB_URL");
 
-      const response = await fetch(
-        process.env.MONGODB_URL.replace(/mongodb:\/\//gm, "http://")
-      );
-      if (response.status !== 200) return resolve(false);
+      // const response = await fetch(
+      //   process.env.MONGODB_URL.replace(/mongodb:\/\//gm, "http://")
+      // );
+      // if (response.status !== 200) return resolve(false);
       return resolve(true);
     } catch (error) {
       resolve(false);
