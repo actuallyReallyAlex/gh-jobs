@@ -446,28 +446,6 @@ input::placeholder {
   text-transform: uppercase;
 }
 
-.copyright {
-  align-items: center;
-  color: #b9bdcf;
-  display: flex;
-  font-size: 14px;
-  font-weight: lighter;
-  justify-content: center;
-  line-height: 17px;
-  margin-top: 50px;
-  width: 100%;
-}
-
-.copyright a {
-  color: #b9bdcf;
-  text-decoration: none;
-}
-
-.copyright a:hover {
-  color: #8f929b;
-  text-decoration: underline;
-}
-
 .details__container {
   display: flex;
   flex-direction: row;
