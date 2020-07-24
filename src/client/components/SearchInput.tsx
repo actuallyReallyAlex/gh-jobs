@@ -41,9 +41,9 @@ const SearchInput: React.SFC<SearchInputProps> = (props: SearchInputProps) => {
           />
           <div className="search__button__container">
             <Button
+              buttonStyle="primary"
               id="search-submit"
               label="Search"
-              style="primary"
               type="submit"
             />
           </div>

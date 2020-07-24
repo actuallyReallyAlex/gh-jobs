@@ -53,13 +53,14 @@ const ProfileEdit: React.SFC<ProfileEditProps> = (props: ProfileEditProps) => {
 
       <div className="profile__container__actions">
         <Button
+          buttonStyle="secondary"
           id="cancel"
           label="Cancel"
           onClick={() => handleCancelEditProfile()}
-          style="secondary"
           type="button"
         />
         <Button
+          buttonStyle="danger"
           disabled={
             editName === "" ||
             (editName === name && editEmail === email) ||
@@ -68,7 +69,6 @@ const ProfileEdit: React.SFC<ProfileEditProps> = (props: ProfileEditProps) => {
           id="edit-confirm"
           label="Confirm edit"
           onClick={() => handleEditProfile()}
-          style="danger"
           type="button"
         />
       </div>

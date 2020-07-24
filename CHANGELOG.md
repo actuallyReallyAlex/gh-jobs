@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Cypress Visual Regression Testing - [cypress-plugin-snapshots](https://github.com/meinaart/cypress-plugin-snapshots)
+
 ### Changed
 
 ### Removed

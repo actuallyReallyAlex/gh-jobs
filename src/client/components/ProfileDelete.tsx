@@ -18,17 +18,17 @@ const ProfileDelete: React.SFC<ProfileDeleteProps> = (
     <>
       <div className="profile__container__actions">
         <Button
+          buttonStyle="secondary"
           id="cancel"
           label="Cancel"
           onClick={() => handleCancelDeleteProfile()}
-          style="secondary"
           type="button"
         />
         <Button
+          buttonStyle="danger"
           id="delete-profile-confirm"
           label="Delete profile"
           onClick={() => handleDeleteProfile()}
-          style="danger"
           type="button"
         />
       </div>

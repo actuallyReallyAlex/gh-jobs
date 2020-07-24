@@ -66,55 +66,55 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
 
       <div className="profile__container__actions">
         <Button
+          buttonStyle="primary"
           id="edit"
           label="Edit profile"
           onClick={() => handleClickEditProfile()}
-          style="primary"
           type="button"
         />
         <Button
+          buttonStyle="secondary"
           disabled={savedJobs.length === 0}
           id="view-saved-jobs"
           label="View saved jobs"
           onClick={() => handleClickViewSavedJobs()}
-          style="secondary"
           type="button"
         />
       </div>
 
       <div className="profile__container__actions">
         <Button
+          buttonStyle="danger"
           id="log-out"
           label="Log out"
           onClick={() => handleLogOut()}
-          style="danger"
           type="button"
         />
         <Button
+          buttonStyle="danger"
           id="log-out-all"
           label="Log out of all devices"
           onClick={() => handleLogOutAll()}
-          style="danger"
           type="button"
         />
       </div>
 
       <div className="profile__container__actions">
         <Button
+          buttonStyle="danger"
           id="delete-profile"
           label="Delete profile"
           onClick={() => handleClickDeleteProfile()}
-          style="danger"
           type="button"
         />
         <Button
+          buttonStyle="danger"
           id="reset-password"
           label="Reset password"
           onClick={() => {
             handleClearFormError();
             handleSetIsResettingPassword(true);
           }}
-          style="danger"
           type="button"
         />
       </div>

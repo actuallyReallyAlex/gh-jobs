@@ -113,9 +113,9 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
 
           <div className="signup__container__actions">
             <Button
+              buttonStyle="primary"
               id="signup"
               label="Create account"
-              style="primary"
               type="submit"
             />
           </div>

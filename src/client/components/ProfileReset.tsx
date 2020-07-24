@@ -71,13 +71,14 @@ const ProfileReset: React.SFC<ProfileResetProps> = (
 
       <div className="profile__container__actions">
         <Button
+          buttonStyle="secondary"
           id="cancel"
           label="Cancel"
           onClick={() => handleCancelResetPassword()}
-          style="secondary"
           type="button"
         />
         <Button
+          buttonStyle="danger"
           disabled={
             resetCurrentPassword === "" ||
             resetNewPassword === "" ||
@@ -86,7 +87,6 @@ const ProfileReset: React.SFC<ProfileResetProps> = (
           id="reset"
           label="Confirm reset"
           onClick={() => handleResetPassword()}
-          style="danger"
           type="button"
         />
       </div>

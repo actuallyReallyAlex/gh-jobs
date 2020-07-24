@@ -86,7 +86,12 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
               <i className="material-icons">account_circle</i>
               <span>Create an account</span>
             </Link>
-            <Button id="log-in" label="Log in" style="primary" type="submit" />
+            <Button
+              buttonStyle="primary"
+              id="log-in"
+              label="Log in"
+              type="submit"
+            />
           </div>
         </form>
         <Copyright />
