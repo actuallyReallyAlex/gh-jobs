@@ -45,6 +45,7 @@ class App {
       "http://localhost:3000",
       "http://localhost:8080",
       "https://gh-jobs.herokuapp.com",
+      "https://www.githubjobs.io",
       undefined,
     ];
 
