@@ -23,6 +23,10 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+
+import 'cypress-plugin-snapshots/commands';
+
 Cypress.Commands.add("paginationSelect1", (childList) => {
   // * Should contain 7 elements
   assert.equal(childList.length, 7);
