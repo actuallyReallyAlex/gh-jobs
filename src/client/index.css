@@ -137,32 +137,11 @@ input::placeholder {
   margin-left: -1px;
 }
 
-.search__button {
-  background-color: rgba(27, 108, 205, 1);
-  border: 3px solid rgba(255, 255, 255, 1);
-  border-bottom-right-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-weight: 400;
-  line-height: 1.5;
-  padding: 0.375rem 3rem;
-  position: relative;
-  text-align: center;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  user-select: none;
-  vertical-align: middle;
-  z-index: 2;
-}
-
 .flex {
   display: flex;
 }
 
 .jobcard__container {
-  align-items: center;
   background-color: #fff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
   border-radius: 4px;
@@ -176,6 +155,47 @@ input::placeholder {
 
 .jobcard__container a {
   text-decoration: none;
+}
+
+.jobcard__actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.jobcard__save__selected,
+.jobcard__save__deselected,
+.details__save__selected,
+.details__save__deselected {
+  background: transparent;
+  border: none;
+  color: #b9bdcf;
+  margin: 0;
+  padding: 0;
+}
+
+.jobcard__save__selected,
+.details__save__selected {
+  color: #1e86ff;
+}
+
+.jobcard__save__selected:hover,
+.jobcard__save__deselected:hover,
+.details__save__selected:hover,
+.details__save__deselected:hover {
+  color: #1e86ff;
+  cursor: pointer;
+}
+
+.details__save__selected,
+.details__save__deselected {
+  margin-left: 15px;
+}
+
+.jobcard__info {
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
 }
 
 .jobcard__logo__not-found,
@@ -251,8 +271,9 @@ input::placeholder {
 }
 
 .jobcard__container__right {
-  align-self: flex-end;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .jobcard__location,
@@ -266,7 +287,20 @@ input::placeholder {
 .jobcard__created i {
   color: #b9bdcf;
   font-size: 15px;
-  margin-right: 7.5px;
+  margin-right: 5px;
+}
+
+.jobcard__created {
+  margin-top: 15px;
+}
+
+.jobcard__created p,
+.jobcard__location p {
+  margin: 0;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .jobcard__location p,
@@ -281,10 +315,13 @@ input::placeholder {
 .details__created {
   align-items: center;
   display: flex;
-  margin-left: 28.5px;
 }
 
 .jobcard__created,
+.jobcard__location {
+  justify-content: flex-end;
+}
+
 .details__created i {
   color: #b9bdcf;
   font-size: 15px;
@@ -310,6 +347,10 @@ input::placeholder {
 
 .jobs__container {
   width: 75%;
+}
+
+.jobs__container.saved {
+  width: 100%;
 }
 
 .checkbox__container {
@@ -445,7 +486,9 @@ input::placeholder {
   width: 75%;
 }
 
-.details__side__link {
+.details__side__link,
+.login__action__create,
+.navigation__link {
   align-items: center;
   color: #1e86ff;
   display: flex;
@@ -457,16 +500,24 @@ input::placeholder {
   text-decoration: none;
 }
 
-.details__side__link i {
+.details__side__link {
   font-size: 14px;
   margin-right: 15px;
 }
 
-.details__side__link:hover span {
+.login__action__create i {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.details__side__link:hover span,
+.login__action__create:hover span,
+.navigation__link:hover span {
   text-decoration: underline;
 }
 
-.details__side__link:hover i {
+.details__side__link:hover i,
+.login__action__create:hover i {
   text-decoration: none;
 }
 
@@ -510,13 +561,18 @@ input::placeholder {
 .details__container__title__inner {
   align-items: flex-start;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .details__title__fulltime {
   margin-bottom: 0;
-  margin-left: 17px;
   margin-top: 0;
+}
+
+.details__container__actions {
+  display: flex;
+  flex-direction: row;
+  margin-top: 15px;
 }
 
 .details__created {
@@ -577,64 +633,6 @@ input::placeholder {
   font-weight: normal;
   font-size: 16px;
   line-height: 24px;
-}
-
-@media only screen and (max-width: 600px) {
-  #app {
-    max-width: 100%;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  .search__container__outer {
-    padding: 35px 5%;
-  }
-
-  [placeholder] {
-    text-overflow: ellipsis;
-  }
-
-  .search__button {
-    padding: 0.375rem 2rem;
-  }
-
-  .search__container,
-  .jobcard__container,
-  .details__container,
-  .details__container__title__inner {
-    flex-direction: column;
-  }
-
-  .options-panel__container,
-  .jobs__container,
-  .details__side__container,
-  .details__main__container {
-    width: 100%;
-  }
-
-  .input__container {
-    max-width: 100%;
-  }
-
-  .jobcard__location p,
-  .jobcard__created p {
-    margin-bottom: 0;
-    margin-top: 0;
-  }
-
-  .jobcard__container {
-    margin-bottom: 13px;
-    margin-top: 13px;
-  }
-
-  .details__title {
-    margin-top: 36px;
-  }
-
-  .details__title__fulltime {
-    margin-left: 0;
-    margin-top: 4px;
-  }
 }
 
 .hidden {
@@ -810,4 +808,251 @@ input::placeholder {
 .jobcard__container__left {
   display: flex;
   width: 100%;
+}
+
+#navigation {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#login-page,
+#signup-page,
+#profile-page {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+#login-page > form,
+#signup-page > form,
+#profile-page > form {
+  max-width: 444px;
+  width: 50%;
+}
+
+#profile-page > form.saved {
+  max-width: 800px;
+  width: 100%;
+}
+
+#login-page > .input__container,
+#signup-page > .input__container,
+#profile-page > .input__container {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  max-width: 100%;
+  width: 100%;
+}
+
+.login__container__title,
+.signup__container__title,
+.profile__container__title {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.login__container__title > h1,
+.signup__container__title > h1,
+.profile__container__title > h1 {
+  color: #282538;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 200;
+  font-size: 24px;
+  line-height: 36px;
+  margin: 0;
+}
+
+.avatar {
+  align-items: center;
+  background: #1e86ff;
+  border-radius: 50%;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  margin: 8px;
+  width: 40px;
+}
+
+.avatar > i {
+  color: #fff;
+}
+
+#login-page > form > .input__container,
+#signup-page > form > .input__container,
+#profile-page > form > .input__container {
+  max-width: 100%;
+}
+
+.login__container__actions,
+.signup__container__actions,
+.profile__container__actions {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.signup__container__actions {
+  justify-content: center;
+}
+
+.profile__container__actions {
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+
+.button__primary,
+.button__secondary,
+.button__danger {
+  border: 3px solid rgba(255, 255, 255, 1);
+  border-bottom-right-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 0.375rem 3rem;
+  position: relative;
+  text-align: center;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  user-select: none;
+  vertical-align: middle;
+  z-index: 2;
+}
+
+.button__primary {
+  background-color: rgba(27, 108, 205, 1);
+}
+
+.button__secondary {
+  background-color: #b9bdcf;
+}
+
+.button__danger {
+  background-color: rgba(205, 27, 27, 1);
+}
+
+.notification__container {
+  align-items: center;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 15px;
+  margin-top: 25px;
+}
+
+.notification__container > span {
+  margin-left: 10px;
+}
+
+.notification__container.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.notification__container.info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.notification__container.warning {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+@media only screen and (max-width: 800px) {
+  .search__container {
+    flex-direction: column;
+  }
+
+  .options-panel__container,
+  .jobs__container {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #app {
+    max-width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .search__container__outer {
+    padding: 35px 5%;
+  }
+
+  [placeholder] {
+    text-overflow: ellipsis;
+  }
+
+  #search-submit {
+    padding: 0.375rem 2rem;
+  }
+
+  .search__container,
+  .details__container,
+  .login__container__actions,
+  .signup__container__actions,
+  .profile__container__actions {
+    flex-direction: column;
+  }
+
+  .profile__container__actions {
+    align-items: normal;
+  }
+
+  .options-panel__container,
+  .jobs__container,
+  .details__side__container,
+  .details__main__container,
+  #login-page > form,
+  #signup-page > form,
+  #profile-page > form {
+    width: 100%;
+  }
+
+  .input__container {
+    max-width: 100%;
+  }
+
+  .jobcard__location p,
+  .jobcard__created p {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  .jobcard__container {
+    margin-bottom: 13px;
+    margin-top: 13px;
+  }
+
+  .details__title {
+    margin-top: 36px;
+  }
+
+  #log-in,
+  #sign-up {
+    margin-top: 25px;
+  }
+
+  .details__title__fulltime {
+    margin-left: 0;
+    margin-top: 4px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .jobcard__location p,
+  .jobcard__created p {
+    max-width: 65px;
+  }
 }

@@ -52,7 +52,7 @@ context("Options Panel", () => {
       "#app > div.search__container > div.options-panel__container > label:nth-child(1) > span"
     ).click();
     cy.get("#search").type("developer");
-    cy.get(".search__button").click();
+    cy.get("#search-submit").click();
     cy.wait(1000);
     cy.reload();
     cy.get(
@@ -63,7 +63,7 @@ context("Options Panel", () => {
   it("Should retain location search value", () => {
     cy.get("#location-search").should("have.value", "");
     cy.get("#location-search").type("Los Angeles");
-    cy.get(".search__button").click();
+    cy.get("#search-submit").click();
     cy.wait(1000);
     cy.get("#location-search").should("have.value", "Los Angeles");
   });
@@ -74,14 +74,14 @@ context("Options Panel", () => {
       "#app > div.search__container > div.options-panel__container > label:nth-child(3) > span"
     ).click();
     cy.get("#location-1").should("be.checked");
-    cy.get(".search__button").click();
+    cy.get("#search-submit").click();
     cy.wait(1000);
     cy.get("#location-1").should("be.checked");
   });
 
   it("Should filter with fullTime correctly", () => {
     cy.get("#search").type("developer");
-    cy.get(".search__button").click();
+    cy.get("#search-submit").click();
 
     cy.wait(1500);
     cy.get(".jobcard__container").then(($jobs) => {
@@ -91,7 +91,7 @@ context("Options Panel", () => {
     cy.get(
       "#app > div.search__container > div.options-panel__container > label:nth-child(1) > span"
     ).click();
-    cy.get(".search__button").click();
+    cy.get("#search-submit").click();
 
     cy.wait(1500);
     cy.get(".jobcard__container").then(($jobs) => {

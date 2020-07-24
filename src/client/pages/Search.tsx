@@ -1,21 +1,31 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import SearchInput from "../components/SearchInput";
-import JobCard from "../components/JobCard";
-import OptionsPanel from "../components/OptionsPanel";
 import Copyright from "../components/Copyright";
+import JobCard from "../components/JobCard";
+import Notification from "../components/Notification";
+import OptionsPanel from "../components/OptionsPanel";
 import Pagination from "../components/Pagination";
+import SearchInput from "../components/SearchInput";
 
-import { Job, LocationOption, RootState } from "../types";
+import { Job, LocationOption, NotificationType, RootState } from "../types";
 
 export interface SearchProps {
   currentJobs: Job[];
   currentPage: number;
+  notificationMessage: string;
+  notificationType: NotificationType;
+  totalPages: number;
 }
 
 const Search: React.SFC<SearchProps> = (props: SearchProps) => {
-  const { currentJobs, currentPage } = props;
+  const {
+    currentJobs,
+    currentPage,
+    notificationMessage,
+    notificationType,
+    totalPages,
+  } = props;
 
   const jobsOnPage = currentJobs.slice(currentPage * 5 - 5, currentPage * 5);
 
@@ -49,9 +59,17 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
       <div className="search__container">
         <OptionsPanel handleCheckBox={handleCheckBox} />
         <div className="jobs__container">
+          {notificationMessage && (
+            <Notification
+              message={notificationMessage}
+              type={notificationType}
+            />
+          )}
           {jobsOnPage &&
             jobsOnPage.map((job: Job) => <JobCard job={job} key={job.id} />)}
-          {jobsOnPage.length > 0 && <Pagination />}
+          {jobsOnPage.length > 0 && (
+            <Pagination currentPage={currentPage} totalPages={totalPages} />
+          )}
           {jobsOnPage.length === 0 && (
             <p className="text__center" id="no-results">
               No results. Please modify your search and try again.
@@ -67,6 +85,9 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
 const mapStateToProps = (state: RootState) => ({
   currentJobs: state.application.currentJobs,
   currentPage: state.application.currentPage,
+  notificationMessage: state.application.notificationMessage,
+  notificationType: state.application.notificationType,
+  totalPages: state.application.totalPages,
 });
 
 export default connect(mapStateToProps)(Search);

@@ -4,14 +4,32 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useParams, Link } from "react-router-dom";
 
 import Copyright from "../components/Copyright";
-import { Job, RootState } from "../types";
+import Notification from "../components/Notification";
+
+import { addSavedJob, removeSavedJob } from "../redux/thunks";
+
+import { Job, NotificationType, RootState } from "../types";
 
 interface DetailsProps {
+  handleAddSavedJob: (job: Job) => void;
+  handleRemoveSavedJob: (job: Job) => void;
+  isLoggedIn: boolean;
   jobs: Job[];
+  notificationMessage: string;
+  notificationType: NotificationType;
+  savedJobs: Job[];
 }
 
 const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
-  const { jobs } = props;
+  const {
+    handleAddSavedJob,
+    handleRemoveSavedJob,
+    isLoggedIn,
+    jobs,
+    notificationMessage,
+    notificationType,
+    savedJobs,
+  } = props;
   const { id } = useParams();
   const [data, setData] = React.useState(null);
   const [applyLink, setApplyLink] = React.useState("");
@@ -34,6 +52,11 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
 
     setData(job);
   }, []);
+
+  const jobIsSaved =
+    savedJobs && data
+      ? savedJobs.findIndex((savedJob: Job) => savedJob.id === data.id) >= 0
+      : false;
 
   return (
     <>
@@ -64,14 +87,48 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
         </div>
 
         <div className="details__main__container">
+          {notificationMessage && (
+            <Notification
+              message={notificationMessage}
+              type={notificationType}
+            />
+          )}
           {data && (
             <>
               <div className="details__container__title">
                 <div className="details__container__title__inner">
                   <h2 className="details__title">{data.title}</h2>
-                  {data.type === "Full Time" && (
-                    <p className="details__title__fulltime">Full Time</p>
-                  )}
+                  <div className="details__container__actions">
+                    {data.type === "Full Time" && (
+                      <p
+                        className="details__title__fulltime"
+                        id="full-time-indicator"
+                      >
+                        Full Time
+                      </p>
+                    )}
+                    {isLoggedIn && (
+                      <button
+                        className={
+                          jobIsSaved
+                            ? "details__save__selected"
+                            : "details__save__deselected"
+                        }
+                        id={
+                          jobIsSaved
+                            ? `remove-job-${data.id}`
+                            : `save-job-${data.id}`
+                        }
+                        onClick={
+                          jobIsSaved
+                            ? () => handleRemoveSavedJob(data)
+                            : () => handleAddSavedJob(data)
+                        }
+                      >
+                        <i className="material-icons">bookmark</i>
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 <div className="details__created">
@@ -134,7 +191,16 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
+  isLoggedIn: state.user.isLoggedIn,
   jobs: state.application.jobs,
+  notificationMessage: state.application.notificationMessage,
+  notificationType: state.application.notificationType,
+  savedJobs: state.user.savedJobs,
 });
 
-export default connect(mapStateToProps)(Details);
+const mapDispatchToProps = (dispatch) => ({
+  handleAddSavedJob: (job: Job) => dispatch(addSavedJob(job)),
+  handleRemoveSavedJob: (job: Job) => dispatch(removeSavedJob(job)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Details);

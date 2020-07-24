@@ -20,8 +20,11 @@ export const checkIfMongoDBIsRunning = async (): Promise<boolean> =>
 
 export const createSearchURL = (
   page: number,
+  // eslint-disable-next-line
   description: string | any,
+  // eslint-disable-next-line
   full_time: string | any,
+  // eslint-disable-next-line
   location: string | any
 ): string => {
   let url = `https://jobs.github.com/positions.json?page=${page}&`;

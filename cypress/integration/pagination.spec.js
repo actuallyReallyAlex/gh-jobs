@@ -9,11 +9,11 @@ context("Pagination", () => {
         url: "/jobs",
         status: 200,
         response: jobsJson,
-        onRequest: (xhr) => {},
-        onResponse: (xhr) => {},
+        delay: 1000,
       });
     });
     cy.visit("http://localhost:3000");
+    cy.wait(1500);
   });
 
   it("Should render initial <Pagination /> component correctly", () => {
@@ -229,7 +229,7 @@ context("Pagination", () => {
       cy.get(
         "#app > div.search__container > div.options-panel__container > label:nth-child(3) > span"
       ).click();
-      cy.get(".search__button").click();
+      cy.get("#search-submit").click();
 
       cy.get(".jobcard__container").then(($jobs) => {
         assert.equal($jobs.length, 3);
@@ -266,11 +266,11 @@ context("Pagination - 1 Page", () => {
         url: "/jobs",
         status: 200,
         response: jobsJson,
-        onRequest: (xhr) => {},
-        onResponse: (xhr) => {},
+        delay: 1000,
       });
     });
     cy.visit("http://localhost:3000");
+    cy.wait(1500);
   });
 
   it("Should display pagination correctly, when 5 jobs exist", () => {
@@ -304,11 +304,11 @@ context("Pagination - 2 Pages", () => {
         url: "/jobs",
         status: 200,
         response: jobsJson,
-        onRequest: (xhr) => {},
-        onResponse: (xhr) => {},
+        delay: 1000,
       });
     });
     cy.visit("http://localhost:3000");
+    cy.wait(1500);
   });
 
   it("Should display pagination correctly, when 10 jobs exist", () => {
@@ -342,11 +342,11 @@ context("Pagination - 3 Pages", () => {
         url: "/jobs",
         status: 200,
         response: jobsJson,
-        onRequest: (xhr) => {},
-        onResponse: (xhr) => {},
+        delay: 1000,
       });
     });
     cy.visit("http://localhost:3000");
+    cy.wait(1500);
   });
 
   it("Should display pagination correctly, when 15 jobs exist", () => {
@@ -382,11 +382,11 @@ context("Pagination - 4 Pages", () => {
         url: "/jobs",
         status: 200,
         response: jobsJson,
-        onRequest: (xhr) => {},
-        onResponse: (xhr) => {},
+        delay: 1000,
       });
     });
     cy.visit("http://localhost:3000");
+    cy.wait(1500);
   });
 
   it("Should display pagination correctly, when 20 jobs exist", () => {

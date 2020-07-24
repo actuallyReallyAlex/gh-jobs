@@ -1,19 +1,37 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { Link } from "react-router-dom";
 
-import { Job } from "../types";
+import { addSavedJob, removeSavedJob } from "../redux/thunks";
+
+import { Job, RootState } from "../types";
 
 export interface JobCardProps {
+  handleAddSavedJob: (job: Job) => void;
+  handleRemoveSavedJob: (job: Job) => void;
+  isLoggedIn: boolean;
   job: Job;
+  savedJobs: Job[];
 }
 
 const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
-  const { job } = props;
+  const {
+    handleAddSavedJob,
+    handleRemoveSavedJob,
+    isLoggedIn,
+    job,
+    savedJobs,
+  } = props;
   const handleImageError = () => {
     // TODO - Should set the image to a fallback/just display the div with the not found text
     // alert("IMAGE ERROR - CREATE FUNCTIONALITY");
   };
+
+  const jobIsSaved = savedJobs
+    ? savedJobs.findIndex((savedJob: Job) => savedJob.id === job.id) >= 0
+    : false;
+
   return (
     <div className="jobcard__container">
       <div className="jobcard__container__left">
@@ -34,7 +52,7 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
 
         <div className="jobcard__container__middle">
           <p className="jobcard__company">{job.company}</p>
-          <Link to={`/${job.id}`}>
+          <Link id={job.id} to={`/jobs/${job.id}`}>
             <p className="jobcard__title">{job.title}</p>
           </Link>
           {job.type === "Full Time" && (
@@ -44,19 +62,52 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
       </div>
 
       <div className="jobcard__container__right">
-        <div className="jobcard__location">
-          <i className="material-icons">public</i>
-          <p>{job.location}</p>
+        <div className="jobcard__actions">
+          {isLoggedIn && (
+            <button
+              className={
+                jobIsSaved
+                  ? "jobcard__save__selected"
+                  : "jobcard__save__deselected"
+              }
+              id={jobIsSaved ? `remove-job-${job.id}` : `save-job-${job.id}`}
+              onClick={
+                jobIsSaved
+                  ? () => handleRemoveSavedJob(job)
+                  : () => handleAddSavedJob(job)
+              }
+            >
+              <i className="material-icons">bookmark</i>
+            </button>
+          )}
         </div>
-        <div className="jobcard__created">
-          <i className="material-icons">access_time</i>
-          <p>
-            {formatDistanceToNow(new Date(job.created_at), { addSuffix: true })}
-          </p>
+        <div className="jobcard__info">
+          <div className="jobcard__location">
+            <i className="material-icons">public</i>
+            <p>{job.location}</p>
+          </div>
+          <div className="jobcard__created">
+            <i className="material-icons">access_time</i>
+            <p>
+              {formatDistanceToNow(new Date(job.created_at), {
+                addSuffix: true,
+              })}
+            </p>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default JobCard;
+const mapStateToProps = (state: RootState) => ({
+  isLoggedIn: state.user.isLoggedIn,
+  savedJobs: state.user.savedJobs,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  handleAddSavedJob: (job: Job) => dispatch(addSavedJob(job)),
+  handleRemoveSavedJob: (job: Job) => dispatch(removeSavedJob(job)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(JobCard);

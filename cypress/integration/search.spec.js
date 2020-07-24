@@ -29,7 +29,7 @@ context("Search", () => {
       assert.equal($jobs.length, 5);
     });
     cy.get("#search").type("developer");
-    cy.get(".search__button").click();
+    cy.get("#search-submit").click();
     cy.wait(1000);
     cy.get(".jobcard__container").then(($jobs) => {
       assert.equal($jobs.length, 5);
@@ -38,7 +38,7 @@ context("Search", () => {
 
   it("Should retain search value on reload", () => {
     cy.get("#search").type("developer");
-    cy.get(".search__button").click();
+    cy.get("#search-submit").click();
     cy.wait(1000);
     cy.reload();
     cy.get("#search").should("have.value", "developer");
@@ -74,7 +74,7 @@ context("Search - No Results", () => {
 
   it("Should display note when there are no results", () => {
     cy.get("#search").type("developer");
-    cy.get(".search__button").click();
+    cy.get("#search-submit").click();
     cy.wait(1000);
     cy.get("#no-results").should(
       "have.text",

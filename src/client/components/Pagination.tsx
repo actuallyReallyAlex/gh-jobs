@@ -1,11 +1,8 @@
 import * as React from "react";
-import { connect } from "react-redux";
 
 import PaginationItem from "./PaginationItem";
 import PaginationMore from "./PaginationMore";
 import PaginationNavigation from "./PaginationNavigation";
-
-import { RootState } from "../types";
 
 export interface PaginationProps {
   currentPage: number;
@@ -58,17 +55,20 @@ const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
   return (
     <nav id="pagination">
       <ul className="pagination__list">
-        <PaginationNavigation type="left" />
+        <PaginationNavigation
+          currentPage={currentPage}
+          totalPages={totalPages}
+          type="left"
+        />
         {pageButtons.map((button) => button)}
-        <PaginationNavigation type="right" />
+        <PaginationNavigation
+          currentPage={currentPage}
+          totalPages={totalPages}
+          type="right"
+        />
       </ul>
     </nav>
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  currentPage: state.application.currentPage,
-  totalPages: state.application.totalPages,
-});
-
-export default connect(mapStateToProps)(Pagination);
+export default Pagination;

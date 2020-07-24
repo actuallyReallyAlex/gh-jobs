@@ -1,11 +1,17 @@
-import { Job } from "./types";
+import { RequestMethod } from "./types";
 
-export const getData = async (url: string): Promise<Job[]> => {
+export const fetchServerData = async (
+  url: string,
+  method: RequestMethod,
+  body?: string
+  // eslint-disable-next-line
+): Promise<any> => {
   const response = await fetch(url, {
+    body: body ? body : undefined,
     headers: { "Content-Type": "application/json" },
-    method: "GET",
+    method,
   });
-  const data: Job[] = await response.json();
+  const data = await response.json();
   return data;
 };
 
@@ -36,6 +42,7 @@ export const validURL = (str: string): boolean => {
  * Loads the state of the application from localStorage if present.
  * @returns {object}
  */
+// eslint-disable-next-line
 export const loadState = (): any => {
   try {
     const serializedState = localStorage.getItem("state");
