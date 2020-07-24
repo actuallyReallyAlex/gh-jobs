@@ -62,6 +62,4 @@ const mapStateToProps = (state: RootState) => ({
   savedJobsTotalPages: state.user.savedJobsTotalPages,
 });
 
-const mapDispatchToProps = (dispatch) => ({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileSavedJobs);
+export default connect(mapStateToProps)(ProfileSavedJobs);
