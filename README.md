@@ -11,6 +11,8 @@
     <br> 
 </p>
 
+https://www.githubjobs.io/
+
 ## 📝 Table of Contents
 
 - [About](#about)
@@ -40,10 +42,14 @@ View [my solution](https://devchallenges.io/solutions/Lwb0aAViU0LzUKL6kscT) on D
 
 ### Dependencies
 
+- [@sendgrid/mail](https://github.com/sendgrid/sendgrid-nodejs) - The Official Twilio SendGrid Led, Community Driven Node.js API Library.
+- [bcryptjs](https://github.com/dcodeIO/bcrypt.js) - Optimized bcrypt in plain JavaScript with zero dependencies.
 - [chalk](https://github.com/chalk/chalk) - Terminal string styling done right.
+- [cookie-parser](https://github.com/expressjs/cookie-parser) - Parse HTTP request cookies.
 - [cors](https://github.com/expressjs/cors) - Node.js CORS middleware.
 - [date-fns](https://date-fns.org/) - ⏳ Modern JavaScript date utility library ⌛.
 - [express](https://expressjs.com/) - Fast, unopinionated, minimalist web framework for node.
+- [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) - JsonWebToken implementation for node.js.
 - [lodash.throttle](https://lodash.com/) - A modern JavaScript utility library delivering modularity, performance, & extras.
 - [mongoose](https://mongoosejs.com/) - MongoDB object modeling designed to work in an asynchronous environment.
 - [morgan](https://github.com/expressjs/morgan) - HTTP request logger middleware for node.js.
@@ -54,6 +60,7 @@ View [my solution](https://devchallenges.io/solutions/Lwb0aAViU0LzUKL6kscT) on D
 - [react-router-dom](https://reactrouter.com/) - Declarative routing for React.
 - [redux](https://redux.js.org/) - Predictable state container for JavaScript apps.
 - [redux-thunk](https://github.com/reduxjs/redux-thunk) - Thunk middleware for Redux.
+- [validator](https://github.com/validatorjs/validator.js) - String validation.
 
 ### DevDependencies
 
