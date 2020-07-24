@@ -25,13 +25,13 @@ context("Search", () => {
   });
 
   it("Should search correctly", () => {
-    cy.get(".jobcard__container").then(($jobs) => {
+    cy.get('[data-cy="job-container"]').then(($jobs) => {
       assert.equal($jobs.length, 5);
     });
     cy.get("#search").type("developer");
     cy.get("#search-submit").click();
     cy.wait(1000);
-    cy.get(".jobcard__container").then(($jobs) => {
+    cy.get('[data-cy="job-container"]').then(($jobs) => {
       assert.equal($jobs.length, 5);
     });
   });

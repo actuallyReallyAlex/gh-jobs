@@ -84,7 +84,7 @@ context("Options Panel", () => {
     cy.get("#search-submit").click();
 
     cy.wait(1500);
-    cy.get(".jobcard__container").then(($jobs) => {
+    cy.get('[data-cy="job-container"]').then(($jobs) => {
       assert.equal($jobs.length, 5);
     });
 
@@ -94,7 +94,7 @@ context("Options Panel", () => {
     cy.get("#search-submit").click();
 
     cy.wait(1500);
-    cy.get(".jobcard__container").then(($jobs) => {
+    cy.get('[data-cy="job-container"]').then(($jobs) => {
       assert.equal($jobs.length, 2);
     });
   });

@@ -27,8 +27,31 @@ const SearchInput: React.SFC<SearchInputProps> = (props: SearchInputProps) => {
             handleSearch(search, locationOptions);
           }}
         >
-          <div className="input__addon__left">
-            <i className="material-icons grey icon-sm">work_outline</i>
+          <div
+            className="input__addon__left"
+            style={{
+              alignItems: "center",
+              backgroundColor: "#fff",
+              border: "1px solid #b9bdcf",
+              borderBottomLeftRadius: "0.25rem",
+              borderRight: "none",
+              borderTopLeftRadius: "0.25rem",
+              display: "flex",
+              marginRight: "-1px",
+              padding: "0.375rem 0.75rem",
+              paddingRight: "0",
+              textAlign: "center",
+            }}
+          >
+            <i
+              className="material-icons grey icon-sm"
+              style={{
+                color: "#b9bdcf",
+                fontSize: "16px",
+              }}
+            >
+              work_outline
+            </i>
           </div>
           <input
             aria-label="Title, companies, expertise or benefits"

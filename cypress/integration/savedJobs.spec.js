@@ -26,15 +26,13 @@ context("Saved Jobs", () => {
   });
 
   it("Should be able to save a job from the 'Search' page", () => {
-    cy.get("#save-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").should(
-      "have.class",
-      "jobcard__save__deselected"
-    );
+    cy.get("#save-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb")
+      .its("data")
+      .should("be", '{ cy: "deselected" }');
     cy.get("#save-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
-    cy.get("#remove-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").should(
-      "have.class",
-      "jobcard__save__selected"
-    );
+    cy.get("#remove-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb")
+      .its("data")
+      .should("be", "{ cy: 'selected' }");
     cy.get("#notification-text").should("have.text", "Job saved successfully.");
 
     // * Cleanup
@@ -48,15 +46,13 @@ context("Saved Jobs", () => {
   it("Should be able to save a job from the 'Details' page", () => {
     cy.get("#f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click({ force: true });
 
-    cy.get("#save-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").should(
-      "have.class",
-      "details__save__deselected"
-    );
+    cy.get("#save-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb")
+      .its("data")
+      .should("be", "{cy: 'deselected'}");
     cy.get("#save-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
-    cy.get("#remove-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").should(
-      "have.class",
-      "details__save__selected"
-    );
+    cy.get("#remove-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb")
+      .its("data")
+      .should("be", "{ cy: 'selected' }");
     cy.get("#notification-text").should("have.text", "Job saved successfully.");
 
     // * Cleanup
@@ -68,15 +64,13 @@ context("Saved Jobs", () => {
   });
 
   it("Should be able to view list of saved jobs", () => {
-    cy.get("#save-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").should(
-      "have.class",
-      "jobcard__save__deselected"
-    );
+    cy.get("#save-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb")
+      .its("data")
+      .should("be", "{ cy: 'deselected' }");
     cy.get("#save-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
-    cy.get("#remove-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").should(
-      "have.class",
-      "jobcard__save__selected"
-    );
+    cy.get("#remove-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb")
+      .its("data")
+      .should("be", '{ cy: "selected" }');
     cy.get("#notification-text").should("have.text", "Job saved successfully.");
 
     cy.get("#nav-profile").click();

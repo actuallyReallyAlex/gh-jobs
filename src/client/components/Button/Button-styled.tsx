@@ -1,16 +1,6 @@
-import * as React from "react";
 import styled from "styled-components";
 
-import { ButtonStyle, ButtonType } from "../types";
-
-export interface ButtonProps {
-  buttonStyle: ButtonStyle;
-  disabled?: boolean;
-  id?: string;
-  label: string;
-  onClick?: () => void;
-  type: ButtonType;
-}
+import { ButtonStyle, ButtonType } from "../../types";
 
 interface StyledButtonProps {
   buttonStyle: ButtonStyle;
@@ -48,19 +38,4 @@ const StyledButton = styled.button<StyledButtonProps>`
   z-index: 2;
 `;
 
-const Button: React.SFC<ButtonProps> = (props: ButtonProps) => {
-  const { buttonStyle, disabled, id, label, onClick, type } = props;
-  return (
-    <StyledButton
-      buttonStyle={buttonStyle}
-      disabled={disabled ? disabled : undefined}
-      id={id ? id : undefined}
-      onClick={onClick ? onClick : undefined}
-      type={type}
-    >
-      {label}
-    </StyledButton>
-  );
-};
-
-export default Button;
+export { StyledButton };

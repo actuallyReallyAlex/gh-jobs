@@ -231,7 +231,7 @@ context("Pagination", () => {
       ).click();
       cy.get("#search-submit").click();
 
-      cy.get(".jobcard__container").then(($jobs) => {
+      cy.get('[data-cy="job-container"]').then(($jobs) => {
         assert.equal($jobs.length, 3);
 
         cy.get(".pagination__list").then(($list) => {

@@ -14,9 +14,7 @@ context("Details", () => {
     });
     cy.visit("http://localhost:3000");
     cy.wait(1000);
-    cy.get(
-      "#app > div.search__container > div.jobs__container > div:nth-child(1) > div.jobcard__container__left > div.jobcard__container__middle > a > p"
-    ).click();
+    cy.get("#f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click({ force: true });
   });
 
   it("Should display '<Details />' correctly", () => {
@@ -40,9 +38,7 @@ context("Details", () => {
     ).click();
     cy.get("#search").should("be.visible");
 
-    cy.get(
-      "#app > div.search__container > div.jobs__container > div:nth-child(1) > div.jobcard__container__left > div.jobcard__container__middle > a > p"
-    ).click();
+    cy.get("#f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click({ force: true });
     cy.get("#search").should("not.be.visible");
 
     cy.get("header").click();

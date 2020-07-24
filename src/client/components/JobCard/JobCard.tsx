@@ -3,9 +3,26 @@ import { connect } from "react-redux";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { Link } from "react-router-dom";
 
-import { addSavedJob, removeSavedJob } from "../redux/thunks";
+import {
+  StyledContainer,
+  StyledLogoContainer,
+  StyledLeftContainer,
+  StyledLogoNotFoundContainer,
+  StyledMiddleContainer,
+  StyledCompany,
+  StyledTitle,
+  StyledFullTime,
+  StyledRightContainer,
+  StyledActions,
+  StyledSavedButton,
+  StyledInfoContainer,
+  StyledLocationContainer,
+  StyledCreatedContainer,
+} from "./JobCard-styled";
 
-import { Job, RootState } from "../types";
+import { addSavedJob, removeSavedJob } from "../../redux/thunks";
+
+import { Job, RootState } from "../../types";
 
 export interface JobCardProps {
   handleAddSavedJob: (job: Job) => void;
@@ -33,9 +50,9 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
     : false;
 
   return (
-    <div className="jobcard__container">
-      <div className="jobcard__container__left">
-        <div className="jobcard__logo__container">
+    <StyledContainer data-cy="job-container">
+      <StyledLeftContainer>
+        <StyledLogoContainer>
           {job.company_logo ? (
             <img
               alt="Company Logo"
@@ -44,33 +61,30 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
               src={job.company_logo}
             />
           ) : (
-            <div className="jobcard__logo__not-found">
+            <StyledLogoNotFoundContainer>
               <p>not found</p>
-            </div>
+            </StyledLogoNotFoundContainer>
           )}
-        </div>
+        </StyledLogoContainer>
 
-        <div className="jobcard__container__middle">
-          <p className="jobcard__company">{job.company}</p>
+        <StyledMiddleContainer>
+          <StyledCompany>{job.company}</StyledCompany>
           <Link id={job.id} to={`/jobs/${job.id}`}>
-            <p className="jobcard__title">{job.title}</p>
+            <StyledTitle>{job.title}</StyledTitle>
           </Link>
           {job.type === "Full Time" && (
-            <p className="jobcard__fulltime">Full Time</p>
+            <StyledFullTime>Full Time</StyledFullTime>
           )}
-        </div>
-      </div>
+        </StyledMiddleContainer>
+      </StyledLeftContainer>
 
-      <div className="jobcard__container__right">
-        <div className="jobcard__actions">
+      <StyledRightContainer>
+        <StyledActions>
           {isLoggedIn && (
-            <button
-              className={
-                jobIsSaved
-                  ? "jobcard__save__selected"
-                  : "jobcard__save__deselected"
-              }
+            <StyledSavedButton
+              data-cy={jobIsSaved ? "selected" : "deselected"}
               id={jobIsSaved ? `remove-job-${job.id}` : `save-job-${job.id}`}
+              jobIsSaved={jobIsSaved}
               onClick={
                 jobIsSaved
                   ? () => handleRemoveSavedJob(job)
@@ -78,25 +92,25 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
               }
             >
               <i className="material-icons">bookmark</i>
-            </button>
+            </StyledSavedButton>
           )}
-        </div>
-        <div className="jobcard__info">
-          <div className="jobcard__location">
+        </StyledActions>
+        <StyledInfoContainer>
+          <StyledLocationContainer>
             <i className="material-icons">public</i>
             <p>{job.location}</p>
-          </div>
-          <div className="jobcard__created">
+          </StyledLocationContainer>
+          <StyledCreatedContainer>
             <i className="material-icons">access_time</i>
             <p>
               {formatDistanceToNow(new Date(job.created_at), {
                 addSuffix: true,
               })}
             </p>
-          </div>
-        </div>
-      </div>
-    </div>
+          </StyledCreatedContainer>
+        </StyledInfoContainer>
+      </StyledRightContainer>
+    </StyledContainer>
   );
 };
 
