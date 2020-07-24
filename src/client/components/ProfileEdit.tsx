@@ -34,6 +34,7 @@ const ProfileEdit: React.SFC<ProfileEditProps> = (props: ProfileEditProps) => {
   return (
     <>
       <Input
+        full
         icon="account_circle"
         id="edit-name"
         label="Name"
@@ -43,6 +44,7 @@ const ProfileEdit: React.SFC<ProfileEditProps> = (props: ProfileEditProps) => {
       />
 
       <Input
+        full
         icon="email"
         id="edit-email"
         label="Email Address"

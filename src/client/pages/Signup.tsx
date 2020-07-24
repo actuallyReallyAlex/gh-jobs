@@ -70,6 +70,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
 
           <Input
             autoComplete="name"
+            full
             icon="account_circle"
             id="name"
             label="Name"
@@ -81,6 +82,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
           />
           <Input
             autoComplete="email"
+            full
             icon="email"
             id="email"
             label="Email Address"
@@ -92,6 +94,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
           />
           <Input
             autoComplete="new-password"
+            full
             icon="lock"
             id="password"
             label="Password"
@@ -102,6 +105,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
           />
           <Input
             autoComplete="new-password"
+            full
             icon="lock"
             id="confirm-password"
             label="Confirm Password"

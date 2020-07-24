@@ -48,6 +48,7 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
     <>
       <Input
         disabled
+        full
         icon="account_circle"
         id="name"
         label="Name"
@@ -57,6 +58,7 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
 
       <Input
         disabled
+        full
         icon="email"
         id="email"
         label="Email Address"

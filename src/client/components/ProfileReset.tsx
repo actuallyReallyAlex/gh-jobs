@@ -41,6 +41,7 @@ const ProfileReset: React.SFC<ProfileResetProps> = (
     <>
       <Input
         autoComplete="current-password"
+        full
         icon="lock"
         id="current-password"
         label="Current Password"
@@ -51,6 +52,7 @@ const ProfileReset: React.SFC<ProfileResetProps> = (
 
       <Input
         autoComplete="new-password"
+        full
         icon="lock"
         id="new-password"
         label="New Password"
@@ -61,6 +63,7 @@ const ProfileReset: React.SFC<ProfileResetProps> = (
 
       <Input
         autoComplete="new-password"
+        full
         icon="lock"
         id="confirm-new-password"
         label="Confirm New Password"

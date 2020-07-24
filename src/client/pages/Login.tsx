@@ -57,6 +57,7 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
 
           <Input
             autoComplete="email"
+            full
             icon="email"
             id="email"
             label="Email Address"
@@ -68,6 +69,7 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
           />
           <Input
             autoComplete="current-password"
+            full
             icon="lock"
             id="password"
             label="Password"
