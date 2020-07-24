@@ -5,18 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.1.0] - _Unreleased_
+## [1.1.0] - 2020-07-23
+
+### 🦸‍♂️ User Profiles and Saved Jobs
 
 ### Added
 
+- Ability to create a new profile
+- Ability to login
+- Ability to reset your password
+- Ability to edit profile information
+- Ability to save your favorite jobs to your profile
 - `<Navigation />` component
 - `Login` page
+- `Signup` page
+- `SavedJobs` page
 - `<Button />` component
+- Additional Cypress Testing
 
 ### Changed
 
 - Path for `Details` page is now `/jobs/:id` instead of `/:id`
 - `<Input />` now has optional `autoComplete` and `type` props
+- `JobCard` style is slightly different in regards to information displayed in columns vs. rows
+- Website is now hosted on [www.githubjobs.io](www.githubjobs.io)
 
 ### Removed
 
