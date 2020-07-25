@@ -1,7 +1,14 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { RootState } from "../types";
+import {
+  LoadingIndicatorContainer,
+  Orbit,
+  OrbitContainer,
+  Shade,
+} from "./LoadingIndicator-styled";
+
+import { RootState } from "../../types";
 
 export interface LoadingIndicatorProps {
   isLoading: boolean;
@@ -16,14 +23,14 @@ const LoadingIndicator: React.SFC<LoadingIndicatorProps> = (
   const { isLoading } = props;
   return (
     <>
-      <div className={!isLoading ? "hidden" : "shade"} />
-      <div className={!isLoading ? "hidden" : undefined} id="loading-indicator">
-        <div className="orbit-spinner">
-          <div className="orbit" />
-          <div className="orbit" />
-          <div className="orbit" />
-        </div>
-      </div>
+      <Shade isLoading={isLoading} />
+      <LoadingIndicatorContainer id="loading-indicator" isLoading={isLoading}>
+        <OrbitContainer data-cy="orbit-container">
+          <Orbit />
+          <Orbit />
+          <Orbit />
+        </OrbitContainer>
+      </LoadingIndicatorContainer>
     </>
   );
 };
