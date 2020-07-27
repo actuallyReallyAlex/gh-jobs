@@ -1,5 +1,3 @@
-import fetch from "node-fetch";
-
 /**
  * Check if MongoDB is running locally. Stops application from continuing if false.
  */

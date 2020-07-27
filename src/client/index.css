@@ -307,8 +307,7 @@ input::placeholder {
 }
 
 .details__side__link,
-.login__action__create,
-.navigation__link {
+.login__action__create {
   align-items: center;
   color: #1e86ff;
   display: flex;
@@ -331,8 +330,7 @@ input::placeholder {
 }
 
 .details__side__link:hover span,
-.login__action__create:hover span,
-.navigation__link:hover span {
+.login__action__create:hover span {
   text-decoration: underline;
 }
 
@@ -564,13 +562,6 @@ input::placeholder {
 #search-form {
   display: flex;
   width: 100%;
-}
-
-#navigation {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 }
 
 #login-page,

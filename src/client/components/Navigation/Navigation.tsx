@@ -2,8 +2,11 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
-import Header from "./Header";
-import { RootState } from "../types";
+import { NavigationContainer } from "./Navigation-styled";
+
+import Header from "../Header";
+
+import { RootState } from "../../types";
 
 export interface NavigationProps {
   isLoggedIn: boolean;
@@ -14,19 +17,19 @@ const Navigation: React.SFC<NavigationProps> = (props: NavigationProps) => {
   const { pathname } = useLocation();
 
   return (
-    <nav id="navigation">
+    <NavigationContainer id="navigation">
       <Header />
       {!isLoggedIn && pathname !== "/login" && (
-        <Link className="navigation__link" id="nav-login" to="/login">
+        <Link id="nav-login" to="/login">
           <span>Login</span>
         </Link>
       )}
       {isLoggedIn && pathname !== "/profile" && (
-        <Link className="navigation__link" id="nav-profile" to="/profile">
+        <Link id="nav-profile" to="/profile">
           <span>Profile</span>
         </Link>
       )}
-    </nav>
+    </NavigationContainer>
   );
 };
 

@@ -13,6 +13,18 @@ const StyledHeader = styled.header`
   span {
     font-weight: bold;
   }
+
+  &:hover {
+    span {
+      text-decoration: none !important;
+    }
+  }
+
+  a:hover {
+    span {
+      text-decoration: none;
+    }
+  }
 `;
 
 export { StyledHeader };
