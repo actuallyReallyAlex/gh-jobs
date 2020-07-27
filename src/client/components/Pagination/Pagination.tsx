@@ -4,6 +4,8 @@ import PaginationItem from "./PaginationItem";
 import PaginationMore from "./PaginationMore";
 import PaginationNavigation from "./PaginationNavigation";
 
+import { PaginationNavContainer, PaginationList } from "./Pagination-styled";
+
 export interface PaginationProps {
   currentPage: number;
   totalPages: number;
@@ -53,8 +55,8 @@ const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
   }, [currentPage, totalPages]);
 
   return (
-    <nav id="pagination">
-      <ul className="pagination__list">
+    <PaginationNavContainer id="pagination">
+      <PaginationList data-cy="pagination-list">
         <PaginationNavigation
           currentPage={currentPage}
           totalPages={totalPages}
@@ -66,8 +68,8 @@ const Pagination: React.SFC<PaginationProps> = (props: PaginationProps) => {
           totalPages={totalPages}
           type="right"
         />
-      </ul>
-    </nav>
+      </PaginationList>
+    </PaginationNavContainer>
   );
 };
 

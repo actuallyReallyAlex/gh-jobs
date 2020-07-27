@@ -24,8 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-
-import 'cypress-plugin-snapshots/commands';
+import "cypress-plugin-snapshots/commands";
 
 Cypress.Commands.add("paginationSelect1", (childList) => {
   // * Should contain 7 elements
@@ -37,7 +36,7 @@ Cypress.Commands.add("paginationSelect1", (childList) => {
   // * 2nd Button should be "1"
   assert.equal(childList[1].innerText, "1");
   // * 2nd Button as "1" should be selected by default
-  assert.equal(childList[1].className, "pagination__item__selected");
+  assert.equal(childList[1].dataset.cy, "pagination-item-selected");
   // * 3rd Button should be "2"
   assert.equal(childList[2].innerText, "2");
   // * 4th Button should be "3"
@@ -60,11 +59,11 @@ Cypress.Commands.add("paginationSelect2", (childList) => {
   // * 2nd Button should be "1"
   assert.equal(childList[1].innerText, "1");
   // * 2nd Button as "1" should be deselected
-  assert.equal(childList[1].className, "pagination__item");
+  assert.equal(childList[1].dataset.cy, "pagination-item-deselected");
   // * 3rd Button should be "2"
   assert.equal(childList[2].innerText, "2");
   // * 3rd Button should be selected
-  assert.equal(childList[2].className, "pagination__item__selected");
+  assert.equal(childList[2].dataset.cy, "pagination-item-selected");
   // * 4th Button should be "3"
   assert.equal(childList[3].innerText, "3");
   // * 5th Button should be More Icon
@@ -85,15 +84,15 @@ Cypress.Commands.add("paginationSelect3", (childList) => {
   // * 2nd Button should be "1"
   assert.equal(childList[1].innerText, "1");
   // * 2nd Button as "1" should be deselected
-  assert.equal(childList[1].className, "pagination__item");
+  assert.equal(childList[1].dataset.cy, "pagination-item-deselected");
   // * 3rd Button should be "2"
   assert.equal(childList[2].innerText, "2");
   // * 3rd Button should be deselected
-  assert.equal(childList[2].className, "pagination__item");
+  assert.equal(childList[2].dataset.cy, "pagination-item-deselected");
   // * 4th Button should be "3"
   assert.equal(childList[3].innerText, "3");
   // * 4th button should be selected
-  assert.equal(childList[3].className, "pagination__item__selected");
+  assert.equal(childList[3].dataset.cy, "pagination-item-selected");
   // * 5th Button should be "4"
   assert.equal(childList[4].innerText, "4");
   // * 6th Button should be More Icon
@@ -114,7 +113,7 @@ Cypress.Commands.add("paginationSelect4", (childList) => {
   // * 2nd Button should be "1"
   assert.equal(childList[1].innerText, "1");
   // * 2nd Button as "1" should be deselected
-  assert.equal(childList[1].className, "pagination__item");
+  assert.equal(childList[1].dataset.cy, "pagination-item-deselected");
   // * 3rd Button should be 'More'
   assert.equal(childList[2].innerText, "more_horiz");
   // * 4th Button should be "3"
@@ -122,7 +121,7 @@ Cypress.Commands.add("paginationSelect4", (childList) => {
   // * 5th Button should be "4"
   assert.equal(childList[4].innerText, "4");
   // * 5th button should be selected
-  assert.equal(childList[4].className, "pagination__item__selected");
+  assert.equal(childList[4].dataset.cy, "pagination-item-selected");
   // * 6th Button should be "5"
   assert.equal(childList[5].innerText, "5");
   // * 7th Button should be More Icon
@@ -143,7 +142,7 @@ Cypress.Commands.add("paginationSelect5", (childList) => {
   // * 2nd Button should be "1"
   assert.equal(childList[1].innerText, "1");
   // * 2nd Button as "1" should be deselected
-  assert.equal(childList[1].className, "pagination__item");
+  assert.equal(childList[1].dataset.cy, "pagination-item-deselected");
   // * 3rd Button should be 'More'
   assert.equal(childList[2].innerText, "more_horiz");
   // * 4th Button should be "4"
@@ -151,7 +150,7 @@ Cypress.Commands.add("paginationSelect5", (childList) => {
   // * 5th Button should be "5"
   assert.equal(childList[4].innerText, "5");
   // * 5th button should be selected
-  assert.equal(childList[4].className, "pagination__item__selected");
+  assert.equal(childList[4].dataset.cy, "pagination-item-selected");
   // * 6th Button should be "6"
   assert.equal(childList[5].innerText, "6");
   // * 7th Button should be More Icon
@@ -172,7 +171,7 @@ Cypress.Commands.add("paginationSelect6", (childList) => {
   // * 2nd Button should be "1"
   assert.equal(childList[1].innerText, "1");
   // * 2nd Button as "1" should be deselected
-  assert.equal(childList[1].className, "pagination__item");
+  assert.equal(childList[1].dataset.cy, "pagination-item-deselected");
   // * 3rd Button should be 'More'
   assert.equal(childList[2].innerText, "more_horiz");
   // * 4th Button should be "5"
@@ -180,7 +179,7 @@ Cypress.Commands.add("paginationSelect6", (childList) => {
   // * 5th Button should be "6"
   assert.equal(childList[4].innerText, "6");
   // * 5th button should be selected
-  assert.equal(childList[4].className, "pagination__item__selected");
+  assert.equal(childList[4].dataset.cy, "pagination-item-selected");
   // * 6th Button should be "7"
   assert.equal(childList[5].innerText, "7");
   // * 7th Button should be More Icon
@@ -201,7 +200,7 @@ Cypress.Commands.add("paginationSelect7", (childList) => {
   // * 2nd Button should be "1"
   assert.equal(childList[1].innerText, "1");
   // * 2nd Button as "1" should be deselected
-  assert.equal(childList[1].className, "pagination__item");
+  assert.equal(childList[1].dataset.cy, "pagination-item-deselected");
   // * 3rd Button should be 'More'
   assert.equal(childList[2].innerText, "more_horiz");
   // * 4th Button should be "6"
@@ -209,7 +208,7 @@ Cypress.Commands.add("paginationSelect7", (childList) => {
   // * 5th Button should be "7"
   assert.equal(childList[4].innerText, "7");
   // * 5th button should be selected
-  assert.equal(childList[4].className, "pagination__item__selected");
+  assert.equal(childList[4].dataset.cy, "pagination-item-selected");
   // * 6th Button should be "8"
   assert.equal(childList[5].innerText, "8");
   // * 7th Button should be More Icon
@@ -230,7 +229,7 @@ Cypress.Commands.add("paginationSelect8", (childList) => {
   // * 2nd Button should be "1"
   assert.equal(childList[1].innerText, "1");
   // * 2nd Button as "1" should be deselected
-  assert.equal(childList[1].className, "pagination__item");
+  assert.equal(childList[1].dataset.cy, "pagination-item-deselected");
   // * 3rd Button should be 'More'
   assert.equal(childList[2].innerText, "more_horiz");
   // * 4th Button should be "7"
@@ -238,7 +237,7 @@ Cypress.Commands.add("paginationSelect8", (childList) => {
   // * 5th Button should be "8"
   assert.equal(childList[4].innerText, "8");
   // * 5th button should be selected
-  assert.equal(childList[4].className, "pagination__item__selected");
+  assert.equal(childList[4].dataset.cy, "pagination-item-selected");
   // * 6th Button should be "9"
   assert.equal(childList[5].innerText, "9");
   // * 7th Button should be "10"
@@ -257,7 +256,7 @@ Cypress.Commands.add("paginationSelect9", (childList) => {
   // * 2nd Button should be "1"
   assert.equal(childList[1].innerText, "1");
   // * 2nd Button as "1" should be deselected
-  assert.equal(childList[1].className, "pagination__item");
+  assert.equal(childList[1].dataset.cy, "pagination-item-deselected");
   // * 3rd Button should be 'More'
   assert.equal(childList[2].innerText, "more_horiz");
   // * 4th Button should be "8"
@@ -265,7 +264,7 @@ Cypress.Commands.add("paginationSelect9", (childList) => {
   // * 5th Button should be "9"
   assert.equal(childList[4].innerText, "9");
   // * 5th button should be selected
-  assert.equal(childList[4].className, "pagination__item__selected");
+  assert.equal(childList[4].dataset.cy, "pagination-item-selected");
   // * 6th Button should be "10"
   assert.equal(childList[5].innerText, "10");
   // * 7th Button should be Right Arrow
@@ -282,7 +281,7 @@ Cypress.Commands.add("paginationSelect10", (childList) => {
   // * 2nd Button should be "1"
   assert.equal(childList[1].innerText, "1");
   // * 2nd Button as "1" should be deselected
-  assert.equal(childList[1].className, "pagination__item");
+  assert.equal(childList[1].dataset.cy, "pagination-item-deselected");
   // * 3rd Button should be 'More'
   assert.equal(childList[2].innerText, "more_horiz");
   // * 4th Button should be "9"
@@ -290,7 +289,7 @@ Cypress.Commands.add("paginationSelect10", (childList) => {
   // * 5th Button should be "10"
   assert.equal(childList[4].innerText, "10");
   // * 5th button should be selected
-  assert.equal(childList[4].className, "pagination__item__selected");
+  assert.equal(childList[4].dataset.cy, "pagination-item-selected");
   // * 6th Button should be Right Arrow
   assert.equal(childList[5].innerText, "chevron_right");
   // * 6th button should be disabled

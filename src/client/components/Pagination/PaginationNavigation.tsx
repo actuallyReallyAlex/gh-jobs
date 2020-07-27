@@ -1,9 +1,11 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { setCurrentPage } from "../redux/actions/application";
+import { setCurrentPage } from "../../redux/actions/application";
 
-import { PaginationNavigationType } from "../types";
+import { PaginationNavigationListItem } from "./Pagination-styled";
+
+import { PaginationNavigationType } from "../../types";
 
 export interface PaginationNavigationProps {
   currentPage: number;
@@ -24,16 +26,10 @@ const PaginationNavigation: React.SFC<PaginationNavigationProps> = (
     type,
   } = props;
   return (
-    <li
-      className={
-        type === "left"
-          ? currentPage === 1
-            ? "pagination__item__disabled"
-            : "pagination__item"
-          : currentPage === totalPages
-          ? "pagination__item__disabled"
-          : "pagination__item"
-      }
+    <PaginationNavigationListItem
+      currentPage={currentPage}
+      totalPages={totalPages}
+      type={type}
     >
       <button
         disabled={
@@ -49,7 +45,7 @@ const PaginationNavigation: React.SFC<PaginationNavigationProps> = (
           {type === "left" ? "chevron_left" : "chevron_right"}
         </i>
       </button>
-    </li>
+    </PaginationNavigationListItem>
   );
 };
 

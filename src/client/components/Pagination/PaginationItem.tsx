@@ -1,9 +1,11 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { pagination } from "../redux/thunks";
+import { PaginationListItem } from "./Pagination-styled";
 
-import { RootState } from "../types";
+import { pagination } from "../../redux/thunks";
+
+import { RootState } from "../../types";
 
 export interface PaginationItemProps {
   currentPage: number;
@@ -15,14 +17,17 @@ const PaginationItem: React.SFC<PaginationItemProps> = (
   props: PaginationItemProps
 ) => {
   const { currentPage, handlePaginationClick, page } = props;
+  const selected = page === currentPage;
   return (
-    <li
-      className={
-        page === currentPage ? `pagination__item__selected` : `pagination__item`
+    <PaginationListItem
+      data-cy={
+        selected ? "pagination-item-selected" : "pagination-item-deselected"
       }
+      currentPage={currentPage}
+      page={page}
     >
       <button onClick={() => handlePaginationClick(page)}>{page}</button>
-    </li>
+    </PaginationListItem>
   );
 };
 

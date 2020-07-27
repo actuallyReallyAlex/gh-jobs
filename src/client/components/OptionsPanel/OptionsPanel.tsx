@@ -1,9 +1,17 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import Checkbox from "./Checkbox";
-import Input from "./Input";
-import { setFullTime, setLocationSearch } from "../redux/actions/application";
-import { RootState } from "../types";
+
+import Checkbox from "../Checkbox";
+import Input from "../Input";
+
+import { OptionsPanelContainer } from "./OptionsPanel-styled";
+
+import {
+  setFullTime,
+  setLocationSearch,
+} from "../../redux/actions/application";
+
+import { RootState } from "../../types";
 
 export interface OptionsPanelProps {
   fullTime: boolean;
@@ -31,10 +39,11 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
     "San Francisco",
   ];
   return (
-    <div className="options-panel__container">
+    <OptionsPanelContainer>
       <Checkbox
         checked={fullTime}
         label="Full Time"
+        name="full-time-checkbox"
         onChange={(e) => handleSetFullTime(e.target.checked)}
         value="full-time"
       />
@@ -58,7 +67,7 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
           value={location}
         />
       ))}
-    </div>
+    </OptionsPanelContainer>
   );
 };
 
