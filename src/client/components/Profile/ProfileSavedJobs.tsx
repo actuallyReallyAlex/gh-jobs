@@ -1,11 +1,13 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import JobCard from "./JobCard";
-import Notification from "./Notification";
-import Pagination from "./Pagination";
+import JobCard from "../JobCard";
+import Notification from "../Notification";
+import Pagination from "../Pagination";
 
-import { Job, NotificationType, RootState } from "../types";
+import { ProfileSavedContainer, ProfileNoResults } from "./Profile-styled";
+
+import { Job, NotificationType, RootState } from "../../types";
 
 export interface ProfileSavedJobsProps {
   notificationMessage: string;
@@ -32,7 +34,7 @@ const ProfileSavedJobs: React.SFC<ProfileSavedJobsProps> = (
   );
   return (
     <>
-      <div className="jobs__container saved">
+      <ProfileSavedContainer>
         {notificationMessage && (
           <Notification message={notificationMessage} type={notificationType} />
         )}
@@ -45,11 +47,11 @@ const ProfileSavedJobs: React.SFC<ProfileSavedJobsProps> = (
           />
         )}
         {jobsOnPage.length === 0 && (
-          <p className="text__center" id="no-results">
+          <ProfileNoResults id="no-results">
             No results. Please modify your search and try again.
-          </p>
+          </ProfileNoResults>
         )}
-      </div>
+      </ProfileSavedContainer>
     </>
   );
 };

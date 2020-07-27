@@ -19,11 +19,6 @@ const ProfilePage = styled.div`
   display: flex;
   flex-direction: column;
 
-  form {
-    max-width: 444px;
-    width: 50%;
-  }
-
   @media only screen and (max-width: 600px) {
     form {
       width: 100%;
@@ -36,8 +31,8 @@ interface ProfileFormProps {
 }
 
 const ProfileForm = styled.form<ProfileFormProps>`
-  max-width: ${(props) => (props.isViewingSavedJobs ? "800px" : undefined)};
-  width: ${(props) => (props.isViewingSavedJobs ? "100%" : undefined)};
+  max-width: ${(props) => (props.isViewingSavedJobs ? "800px" : "444px")};
+  width: ${(props) => (props.isViewingSavedJobs ? "100%" : "50%")};
 `;
 
 const ProfileTitleContainer = styled.div`
@@ -56,9 +51,19 @@ const ProfileTitleContainer = styled.div`
   }
 `;
 
+const ProfileSavedContainer = styled.div`
+  width: 100%;
+`;
+
+const ProfileNoResults = styled.p`
+  text-align: center;
+`;
+
 export {
   ProfileActionsContainer,
   ProfilePage,
   ProfileForm,
   ProfileTitleContainer,
+  ProfileSavedContainer,
+  ProfileNoResults,
 };

@@ -8,8 +8,8 @@ import {
   ProfileDisplay,
   ProfileEdit,
   ProfileReset,
+  ProfileSavedJobs,
 } from "../components/Profile";
-import ProfileSavedJobs from "../components/ProfileSavedJobs";
 
 import {
   ProfilePage,

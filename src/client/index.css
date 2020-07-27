@@ -208,10 +208,6 @@ input::placeholder {
   width: 75%;
 }
 
-.jobs__container.saved {
-  width: 100%;
-}
-
 .checkbox__container {
   display: block;
   color: #334680;
