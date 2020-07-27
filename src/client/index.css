@@ -637,35 +637,6 @@ input::placeholder {
   margin-top: 25px;
 }
 
-.notification__container {
-  align-items: center;
-  border-radius: 4px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  padding: 15px;
-  margin-top: 25px;
-}
-
-.notification__container > span {
-  margin-left: 10px;
-}
-
-.notification__container.error {
-  background-color: #f8d7da;
-  color: #721c24;
-}
-
-.notification__container.info {
-  background-color: #d1ecf1;
-  color: #0c5460;
-}
-
-.notification__container.warning {
-  background-color: #fff3cd;
-  color: #856404;
-}
-
 @media only screen and (max-width: 800px) {
   .search__container {
     flex-direction: column;

@@ -1,12 +1,14 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
+import { NotificationContainer } from "./Notification-styled";
+
 import {
   setNotificationMessage,
   setNotificationType,
-} from "../redux/actions/application";
+} from "../../redux/actions/application";
 
-import { NotificationType } from "../types";
+import { NotificationType } from "../../types";
 
 export interface NotificationProps {
   handleResetNotification: () => void;
@@ -28,10 +30,10 @@ const Notification: React.SFC<NotificationProps> = (
   }, [message]);
 
   return (
-    <div className={`notification__container ${type}`}>
+    <NotificationContainer type={type}>
       <i className="material-icons">{type}</i>
       <span id="notification-text">{message}</span>
-    </div>
+    </NotificationContainer>
   );
 };
 
