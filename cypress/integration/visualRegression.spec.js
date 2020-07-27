@@ -131,7 +131,7 @@ context("Visual Regression - Profile", () => {
     cy.get("#email").type("bobtest@email.com");
     cy.get("#password").type("Red123456!!!");
     cy.get("#log-in").click();
-    cy.wait(1500);
+    cy.wait(1000);
     cy.get("#nav-profile")
       .click()
       .then(() => {

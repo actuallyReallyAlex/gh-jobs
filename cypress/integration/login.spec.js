@@ -22,7 +22,7 @@ context("Login - Success", () => {
       });
     });
     cy.visit("http://localhost:3000");
-    cy.wait(1000);
+    cy.wait(500);
     cy.get("#nav-login").click();
     cy.get("h1").should("have.text", "Login");
   });
@@ -31,7 +31,7 @@ context("Login - Success", () => {
     cy.get("#email").type("bobtest@email.com");
     cy.get("#password").type("Red123456!!!");
     cy.get("#log-in").click();
-    cy.wait(1500);
+    cy.wait(500);
 
     cy.get("#nav-login").should("not.exist");
     cy.get("#search").should("be.visible");
@@ -56,7 +56,7 @@ context("Login - Error", () => {
       });
     });
     cy.visit("http://localhost:3000");
-    cy.wait(1000);
+    cy.wait(500);
     cy.get("#nav-login").click();
     cy.get("h1").should("have.text", "Login");
   });

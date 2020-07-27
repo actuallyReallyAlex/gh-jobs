@@ -83,7 +83,7 @@ context("Options Panel", () => {
     cy.get("#search").type("developer");
     cy.get("#search-submit").click();
 
-    cy.wait(1500);
+    cy.wait(1000);
     cy.get('[data-cy="job-container"]').then(($jobs) => {
       assert.equal($jobs.length, 5);
     });
@@ -93,7 +93,7 @@ context("Options Panel", () => {
     ).click();
     cy.get("#search-submit").click();
 
-    cy.wait(1500);
+    cy.wait(1000);
     cy.get('[data-cy="job-container"]').then(($jobs) => {
       assert.equal($jobs.length, 2);
     });

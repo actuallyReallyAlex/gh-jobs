@@ -13,7 +13,7 @@ context("Details", () => {
       });
     });
     cy.visit("http://localhost:3000");
-    cy.wait(1000);
+    cy.wait(500);
     cy.get("#f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click({ force: true });
   });
 
