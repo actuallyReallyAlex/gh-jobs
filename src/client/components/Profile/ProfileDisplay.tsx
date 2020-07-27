@@ -1,20 +1,22 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import Button from "./Button";
-import Input from "./Input";
+import Button from "../Button";
+import Input from "../Input";
 
-import { setNotificationMessage } from "../redux/actions/application";
-import { setIsResettingPassword } from "../redux/actions/user";
+import { ProfileActionsContainer } from "./Profile-styled";
+
+import { setNotificationMessage } from "../../redux/actions/application";
+import { setIsResettingPassword } from "../../redux/actions/user";
 import {
   clickEditProfile,
   clickDeleteProfile,
   clickViewSavedJobs,
   logOut,
   logOutAll,
-} from "../redux/thunks";
+} from "../../redux/thunks";
 
-import { Job, RootState } from "../types";
+import { Job, RootState } from "../../types";
 
 export interface ProfileDisplayProps {
   email: string;
@@ -66,7 +68,7 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
         value={email}
       />
 
-      <div className="profile__container__actions">
+      <ProfileActionsContainer>
         <Button
           buttonStyle="primary"
           id="edit"
@@ -82,9 +84,9 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
           onClick={() => handleClickViewSavedJobs()}
           type="button"
         />
-      </div>
+      </ProfileActionsContainer>
 
-      <div className="profile__container__actions">
+      <ProfileActionsContainer>
         <Button
           buttonStyle="danger"
           id="log-out"
@@ -99,9 +101,9 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
           onClick={() => handleLogOutAll()}
           type="button"
         />
-      </div>
+      </ProfileActionsContainer>
 
-      <div className="profile__container__actions">
+      <ProfileActionsContainer>
         <Button
           buttonStyle="danger"
           id="delete-profile"
@@ -119,7 +121,7 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
           }}
           type="button"
         />
-      </div>
+      </ProfileActionsContainer>
     </>
   );
 };

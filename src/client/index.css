@@ -486,36 +486,27 @@ input::placeholder {
 }
 
 #login-page,
-#signup-page,
-#profile-page {
+#signup-page {
   align-items: center;
   display: flex;
   flex-direction: column;
 }
 
 #login-page > form,
-#signup-page > form,
-#profile-page > form {
+#signup-page > form {
   max-width: 444px;
   width: 50%;
 }
 
-#profile-page > form.saved {
-  max-width: 800px;
-  width: 100%;
-}
-
 .login__container__title,
-.signup__container__title,
-.profile__container__title {
+.signup__container__title {
   align-items: center;
   display: flex;
   flex-direction: column;
 }
 
 .login__container__title > h1,
-.signup__container__title > h1,
-.profile__container__title > h1 {
+.signup__container__title > h1 {
   color: #282538;
   font-family: Poppins;
   font-style: normal;
@@ -541,8 +532,7 @@ input::placeholder {
 }
 
 .login__container__actions,
-.signup__container__actions,
-.profile__container__actions {
+.signup__container__actions {
   align-items: center;
   display: flex;
   flex-direction: row;
@@ -551,11 +541,6 @@ input::placeholder {
 
 .signup__container__actions {
   justify-content: center;
-}
-
-.profile__container__actions {
-  margin-bottom: 25px;
-  margin-top: 25px;
 }
 
 @media only screen and (max-width: 800px) {
@@ -590,21 +575,15 @@ input::placeholder {
   .search__container,
   .details__container,
   .login__container__actions,
-  .signup__container__actions,
-  .profile__container__actions {
+  .signup__container__actions {
     flex-direction: column;
-  }
-
-  .profile__container__actions {
-    align-items: normal;
   }
 
   .jobs__container,
   .details__side__container,
   .details__main__container,
   #login-page > form,
-  #signup-page > form,
-  #profile-page > form {
+  #signup-page > form {
     width: 100%;
   }
 

@@ -1,13 +1,15 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import Button from "./Button";
-import Input from "./Input";
+import Button from "../Button";
+import Input from "../Input";
 
-import { setEditEmail, setEditName } from "../redux/actions/user";
-import { cancelEditProfile, editProfile } from "../redux/thunks";
+import { ProfileActionsContainer } from "./Profile-styled";
 
-import { RootState } from "../types";
+import { setEditEmail, setEditName } from "../../redux/actions/user";
+import { cancelEditProfile, editProfile } from "../../redux/thunks";
+
+import { RootState } from "../../types";
 
 export interface ProfileEditProps {
   editEmail: string;
@@ -53,7 +55,7 @@ const ProfileEdit: React.SFC<ProfileEditProps> = (props: ProfileEditProps) => {
         value={editEmail}
       />
 
-      <div className="profile__container__actions">
+      <ProfileActionsContainer>
         <Button
           buttonStyle="secondary"
           id="cancel"
@@ -73,7 +75,7 @@ const ProfileEdit: React.SFC<ProfileEditProps> = (props: ProfileEditProps) => {
           onClick={() => handleEditProfile()}
           type="button"
         />
-      </div>
+      </ProfileActionsContainer>
     </>
   );
 };

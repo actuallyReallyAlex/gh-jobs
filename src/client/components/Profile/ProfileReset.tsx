@@ -1,17 +1,19 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import Button from "./Button";
-import Input from "./Input";
+import Button from "../Button";
+import Input from "../Input";
+
+import { ProfileActionsContainer } from "./Profile-styled";
 
 import {
   setResetConfirmNewPassword,
   setResetCurrentPassword,
   setResetNewPassword,
-} from "../redux/actions/user";
-import { cancelResetPassword, resetPassword } from "../redux/thunks";
+} from "../../redux/actions/user";
+import { cancelResetPassword, resetPassword } from "../../redux/thunks";
 
-import { RootState } from "../types";
+import { RootState } from "../../types";
 
 export interface ProfileResetProps {
   handleCancelResetPassword: () => void;
@@ -72,7 +74,7 @@ const ProfileReset: React.SFC<ProfileResetProps> = (
         value={resetConfirmNewPassword}
       />
 
-      <div className="profile__container__actions">
+      <ProfileActionsContainer>
         <Button
           buttonStyle="secondary"
           id="cancel"
@@ -92,7 +94,7 @@ const ProfileReset: React.SFC<ProfileResetProps> = (
           onClick={() => handleResetPassword()}
           type="button"
         />
-      </div>
+      </ProfileActionsContainer>
     </>
   );
 };

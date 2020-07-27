@@ -3,11 +3,19 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import Notification from "../components/Notification";
-import ProfileDelete from "../components/ProfileDelete";
-import ProfileDisplay from "../components/ProfileDisplay";
-import ProfileEdit from "../components/ProfileEdit";
-import ProfileReset from "../components/ProfileReset";
+import {
+  ProfileDelete,
+  ProfileDisplay,
+  ProfileEdit,
+  ProfileReset,
+} from "../components/Profile";
 import ProfileSavedJobs from "../components/ProfileSavedJobs";
+
+import {
+  ProfilePage,
+  ProfileForm,
+  ProfileTitleContainer,
+} from "../components/Profile/Profile-styled";
 
 import { NotificationType, RootState } from "../types";
 
@@ -48,14 +56,14 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
     return <Redirect to="/" />;
   } else {
     return (
-      <div id="profile-page">
-        <form className={isViewingSavedJobs ? "saved" : undefined}>
-          <div className="profile__container__title">
+      <ProfilePage id="profile-page">
+        <ProfileForm isViewingSavedJobs={isViewingSavedJobs}>
+          <ProfileTitleContainer>
             <span className="avatar">
               <i className="material-icons">account_circle</i>
             </span>
             <h1>{heading}</h1>
-          </div>
+          </ProfileTitleContainer>
 
           {notificationMessage && (
             <Notification
@@ -76,8 +84,8 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
             !isEditingProfile &&
             !isDeletingProfile &&
             !isViewingSavedJobs && <ProfileDisplay />}
-        </form>
-      </div>
+        </ProfileForm>
+      </ProfilePage>
     );
   }
 };
