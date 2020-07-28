@@ -2,15 +2,21 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 
-import Button from "../components/Button";
-import Copyright from "../components/Copyright";
-import Notification from "../components/Notification";
-import Input from "../components/Input";
+import Button from "../../components/Button";
+import Copyright from "../../components/Copyright";
+import Notification from "../../components/Notification";
+import Input from "../../components/Input";
 
-import { setEmail, setPassword } from "../redux/actions/user";
-import { logIn } from "../redux/thunks";
+import {
+  LoginContainer,
+  LoginTitleContainer,
+  LoginActionsContainer,
+} from "./Login-styled";
 
-import { RootState } from "../types";
+import { setEmail, setPassword } from "../../redux/actions/user";
+import { logIn } from "../../redux/thunks";
+
+import { RootState } from "../../types";
 
 export interface LoginProps {
   email: string;
@@ -37,19 +43,19 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
     return <Redirect to="/" />;
   } else {
     return (
-      <div id="login-page">
+      <LoginContainer id="login-page">
         <form
           onSubmit={(e) => {
             e.preventDefault();
             handleLogIn();
           }}
         >
-          <div className="login__container__title">
-            <span className="avatar">
+          <LoginTitleContainer>
+            <span>
               <i className="material-icons">lock</i>
             </span>
             <h1>Login</h1>
-          </div>
+          </LoginTitleContainer>
 
           {notificationMessage && (
             <Notification message={notificationMessage} type="info" />
@@ -79,12 +85,8 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
             value={password}
           />
 
-          <div className="login__container__actions">
-            <Link
-              className="login__action__create"
-              id="create-an-account"
-              to="/signup"
-            >
+          <LoginActionsContainer>
+            <Link id="create-an-account" to="/signup">
               <i className="material-icons">account_circle</i>
               <span>Create an account</span>
             </Link>
@@ -94,10 +96,10 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
               label="Log in"
               type="submit"
             />
-          </div>
+          </LoginActionsContainer>
         </form>
         <Copyright />
-      </div>
+      </LoginContainer>
     );
   }
 };

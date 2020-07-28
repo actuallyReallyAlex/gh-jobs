@@ -123,8 +123,7 @@ input::placeholder {
   -ms-transform: rotate(45deg);
 }
 
-.details__side__link,
-.login__action__create {
+.details__side__link {
   align-items: center;
   color: #1e86ff;
   display: flex;
@@ -146,18 +145,11 @@ input::placeholder {
   margin-right: 5px;
 }
 
-.login__action__create i {
-  font-size: 18px;
-  margin-right: 10px;
-}
-
-.details__side__link:hover span,
-.login__action__create:hover span {
+.details__side__link:hover span {
   text-decoration: underline;
 }
 
-.details__side__link:hover i,
-.login__action__create:hover i {
+.details__side__link:hover i {
   text-decoration: none;
 }
 
@@ -192,27 +184,23 @@ input::placeholder {
   text-align: center;
 }
 
-#login-page,
 #signup-page {
   align-items: center;
   display: flex;
   flex-direction: column;
 }
 
-#login-page > form,
 #signup-page > form {
   max-width: 444px;
   width: 50%;
 }
 
-.login__container__title,
 .signup__container__title {
   align-items: center;
   display: flex;
   flex-direction: column;
 }
 
-.login__container__title > h1,
 .signup__container__title > h1 {
   color: #282538;
   font-family: Poppins;
@@ -238,7 +226,6 @@ input::placeholder {
   color: #fff;
 }
 
-.login__container__actions,
 .signup__container__actions {
   align-items: center;
   display: flex;
@@ -276,13 +263,11 @@ input::placeholder {
   }
 
   .search__container,
-  .login__container__actions,
   .signup__container__actions {
     flex-direction: column;
   }
 
   .jobs__container,
-  #login-page > form,
   #signup-page > form {
     width: 100%;
   }
