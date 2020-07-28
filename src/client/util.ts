@@ -1,4 +1,8 @@
-import { RequestMethod } from "./types";
+import {
+  RequestMethod,
+  GetJobsErrorResponse,
+  GetJobsSuccessResponse,
+} from "./types";
 
 export const fetchServerData = async (
   url: string,
@@ -67,4 +71,10 @@ export const saveState = (state: any): void => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const isError = (
+  result: GetJobsErrorResponse | GetJobsSuccessResponse
+): result is GetJobsErrorResponse => {
+  return (result as GetJobsErrorResponse).error !== undefined;
 };

@@ -37,6 +37,14 @@ export type DeleteProfileResponse = ServerResponseError & ServerResponseUser;
 
 export type EditProfileResponse = ServerResponseError & ServerResponseUser;
 
+export interface GetJobsErrorResponse {
+  error: string;
+}
+
+export interface GetJobsSuccessResponse {
+  entries: Job[];
+}
+
 export type InputAutoComplete =
   | "off"
   | "on"

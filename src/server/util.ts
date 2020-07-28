@@ -1,6 +1,6 @@
 import nfetch from "node-fetch";
 
-import { GetAllJobsFromAPIError, GetAllJobsFromAPISuccess, Job } from "./types";
+import { GetJobsErrorResponse, GetJobsSuccessResponse, Job } from "./types";
 
 /**
  * Check if MongoDB is running locally. Stops application from continuing if false.
@@ -45,7 +45,7 @@ export const createSearchURL = (
 };
 
 export const getAllJobsFromAPI = async (): Promise<
-  GetAllJobsFromAPIError | GetAllJobsFromAPISuccess
+  GetJobsErrorResponse | GetJobsSuccessResponse
 > => {
   const entries: Job[] = [];
   let jobsInBatch = null;
@@ -72,4 +72,10 @@ export const getAllJobsFromAPI = async (): Promise<
     console.error(error);
     return { error };
   }
+};
+
+export const isError = (
+  result: GetJobsErrorResponse | GetJobsSuccessResponse
+): result is GetJobsErrorResponse => {
+  return (result as GetJobsErrorResponse).error !== undefined;
 };

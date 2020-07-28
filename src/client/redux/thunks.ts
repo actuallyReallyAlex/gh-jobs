@@ -27,13 +27,15 @@ import {
   setSavedJobsCurrentPage,
   setSavedJobsTotalPages,
 } from "./actions/user";
-import { fetchServerData, unique } from "../util";
+import { fetchServerData, unique, isError } from "../util";
 
 import {
   AddSavedJobResponse,
   AppThunk,
   DeleteProfileResponse,
   EditProfileResponse,
+  GetJobsErrorResponse,
+  GetJobsSuccessResponse,
   Job,
   LocationOption,
   LoginResponse,
@@ -46,12 +48,21 @@ import {
 
 export const getJobs = (): AppThunk => async (dispatch) => {
   try {
-    const jobs: Job[] = await fetchServerData("/jobs", "GET");
+    const result = (await fetchServerData("/jobs", "GET")) as
+      | GetJobsErrorResponse
+      | GetJobsSuccessResponse;
 
-    dispatch(setJobs(jobs));
+    if (isError(result)) {
+      dispatch(setNotificationType("error"));
+      dispatch(setNotificationMessage(result.error));
+      dispatch(setIsLoading(false));
+      return;
+    }
+
+    dispatch(setJobs(result.entries));
     dispatch(setCurrentPage(1));
-    dispatch(setTotalPages(Math.ceil(jobs.length / 5)));
-    dispatch(setCurrentJobs(jobs));
+    dispatch(setTotalPages(Math.ceil(result.entries.length / 5)));
+    dispatch(setCurrentJobs(result.entries));
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);

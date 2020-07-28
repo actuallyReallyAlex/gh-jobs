@@ -12,11 +12,11 @@ export type Controller = {
 
 export type EditSavedJobsMethod = "ADD" | "REMOVE";
 
-export interface GetAllJobsFromAPIError {
+export interface GetJobsErrorResponse {
   error: string;
 }
 
-export interface GetAllJobsFromAPISuccess {
+export interface GetJobsSuccessResponse {
   entries: Job[];
 }
 

@@ -6,9 +6,9 @@ import startOfToday from "date-fns/startOfToday";
 
 import Jobs from "../models/Jobs";
 
-import { createSearchURL, getAllJobsFromAPI } from "../util";
+import { createSearchURL, getAllJobsFromAPI, isError } from "../util";
 
-import { Job, GetAllJobsFromAPIError } from "../types";
+import { GetJobsErrorResponse, GetJobsSuccessResponse, Job } from "../types";
 
 /**
  * Job Controller.
@@ -21,52 +21,58 @@ class JobController {
   }
 
   public initializeRoutes(): void {
-    this.router.get("/jobs", async (req: Request, res: Response) => {
-      try {
-        const currentJobs = await Jobs.find({});
-        let response;
+    this.router.get(
+      "/jobs",
+      async (
+        req: Request,
+        res: Response
+      ): Promise<Response<GetJobsErrorResponse | GetJobsSuccessResponse>> => {
+        try {
+          const currentJobs = await Jobs.find({});
+          let response;
 
-        // * No Jobs exist in DB
-        if (currentJobs.length === 0) {
-          const result = await getAllJobsFromAPI();
-          if ((result as GetAllJobsFromAPIError).error) {
-            return res.status(500).send(result);
-          }
-          const newJobs = new Jobs(result);
-          await newJobs.save();
-          response = newJobs;
-        } else {
-          // * Jobs exist in DB
-          const { updatedAt } = currentJobs[0];
-
-          const isWithinToday = isWithinInterval(new Date(updatedAt), {
-            start: startOfToday(),
-            end: endOfToday(),
-          });
-
-          if (!isWithinToday) {
-            // * Jobs are stale. Get new jobs.
+          // * No Jobs exist in DB
+          if (currentJobs.length === 0) {
             const result = await getAllJobsFromAPI();
-
-            if ((result as GetAllJobsFromAPIError).error) {
+            if ((result as GetJobsErrorResponse).error) {
               return res.status(500).send(result);
             }
-
-            await Jobs.deleteOne({});
             const newJobs = new Jobs(result);
             await newJobs.save();
             response = newJobs;
           } else {
-            // * Jobs are fine, send that.
-            response = currentJobs[0].entries;
-          }
-        }
+            // * Jobs exist in DB
+            const { updatedAt } = currentJobs[0];
 
-        res.send(response);
-      } catch (error) {
-        res.status(500).send({ error });
+            const isWithinToday = isWithinInterval(new Date(updatedAt), {
+              start: startOfToday(),
+              end: endOfToday(),
+            });
+
+            if (!isWithinToday) {
+              // * Jobs are stale. Get new jobs.
+              const result = await getAllJobsFromAPI();
+
+              if (isError(result)) {
+                return res.status(500).send(result);
+              }
+
+              await Jobs.deleteOne({});
+              const newJobs = new Jobs(result);
+              await newJobs.save();
+              response = newJobs;
+            } else {
+              // * Jobs are fine, send that.
+              response = currentJobs[0];
+            }
+          }
+
+          res.send(response);
+        } catch (error) {
+          res.status(500).send({ error });
+        }
       }
-    });
+    );
 
     this.router.get("/jobs/search", async (req: Request, res: Response) => {
       try {
