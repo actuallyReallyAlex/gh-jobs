@@ -26,6 +26,10 @@ export interface Job {
   url: string;
 }
 
+export interface JobsDocument extends Document {
+  jobs: Job[];
+}
+
 export type JobType = "Contract" | "Full Time";
 
 export interface Token {
