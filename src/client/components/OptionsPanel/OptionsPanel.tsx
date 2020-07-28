@@ -11,13 +11,14 @@ import {
   setLocationSearch,
 } from "../../redux/actions/application";
 
-import { RootState } from "../../types";
+import { LocationOption, RootState } from "../../types";
 
 export interface OptionsPanelProps {
   fullTime: boolean;
   handleCheckBox: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSetFullTime: (fullTime: boolean) => void;
   handleSetLocationSearch: (locationSearch: string) => void;
+  locationOptions: LocationOption[];
   locationSearch: string;
 }
 
@@ -29,15 +30,10 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
     handleCheckBox,
     handleSetFullTime,
     handleSetLocationSearch,
+    locationOptions,
     locationSearch,
   } = props;
 
-  const locations = [
-    "Chicago",
-    "Los Angeles",
-    "New York City",
-    "San Francisco",
-  ];
   return (
     <OptionsPanelContainer>
       <Checkbox
@@ -57,14 +53,15 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
         value={locationSearch}
       />
 
-      {locations.map((location: string, i: number) => (
+      {locationOptions.map((location: LocationOption, i: number) => (
         <Checkbox
+          checked={location.value !== ""}
           key={i}
           id={`location-${i + 1}`}
-          label={location}
-          name={`location${i + 1}`}
+          label={location.name}
+          name={location.name}
           onChange={(e) => handleCheckBox(e)}
-          value={location}
+          value={location.name}
         />
       ))}
     </OptionsPanelContainer>

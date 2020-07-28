@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import { CheckboxCheckmark, CheckboxContainer } from "./Checkbox-styled";
+
 export interface CheckboxProps {
   checked?: boolean;
   id?: string;
@@ -12,7 +14,7 @@ export interface CheckboxProps {
 const Checkbox: React.SFC<CheckboxProps> = (props: CheckboxProps) => {
   const { checked, id, label, name, onChange, value } = props;
   return (
-    <label className="checkbox__container">
+    <CheckboxContainer checked={checked}>
       {label}
       <input
         checked={checked}
@@ -22,8 +24,8 @@ const Checkbox: React.SFC<CheckboxProps> = (props: CheckboxProps) => {
         type="checkbox"
         value={value}
       />
-      <span className="checkmark" />
-    </label>
+      <CheckboxCheckmark checked={checked} data-cy="checkmark" />
+    </CheckboxContainer>
   );
 };
 

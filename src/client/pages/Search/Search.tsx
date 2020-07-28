@@ -41,10 +41,10 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
   const [location4, setLocation4] = React.useState("");
 
   const locationOptions: LocationOption[] = [
-    { name: "location1", setter: setLocation1, value: location1 },
-    { name: "location2", setter: setLocation2, value: location2 },
-    { name: "location3", setter: setLocation3, value: location3 },
-    { name: "location4", setter: setLocation4, value: location4 },
+    { name: "Chicago", setter: setLocation1, value: location1 },
+    { name: "Los Angeles", setter: setLocation2, value: location2 },
+    { name: "New York City", setter: setLocation3, value: location3 },
+    { name: "San Francisco", setter: setLocation4, value: location4 },
   ];
 
   const handleCheckBox = (e) => {
@@ -63,7 +63,10 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
     <>
       <SearchInput locationOptions={locationOptions} />
       <SearchContainer>
-        <OptionsPanel handleCheckBox={handleCheckBox} />
+        <OptionsPanel
+          handleCheckBox={handleCheckBox}
+          locationOptions={locationOptions}
+        />
         <SearchJobsContainer>
           {notificationMessage && (
             <Notification

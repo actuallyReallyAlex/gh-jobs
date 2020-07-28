@@ -46,7 +46,7 @@ context("Options Panel", () => {
 
   it("Should retain FullTime state", () => {
     cy.get('input[name="full-time-checkbox"]').should("not.be.checked");
-    cy.get(":nth-child(1) > .checkmark").click();
+    cy.get(":nth-child(1) > [data-cy=checkmark]").click();
     cy.get("#search").type("developer");
     cy.get("#search-submit").click();
     cy.wait(1000);
@@ -64,7 +64,7 @@ context("Options Panel", () => {
 
   it("Should retain options values", () => {
     cy.get("#location-1").should("not.be.checked");
-    cy.get(":nth-child(3) > .checkmark").click();
+    cy.get(":nth-child(3) > [data-cy=checkmark]").click();
     cy.get("#location-1").should("be.checked");
     cy.get("#search-submit").click();
     cy.wait(1000);
@@ -80,7 +80,7 @@ context("Options Panel", () => {
       assert.equal($jobs.length, 5);
     });
 
-    cy.get(":nth-child(1) > .checkmark").click();
+    cy.get(":nth-child(1) > [data-cy=checkmark]").click();
     cy.get("#search-submit").click();
 
     cy.wait(1000);
