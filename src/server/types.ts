@@ -27,7 +27,7 @@ export interface Job {
 }
 
 export interface JobsDocument extends Document {
-  jobs: Job[];
+  entries: Job[];
 }
 
 export type JobType = "Contract" | "Full Time";

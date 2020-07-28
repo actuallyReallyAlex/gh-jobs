@@ -4,7 +4,7 @@ import { JobsDocument } from "../types";
 
 const jobsSchema = new mongoose.Schema(
   {
-    jobs: {
+    entries: {
       type: [
         {
           company: String,

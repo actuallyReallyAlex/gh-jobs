@@ -1,6 +1,8 @@
 import express, { Request, Response, Router } from "express";
 import nfetch from "node-fetch";
 
+import Jobs from "../models/Jobs";
+
 import { createSearchURL } from "../util";
 
 import { Job } from "../types";
@@ -18,26 +20,35 @@ class JobController {
   public initializeRoutes(): void {
     this.router.get("/jobs", async (req: Request, res: Response) => {
       try {
-        const jobs: Job[] = [];
-        let jobsInBatch = null;
-        let page = 1;
+        const currentJobs = await Jobs.find({});
 
-        // * Can only get 50 jobs at a time
-        // * keep going until there are no more jobs
-        while (jobsInBatch !== 0) {
-          const response = await nfetch(
-            `https://jobs.github.com/positions.json?page=${page}`,
-            { headers: { "Content-Type": "application/json" }, method: "GET" }
-          );
-          const batchJobs: Job[] = await response.json();
-          jobsInBatch = batchJobs.length;
-          page++;
-          if (jobsInBatch !== 0) {
-            jobs.push(...batchJobs);
+        // * No Jobs exist in DB
+        if (currentJobs.length === 0) {
+          const jobs: Job[] = [];
+          let jobsInBatch = null;
+          let page = 1;
+
+          // * Can only get 50 jobs at a time
+          // * keep going until there are no more jobs
+          while (jobsInBatch !== 0) {
+            const response = await nfetch(
+              `https://jobs.github.com/positions.json?page=${page}`,
+              { headers: { "Content-Type": "application/json" }, method: "GET" }
+            );
+            const batchJobs: Job[] = await response.json();
+            jobsInBatch = batchJobs.length;
+            page++;
+            if (jobsInBatch !== 0) {
+              jobs.push(...batchJobs);
+            }
           }
+          const newJobs = new Jobs({ entries: jobs });
+          await newJobs.save();
         }
 
-        res.send(jobs);
+        const { entries } = currentJobs[0];
+
+        res.send(entries);
       } catch (error) {
         res.status(500).send({ error });
       }
