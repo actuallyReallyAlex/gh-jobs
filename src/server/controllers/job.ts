@@ -74,6 +74,7 @@ class JobController {
       }
     );
 
+    // TODO - Modify
     this.router.get("/jobs/search", async (req: Request, res: Response) => {
       try {
         const { description, full_time, location } = req.query;
