@@ -2,20 +2,26 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
-import Button from "../components/Button";
-import Copyright from "../components/Copyright";
-import Notification from "../components/Notification";
-import Input from "../components/Input";
+import Button from "../../components/Button";
+import Copyright from "../../components/Copyright";
+import Notification from "../../components/Notification";
+import Input from "../../components/Input";
+
+import {
+  SignupContainer,
+  SignupTitleContainer,
+  SignupActionsContainer,
+} from "./Signup-styled";
 
 import {
   setConfirmPassword,
   setEmail,
   setName,
   setPassword,
-} from "../redux/actions/user";
-import { signup } from "../redux/thunks";
+} from "../../redux/actions/user";
+import { signup } from "../../redux/thunks";
 
-import { RootState } from "../types";
+import { RootState } from "../../types";
 
 export interface SignupProps {
   confirmPassword: string;
@@ -50,19 +56,19 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
     return <Redirect to="/" />;
   } else {
     return (
-      <div id="signup-page">
+      <SignupContainer id="signup-page">
         <form
           onSubmit={(e) => {
             e.preventDefault();
             handleSignup();
           }}
         >
-          <div className="signup__container__title">
-            <span className="avatar">
+          <SignupTitleContainer>
+            <span>
               <i className="material-icons">lock</i>
             </span>
             <h1>Create Account</h1>
-          </div>
+          </SignupTitleContainer>
 
           {notificationMessage && (
             <Notification message={notificationMessage} type="info" />
@@ -115,17 +121,17 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
             value={confirmPassword}
           />
 
-          <div className="signup__container__actions">
+          <SignupActionsContainer>
             <Button
               buttonStyle="primary"
               id="signup"
               label="Create account"
               type="submit"
             />
-          </div>
+          </SignupActionsContainer>
         </form>
         <Copyright />
-      </div>
+      </SignupContainer>
     );
   }
 };

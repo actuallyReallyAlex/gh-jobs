@@ -59,7 +59,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
       <ProfilePage id="profile-page">
         <ProfileForm isViewingSavedJobs={isViewingSavedJobs}>
           <ProfileTitleContainer>
-            <span className="avatar">
+            <span>
               <i className="material-icons">account_circle</i>
             </span>
             <h1>{heading}</h1>

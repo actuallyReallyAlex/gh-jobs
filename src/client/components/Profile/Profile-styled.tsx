@@ -49,6 +49,21 @@ const ProfileTitleContainer = styled.div`
     line-height: 36px;
     margin: 0;
   }
+
+  span {
+    align-items: center;
+    background: #1e86ff;
+    border-radius: 50%;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    margin: 8px;
+    width: 40px;
+
+    i {
+      color: #ffffff;
+    }
+  }
 `;
 
 const ProfileSavedContainer = styled.div`
