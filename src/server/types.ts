@@ -12,6 +12,14 @@ export type Controller = {
 
 export type EditSavedJobsMethod = "ADD" | "REMOVE";
 
+export interface GetAllJobsFromAPIError {
+  error: string;
+}
+
+export interface GetAllJobsFromAPISuccess {
+  entries: Job[];
+}
+
 export interface Job {
   company: string;
   company_logo: string;
@@ -27,7 +35,11 @@ export interface Job {
 }
 
 export interface JobsDocument extends Document {
+  _id: string;
   entries: Job[];
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
 }
 
 export type JobType = "Contract" | "Full Time";

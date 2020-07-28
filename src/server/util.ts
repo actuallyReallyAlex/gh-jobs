@@ -1,3 +1,7 @@
+import nfetch from "node-fetch";
+
+import { GetAllJobsFromAPIError, GetAllJobsFromAPISuccess, Job } from "./types";
+
 /**
  * Check if MongoDB is running locally. Stops application from continuing if false.
  */
@@ -38,4 +42,34 @@ export const createSearchURL = (
   }
 
   return url;
+};
+
+export const getAllJobsFromAPI = async (): Promise<
+  GetAllJobsFromAPIError | GetAllJobsFromAPISuccess
+> => {
+  const entries: Job[] = [];
+  let jobsInBatch = null;
+  let page = 1;
+
+  // * Can only get 50 jobs at a time
+  // * keep going until there are no more jobs
+  try {
+    while (jobsInBatch !== 0) {
+      const response = await nfetch(
+        `https://jobs.github.com/positions.json?page=${page}`,
+        { headers: { "Content-Type": "application/json" }, method: "GET" }
+      );
+      const batchJobs: Job[] = await response.json();
+      jobsInBatch = batchJobs.length;
+      page++;
+      if (jobsInBatch !== 0) {
+        entries.push(...batchJobs);
+      }
+    }
+
+    return { entries };
+  } catch (error) {
+    console.error(error);
+    return { error };
+  }
 };

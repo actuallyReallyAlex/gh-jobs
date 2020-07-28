@@ -198,6 +198,7 @@ export const initializeApplication = (): AppThunk => async (
   dispatch(setIsLoading(true));
   dispatch(setNotificationType("info"));
   dispatch(setNotificationMessage(""));
+
   const state: RootState = getState();
   const { jobsFetchedAt } = state.application;
   // * Establish Job Data
