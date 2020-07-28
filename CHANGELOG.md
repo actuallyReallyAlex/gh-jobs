@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Details Side Link icons styling
+
 ### Removed
 
 ### Fixed
