@@ -15,7 +15,6 @@ export interface ApplicationState {
   fullTime: boolean;
   isLoading: boolean;
   jobs: Job[];
-  jobsFetchedAt: string;
   locationSearch: string;
   notificationMessage: string;
   notificationType: NotificationType;

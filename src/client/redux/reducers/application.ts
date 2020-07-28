@@ -4,7 +4,6 @@ import {
   SET_FULL_TIME,
   SET_IS_LOADING,
   SET_JOBS,
-  SET_JOBS_FETCHED_AT,
   SET_LOCATION_SEARCH,
   SET_NOTIFICATION_MESSAGE,
   SET_NOTIFICATION_TYPE,
@@ -20,7 +19,6 @@ export const initialState: ApplicationState = {
   fullTime: false,
   isLoading: true,
   jobs: [],
-  jobsFetchedAt: null,
   locationSearch: "",
   notificationMessage: "",
   notificationType: "info",
@@ -46,7 +44,6 @@ const reducer = (
     case SET_FULL_TIME:
     case SET_IS_LOADING:
     case SET_JOBS:
-    case SET_JOBS_FETCHED_AT:
     case SET_LOCATION_SEARCH:
     case SET_NOTIFICATION_MESSAGE:
     case SET_NOTIFICATION_TYPE:

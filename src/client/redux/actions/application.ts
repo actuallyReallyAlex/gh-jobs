@@ -1,6 +1,5 @@
 import {
   SET_JOBS,
-  SET_JOBS_FETCHED_AT,
   SET_FULL_TIME,
   SET_IS_LOADING,
   SET_CURRENT_JOBS,
@@ -37,11 +36,6 @@ export const setIsLoading = (isLoading: boolean): ApplicationAction => ({
 export const setJobs = (jobs: Job[]): ApplicationAction => ({
   type: SET_JOBS,
   payload: { jobs },
-});
-
-export const setJobsFetchedAt = (jobsFetchedAt: string): ApplicationAction => ({
-  type: SET_JOBS_FETCHED_AT,
-  payload: { jobsFetchedAt },
 });
 
 export const setLocationSearch = (

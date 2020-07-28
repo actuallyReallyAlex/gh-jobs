@@ -1,13 +1,8 @@
-import endOfToday from "date-fns/endOfToday";
-import isWithinInterval from "date-fns/isWithinInterval";
-import startOfToday from "date-fns/startOfToday";
-
 import {
   setCurrentJobs,
   setCurrentPage,
   setIsLoading,
   setJobs,
-  setJobsFetchedAt,
   setSearchValue,
   setTotalPages,
   setNotificationMessage,
@@ -54,7 +49,6 @@ export const getJobs = (): AppThunk => async (dispatch) => {
     const jobs: Job[] = await fetchServerData("/jobs", "GET");
 
     dispatch(setJobs(jobs));
-    dispatch(setJobsFetchedAt(new Date().toString()));
     dispatch(setCurrentPage(1));
     dispatch(setTotalPages(Math.ceil(jobs.length / 5)));
     dispatch(setCurrentJobs(jobs));
@@ -191,29 +185,13 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoading(false));
 };
 
-export const initializeApplication = (): AppThunk => async (
-  dispatch,
-  getState
-) => {
+export const initializeApplication = (): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
   dispatch(setNotificationType("info"));
   dispatch(setNotificationMessage(""));
 
-  const state: RootState = getState();
-  const { jobsFetchedAt } = state.application;
   // * Establish Job Data
-  if (jobsFetchedAt) {
-    const isWithinToday = isWithinInterval(new Date(jobsFetchedAt), {
-      start: startOfToday(),
-      end: endOfToday(),
-    });
-
-    if (!isWithinToday) {
-      dispatch(getJobs());
-    }
-  } else {
-    dispatch(getJobs());
-  }
+  dispatch(getJobs());
 
   // * Establish User Authentication
   dispatch(checkAuthentication());
