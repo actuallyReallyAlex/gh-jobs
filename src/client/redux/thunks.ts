@@ -102,6 +102,7 @@ export const searchJobs = (
       )}&description=${encodeURI(search)}&location=${encodeURI(
         location.value
       )}`;
+      // TODO - Modify
       const data = await fetchServerData(url, "GET");
       jobs.push(...data);
     })
@@ -111,6 +112,7 @@ export const searchJobs = (
     const url = `/jobs/search?full_time=${encodeURI(
       fullTime.toString()
     )}&description=${encodeURI(search)}`;
+    // TODO - Modify
     const data = await fetchServerData(url, "GET");
     jobs.push(...data);
   }
@@ -138,6 +140,7 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
   const { user } = getState();
   const { email, password } = user;
 
+  // TODO - Modify
   const response: LoginResponse = await fetchServerData(
     "/user/login",
     "POST",
@@ -173,6 +176,7 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
     return;
   }
 
+  // TODO - Modify
   const response: SignupResponse = await fetchServerData(
     "/user",
     "POST",
@@ -227,6 +231,7 @@ export const checkAuthentication = (): AppThunk => async (dispatch) => {
 
 export const logOut = (): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
+  // TODO - Modify
   const response = await fetchServerData("/user/logout", "POST");
 
   if (response.error) {
@@ -253,6 +258,7 @@ export const logOut = (): AppThunk => async (dispatch) => {
 
 export const logOutAll = (): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
+  // TODO - Modify
   const response = await fetchServerData("/user/logout/all", "POST");
 
   if (response.error) {
@@ -295,6 +301,7 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
   }
 
   try {
+    // TODO - Modify
     const response: ResetPasswordResponse = await fetchServerData(
       "/user/me",
       "PATCH",
@@ -358,6 +365,7 @@ export const editProfile = (): AppThunk => async (dispatch, getState) => {
 
   const { editEmail, editName } = state.user;
   try {
+    // TODO - Modify
     const response: EditProfileResponse = await fetchServerData(
       "/user/me",
       "PATCH",
@@ -408,6 +416,7 @@ export const deleteProfile = (): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
 
   try {
+    // TODO - Modify
     const response: DeleteProfileResponse = await fetchServerData(
       "/user/me",
       "DELETE"
@@ -439,6 +448,7 @@ export const deleteProfile = (): AppThunk => async (dispatch) => {
 export const addSavedJob = (job: Job): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
   try {
+    // TODO - Modify
     const response: AddSavedJobResponse = await fetchServerData(
       "/user/savedJobs",
       "PATCH",
@@ -471,6 +481,7 @@ export const addSavedJob = (job: Job): AppThunk => async (dispatch) => {
 export const removeSavedJob = (job: Job): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
   try {
+    // TODO - Modify
     const response: RemoveSavedJobResponse = await fetchServerData(
       "/user/savedJobs",
       "PATCH",
