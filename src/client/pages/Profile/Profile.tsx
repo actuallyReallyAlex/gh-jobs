@@ -2,22 +2,22 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
-import Notification from "../components/Notification";
+import Notification from "../../components/Notification";
 import {
   ProfileDelete,
   ProfileDisplay,
   ProfileEdit,
   ProfileReset,
   ProfileSavedJobs,
-} from "../components/Profile";
+} from "../../components/Profile";
 
 import {
   ProfilePage,
   ProfileForm,
   ProfileTitleContainer,
-} from "../components/Profile/Profile-styled";
+} from "../../components/Profile/Profile-styled";
 
-import { NotificationType, RootState } from "../types";
+import { NotificationType, RootState } from "../../types";
 
 export interface ProfileProps {
   isDeletingProfile: boolean;

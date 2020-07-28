@@ -1,14 +1,20 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import Copyright from "../components/Copyright";
-import JobCard from "../components/JobCard";
-import Notification from "../components/Notification";
-import OptionsPanel from "../components/OptionsPanel";
-import Pagination from "../components/Pagination";
-import SearchInput from "../components/SearchInput";
+import Copyright from "../../components/Copyright";
+import JobCard from "../../components/JobCard";
+import Notification from "../../components/Notification";
+import OptionsPanel from "../../components/OptionsPanel";
+import Pagination from "../../components/Pagination";
+import SearchInput from "../../components/SearchInput";
 
-import { Job, LocationOption, NotificationType, RootState } from "../types";
+import {
+  SearchContainer,
+  SearchJobsContainer,
+  SearchNoResults,
+} from "./Search-styled";
+
+import { Job, LocationOption, NotificationType, RootState } from "../../types";
 
 export interface SearchProps {
   currentJobs: Job[];
@@ -56,9 +62,9 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
   return (
     <>
       <SearchInput locationOptions={locationOptions} />
-      <div className="search__container">
+      <SearchContainer>
         <OptionsPanel handleCheckBox={handleCheckBox} />
-        <div className="jobs__container">
+        <SearchJobsContainer>
           {notificationMessage && (
             <Notification
               message={notificationMessage}
@@ -71,12 +77,12 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
             <Pagination currentPage={currentPage} totalPages={totalPages} />
           )}
           {jobsOnPage.length === 0 && (
-            <p className="text__center" id="no-results">
+            <SearchNoResults id="no-results">
               No results. Please modify your search and try again.
-            </p>
+            </SearchNoResults>
           )}
-        </div>
-      </div>
+        </SearchJobsContainer>
+      </SearchContainer>
       <Copyright />
     </>
   );

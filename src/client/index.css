@@ -42,15 +42,6 @@ input::placeholder {
   display: flex;
 }
 
-.search__container {
-  display: flex;
-  margin-top: 42px;
-}
-
-.jobs__container {
-  width: 75%;
-}
-
 .checkbox__container {
   display: block;
   color: #334680;
@@ -180,10 +171,6 @@ input::placeholder {
   }
 }
 
-.text__center {
-  text-align: center;
-}
-
 #signup-page {
   align-items: center;
   display: flex;
@@ -237,16 +224,6 @@ input::placeholder {
   justify-content: center;
 }
 
-@media only screen and (max-width: 800px) {
-  .search__container {
-    flex-direction: column;
-  }
-
-  .jobs__container {
-    width: 100%;
-  }
-}
-
 @media only screen and (max-width: 600px) {
   #app {
     max-width: 100%;
@@ -262,12 +239,10 @@ input::placeholder {
     padding: 0.375rem 2rem;
   }
 
-  .search__container,
   .signup__container__actions {
     flex-direction: column;
   }
 
-  .jobs__container,
   #signup-page > form {
     width: 100%;
   }
