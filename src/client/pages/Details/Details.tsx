@@ -77,7 +77,7 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
     <>
       <DetailsContainer>
         <DetailsSideContainer>
-          <Link className="details__side__link" id="back-to-search" to="/">
+          <Link id="back-to-search" to="/">
             <i className="material-icons">west</i>
             <span>Back to search</span>
           </Link>
@@ -88,7 +88,6 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
             {data &&
               (applyLink ? (
                 <a
-                  className="details__side__link"
                   href={applyLink}
                   rel="noopener noreferrer"
                   style={{ marginTop: "16px" }}

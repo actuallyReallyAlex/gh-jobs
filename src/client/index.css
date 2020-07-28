@@ -23,53 +23,11 @@ body {
   text-decoration: none;
 }
 
-.grey {
-  color: rgba(116, 116, 116, 1);
-}
-
-.icon-sm {
-  font-size: 16px;
-}
-
 input::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #b9bdcf;
   opacity: 1; /* Firefox */
   text-overflow: ellipsis;
-}
-
-.flex {
-  display: flex;
-}
-
-.details__side__link {
-  align-items: center;
-  color: #1e86ff;
-  display: flex;
-  font-family: Poppins, sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 21px;
-  justify-content: flex-start;
-  text-decoration: none;
-}
-
-.details__side__link {
-  font-size: 14px;
-  margin-right: 15px;
-}
-
-.details__side__link i {
-  font-size: 16px;
-  margin-right: 5px;
-}
-
-.details__side__link:hover span {
-  text-decoration: underline;
-}
-
-.details__side__link:hover i {
-  text-decoration: none;
 }
 
 @keyframes orbit-spinner-orbit-one-animation {

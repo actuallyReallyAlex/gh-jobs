@@ -18,6 +18,34 @@ const DetailsSideContainer = styled.div`
   @media only screen and (max-width: 600px) {
     width: 100%;
   }
+
+  a {
+    align-items: center;
+    color: #1e86ff;
+    display: flex;
+    font-family: Poppins, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    margin-right: 15px;
+    justify-content: flex-start;
+    text-decoration: none;
+
+    i {
+      font-size: 16px;
+      margin-right: 5px;
+    }
+
+    :hover {
+      i {
+        text-decoration: none;
+      }
+
+      span {
+        text-decoration: underline;
+      }
+    }
+  }
 `;
 
 const DetailsHowToContainer = styled.div`
