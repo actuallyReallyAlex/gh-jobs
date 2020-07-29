@@ -4,7 +4,7 @@ import isWithinInterval from "date-fns/isWithinInterval";
 import nfetch from "node-fetch";
 import startOfToday from "date-fns/startOfToday";
 
-import Jobs from "../models/Jobs";
+import JobModel from "../models/Job";
 
 import { createSearchURL, getAllJobsFromAPI, isError } from "../util";
 
@@ -28,23 +28,31 @@ class JobController {
         res: Response
       ): Promise<Response<GetJobsErrorResponse | GetJobsSuccessResponse>> => {
         try {
-          const currentJobs = await Jobs.find({});
-          let response;
+          const currentJobs = await JobModel.find({});
 
           // * No Jobs exist in DB
           if (currentJobs.length === 0) {
             const result = await getAllJobsFromAPI();
-            if ((result as GetJobsErrorResponse).error) {
+
+            if (isError(result)) {
               return res.status(500).send(result);
             }
-            const newJobs = new Jobs(result);
-            await newJobs.save();
-            response = newJobs;
+
+            await Promise.all(
+              result.map(async (job: Job) => {
+                const newJob = new JobModel(job);
+                await newJob.save();
+                return;
+              })
+            );
+
+            const dbJobs = await JobModel.find({});
+            return res.send(dbJobs);
           } else {
             // * Jobs exist in DB
-            const { updatedAt } = currentJobs[0];
+            const { createdAt } = currentJobs[0];
 
-            const isWithinToday = isWithinInterval(new Date(updatedAt), {
+            const isWithinToday = isWithinInterval(new Date(createdAt), {
               start: startOfToday(),
               end: endOfToday(),
             });
@@ -57,18 +65,27 @@ class JobController {
                 return res.status(500).send(result);
               }
 
-              await Jobs.deleteOne({});
-              const newJobs = new Jobs(result);
-              await newJobs.save();
-              response = newJobs;
+              // * Drop the current database of Jobs
+              await JobModel.collection.drop();
+
+              // * Create new Job entries
+              await Promise.all(
+                result.map(async (job: Job) => {
+                  const newJob = new JobModel(job);
+                  await newJob.save();
+                  return;
+                })
+              );
+
+              const dbJobs = await JobModel.find({});
+              return res.send(dbJobs);
             } else {
               // * Jobs are fine, send that.
-              response = currentJobs[0];
+              return res.send(currentJobs);
             }
           }
-
-          res.send(response);
         } catch (error) {
+          console.error(error);
           res.status(500).send({ error });
         }
       }

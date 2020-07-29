@@ -47,7 +47,7 @@ export const createSearchURL = (
 export const getAllJobsFromAPI = async (): Promise<
   GetJobsErrorResponse | GetJobsSuccessResponse
 > => {
-  const entries: Job[] = [];
+  const jobs: Job[] = [];
   let jobsInBatch = null;
   let page = 1;
 
@@ -63,11 +63,11 @@ export const getAllJobsFromAPI = async (): Promise<
       jobsInBatch = batchJobs.length;
       page++;
       if (jobsInBatch !== 0) {
-        entries.push(...batchJobs);
+        jobs.push(...batchJobs);
       }
     }
 
-    return { entries };
+    return jobs;
   } catch (error) {
     console.error(error);
     return { error };

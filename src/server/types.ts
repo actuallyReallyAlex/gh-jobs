@@ -16,9 +16,7 @@ export interface GetJobsErrorResponse {
   error: string;
 }
 
-export interface GetJobsSuccessResponse {
-  entries: Job[];
-}
+export type GetJobsSuccessResponse = Job[];
 
 export interface Job {
   company: string;
@@ -34,9 +32,19 @@ export interface Job {
   url: string;
 }
 
-export interface JobsDocument extends Document {
+export interface JobDocument extends Document {
   _id: string;
-  entries: Job[];
+  company: string;
+  company_logo: string;
+  company_url: string;
+  created_at: string;
+  description: string;
+  how_to_apply: string;
+  id: string;
+  location: string;
+  title: string;
+  type: JobType;
+  url: string;
   createdAt: string;
   updatedAt: string;
   __v: number;

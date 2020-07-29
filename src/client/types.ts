@@ -41,9 +41,7 @@ export interface GetJobsErrorResponse {
   error: string;
 }
 
-export interface GetJobsSuccessResponse {
-  entries: Job[];
-}
+export type GetJobsSuccessResponse = Job[];
 
 export type InputAutoComplete =
   | "off"

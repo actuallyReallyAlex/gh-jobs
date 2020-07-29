@@ -59,10 +59,10 @@ export const getJobs = (): AppThunk => async (dispatch) => {
       return;
     }
 
-    dispatch(setJobs(result.entries));
+    dispatch(setJobs(result));
     dispatch(setCurrentPage(1));
-    dispatch(setTotalPages(Math.ceil(result.entries.length / 5)));
-    dispatch(setCurrentJobs(result.entries));
+    dispatch(setTotalPages(Math.ceil(result.length / 5)));
+    dispatch(setCurrentJobs(result));
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
