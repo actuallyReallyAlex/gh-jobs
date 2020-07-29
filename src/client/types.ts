@@ -136,7 +136,13 @@ export interface LocationOption {
 
 export type LoginResponse = ServerResponseError & ServerResponseUser;
 
-export type NotificationType = "error" | "info" | "warning";
+export type NotificationType =
+  | "error"
+  | "dark"
+  | "default"
+  | "info"
+  | "success"
+  | "warning";
 
 export type PaginationNavigationType = "left" | "right";
 

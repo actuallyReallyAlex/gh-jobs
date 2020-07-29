@@ -2,7 +2,6 @@ import * as React from "react";
 import { connect } from "react-redux";
 
 import JobCard from "../JobCard";
-import Notification from "../Notification";
 import Pagination from "../Pagination";
 
 import { ProfileSavedContainer, ProfileNoResults } from "./Profile-styled";
@@ -35,9 +34,6 @@ const ProfileSavedJobs: React.SFC<ProfileSavedJobsProps> = (
   return (
     <>
       <ProfileSavedContainer>
-        {notificationMessage && (
-          <Notification message={notificationMessage} type={notificationType} />
-        )}
         {jobsOnPage &&
           jobsOnPage.map((job: Job) => <JobCard job={job} key={job.id} />)}
         {jobsOnPage.length > 0 && (

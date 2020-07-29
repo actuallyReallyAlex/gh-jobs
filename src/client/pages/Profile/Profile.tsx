@@ -2,7 +2,6 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
-import Notification from "../../components/Notification";
 import {
   ProfileDelete,
   ProfileDisplay,
@@ -64,13 +63,6 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
             </span>
             <h1>{heading}</h1>
           </ProfileTitleContainer>
-
-          {notificationMessage && (
-            <Notification
-              message={notificationMessage}
-              type={notificationType}
-            />
-          )}
 
           {isResettingPassword && <ProfileReset />}
 

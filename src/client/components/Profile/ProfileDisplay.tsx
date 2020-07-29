@@ -6,7 +6,7 @@ import Input from "../Input";
 
 import { ProfileActionsContainer } from "./Profile-styled";
 
-import { setNotificationMessage } from "../../redux/actions/application";
+import { displayNotification } from "../../redux/actions/application";
 import { setIsResettingPassword } from "../../redux/actions/user";
 import {
   clickEditProfile,
@@ -133,7 +133,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleClearFormError: () => dispatch(setNotificationMessage("")),
+  handleClearFormError: () => dispatch(displayNotification("", "default")),
   handleClickDeleteProfile: () => dispatch(clickDeleteProfile()),
   handleClickEditProfile: () => dispatch(clickEditProfile()),
   handleClickViewSavedJobs: () => dispatch(clickViewSavedJobs()),

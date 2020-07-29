@@ -4,7 +4,6 @@ import { Link, Redirect } from "react-router-dom";
 
 import Button from "../../components/Button";
 import Copyright from "../../components/Copyright";
-import Notification from "../../components/Notification";
 import Input from "../../components/Input";
 
 import {
@@ -56,10 +55,6 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
             </span>
             <h1>Login</h1>
           </LoginTitleContainer>
-
-          {notificationMessage && (
-            <Notification message={notificationMessage} type="info" />
-          )}
 
           <Input
             autoComplete="email"

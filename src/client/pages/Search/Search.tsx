@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 
 import Copyright from "../../components/Copyright";
 import JobCard from "../../components/JobCard";
-import Notification from "../../components/Notification";
 import OptionsPanel from "../../components/OptionsPanel";
 import Pagination from "../../components/Pagination";
 import SearchInput from "../../components/SearchInput";
@@ -68,12 +67,6 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
           locationOptions={locationOptions}
         />
         <SearchJobsContainer>
-          {notificationMessage && (
-            <Notification
-              message={notificationMessage}
-              type={notificationType}
-            />
-          )}
           {jobsOnPage &&
             jobsOnPage.map((job: Job) => <JobCard job={job} key={job.id} />)}
           {jobsOnPage.length > 0 && (

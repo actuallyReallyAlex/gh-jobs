@@ -4,7 +4,6 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useParams, Link } from "react-router-dom";
 
 import Copyright from "../../components/Copyright";
-import Notification from "../../components/Notification";
 
 import {
   DetailsContainer,
@@ -103,12 +102,6 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
         </DetailsSideContainer>
 
         <DetailsMainContainer>
-          {notificationMessage && (
-            <Notification
-              message={notificationMessage}
-              type={notificationType}
-            />
-          )}
           {data && (
             <>
               <DetailsMainTitleContainer>

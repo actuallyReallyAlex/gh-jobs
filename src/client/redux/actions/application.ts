@@ -1,17 +1,24 @@
 import {
+  DISPLAY_NOTIFICATION,
   SET_JOBS,
   SET_FULL_TIME,
   SET_IS_LOADING,
   SET_CURRENT_JOBS,
   SET_CURRENT_PAGE,
   SET_LOCATION_SEARCH,
-  SET_NOTIFICATION_MESSAGE,
-  SET_NOTIFICATION_TYPE,
   SET_SEARCH_VALUE,
   SET_TOTAL_PAGES,
 } from "../actionTypes";
 
 import { ApplicationAction, Job, NotificationType } from "../../types";
+
+export const displayNotification = (
+  notificationMessage: string,
+  notificationType: NotificationType
+): ApplicationAction => ({
+  type: DISPLAY_NOTIFICATION,
+  payload: { notificationMessage, notificationType },
+});
 
 export const setCurrentJobs = (currentJobs: Job[]): ApplicationAction => ({
   type: SET_CURRENT_JOBS,
@@ -43,20 +50,6 @@ export const setLocationSearch = (
 ): ApplicationAction => ({
   type: SET_LOCATION_SEARCH,
   payload: { locationSearch },
-});
-
-export const setNotificationMessage = (
-  notificationMessage: string
-): ApplicationAction => ({
-  type: SET_NOTIFICATION_MESSAGE,
-  payload: { notificationMessage },
-});
-
-export const setNotificationType = (
-  notificationType: NotificationType
-): ApplicationAction => ({
-  type: SET_NOTIFICATION_TYPE,
-  payload: { notificationType },
 });
 
 export const setSearchValue = (searchValue: string): ApplicationAction => ({
