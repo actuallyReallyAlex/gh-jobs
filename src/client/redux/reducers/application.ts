@@ -43,12 +43,13 @@ const reducer = (
     case DISPLAY_NOTIFICATION: {
       const { notificationMessage, notificationType } = action.payload;
       if (notificationMessage) {
-        const autoClose =
-          notificationType !== "error" || notificationType !== "warning"
-            ? false
-            : 5000;
+        let autoClose: boolean | number = 5000;
+        if (notificationType === "error" || notificationType === "warning") {
+          autoClose = false;
+        }
         toast(notificationMessage, {
           autoClose,
+          toastId: "notification",
           type: notificationType,
         });
       }

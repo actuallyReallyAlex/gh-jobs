@@ -33,14 +33,13 @@ context("Saved Jobs", () => {
     cy.get("#remove-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb")
       .its("data")
       .should("be", "{ cy: 'selected' }");
-    cy.get("#notification-text").should("have.text", "Job saved successfully.");
+    cy.get("#notification").should("have.text", "Job saved successfully.");
+    cy.get("#notification > button").click();
 
     // * Cleanup
     cy.get("#remove-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
-    cy.get("#notification-text").should(
-      "have.text",
-      "Job removed successfully."
-    );
+    cy.get("#notification").should("have.text", "Job removed successfully.");
+    cy.get("#notification > button").click();
   });
 
   it("Should be able to save a job from the 'Details' page", () => {
@@ -53,14 +52,13 @@ context("Saved Jobs", () => {
     cy.get("#remove-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb")
       .its("data")
       .should("be", "{ cy: 'selected' }");
-    cy.get("#notification-text").should("have.text", "Job saved successfully.");
+    cy.get("#notification").should("have.text", "Job saved successfully.");
+    cy.get("#notification > button").click();
 
     // * Cleanup
     cy.get("#remove-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
-    cy.get("#notification-text").should(
-      "have.text",
-      "Job removed successfully."
-    );
+    cy.get("#notification").should("have.text", "Job removed successfully.");
+    cy.get("#notification > button").click();
   });
 
   it("Should be able to view list of saved jobs", () => {
@@ -71,7 +69,8 @@ context("Saved Jobs", () => {
     cy.get("#remove-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb")
       .its("data")
       .should("be", '{ cy: "selected" }');
-    cy.get("#notification-text").should("have.text", "Job saved successfully.");
+    cy.get("#notification").should("have.text", "Job saved successfully.");
+    cy.get("#notification > button").click();
 
     cy.get("#nav-profile").click();
     cy.get("#view-saved-jobs").click();

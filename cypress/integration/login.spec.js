@@ -66,6 +66,6 @@ context("Login - Error", () => {
     cy.get("#password").type("Red123456!!!");
     cy.get("#log-in").click();
     cy.wait(500);
-    cy.get("#notification-text").should("have.text", "Invalid credentials.");
+    cy.get("#notification").should("have.text", "Invalid credentials.");
   });
 });

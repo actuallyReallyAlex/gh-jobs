@@ -273,19 +273,6 @@ class UserController {
           // * Send User as respoonse
           return res.send(req.user);
         } catch (error) {
-          if (error.errors.password) {
-            // * Min Length Validation Error
-            if (error.errors.password.kind === "minlength") {
-              return res.status(400).send({
-                error: "Password must be a minimum of 7 characters.",
-              });
-            }
-            // * Password Validation Error
-            return res
-              .status(400)
-              .send({ error: error.errors.password.message });
-          }
-
           if (process.env.NODE_ENV !== "test") {
             console.error(error);
           }

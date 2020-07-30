@@ -35,18 +35,18 @@ context("Notification", () => {
     cy.wait(500);
 
     cy.get("h1").should("have.text", "Profile");
-    cy.get("#notification-text").should(
+    cy.get("#notification").should(
       "have.text",
       "Profile information updated successfully."
     );
 
     cy.reload();
     cy.get("#nav-profile").click();
-    cy.get("#notification-text").should("not.exist");
+    cy.get("#notification").should("not.exist");
 
     // * Reset to normal data (Cleanup)
     cy.get("#edit").click();
-    cy.get("#notification-text").should("not.exist");
+    cy.get("#notification").should("not.exist");
     cy.get("#edit-name").clear();
     cy.get("#edit-name").type("Bob Test");
     cy.get("#edit-confirm").click();
@@ -75,12 +75,12 @@ context("Notification", () => {
     cy.wait(500);
 
     cy.get("h1").should("have.text", "Profile");
-    cy.get("#notification-text").should(
+    cy.get("#notification").should(
       "have.text",
       "Profile information updated successfully."
     );
     cy.wait(5000);
-    cy.get("#notification-text").should("not.exist");
+    cy.get("#notification").should("not.exist");
 
     // * Reset to normal data (Cleanup)
     cy.get("#edit").click();

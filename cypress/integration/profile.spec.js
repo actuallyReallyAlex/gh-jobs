@@ -40,17 +40,17 @@ context("Profile", () => {
     cy.get("#edit-email").type("bobtest2@email.com");
     cy.get("#edit-confirm").click();
 
-    cy.wait(500);
+    cy.wait(1500);
 
     cy.get("h1").should("have.text", "Profile");
-    cy.get("#notification-text").should(
+    cy.get("#notification").should(
       "have.text",
       "Profile information updated successfully."
     );
 
     // * Reset to normal data (Cleanup)
     cy.get("#edit").click();
-    cy.get("#notification-text").should("not.exist");
+    cy.get("#notification").should("not.be.visible");
     cy.get("#edit-name").clear();
     cy.get("#edit-name").type("Bob Test");
     cy.get("#edit-email").clear();
@@ -74,7 +74,7 @@ context("Profile", () => {
     cy.get("#cancel").click();
 
     cy.get("h1").should("have.text", "Profile");
-    cy.get("#notification-text").should("not.exist");
+    cy.get("#notification").should("not.be.visible");
     cy.get("#name").should("have.value", "Bob Test");
     cy.get("#email").should("have.value", "bobtest@email.com");
   });
@@ -104,7 +104,7 @@ context("Profile", () => {
     cy.wait(500);
 
     cy.get("h1").should("have.text", "Edit Profile");
-    cy.get("#notification-text").should("have.text", "Invalid email.");
+    cy.get("#notification").should("have.text", "Invalid email.");
 
     cy.get("#cancel").click();
   });
@@ -120,10 +120,7 @@ context("Profile", () => {
     cy.wait(500);
 
     cy.get("h1").should("have.text", "Profile");
-    cy.get("#notification-text").should(
-      "have.text",
-      "Password reset successfully."
-    );
+    cy.get("#notification").should("have.text", "Password reset successfully.");
 
     // * Reset to normal data (Cleanup)
     cy.get("#reset-password").click();
@@ -133,10 +130,7 @@ context("Profile", () => {
     cy.get("#confirm-new-password").type("Red123456!!!");
     cy.get("#reset").click();
     cy.get("h1").should("have.text", "Profile");
-    cy.get("#notification-text").should(
-      "have.text",
-      "Password reset successfully."
-    );
+    cy.get("#notification").should("have.text", "Password reset successfully.");
   });
 
   it("Should not allow to submit reset password form if information is not changed", () => {
@@ -165,7 +159,7 @@ context("Profile", () => {
     cy.wait(500);
 
     cy.get("h1").should("have.text", "Reset Password");
-    cy.get("#notification-text").should("have.text", "Invalid credentials.");
+    cy.get("#notification").should("have.text", "Invalid credentials.");
   });
 
   it("Should not be able to reset password if passwords do not match", () => {
@@ -179,7 +173,7 @@ context("Profile", () => {
     cy.wait(500);
 
     cy.get("h1").should("have.text", "Reset Password");
-    cy.get("#notification-text").should("have.text", "Passwords do not match.");
+    cy.get("#notification").should("have.text", "Passwords do not match.");
   });
 
   it("Should be able to log out on this device", () => {
@@ -217,7 +211,7 @@ context("Profile", () => {
 
     cy.get("#delete-profile").click();
     cy.get("h1").should("have.text", "Delete Profile");
-    cy.get("#notification-text").should(
+    cy.get("#notification").should(
       "have.text",
       "Are you sure you would like to delete your profile? This can not be reversed."
     );
@@ -250,7 +244,7 @@ context("Profile", () => {
 
     cy.get("#delete-profile").click();
     cy.get("h1").should("have.text", "Delete Profile");
-    cy.get("#notification-text").should(
+    cy.get("#notification").should(
       "have.text",
       "Are you sure you would like to delete your profile? This can not be reversed."
     );
@@ -262,7 +256,7 @@ context("Profile", () => {
     // * Cleanup
     cy.get("#delete-profile").click();
     cy.get("h1").should("have.text", "Delete Profile");
-    cy.get("#notification-text").should(
+    cy.get("#notification").should(
       "have.text",
       "Are you sure you would like to delete your profile? This can not be reversed."
     );
