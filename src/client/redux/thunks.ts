@@ -279,6 +279,7 @@ export const logOutAll = (): AppThunk => async (dispatch) => {
 
 export const resetPassword = (): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoading(true));
+  dispatch(displayNotification("", "default"));
   const state: RootState = getState();
 
   const {
@@ -351,6 +352,7 @@ export const cancelEditProfile = (): AppThunk => (dispatch) => {
 
 export const editProfile = (): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoading(true));
+  dispatch(displayNotification("", "default"));
   const state: RootState = getState();
 
   const { editEmail, editName } = state.user;
@@ -404,6 +406,7 @@ export const clickDeleteProfile = (): AppThunk => (dispatch) => {
 
 export const deleteProfile = (): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
+  dispatch(displayNotification("", "default"));
 
   try {
     // TODO - Modify
@@ -493,5 +496,6 @@ export const removeSavedJob = (job: Job): AppThunk => async (dispatch) => {
 };
 
 export const clickViewSavedJobs = (): AppThunk => (dispatch) => {
+  dispatch(displayNotification("", "default"));
   dispatch(setIsViewingSavedJobs(true));
 };
