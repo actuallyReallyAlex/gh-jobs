@@ -19,7 +19,6 @@ import { RootState } from "../../types";
 
 export interface LoginProps {
   email: string;
-  notificationMessage: string;
   handleEmailChange: (email: string) => void;
   handleLogIn: () => void;
   handlePasswordChange: (password: string) => void;
@@ -30,7 +29,6 @@ export interface LoginProps {
 const Login: React.SFC<LoginProps> = (props: LoginProps) => {
   const {
     email,
-    notificationMessage,
     handleEmailChange,
     handleLogIn,
     handlePasswordChange,
@@ -101,7 +99,6 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
 
 const mapStateToProps = (state: RootState) => ({
   email: state.user.email,
-  notificationMessage: state.application.notificationMessage,
   isLoggedIn: state.user.isLoggedIn,
   password: state.user.password,
 });

@@ -13,24 +13,16 @@ import {
   SearchNoResults,
 } from "./Search-styled";
 
-import { Job, LocationOption, NotificationType, RootState } from "../../types";
+import { Job, LocationOption, RootState } from "../../types";
 
 export interface SearchProps {
   currentJobs: Job[];
   currentPage: number;
-  notificationMessage: string;
-  notificationType: NotificationType;
   totalPages: number;
 }
 
 const Search: React.SFC<SearchProps> = (props: SearchProps) => {
-  const {
-    currentJobs,
-    currentPage,
-    notificationMessage,
-    notificationType,
-    totalPages,
-  } = props;
+  const { currentJobs, currentPage, totalPages } = props;
 
   const jobsOnPage = currentJobs.slice(currentPage * 5 - 5, currentPage * 5);
 
@@ -87,8 +79,6 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
 const mapStateToProps = (state: RootState) => ({
   currentJobs: state.application.currentJobs,
   currentPage: state.application.currentPage,
-  notificationMessage: state.application.notificationMessage,
-  notificationType: state.application.notificationType,
   totalPages: state.application.totalPages,
 });
 

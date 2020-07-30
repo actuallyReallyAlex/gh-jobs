@@ -22,15 +22,13 @@ import {
 
 import { addSavedJob, removeSavedJob } from "../../redux/thunks";
 
-import { Job, NotificationType, RootState } from "../../types";
+import { Job, RootState } from "../../types";
 
 interface DetailsProps {
   handleAddSavedJob: (job: Job) => void;
   handleRemoveSavedJob: (job: Job) => void;
   isLoggedIn: boolean;
   jobs: Job[];
-  notificationMessage: string;
-  notificationType: NotificationType;
   savedJobs: Job[];
 }
 
@@ -40,8 +38,6 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
     handleRemoveSavedJob,
     isLoggedIn,
     jobs,
-    notificationMessage,
-    notificationType,
     savedJobs,
   } = props;
   const { id } = useParams();
@@ -192,8 +188,6 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
 const mapStateToProps = (state: RootState) => ({
   isLoggedIn: state.user.isLoggedIn,
   jobs: state.application.jobs,
-  notificationMessage: state.application.notificationMessage,
-  notificationType: state.application.notificationType,
   savedJobs: state.user.savedJobs,
 });
 

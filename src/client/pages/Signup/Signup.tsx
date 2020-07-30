@@ -25,7 +25,6 @@ import { RootState } from "../../types";
 export interface SignupProps {
   confirmPassword: string;
   email: string;
-  notificationMessage: string;
   handleConfirmPasswordChange: (confirmPassword: string) => void;
   handleEmailChange: (email: string) => void;
   handleNameChange: (name: string) => void;
@@ -40,7 +39,6 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
   const {
     confirmPassword,
     email,
-    notificationMessage,
     handleConfirmPasswordChange,
     handleEmailChange,
     handleNameChange,
@@ -134,7 +132,6 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
 const mapStateToProps = (state: RootState) => ({
   confirmPassword: state.user.confirmPassword,
   email: state.user.email,
-  notificationMessage: state.application.notificationMessage,
   isLoggedIn: state.user.isLoggedIn,
   name: state.user.name,
   password: state.user.password,

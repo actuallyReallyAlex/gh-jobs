@@ -16,7 +16,7 @@ import {
   ProfileTitleContainer,
 } from "../../components/Profile/Profile-styled";
 
-import { NotificationType, RootState } from "../../types";
+import { RootState } from "../../types";
 
 export interface ProfileProps {
   isDeletingProfile: boolean;
@@ -24,8 +24,6 @@ export interface ProfileProps {
   isLoggedIn: boolean;
   isResettingPassword: boolean;
   isViewingSavedJobs: boolean;
-  notificationMessage: string;
-  notificationType: NotificationType;
 }
 
 const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
@@ -35,8 +33,6 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
     isLoggedIn,
     isResettingPassword,
     isViewingSavedJobs,
-    notificationMessage,
-    notificationType,
   } = props;
 
   let heading = "Profile";
@@ -88,8 +84,6 @@ const mapStateToProps = (state: RootState) => ({
   isLoggedIn: state.user.isLoggedIn,
   isResettingPassword: state.user.isResettingPassword,
   isViewingSavedJobs: state.user.isViewingSavedJobs,
-  notificationMessage: state.application.notificationMessage,
-  notificationType: state.application.notificationType,
 });
 
 export default connect(mapStateToProps)(Profile);

@@ -6,11 +6,9 @@ import Pagination from "../Pagination";
 
 import { ProfileSavedContainer, ProfileNoResults } from "./Profile-styled";
 
-import { Job, NotificationType, RootState } from "../../types";
+import { Job, RootState } from "../../types";
 
 export interface ProfileSavedJobsProps {
-  notificationMessage: string;
-  notificationType: NotificationType;
   savedJobs: Job[];
   savedJobsCurrentPage: number;
   savedJobsTotalPages: number;
@@ -19,13 +17,7 @@ export interface ProfileSavedJobsProps {
 const ProfileSavedJobs: React.SFC<ProfileSavedJobsProps> = (
   props: ProfileSavedJobsProps
 ) => {
-  const {
-    notificationMessage,
-    notificationType,
-    savedJobs,
-    savedJobsCurrentPage,
-    savedJobsTotalPages,
-  } = props;
+  const { savedJobs, savedJobsCurrentPage, savedJobsTotalPages } = props;
 
   const jobsOnPage = savedJobs.slice(
     savedJobsCurrentPage * 5 - 5,
@@ -53,8 +45,6 @@ const ProfileSavedJobs: React.SFC<ProfileSavedJobsProps> = (
 };
 
 const mapStateToProps = (state: RootState) => ({
-  notificationMessage: state.application.notificationMessage,
-  notificationType: state.application.notificationType,
   savedJobs: state.user.savedJobs,
   savedJobsCurrentPage: state.user.savedJobsCurrentPage,
   savedJobsTotalPages: state.user.savedJobsTotalPages,
