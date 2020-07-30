@@ -1,12 +1,11 @@
 import endOfToday from "date-fns/endOfToday";
 import express, { Request, Response, Router } from "express";
 import isWithinInterval from "date-fns/isWithinInterval";
-import nfetch from "node-fetch";
 import startOfToday from "date-fns/startOfToday";
 
 import JobModel from "../models/Job";
 
-import { createSearchURL, getAllJobsFromAPI, isError } from "../util";
+import { getAllJobsFromAPI, isError, unique } from "../util";
 
 import { GetJobsErrorResponse, GetJobsSuccessResponse, Job } from "../types";
 
@@ -85,40 +84,70 @@ class JobController {
             }
           }
         } catch (error) {
-          console.error(error);
+          if (process.env.NODE_ENV !== "test") {
+            console.error(error);
+          }
           res.status(500).send({ error });
         }
       }
     );
 
-    // TODO - Modify
-    this.router.get("/jobs/search", async (req: Request, res: Response) => {
-      try {
-        const { description, full_time, location } = req.query;
-        const jobs: Job[] = [];
-        let jobsInBatch = null;
-        let page = 1;
+    // TODO - Optimize (?)
+    this.router.get(
+      "/jobs/search",
+      async (
+        req: Request,
+        res: Response
+      ): Promise<Response<GetJobsErrorResponse | GetJobsSuccessResponse>> => {
+        try {
+          const { description, full_time, location } = req.query;
 
-        while (jobsInBatch !== 0) {
-          const url = createSearchURL(page, description, full_time, location);
+          // * Make Searches
+          const regexSearch = new RegExp(description.toString(), "i");
 
-          const response = await nfetch(url, {
-            headers: { "Content-Type": "application/json" },
-            method: "GET",
-          });
-          const batchJobs: Job[] = await response.json();
-          jobsInBatch = batchJobs.length;
-          page++;
-          if (jobsInBatch !== 0) {
-            jobs.push(...batchJobs);
+          const companyQuery = JobModel.find({ company: regexSearch });
+          const descriptionQuery = JobModel.find({ description: regexSearch });
+          const titleQuery = JobModel.find({ title: regexSearch });
+
+          if (full_time === "true") {
+            companyQuery.find({ type: "Full Time" });
+            descriptionQuery.find({ type: "Full Time" });
+            titleQuery.find({ type: "Full Time" });
           }
-        }
 
-        res.send(jobs);
-      } catch (error) {
-        res.status(500).send({ error });
+          // TODO - Handle multiple locations
+          if (location) {
+            companyQuery.find({
+              location: new RegExp(location.toString(), "i"),
+            });
+            descriptionQuery.find({
+              location: new RegExp(location.toString(), "i"),
+            });
+            titleQuery.find({ location: new RegExp(location.toString(), "i") });
+          }
+
+          const companyResults = await companyQuery.exec();
+          const descriptionResults = await descriptionQuery.exec();
+          const titleResults = await titleQuery.exec();
+
+          // * Combine search results into 1 array
+          const searchResults: Job[] = [
+            ...companyResults,
+            ...descriptionResults,
+            ...titleResults,
+          ];
+
+          const uniqueResults: Job[] = unique(searchResults);
+
+          return res.send(uniqueResults);
+        } catch (error) {
+          if (process.env.NODE_ENV !== "test") {
+            console.error(error);
+          }
+          res.status(500).send({ error });
+        }
       }
-    });
+    );
   }
 }
 

@@ -40,6 +40,10 @@ const jobSchema = new mongoose.Schema(
       required: [true, "Field 'title' is required."],
       type: String,
     },
+    type: {
+      required: [true, "Field 'type' is required."],
+      type: String,
+    },
     url: {
       required: [true, "Field 'url' is required."],
       type: String,

@@ -79,3 +79,6 @@ export const isError = (
 ): result is GetJobsErrorResponse => {
   return (result as GetJobsErrorResponse).error !== undefined;
 };
+
+// eslint-disable-next-line
+export const unique = (arr: any[]): any[] => [...new Set(arr)];

@@ -67,6 +67,7 @@ export const getJobs = (): AppThunk => async (dispatch) => {
   }
 };
 
+// TODO - Location
 export const searchJobs = (
   search: string,
   locationOptions: LocationOption[]
@@ -76,55 +77,60 @@ export const searchJobs = (
   const state: RootState = getState();
   const { fullTime, locationSearch } = state.application;
 
-  const jobs = [];
+  const url = `/jobs/search?full_time=${encodeURI(
+    fullTime.toString()
+  )}&description=${encodeURI(search)}`;
+  const data = (await fetchServerData(url, "GET")) as
+    | GetJobsErrorResponse
+    | GetJobsSuccessResponse;
 
-  const locationsSearches = locationOptions.filter(
-    (location: LocationOption) => location.value !== ""
-  );
-
-  if (locationSearch) {
-    locationsSearches.push({
-      name: "locationSearch",
-      setter: null,
-      value: locationSearch,
-    });
+  if (isError(data)) {
+    dispatch(displayNotification(data.error, "error"));
+    dispatch(setIsLoading(false));
+    return;
   }
 
-  // * Since location options have to be a thing for the challenge
-  // * Make as many requests as locations (since you can only have 1 location per request)
-  // * And push all the results into one array
-  await Promise.all(
-    locationsSearches.map(async (location: LocationOption) => {
-      const url = `/jobs/search?full_time=${encodeURI(
-        fullTime.toString()
-      )}&description=${encodeURI(search)}&location=${encodeURI(
-        location.value
-      )}`;
-      // TODO - Modify
-      const data = await fetchServerData(url, "GET");
-      jobs.push(...data);
-    })
-  );
-
-  if (locationsSearches.length === 0) {
-    const url = `/jobs/search?full_time=${encodeURI(
-      fullTime.toString()
-    )}&description=${encodeURI(search)}`;
-    // TODO - Modify
-    const data = await fetchServerData(url, "GET");
-    jobs.push(...data);
-  }
-
-  const uniqueJobs = unique(jobs);
-
-  const finalJobs = uniqueJobs.filter((job: Job) =>
-    fullTime ? job.type === "Full Time" : job
-  );
-
-  dispatch(setCurrentJobs(finalJobs));
+  dispatch(setCurrentJobs(data));
   dispatch(setCurrentPage(1));
-  dispatch(setTotalPages(Math.ceil(finalJobs.length / 5)));
+  dispatch(setTotalPages(Math.ceil(data.length / 5)));
+  dispatch(
+    displayNotification(`Search returned ${data.length} results`, "success")
+  );
   dispatch(setIsLoading(false));
+
+  // const locationsSearches = locationOptions.filter(
+  //   (location: LocationOption) => location.value !== ""
+  // );
+
+  // if (locationSearch) {
+  //   locationsSearches.push({
+  //     name: "locationSearch",
+  //     setter: null,
+  //     value: locationSearch,
+  //   });
+  // }
+
+  // await Promise.all(
+  //   locationsSearches.map(async (location: LocationOption) => {
+  //     const url = `/jobs/search?full_time=${encodeURI(
+  //       fullTime.toString()
+  //     )}&description=${encodeURI(search)}&location=${encodeURI(
+  //       location.value
+  //     )}`;
+  //     // TODO - Modify
+  //     const data = await fetchServerData(url, "GET");
+  //     jobs.push(...data);
+  //   })
+  // );
+
+  // if (locationsSearches.length === 0) {
+  //   const url = `/jobs/search?full_time=${encodeURI(
+  //     fullTime.toString()
+  //   )}&description=${encodeURI(search)}`;
+  //   // TODO - Modify
+  //   const data = await fetchServerData(url, "GET");
+  //   jobs.push(...data);
+  // }
 };
 
 export const pagination = (pageNumber: number): AppThunk => (dispatch) => {
