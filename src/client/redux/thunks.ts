@@ -67,7 +67,6 @@ export const getJobs = (): AppThunk => async (dispatch) => {
   }
 };
 
-// TODO - Location
 export const searchJobs = (
   search: string,
   locationOptions: LocationOption[]

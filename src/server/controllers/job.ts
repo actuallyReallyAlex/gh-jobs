@@ -152,7 +152,9 @@ class JobController {
               })
             );
 
-            return res.send(jobs);
+            const uniqueResults: Job[] = unique(jobs);
+
+            return res.send(uniqueResults);
           }
 
           // * Make Searches
@@ -166,17 +168,6 @@ class JobController {
             companyQuery.find({ type: "Full Time" });
             descriptionQuery.find({ type: "Full Time" });
             titleQuery.find({ type: "Full Time" });
-          }
-
-          // TODO - Handle multiple locations
-          if (location) {
-            companyQuery.find({
-              location: new RegExp(location.toString(), "i"),
-            });
-            descriptionQuery.find({
-              location: new RegExp(location.toString(), "i"),
-            });
-            titleQuery.find({ location: new RegExp(location.toString(), "i") });
           }
 
           const companyResults = await companyQuery.exec();
