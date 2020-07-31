@@ -26,7 +26,7 @@ import {
   setSavedJobsCurrentPage,
   setSavedJobsTotalPages,
 } from "./actions/user";
-import { fetchServerData, unique, isError } from "../util";
+import { fetchServerData, isError } from "../util";
 
 import {
   AddSavedJobResponse,

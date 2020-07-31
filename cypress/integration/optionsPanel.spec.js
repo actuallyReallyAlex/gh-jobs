@@ -4,40 +4,43 @@ context("Options Panel", () => {
   beforeEach(() => {
     cy.fixture("jobs50").then((jobsJson) => {
       cy.fixture("jobsSearch1").then((jobsSearch1Json) => {
-        cy.server();
-        cy.route({
-          method: "GET",
-          url: "/jobs",
-          status: 200,
-          response: jobsJson,
-        });
-        cy.route({
-          method: "GET",
-          url: "/jobs/search?full_time=true&description=developer",
-          status: 200,
-          delay: 1000,
-          response: jobsSearch1Json,
-        });
-        cy.route({
-          method: "GET",
-          url: "/jobs/search?full_time=false&description=&location=Los Angeles",
-          status: 200,
-          delay: 1000,
-          response: jobsSearch1Json,
-        });
-        cy.route({
-          method: "GET",
-          url: "/jobs/search?full_time=false&description=&location=Chicago",
-          status: 200,
-          delay: 1000,
-          response: jobsSearch1Json,
-        });
-        cy.route({
-          method: "GET",
-          url: "/jobs/search?full_time=false&description=developer",
-          status: 200,
-          delay: 1000,
-          response: jobsSearch1Json,
+        cy.fixture("jobsSearch2").then((jobsSearch2Json) => {
+          cy.server();
+          cy.route({
+            method: "GET",
+            url: "/jobs",
+            status: 200,
+            response: jobsJson,
+          });
+          cy.route({
+            method: "GET",
+            url: "/jobs/search?full_time=true&description=developer",
+            status: 200,
+            delay: 1000,
+            response: jobsSearch2Json,
+          });
+          cy.route({
+            method: "GET",
+            url:
+              "/jobs/search?full_time=false&description=&location=Los Angeles",
+            status: 200,
+            delay: 1000,
+            response: jobsSearch1Json,
+          });
+          cy.route({
+            method: "GET",
+            url: "/jobs/search?full_time=false&description=&location=Chicago",
+            status: 200,
+            delay: 1000,
+            response: jobsSearch1Json,
+          });
+          cy.route({
+            method: "GET",
+            url: "/jobs/search?full_time=false&description=developer",
+            status: 200,
+            delay: 1000,
+            response: jobsSearch1Json,
+          });
         });
       });
     });
@@ -85,7 +88,7 @@ context("Options Panel", () => {
 
     cy.wait(1000);
     cy.get('[data-cy="job-container"]').then(($jobs) => {
-      assert.equal($jobs.length, 2);
+      assert.equal($jobs.length, 4);
     });
   });
 });
