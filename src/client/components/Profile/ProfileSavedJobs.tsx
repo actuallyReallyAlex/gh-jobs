@@ -4,13 +4,19 @@ import { connect } from "react-redux";
 import JobCard from "../JobCard";
 import Pagination from "../Pagination";
 
-import { ProfileSavedContainer, ProfileNoResults } from "./Profile-styled";
+import {
+  ProfileSavedContainer,
+  ProfileNoResults,
+  ProfileBackButton,
+} from "./Profile-styled";
 
+import { setIsViewingSavedJobs } from "../../redux/actions/user";
 import { getSavedJobsDetails } from "../../redux/thunks";
 
 import { RootState, Job } from "../../types";
 
 export interface ProfileSavedJobsProps {
+  handleBackToProfile: () => void;
   handleGetSavedJobsDetails: () => void;
   savedJobsCurrentPage: number;
   savedJobsDetails: Job[];
@@ -21,6 +27,7 @@ const ProfileSavedJobs: React.SFC<ProfileSavedJobsProps> = (
   props: ProfileSavedJobsProps
 ) => {
   const {
+    handleBackToProfile,
     handleGetSavedJobsDetails,
     savedJobsCurrentPage,
     savedJobsDetails,
@@ -40,6 +47,13 @@ const ProfileSavedJobs: React.SFC<ProfileSavedJobsProps> = (
 
   return (
     <>
+      <ProfileBackButton
+        id="back-to-profile"
+        onClick={() => handleBackToProfile()}
+      >
+        <i className="material-icons">west</i>
+        <span>Back to profile</span>
+      </ProfileBackButton>
       <ProfileSavedContainer>
         {jobsOnPage &&
           jobsOnPage.map((job: Job) => <JobCard job={job} key={job.id} />)}
@@ -66,6 +80,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  handleBackToProfile: () => dispatch(setIsViewingSavedJobs(false)),
   handleGetSavedJobsDetails: () => dispatch(getSavedJobsDetails()),
 });
 

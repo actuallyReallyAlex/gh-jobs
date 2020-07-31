@@ -74,6 +74,38 @@ const ProfileNoResults = styled.p`
   text-align: center;
 `;
 
+const ProfileBackButton = styled.button`
+  align-items: center;
+  background: none;
+  border: none;
+  color: #1e86ff;
+  display: flex;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  margin-right: 15px;
+  justify-content: flex-start;
+  text-decoration: none;
+
+  i {
+    font-size: 16px;
+    margin-right: 5px;
+  }
+
+  :hover {
+    cursor: pointer;
+
+    i {
+      text-decoration: none;
+    }
+
+    span {
+      text-decoration: underline;
+    }
+  }
+`;
+
 export {
   ProfileActionsContainer,
   ProfilePage,
@@ -81,4 +113,5 @@ export {
   ProfileTitleContainer,
   ProfileSavedContainer,
   ProfileNoResults,
+  ProfileBackButton,
 };
