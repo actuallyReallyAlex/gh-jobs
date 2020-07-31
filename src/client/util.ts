@@ -21,7 +21,7 @@ export const fetchServerData = async (
     headers: { "Content-Type": "application/json" },
     method,
   });
-  if (response.status > 400) {
+  if (response.status === 500 || response.status === 404) {
     return { error: `An error occured. Response Status = ${response.status}` };
   }
   const data = await response.json();
