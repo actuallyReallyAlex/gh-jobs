@@ -112,7 +112,7 @@ export const searchJobs = (
   dispatch(setCurrentPage(1));
   dispatch(setTotalPages(Math.ceil(data.length / 5)));
   dispatch(
-    displayNotification(`Search returned ${data.length} results`, "success")
+    displayNotification(`Search returned ${data.length} results.`, "success")
   );
   dispatch(setIsLoading(false));
 };
