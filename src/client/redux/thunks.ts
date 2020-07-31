@@ -38,7 +38,6 @@ import {
   Job,
   LocationOption,
   LoginResponse,
-  RemoveSavedJobResponse,
   ResetPasswordResponse,
   RootState,
   ServerResponseUser,
@@ -46,6 +45,8 @@ import {
   AddSavedJobSuccessResponse,
   SignupErrorResponse,
   SignupSuccessResponse,
+  RemoveSavedJobErrorResponse,
+  RemoveSavedJobSuccessResponse,
 } from "../types";
 
 export const getJobs = (): AppThunk => async (dispatch) => {
@@ -462,23 +463,25 @@ export const addSavedJob = (id: string): AppThunk => async (dispatch) => {
   }
 };
 
-export const removeSavedJob = (job: Job): AppThunk => async (dispatch) => {
+export const removeSavedJob = (id: string): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
   try {
     // TODO - Modify
-    const response: RemoveSavedJobResponse = await fetchServerData(
+    const result:
+      | RemoveSavedJobErrorResponse
+      | RemoveSavedJobSuccessResponse = await fetchServerData(
       "/user/savedJobs",
       "PATCH",
-      JSON.stringify({ method: "REMOVE", job })
+      JSON.stringify({ method: "REMOVE", id })
     );
 
-    if (response.error) {
-      dispatch(displayNotification(response.error, "error"));
+    if (isError(result)) {
+      dispatch(displayNotification(result.error, "error"));
       dispatch(setIsLoading(false));
       return;
     }
 
-    const { savedJobs } = response;
+    const { savedJobs } = result;
 
     dispatch(setSavedJobs(savedJobs));
     dispatch(setSavedJobsCurrentPage(1));

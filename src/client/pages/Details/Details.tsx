@@ -27,7 +27,7 @@ import { Job, RootState } from "../../types";
 interface DetailsProps {
   handleAddSavedJob: (id: string) => void;
   handleGetJobDetails: (id: string) => void;
-  handleRemoveSavedJob: (job: Job) => void;
+  handleRemoveSavedJob: (id: string) => void;
   jobDetails: Job;
   isLoggedIn: boolean;
   savedJobs: Job[];
@@ -122,7 +122,7 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
                         }
                         onClick={
                           jobIsSaved
-                            ? () => handleRemoveSavedJob(jobDetails)
+                            ? () => handleRemoveSavedJob(jobDetails.id)
                             : () => handleAddSavedJob(jobDetails.id)
                         }
                       >
@@ -202,7 +202,7 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch) => ({
   handleAddSavedJob: (id: string) => dispatch(addSavedJob(id)),
   handleGetJobDetails: (id: string) => dispatch(getJobDetails(id)),
-  handleRemoveSavedJob: (job: Job) => dispatch(removeSavedJob(job)),
+  handleRemoveSavedJob: (id: string) => dispatch(removeSavedJob(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Details);

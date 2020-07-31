@@ -28,7 +28,7 @@ import { setJobDetails } from "../../redux/actions/application";
 export interface JobCardProps {
   handleAddSavedJob: (id: string) => void;
   handleClearJobDetails: () => void;
-  handleRemoveSavedJob: (job: Job) => void;
+  handleRemoveSavedJob: (id: string) => void;
   isLoggedIn: boolean;
   job: Job;
   savedJobs: Job[];
@@ -94,7 +94,7 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
               jobIsSaved={jobIsSaved}
               onClick={
                 jobIsSaved
-                  ? () => handleRemoveSavedJob(job)
+                  ? () => handleRemoveSavedJob(job.id)
                   : () => handleAddSavedJob(job.id)
               }
             >
@@ -129,7 +129,7 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch) => ({
   handleAddSavedJob: (id: string) => dispatch(addSavedJob(id)),
   handleClearJobDetails: () => dispatch(setJobDetails(null)),
-  handleRemoveSavedJob: (job: Job) => dispatch(removeSavedJob(job)),
+  handleRemoveSavedJob: (id: string) => dispatch(removeSavedJob(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(JobCard);

@@ -159,7 +159,13 @@ export type NotificationType =
 
 export type PaginationNavigationType = "left" | "right";
 
-export type RemoveSavedJobResponse = ServerResponseError & ServerResponseUser;
+export interface RemoveSavedJobErrorResponse {
+  error: string;
+}
+
+export interface RemoveSavedJobSuccessResponse {
+  savedJobs: string[];
+}
 
 export type RequestMethod = "DELETE" | "GET" | "PATCH" | "POST";
 
