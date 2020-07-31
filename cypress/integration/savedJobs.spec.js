@@ -80,4 +80,19 @@ context("Saved Jobs", () => {
     // * Cleanup
     cy.get("#remove-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
   });
+
+  it("Should be able to return to the profile display page", () => {
+    cy.get("#save-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
+
+    cy.get("#nav-profile").click();
+    cy.get("#view-saved-jobs").click();
+    cy.get("h1").should("have.text", "Saved Jobs");
+
+    cy.get("#back-to-profile").click();
+    cy.get("h1").should("have.text", "Profile");
+
+    // * Cleanup
+    cy.get("#view-saved-jobs").click();
+    cy.get("#remove-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
+  });
 });
