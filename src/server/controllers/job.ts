@@ -1,6 +1,7 @@
 import endOfToday from "date-fns/endOfToday";
 import express, { Request, Response, Router } from "express";
 import isWithinInterval from "date-fns/isWithinInterval";
+import nfetch from "node-fetch";
 import startOfToday from "date-fns/startOfToday";
 
 import JobModel from "../models/Job";
@@ -100,7 +101,59 @@ class JobController {
         res: Response
       ): Promise<Response<GetJobsErrorResponse | GetJobsSuccessResponse>> => {
         try {
-          const { description, full_time, location } = req.query;
+          const {
+            description,
+            full_time,
+            location1,
+            location2,
+            location3,
+            location4,
+            location5,
+          } = req.query;
+
+          const isLocationSearch =
+            location1 || location2 || location3 || location4;
+
+          // * If there is a location in the search, use the API
+          // * If there is not a location, just query the DB
+
+          if (isLocationSearch) {
+            const jobs: Job[] = [];
+            let jobsInBatch = null;
+            let page = 1;
+            const locations = [
+              location1,
+              location2,
+              location3,
+              location4,
+              location5,
+            ];
+
+            await Promise.all(
+              locations.map(async (location: string | undefined) => {
+                if (location) {
+                  while (jobsInBatch !== 0) {
+                    const url = `https://jobs.github.com/positions.json?page=${page}&description=${encodeURI(
+                      description.toString()
+                    )}&location=${encodeURI(location)}`;
+
+                    const response = await nfetch(url, {
+                      headers: { "Content-Type": "application/json" },
+                      method: "GET",
+                    });
+                    const batchJobs: Job[] = await response.json();
+                    jobsInBatch = batchJobs.length;
+                    page++;
+                    if (jobsInBatch !== 0) {
+                      jobs.push(...batchJobs);
+                    }
+                  }
+                }
+              })
+            );
+
+            return res.send(jobs);
+          }
 
           // * Make Searches
           const regexSearch = new RegExp(description.toString(), "i");

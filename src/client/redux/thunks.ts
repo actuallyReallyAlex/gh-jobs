@@ -73,13 +73,32 @@ export const searchJobs = (
   locationOptions: LocationOption[]
 ): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoading(true));
+  dispatch(displayNotification("", "default"));
   dispatch(setSearchValue(search));
+
   const state: RootState = getState();
   const { fullTime, locationSearch } = state.application;
 
-  const url = `/jobs/search?full_time=${encodeURI(
+  const locationsSearches = locationOptions.filter(
+    (location: LocationOption) => location.value !== ""
+  );
+
+  if (locationSearch) {
+    locationsSearches.push({
+      name: "locationSearch",
+      setter: null,
+      value: locationSearch,
+    });
+  }
+
+  let url = `/jobs/search?full_time=${encodeURI(
     fullTime.toString()
   )}&description=${encodeURI(search)}`;
+
+  locationsSearches.forEach((locationSearch: LocationOption, i: number) => {
+    url = url + `&location${i + 1}=${encodeURI(locationSearch.value)}`;
+  });
+
   const data = (await fetchServerData(url, "GET")) as
     | GetJobsErrorResponse
     | GetJobsSuccessResponse;
@@ -97,40 +116,6 @@ export const searchJobs = (
     displayNotification(`Search returned ${data.length} results`, "success")
   );
   dispatch(setIsLoading(false));
-
-  // const locationsSearches = locationOptions.filter(
-  //   (location: LocationOption) => location.value !== ""
-  // );
-
-  // if (locationSearch) {
-  //   locationsSearches.push({
-  //     name: "locationSearch",
-  //     setter: null,
-  //     value: locationSearch,
-  //   });
-  // }
-
-  // await Promise.all(
-  //   locationsSearches.map(async (location: LocationOption) => {
-  //     const url = `/jobs/search?full_time=${encodeURI(
-  //       fullTime.toString()
-  //     )}&description=${encodeURI(search)}&location=${encodeURI(
-  //       location.value
-  //     )}`;
-  //     // TODO - Modify
-  //     const data = await fetchServerData(url, "GET");
-  //     jobs.push(...data);
-  //   })
-  // );
-
-  // if (locationsSearches.length === 0) {
-  //   const url = `/jobs/search?full_time=${encodeURI(
-  //     fullTime.toString()
-  //   )}&description=${encodeURI(search)}`;
-  //   // TODO - Modify
-  //   const data = await fetchServerData(url, "GET");
-  //   jobs.push(...data);
-  // }
 };
 
 export const pagination = (pageNumber: number): AppThunk => (dispatch) => {
