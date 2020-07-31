@@ -1,7 +1,13 @@
 import { Action } from "redux";
 import { ThunkAction } from "redux-thunk";
 
-export type AddSavedJobResponse = ServerResponseError & ServerResponseUser;
+export interface AddSavedJobErrorResponse {
+  error: string;
+}
+
+export type AddSavedJobSuccessResponse = {
+  savedJobs: string[];
+};
 
 export interface ApplicationAction {
   type: string;
@@ -174,23 +180,21 @@ export interface ServerResponseUser {
   createdAt: string;
   email: string;
   name: string;
-  savedJobs: Job[];
+  savedJobs: string[];
   updatedAt: string;
   __v: number;
   _id: string;
 }
 
-export type SignupResponse = SignupResponseError & SignupResponseSuccess;
-
-export interface SignupResponseError {
+export interface SignupErrorResponse {
   error: string;
 }
 
-export interface SignupResponseSuccess {
+export interface SignupSuccessResponse {
   createdAt: string;
   email: string;
   name: string;
-  savedJobs: Job[];
+  savedJobs: string[];
   updatedAt: string;
   __v: number;
   _id: string;

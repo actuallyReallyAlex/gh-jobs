@@ -25,7 +25,7 @@ import { addSavedJob, getJobDetails, removeSavedJob } from "../../redux/thunks";
 import { Job, RootState } from "../../types";
 
 interface DetailsProps {
-  handleAddSavedJob: (job: Job) => void;
+  handleAddSavedJob: (id: string) => void;
   handleGetJobDetails: (id: string) => void;
   handleRemoveSavedJob: (job: Job) => void;
   jobDetails: Job;
@@ -123,7 +123,7 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
                         onClick={
                           jobIsSaved
                             ? () => handleRemoveSavedJob(jobDetails)
-                            : () => handleAddSavedJob(jobDetails)
+                            : () => handleAddSavedJob(jobDetails.id)
                         }
                       >
                         <i className="material-icons">bookmark</i>
@@ -200,7 +200,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleAddSavedJob: (job: Job) => dispatch(addSavedJob(job)),
+  handleAddSavedJob: (id: string) => dispatch(addSavedJob(id)),
   handleGetJobDetails: (id: string) => dispatch(getJobDetails(id)),
   handleRemoveSavedJob: (job: Job) => dispatch(removeSavedJob(job)),
 });

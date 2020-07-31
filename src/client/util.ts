@@ -4,6 +4,10 @@ import {
   GetJobDetailsSuccessResponse,
   GetJobsErrorResponse,
   GetJobsSuccessResponse,
+  AddSavedJobErrorResponse,
+  AddSavedJobSuccessResponse,
+  SignupErrorResponse,
+  SignupSuccessResponse,
 } from "./types";
 
 export const fetchServerData = async (
@@ -81,6 +85,10 @@ export const isError = (
     | GetJobsSuccessResponse
     | GetJobDetailsErrorResponse
     | GetJobDetailsSuccessResponse
+    | AddSavedJobErrorResponse
+    | AddSavedJobSuccessResponse
+    | SignupErrorResponse
+    | SignupSuccessResponse
 ): result is GetJobsErrorResponse => {
   return (result as GetJobsErrorResponse).error !== undefined;
 };

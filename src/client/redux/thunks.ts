@@ -30,7 +30,6 @@ import {
 import { fetchServerData, isError } from "../util";
 
 import {
-  AddSavedJobResponse,
   AppThunk,
   DeleteProfileResponse,
   EditProfileResponse,
@@ -43,7 +42,10 @@ import {
   ResetPasswordResponse,
   RootState,
   ServerResponseUser,
-  SignupResponse,
+  AddSavedJobErrorResponse,
+  AddSavedJobSuccessResponse,
+  SignupErrorResponse,
+  SignupSuccessResponse,
 } from "../types";
 
 export const getJobs = (): AppThunk => async (dispatch) => {
@@ -164,24 +166,26 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
   }
 
   // TODO - Modify
-  const response: SignupResponse = await fetchServerData(
+  const result:
+    | SignupErrorResponse
+    | SignupSuccessResponse = await fetchServerData(
     "/user",
     "POST",
     JSON.stringify({ confirmPassword, email, name, password })
   );
 
-  if (response.error) {
-    dispatch(displayNotification(response.error, "error"));
+  if (isError(result)) {
+    dispatch(displayNotification(result.error, "error"));
     dispatch(setIsLoading(false));
     return;
   }
 
   dispatch(setIsLoggedIn(true));
-  dispatch(setEmail(response.email));
-  dispatch(setName(response.name));
+  dispatch(setEmail(result.email));
+  dispatch(setName(result.name));
   dispatch(setPassword(""));
   dispatch(setConfirmPassword(""));
-  dispatch(setSavedJobs(response.savedJobs));
+  dispatch(setSavedJobs(result.savedJobs));
 
   dispatch(setIsLoading(false));
 };
@@ -426,23 +430,25 @@ export const deleteProfile = (): AppThunk => async (dispatch) => {
   }
 };
 
-export const addSavedJob = (job: Job): AppThunk => async (dispatch) => {
+export const addSavedJob = (id: string): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
   try {
     // TODO - Modify
-    const response: AddSavedJobResponse = await fetchServerData(
+    const result:
+      | AddSavedJobErrorResponse
+      | AddSavedJobSuccessResponse = await fetchServerData(
       "/user/savedJobs",
       "PATCH",
-      JSON.stringify({ method: "ADD", job })
+      JSON.stringify({ method: "ADD", id })
     );
 
-    if (response.error) {
-      dispatch(displayNotification(response.error, "error"));
+    if (isError(result)) {
+      dispatch(displayNotification(result.error, "error"));
       dispatch(setIsLoading(false));
       return;
     }
 
-    const { savedJobs } = response;
+    const { savedJobs } = result;
 
     dispatch(setSavedJobs(savedJobs));
     dispatch(setSavedJobsCurrentPage(1));

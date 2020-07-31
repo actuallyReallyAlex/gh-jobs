@@ -19,7 +19,7 @@ context("Visual Regression - Search", () => {
     cy.wait(1000).then(() => {
       cy.document().toMatchImageSnapshot({
         name: "search",
-        threshold: 0.05,
+        threshold: 0.10,
       });
     });
   });
@@ -47,7 +47,7 @@ context("Visual Regression - Details", () => {
       .then(() => {
         cy.document().toMatchImageSnapshot({
           name: "details",
-          threshold: 0.05,
+          threshold: 0.10,
         });
       });
   });
@@ -75,7 +75,7 @@ context("Visual Regression - Login", () => {
       .then(() => {
         cy.document().toMatchImageSnapshot({
           name: "login",
-          threshold: 0.05,
+          threshold: 0.10,
         });
       });
   });
@@ -104,7 +104,7 @@ context("Visual Regression - Signup", () => {
       .then(() => {
         cy.document().toMatchImageSnapshot({
           name: "signup",
-          threshold: 0.05,
+          threshold: 0.10,
         });
       });
   });
@@ -137,7 +137,7 @@ context("Visual Regression - Profile", () => {
       .then(() => {
         cy.document().toMatchImageSnapshot({
           name: "profile",
-          threshold: 0.05,
+          threshold: 0.10,
         });
       });
   });
