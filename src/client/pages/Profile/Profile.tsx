@@ -52,7 +52,10 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
   } else {
     return (
       <ProfilePage id="profile-page">
-        <ProfileForm isViewingSavedJobs={isViewingSavedJobs}>
+        <ProfileForm
+          isViewingSavedJobs={isViewingSavedJobs}
+          onSubmit={(e) => e.preventDefault()}
+        >
           <ProfileTitleContainer>
             <span>
               <i className="material-icons">account_circle</i>
