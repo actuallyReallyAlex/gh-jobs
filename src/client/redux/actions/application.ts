@@ -1,10 +1,11 @@
 import {
   DISPLAY_NOTIFICATION,
-  SET_JOBS,
-  SET_FULL_TIME,
-  SET_IS_LOADING,
   SET_CURRENT_JOBS,
   SET_CURRENT_PAGE,
+  SET_FULL_TIME,
+  SET_IS_LOADING,
+  SET_JOB_DETAILS,
+  SET_JOBS,
   SET_LOCATION_SEARCH,
   SET_SEARCH_VALUE,
   SET_TOTAL_PAGES,
@@ -38,6 +39,11 @@ export const setFullTime = (fullTime: boolean): ApplicationAction => ({
 export const setIsLoading = (isLoading: boolean): ApplicationAction => ({
   type: SET_IS_LOADING,
   payload: { isLoading },
+});
+
+export const setJobDetails = (jobDetails: Job): ApplicationAction => ({
+  type: SET_JOB_DETAILS,
+  payload: { jobDetails },
 });
 
 export const setJobs = (jobs: Job[]): ApplicationAction => ({

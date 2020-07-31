@@ -1,5 +1,7 @@
 import {
   RequestMethod,
+  GetJobDetailsErrorResponse,
+  GetJobDetailsSuccessResponse,
   GetJobsErrorResponse,
   GetJobsSuccessResponse,
 } from "./types";
@@ -74,7 +76,11 @@ export const saveState = (state: any): void => {
 };
 
 export const isError = (
-  result: GetJobsErrorResponse | GetJobsSuccessResponse
+  result:
+    | GetJobsErrorResponse
+    | GetJobsSuccessResponse
+    | GetJobDetailsErrorResponse
+    | GetJobDetailsSuccessResponse
 ): result is GetJobsErrorResponse => {
   return (result as GetJobsErrorResponse).error !== undefined;
 };

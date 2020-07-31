@@ -6,6 +6,7 @@ import {
   SET_CURRENT_PAGE,
   SET_FULL_TIME,
   SET_IS_LOADING,
+  SET_JOB_DETAILS,
   SET_JOBS,
   SET_LOCATION_SEARCH,
   SET_SEARCH_VALUE,
@@ -19,6 +20,7 @@ export const initialState: ApplicationState = {
   currentPage: 1,
   fullTime: false,
   isLoading: true,
+  jobDetails: null,
   jobs: [],
   locationSearch: "",
   notificationMessage: "",
@@ -64,6 +66,7 @@ const reducer = (
     case SET_CURRENT_PAGE:
     case SET_FULL_TIME:
     case SET_IS_LOADING:
+    case SET_JOB_DETAILS:
     case SET_JOBS:
     case SET_LOCATION_SEARCH:
     case SET_SEARCH_VALUE:

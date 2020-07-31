@@ -6,6 +6,7 @@ import {
   setJobs,
   setSearchValue,
   setTotalPages,
+  setJobDetails,
 } from "./actions/application";
 import {
   setConfirmPassword,
@@ -488,4 +489,25 @@ export const removeSavedJob = (job: Job): AppThunk => async (dispatch) => {
 export const clickViewSavedJobs = (): AppThunk => (dispatch) => {
   dispatch(displayNotification("", "default"));
   dispatch(setIsViewingSavedJobs(true));
+};
+
+export const getJobDetails = (id: string): AppThunk => async (dispatch) => {
+  dispatch(setIsLoading(true));
+  dispatch(displayNotification("", "default"));
+
+  try {
+    const result: Job = await fetchServerData(`/jobs/${id}`, "GET");
+
+    if (isError(result)) {
+      dispatch(displayNotification(result.error, "error"));
+      dispatch(setIsLoading(false));
+      return;
+    }
+
+    dispatch(setJobDetails(result));
+  } catch (error) {
+    console.error(error);
+    dispatch(displayNotification(error, "error"));
+    dispatch(setIsLoading(false));
+  }
 };

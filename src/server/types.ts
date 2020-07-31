@@ -1,5 +1,6 @@
 import { Request, Router } from "express";
 import { Document, Model } from "mongoose";
+import Job from "./models/Job";
 
 export interface AuthenticatedRequest extends Request {
   token: string;
@@ -11,6 +12,12 @@ export type Controller = {
 };
 
 export type EditSavedJobsMethod = "ADD" | "REMOVE";
+
+export interface GetJobDetailsErrorResponse {
+  error: string;
+}
+
+export type GetJobDetailsSuccessResponse = Job;
 
 export interface GetJobsErrorResponse {
   error: string;

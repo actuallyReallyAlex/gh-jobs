@@ -4,6 +4,7 @@ export const SET_CURRENT_JOBS = "SET_CURRENT_JOBS";
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const SET_FULL_TIME = "SET_FULL_TIME";
 export const SET_IS_LOADING = "SET_IS_LOADING";
+export const SET_JOB_DETAILS = "SET_JOB_DETAILS";
 export const SET_JOBS = "SET_JOBS";
 export const SET_LOCATION_SEARCH = "SET_LOCATION_SEARCH";
 export const SET_SEARCH_VALUE = "SET_SEARCH_VALUE";

@@ -8,7 +8,13 @@ import JobModel from "../models/Job";
 
 import { getAllJobsFromAPI, isError, unique } from "../util";
 
-import { GetJobsErrorResponse, GetJobsSuccessResponse, Job } from "../types";
+import {
+  GetJobsErrorResponse,
+  GetJobsSuccessResponse,
+  Job,
+  GetJobDetailsErrorResponse,
+  GetJobDetailsSuccessResponse,
+} from "../types";
 
 /**
  * Job Controller.
@@ -184,6 +190,27 @@ class JobController {
           const uniqueResults: Job[] = unique(searchResults);
 
           return res.send(uniqueResults);
+        } catch (error) {
+          if (process.env.NODE_ENV !== "test") {
+            console.error(error);
+          }
+          res.status(500).send({ error });
+        }
+      }
+    );
+
+    this.router.get(
+      "/jobs/:id",
+      async (
+        req: Request,
+        res: Response
+      ): Promise<
+        Response<GetJobDetailsErrorResponse | GetJobDetailsSuccessResponse>
+      > => {
+        try {
+          return res
+            .status(501)
+            .send({ error: "Functionality not yet developed." });
         } catch (error) {
           if (process.env.NODE_ENV !== "test") {
             console.error(error);

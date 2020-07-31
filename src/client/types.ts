@@ -14,6 +14,7 @@ export interface ApplicationState {
   currentPage: number;
   fullTime: boolean;
   isLoading: boolean;
+  jobDetails: Job;
   jobs: Job[];
   locationSearch: string;
   notificationMessage: string;
@@ -36,6 +37,12 @@ export type ButtonType = "button" | "reset" | "submit";
 export type DeleteProfileResponse = ServerResponseError & ServerResponseUser;
 
 export type EditProfileResponse = ServerResponseError & ServerResponseUser;
+
+export interface GetJobDetailsErrorResponse {
+  error: string;
+}
+
+export type GetJobDetailsSuccessResponse = Job;
 
 export interface GetJobsErrorResponse {
   error: string;
