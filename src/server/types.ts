@@ -25,6 +25,12 @@ export interface GetJobsErrorResponse {
 
 export type GetJobsSuccessResponse = Job[];
 
+export interface GetSavedJobsDetailsErrorResponse {
+  error: string;
+}
+
+export type GetSavedJobsDetailsSuccessResponse = Job[];
+
 export interface Job {
   company: string;
   company_logo: string;

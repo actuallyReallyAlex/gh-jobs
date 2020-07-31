@@ -5,15 +5,19 @@ import validator from "validator";
 
 import auth from "../middleware/auth";
 
+import JobModel from "../models/Job";
 import User from "../models/User";
 
 import {
   AuthenticatedRequest,
   EditSavedJobsMethod,
+  GetSavedJobsDetailsErrorResponse,
+  GetSavedJobsDetailsSuccessResponse,
   PatchSavedJobErrorResponse,
   PatchSavedJobSuccessResponse,
   Token,
   UserDocument,
+  Job,
 } from "../types";
 
 /**
@@ -231,6 +235,50 @@ class UserController {
             console.error(error);
           }
 
+          return res.status(500).send({ error });
+        }
+      }
+    );
+
+    this.router.get(
+      "/user/savedJobsDetails",
+      auth,
+      async (
+        req: AuthenticatedRequest,
+        res: Response
+      ): Promise<
+        Response<
+          GetSavedJobsDetailsErrorResponse | GetSavedJobsDetailsSuccessResponse
+        >
+      > => {
+        try {
+          const { savedJobs } = req.user;
+
+          const savedJobsDetails: Job[] = [];
+          let dbError = false;
+
+          await Promise.all(
+            savedJobs.map(async (id: string) => {
+              const job = await JobModel.findOne({ id });
+
+              if (!job) {
+                return (dbError = true);
+              }
+              return savedJobsDetails.push(job);
+            })
+          );
+
+          if (dbError) {
+            return res
+              .status(500)
+              .send({ error: "Error finding corresponding jobs in database." });
+          }
+
+          return res.send(savedJobsDetails);
+        } catch (error) {
+          if (process.env.NODE_ENV !== "test") {
+            console.error(error);
+          }
           return res.status(500).send({ error });
         }
       }
