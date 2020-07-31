@@ -3,13 +3,22 @@
 context("Details", () => {
   beforeEach(() => {
     cy.fixture("jobs50").then((jobsJson) => {
-      cy.server();
-      cy.route({
-        method: "GET",
-        url: "/jobs",
-        status: 200,
-        response: jobsJson,
-        delay: 1000,
+      cy.fixture("jobDetails").then((jobDetails) => {
+        cy.server();
+        cy.route({
+          method: "GET",
+          url: "/jobs",
+          status: 200,
+          response: jobsJson,
+          delay: 1000,
+        });
+        cy.route({
+          method: "GET",
+          url: "/jobs/f1884b46-ecb4-473c-81f5-08d9bf2ab3bb",
+          status: 200,
+          response: jobDetails,
+          delay: 1000,
+        });
       });
     });
     cy.visit("http://localhost:3000");
