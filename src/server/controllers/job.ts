@@ -208,9 +208,10 @@ class JobController {
         Response<GetJobDetailsErrorResponse | GetJobDetailsSuccessResponse>
       > => {
         try {
-          return res
-            .status(501)
-            .send({ error: "Functionality not yet developed." });
+          const { id } = req.params;
+          const jobDetails = await JobModel.find({ id });
+
+          return res.send(jobDetails);
         } catch (error) {
           if (process.env.NODE_ENV !== "test") {
             console.error(error);
