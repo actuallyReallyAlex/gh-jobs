@@ -31,7 +31,7 @@ export interface JobCardProps {
   handleRemoveSavedJob: (id: string) => void;
   isLoggedIn: boolean;
   job: Job;
-  savedJobs: Job[];
+  savedJobs: string[];
 }
 
 const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
@@ -49,7 +49,7 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
   };
 
   const jobIsSaved = savedJobs
-    ? savedJobs.findIndex((savedJob: Job) => savedJob.id === job.id) >= 0
+    ? savedJobs.findIndex((savedJobID: string) => savedJobID === job.id) >= 0
     : false;
 
   return (

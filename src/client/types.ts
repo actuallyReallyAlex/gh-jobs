@@ -5,9 +5,15 @@ export interface AddSavedJobErrorResponse {
   error: string;
 }
 
-export type AddSavedJobSuccessResponse = {
+export interface AddSavedJobSuccessResponse {
+  createdAt: string;
+  email: string;
+  name: string;
   savedJobs: string[];
-};
+  updatedAt: string;
+  __v: number;
+  _id: string;
+}
 
 export interface ApplicationAction {
   type: string;
@@ -55,6 +61,12 @@ export interface GetJobsErrorResponse {
 }
 
 export type GetJobsSuccessResponse = Job[];
+
+export interface GetSavedJobsDetailsErrorResponse {
+  error: string;
+}
+
+export type GetSavedJobsDetailsSuccessResponse = Job[];
 
 export type InputAutoComplete =
   | "off"
@@ -164,7 +176,13 @@ export interface RemoveSavedJobErrorResponse {
 }
 
 export interface RemoveSavedJobSuccessResponse {
+  createdAt: string;
+  email: string;
+  name: string;
   savedJobs: string[];
+  updatedAt: string;
+  __v: number;
+  _id: string;
 }
 
 export type RequestMethod = "DELETE" | "GET" | "PATCH" | "POST";
@@ -227,7 +245,8 @@ export interface UserState {
   resetConfirmNewPassword: string;
   resetCurrentPassword: string;
   resetNewPassword: string;
-  savedJobs: Job[];
+  savedJobs: string[];
   savedJobsCurrentPage: number;
+  savedJobsDetails: Job[];
   savedJobsTotalPages: number;
 }

@@ -54,6 +54,10 @@ const reducer = (
           toastId: "notification",
           type: notificationType,
         });
+      } else {
+        // * If displayNotification() is called with `notificationMessage` === "",
+        // * Clear all notifications
+        toast.dismiss();
       }
 
       return {

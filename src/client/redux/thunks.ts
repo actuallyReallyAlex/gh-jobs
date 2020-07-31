@@ -25,6 +25,7 @@ import {
   setResetNewPassword,
   setSavedJobs,
   setSavedJobsCurrentPage,
+  setSavedJobsDetails,
   setSavedJobsTotalPages,
 } from "./actions/user";
 import { fetchServerData, isError } from "../util";
@@ -35,6 +36,8 @@ import {
   EditProfileResponse,
   GetJobsErrorResponse,
   GetJobsSuccessResponse,
+  GetSavedJobsDetailsErrorResponse,
+  GetSavedJobsDetailsSuccessResponse,
   Job,
   LocationOption,
   LoginResponse,
@@ -514,6 +517,33 @@ export const getJobDetails = (id: string): AppThunk => async (dispatch) => {
     }
 
     dispatch(setJobDetails(result));
+    dispatch(setIsLoading(false));
+  } catch (error) {
+    console.error(error);
+    dispatch(displayNotification(error, "error"));
+    dispatch(setIsLoading(false));
+  }
+};
+
+export const getSavedJobsDetails = (): AppThunk => async (dispatch) => {
+  dispatch(setIsLoading(true));
+  dispatch(displayNotification("", "default"));
+
+  try {
+    const result:
+      | GetSavedJobsDetailsErrorResponse
+      | GetSavedJobsDetailsSuccessResponse = await fetchServerData(
+      `/user/savedJobsDetails`,
+      "GET"
+    );
+
+    if (isError(result)) {
+      dispatch(displayNotification(result.error, "error"));
+      dispatch(setIsLoading(false));
+      return;
+    }
+
+    dispatch(setSavedJobsDetails(result));
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);

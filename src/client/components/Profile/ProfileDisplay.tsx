@@ -16,7 +16,7 @@ import {
   logOutAll,
 } from "../../redux/thunks";
 
-import { Job, RootState } from "../../types";
+import { RootState } from "../../types";
 
 export interface ProfileDisplayProps {
   email: string;
@@ -28,7 +28,7 @@ export interface ProfileDisplayProps {
   handleLogOutAll: () => void;
   handleSetIsResettingPassword: (isResettingPassword: boolean) => void;
   name: string;
-  savedJobs: Job[];
+  savedJobs: string[];
 }
 
 const ProfileDisplay: React.SFC<ProfileDisplayProps> = (

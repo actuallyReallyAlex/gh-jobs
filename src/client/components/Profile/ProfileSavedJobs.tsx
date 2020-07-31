@@ -6,23 +6,38 @@ import Pagination from "../Pagination";
 
 import { ProfileSavedContainer, ProfileNoResults } from "./Profile-styled";
 
-import { Job, RootState } from "../../types";
+import { getSavedJobsDetails } from "../../redux/thunks";
+
+import { RootState, Job } from "../../types";
 
 export interface ProfileSavedJobsProps {
-  savedJobs: Job[];
+  handleGetSavedJobsDetails: () => void;
   savedJobsCurrentPage: number;
+  savedJobsDetails: Job[];
   savedJobsTotalPages: number;
 }
 
 const ProfileSavedJobs: React.SFC<ProfileSavedJobsProps> = (
   props: ProfileSavedJobsProps
 ) => {
-  const { savedJobs, savedJobsCurrentPage, savedJobsTotalPages } = props;
+  const {
+    handleGetSavedJobsDetails,
+    savedJobsCurrentPage,
+    savedJobsDetails,
+    savedJobsTotalPages,
+  } = props;
 
-  const jobsOnPage = savedJobs.slice(
-    savedJobsCurrentPage * 5 - 5,
-    savedJobsCurrentPage * 5
-  );
+  const jobsOnPage =
+    savedJobsDetails &&
+    savedJobsDetails.slice(
+      savedJobsCurrentPage * 5 - 5,
+      savedJobsCurrentPage * 5
+    );
+
+  React.useEffect((): void => {
+    handleGetSavedJobsDetails();
+  }, []);
+
   return (
     <>
       <ProfileSavedContainer>
@@ -45,9 +60,13 @@ const ProfileSavedJobs: React.SFC<ProfileSavedJobsProps> = (
 };
 
 const mapStateToProps = (state: RootState) => ({
-  savedJobs: state.user.savedJobs,
   savedJobsCurrentPage: state.user.savedJobsCurrentPage,
+  savedJobsDetails: state.user.savedJobsDetails,
   savedJobsTotalPages: state.user.savedJobsTotalPages,
 });
 
-export default connect(mapStateToProps)(ProfileSavedJobs);
+const mapDispatchToProps = (dispatch) => ({
+  handleGetSavedJobsDetails: () => dispatch(getSavedJobsDetails()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileSavedJobs);

@@ -15,10 +15,11 @@ import {
   SET_RESET_NEW_PASSWORD,
   SET_SAVED_JOBS,
   SET_SAVED_JOBS_CURRENT_PAGE,
+  SET_SAVED_JOBS_DETAILS,
   SET_SAVED_JOBS_TOTAL_PAGES,
 } from "../actionTypes";
 
-import { UserAction } from "../../types";
+import { UserAction, Job } from "../../types";
 
 export const setConfirmPassword = (confirmPassword: string): UserAction => ({
   type: SET_CONFIRM_PASSWORD,
@@ -110,6 +111,11 @@ export const setSavedJobsCurrentPage = (
 ): UserAction => ({
   type: SET_SAVED_JOBS_CURRENT_PAGE,
   payload: { savedJobsCurrentPage },
+});
+
+export const setSavedJobsDetails = (savedJobsDetails: Job[]): UserAction => ({
+  type: SET_SAVED_JOBS_DETAILS,
+  payload: { savedJobsDetails },
 });
 
 export const setSavedJobsTotalPages = (

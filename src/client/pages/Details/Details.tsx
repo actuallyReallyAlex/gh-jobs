@@ -30,7 +30,7 @@ interface DetailsProps {
   handleRemoveSavedJob: (id: string) => void;
   jobDetails: Job;
   isLoggedIn: boolean;
-  savedJobs: Job[];
+  savedJobs: string[];
 }
 
 const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
@@ -53,8 +53,9 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
 
   const jobIsSaved =
     savedJobs && jobDetails
-      ? savedJobs.findIndex((savedJob: Job) => savedJob.id === jobDetails.id) >=
-        0
+      ? savedJobs.findIndex(
+          (savedJobID: string) => savedJobID === jobDetails.id
+        ) >= 0
       : false;
 
   React.useEffect((): void => {

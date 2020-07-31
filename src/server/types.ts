@@ -63,7 +63,15 @@ export interface PatchSavedJobErrorResponse {
   error: string;
 }
 
-export type PatchSavedJobSuccessResponse = string[];
+export interface PatchSavedJobSuccessResponse {
+  createdAt: string;
+  email: string;
+  name: string;
+  savedJobs: string[];
+  updatedAt: string;
+  __v: number;
+  _id: string;
+}
 
 export interface Token {
   _id: string;

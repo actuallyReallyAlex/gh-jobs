@@ -15,6 +15,7 @@ import {
   SET_RESET_NEW_PASSWORD,
   SET_SAVED_JOBS,
   SET_SAVED_JOBS_CURRENT_PAGE,
+  SET_SAVED_JOBS_DETAILS,
   SET_SAVED_JOBS_TOTAL_PAGES,
 } from "../actionTypes";
 
@@ -37,6 +38,7 @@ export const initialState: UserState = {
   resetNewPassword: "",
   savedJobs: [],
   savedJobsCurrentPage: 1,
+  savedJobsDetails: [],
   savedJobsTotalPages: 1,
 };
 
@@ -66,6 +68,7 @@ const reducer = (state = initialState, action: UserAction): UserState => {
     case SET_RESET_NEW_PASSWORD:
     case SET_SAVED_JOBS:
     case SET_SAVED_JOBS_CURRENT_PAGE:
+    case SET_SAVED_JOBS_DETAILS:
     case SET_SAVED_JOBS_TOTAL_PAGES: {
       return { ...state, [key]: value };
     }
