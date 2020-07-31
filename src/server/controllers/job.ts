@@ -209,7 +209,7 @@ class JobController {
       > => {
         try {
           const { id } = req.params;
-          const jobDetails = await JobModel.find({ id });
+          const jobDetails = await JobModel.findOne({ id });
 
           return res.send(jobDetails);
         } catch (error) {

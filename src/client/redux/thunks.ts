@@ -505,6 +505,7 @@ export const getJobDetails = (id: string): AppThunk => async (dispatch) => {
     }
 
     dispatch(setJobDetails(result));
+    dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
     dispatch(displayNotification(error, "error"));

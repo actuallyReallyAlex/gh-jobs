@@ -23,9 +23,11 @@ import {
 import { addSavedJob, removeSavedJob } from "../../redux/thunks";
 
 import { Job, RootState } from "../../types";
+import { setJobDetails } from "../../redux/actions/application";
 
 export interface JobCardProps {
   handleAddSavedJob: (job: Job) => void;
+  handleClearJobDetails: () => void;
   handleRemoveSavedJob: (job: Job) => void;
   isLoggedIn: boolean;
   job: Job;
@@ -35,6 +37,7 @@ export interface JobCardProps {
 const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
   const {
     handleAddSavedJob,
+    handleClearJobDetails,
     handleRemoveSavedJob,
     isLoggedIn,
     job,
@@ -69,7 +72,11 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
 
         <StyledMiddleContainer>
           <StyledCompany>{job.company}</StyledCompany>
-          <Link id={job.id} to={`/jobs/${job.id}`}>
+          <Link
+            id={job.id}
+            onClick={() => handleClearJobDetails()}
+            to={`/jobs/${job.id}`}
+          >
             <StyledTitle>{job.title}</StyledTitle>
           </Link>
           {job.type === "Full Time" && (
@@ -121,6 +128,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleAddSavedJob: (job: Job) => dispatch(addSavedJob(job)),
+  handleClearJobDetails: () => dispatch(setJobDetails(null)),
   handleRemoveSavedJob: (job: Job) => dispatch(removeSavedJob(job)),
 });
 
