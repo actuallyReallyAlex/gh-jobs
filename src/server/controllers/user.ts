@@ -10,7 +10,8 @@ import User from "../models/User";
 import {
   AuthenticatedRequest,
   EditSavedJobsMethod,
-  Job,
+  PatchSavedJobErrorResponse,
+  PatchSavedJobSuccessResponse,
   Token,
   UserDocument,
 } from "../types";
@@ -195,11 +196,16 @@ class UserController {
     this.router.patch(
       "/user/savedJobs",
       auth,
-      async (req: AuthenticatedRequest, res: Response) => {
+      async (
+        req: AuthenticatedRequest,
+        res: Response
+      ): Promise<
+        Response<PatchSavedJobErrorResponse | PatchSavedJobSuccessResponse>
+      > => {
         try {
           const method: EditSavedJobsMethod = req.body.method;
-          const job: Job = req.body.job;
-          const currentSavedJobs = req.user.savedJobs;
+          const id: string = req.body.id;
+          const currentSavedJobs: string[] = req.user.savedJobs;
           let newJobs;
 
           if (method !== "ADD" && method !== "REMOVE") {
@@ -210,11 +216,11 @@ class UserController {
 
           if (method === "ADD") {
             // * User is attempting to add a saved job
-            newJobs = [...currentSavedJobs, job];
+            newJobs = [...currentSavedJobs, id];
           } else if (method === "REMOVE") {
             // * User is attempting to remove a saved job
             newJobs = currentSavedJobs.filter(
-              (savedJob: Job) => savedJob.id !== job.id
+              (savedJobID: string) => savedJobID !== id
             );
           }
           req.user.savedJobs = newJobs;

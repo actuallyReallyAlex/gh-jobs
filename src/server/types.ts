@@ -59,6 +59,12 @@ export interface JobDocument extends Document {
 
 export type JobType = "Contract" | "Full Time";
 
+export interface PatchSavedJobErrorResponse {
+  error: string;
+}
+
+export type PatchSavedJobSuccessResponse = string[];
+
 export interface Token {
   _id: string;
   token: string;
@@ -70,7 +76,7 @@ export interface UserDocument extends Document {
   generateAuthToken(): Promise<string>;
   password: string;
   name: string;
-  savedJobs: Job[];
+  savedJobs: string[];
   tokens: Token[];
 }
 
