@@ -499,6 +499,7 @@ export const removeSavedJob = (id: string): AppThunk => async (dispatch) => {
 };
 
 export const clickViewSavedJobs = (): AppThunk => (dispatch) => {
+  dispatch(setCurrentPage(1));
   dispatch(displayNotification("", "default"));
   dispatch(setIsViewingSavedJobs(true));
 };
