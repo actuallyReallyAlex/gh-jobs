@@ -1,7 +1,19 @@
 import { Action } from "redux";
 import { ThunkAction } from "redux-thunk";
 
-export type AddSavedJobResponse = ServerResponseError & ServerResponseUser;
+export interface AddSavedJobErrorResponse {
+  error: string;
+}
+
+export interface AddSavedJobSuccessResponse {
+  createdAt: string;
+  email: string;
+  name: string;
+  savedJobs: string[];
+  updatedAt: string;
+  __v: number;
+  _id: string;
+}
 
 export interface ApplicationAction {
   type: string;
@@ -14,8 +26,8 @@ export interface ApplicationState {
   currentPage: number;
   fullTime: boolean;
   isLoading: boolean;
+  jobDetails: Job;
   jobs: Job[];
-  jobsFetchedAt: string;
   locationSearch: string;
   notificationMessage: string;
   notificationType: NotificationType;
@@ -37,6 +49,24 @@ export type ButtonType = "button" | "reset" | "submit";
 export type DeleteProfileResponse = ServerResponseError & ServerResponseUser;
 
 export type EditProfileResponse = ServerResponseError & ServerResponseUser;
+
+export interface GetJobDetailsErrorResponse {
+  error: string;
+}
+
+export type GetJobDetailsSuccessResponse = Job;
+
+export interface GetJobsErrorResponse {
+  error: string;
+}
+
+export type GetJobsSuccessResponse = Job[];
+
+export interface GetSavedJobsDetailsErrorResponse {
+  error: string;
+}
+
+export type GetSavedJobsDetailsSuccessResponse = Job[];
 
 export type InputAutoComplete =
   | "off"
@@ -131,11 +161,29 @@ export interface LocationOption {
 
 export type LoginResponse = ServerResponseError & ServerResponseUser;
 
-export type NotificationType = "error" | "info" | "warning";
+export type NotificationType =
+  | "error"
+  | "dark"
+  | "default"
+  | "info"
+  | "success"
+  | "warning";
 
 export type PaginationNavigationType = "left" | "right";
 
-export type RemoveSavedJobResponse = ServerResponseError & ServerResponseUser;
+export interface RemoveSavedJobErrorResponse {
+  error: string;
+}
+
+export interface RemoveSavedJobSuccessResponse {
+  createdAt: string;
+  email: string;
+  name: string;
+  savedJobs: string[];
+  updatedAt: string;
+  __v: number;
+  _id: string;
+}
 
 export type RequestMethod = "DELETE" | "GET" | "PATCH" | "POST";
 
@@ -156,23 +204,21 @@ export interface ServerResponseUser {
   createdAt: string;
   email: string;
   name: string;
-  savedJobs: Job[];
+  savedJobs: string[];
   updatedAt: string;
   __v: number;
   _id: string;
 }
 
-export type SignupResponse = SignupResponseError & SignupResponseSuccess;
-
-export interface SignupResponseError {
+export interface SignupErrorResponse {
   error: string;
 }
 
-export interface SignupResponseSuccess {
+export interface SignupSuccessResponse {
   createdAt: string;
   email: string;
   name: string;
-  savedJobs: Job[];
+  savedJobs: string[];
   updatedAt: string;
   __v: number;
   _id: string;
@@ -199,7 +245,8 @@ export interface UserState {
   resetConfirmNewPassword: string;
   resetCurrentPassword: string;
   resetNewPassword: string;
-  savedJobs: Job[];
+  savedJobs: string[];
   savedJobsCurrentPage: number;
+  savedJobsDetails: Job[];
   savedJobsTotalPages: number;
 }

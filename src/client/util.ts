@@ -1,4 +1,14 @@
-import { RequestMethod } from "./types";
+import {
+  RequestMethod,
+  GetJobDetailsErrorResponse,
+  GetJobDetailsSuccessResponse,
+  GetJobsErrorResponse,
+  GetJobsSuccessResponse,
+  AddSavedJobErrorResponse,
+  AddSavedJobSuccessResponse,
+  SignupErrorResponse,
+  SignupSuccessResponse,
+} from "./types";
 
 export const fetchServerData = async (
   url: string,
@@ -11,6 +21,9 @@ export const fetchServerData = async (
     headers: { "Content-Type": "application/json" },
     method,
   });
+  if (response.status === 500 || response.status === 404) {
+    return { error: `An error occured. Response Status = ${response.status}` };
+  }
   const data = await response.json();
   return data;
 };
@@ -67,4 +80,18 @@ export const saveState = (state: any): void => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const isError = (
+  result:
+    | GetJobsErrorResponse
+    | GetJobsSuccessResponse
+    | GetJobDetailsErrorResponse
+    | GetJobDetailsSuccessResponse
+    | AddSavedJobErrorResponse
+    | AddSavedJobSuccessResponse
+    | SignupErrorResponse
+    | SignupSuccessResponse
+): result is GetJobsErrorResponse => {
+  return (result as GetJobsErrorResponse).error !== undefined;
 };

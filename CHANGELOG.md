@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2020-07-31
+
+### 💻 Jobs on DB
+
+### Added
+
+### Changed
+
+- Details Side Link icons styling
+- Moved away from bare `CSS` and implement `styled-components` instead - [#39](https://github.com/alexlee-dev/gh-jobs/issues/39)
+- Jobs are now stored on the database - [#40](https://github.com/alexlee-dev/gh-jobs/issues/40)
+- Notifications now use `react-toastify` - [#36](https://github.com/alexlee-dev/gh-jobs/issues/36)
+- Searches where possible, will use the database instead of the GitHub Jobs API - [#48](https://github.com/alexlee-dev/gh-jobs/issues/48)
+- The `Details` page now makes a request to the BE for job details - [#51](https://github.com/alexlee-dev/gh-jobs/issues/51)
+- Going to the old domain should now route you to the new domain - [#46](https://github.com/alexlee-dev/gh-jobs/issues/46)
+- `savedJobs` is now an array of `id`'s instead of an array of the entire `Job` object - [#55](https://github.com/alexlee-dev/gh-jobs/issues/5)
+
+### Removed
+
+### Fixed
+
+- Ability to return to Profile Display from viewing your saved jobs - [#56](https://github.com/alexlee-dev/gh-jobs/issues/56)
+
 ## [1.1.1] - 2020-07-23
 
 ### 🖼️ Assets Fix

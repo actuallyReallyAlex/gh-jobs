@@ -1,13 +1,14 @@
+import { toast } from "react-toastify";
+
 import {
+  DISPLAY_NOTIFICATION,
   SET_CURRENT_JOBS,
   SET_CURRENT_PAGE,
   SET_FULL_TIME,
   SET_IS_LOADING,
+  SET_JOB_DETAILS,
   SET_JOBS,
-  SET_JOBS_FETCHED_AT,
   SET_LOCATION_SEARCH,
-  SET_NOTIFICATION_MESSAGE,
-  SET_NOTIFICATION_TYPE,
   SET_SEARCH_VALUE,
   SET_TOTAL_PAGES,
 } from "../actionTypes";
@@ -19,11 +20,11 @@ export const initialState: ApplicationState = {
   currentPage: 1,
   fullTime: false,
   isLoading: true,
+  jobDetails: null,
   jobs: [],
-  jobsFetchedAt: null,
   locationSearch: "",
   notificationMessage: "",
-  notificationType: "info",
+  notificationType: "default",
   searchValue: "",
   totalPages: 1,
 };
@@ -41,15 +42,37 @@ const reducer = (
   }
 
   switch (action.type) {
+    case DISPLAY_NOTIFICATION: {
+      const { notificationMessage, notificationType } = action.payload;
+      if (notificationMessage) {
+        let autoClose: boolean | number = 5000;
+        if (notificationType === "error" || notificationType === "warning") {
+          autoClose = false;
+        }
+        toast(notificationMessage, {
+          autoClose,
+          toastId: "notification",
+          type: notificationType,
+        });
+      } else {
+        // * If displayNotification() is called with `notificationMessage` === "",
+        // * Clear all notifications
+        toast.dismiss();
+      }
+
+      return {
+        ...state,
+        notificationMessage,
+        notificationType,
+      };
+    }
     case SET_CURRENT_JOBS:
     case SET_CURRENT_PAGE:
     case SET_FULL_TIME:
     case SET_IS_LOADING:
+    case SET_JOB_DETAILS:
     case SET_JOBS:
-    case SET_JOBS_FETCHED_AT:
     case SET_LOCATION_SEARCH:
-    case SET_NOTIFICATION_MESSAGE:
-    case SET_NOTIFICATION_TYPE:
     case SET_SEARCH_VALUE:
     case SET_TOTAL_PAGES: {
       return { ...state, [key]: value };

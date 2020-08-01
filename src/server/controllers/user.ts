@@ -5,14 +5,19 @@ import validator from "validator";
 
 import auth from "../middleware/auth";
 
+import JobModel from "../models/Job";
 import User from "../models/User";
 
 import {
   AuthenticatedRequest,
   EditSavedJobsMethod,
-  Job,
+  GetSavedJobsDetailsErrorResponse,
+  GetSavedJobsDetailsSuccessResponse,
+  PatchSavedJobErrorResponse,
+  PatchSavedJobSuccessResponse,
   Token,
   UserDocument,
+  Job,
 } from "../types";
 
 /**
@@ -195,11 +200,16 @@ class UserController {
     this.router.patch(
       "/user/savedJobs",
       auth,
-      async (req: AuthenticatedRequest, res: Response) => {
+      async (
+        req: AuthenticatedRequest,
+        res: Response
+      ): Promise<
+        Response<PatchSavedJobErrorResponse | PatchSavedJobSuccessResponse>
+      > => {
         try {
           const method: EditSavedJobsMethod = req.body.method;
-          const job: Job = req.body.job;
-          const currentSavedJobs = req.user.savedJobs;
+          const id: string = req.body.id;
+          const currentSavedJobs: string[] = req.user.savedJobs;
           let newJobs;
 
           if (method !== "ADD" && method !== "REMOVE") {
@@ -210,11 +220,11 @@ class UserController {
 
           if (method === "ADD") {
             // * User is attempting to add a saved job
-            newJobs = [...currentSavedJobs, job];
+            newJobs = [...currentSavedJobs, id];
           } else if (method === "REMOVE") {
             // * User is attempting to remove a saved job
             newJobs = currentSavedJobs.filter(
-              (savedJob: Job) => savedJob.id !== job.id
+              (savedJobID: string) => savedJobID !== id
             );
           }
           req.user.savedJobs = newJobs;
@@ -225,6 +235,50 @@ class UserController {
             console.error(error);
           }
 
+          return res.status(500).send({ error });
+        }
+      }
+    );
+
+    this.router.get(
+      "/user/savedJobsDetails",
+      auth,
+      async (
+        req: AuthenticatedRequest,
+        res: Response
+      ): Promise<
+        Response<
+          GetSavedJobsDetailsErrorResponse | GetSavedJobsDetailsSuccessResponse
+        >
+      > => {
+        try {
+          const { savedJobs } = req.user;
+
+          const savedJobsDetails: Job[] = [];
+          let dbError = false;
+
+          await Promise.all(
+            savedJobs.map(async (id: string) => {
+              const job = await JobModel.findOne({ id });
+
+              if (!job) {
+                return (dbError = true);
+              }
+              return savedJobsDetails.push(job);
+            })
+          );
+
+          if (dbError) {
+            return res
+              .status(500)
+              .send({ error: "Error finding corresponding jobs in database." });
+          }
+
+          return res.send(savedJobsDetails);
+        } catch (error) {
+          if (process.env.NODE_ENV !== "test") {
+            console.error(error);
+          }
           return res.status(500).send({ error });
         }
       }
@@ -273,19 +327,6 @@ class UserController {
           // * Send User as respoonse
           return res.send(req.user);
         } catch (error) {
-          if (error.errors.password) {
-            // * Min Length Validation Error
-            if (error.errors.password.kind === "minlength") {
-              return res.status(400).send({
-                error: "Password must be a minimum of 7 characters.",
-              });
-            }
-            // * Password Validation Error
-            return res
-              .status(400)
-              .send({ error: error.errors.password.message });
-          }
-
           if (process.env.NODE_ENV !== "test") {
             console.error(error);
           }

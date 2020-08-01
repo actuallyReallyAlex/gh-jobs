@@ -1,9 +1,11 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 import Details from "./pages/Details";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 import Search from "./pages/Search";
 import Signup from "./pages/Signup";
 
@@ -11,8 +13,6 @@ import LoadingIndicator from "./components/LoadingIndicator";
 import Navigation from "./components/Navigation";
 
 import { initializeApplication } from "./redux/thunks";
-
-import Profile from "./pages/Profile";
 
 interface AppProps {
   handleInitializeApplication: () => void;
@@ -50,6 +50,7 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
           </Route>
         </Switch>
         <LoadingIndicator />
+        <ToastContainer />
       </div>
     </Router>
   );

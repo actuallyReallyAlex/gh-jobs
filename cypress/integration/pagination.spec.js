@@ -17,7 +17,7 @@ context("Pagination", () => {
   });
 
   it("Should render initial <Pagination /> component correctly", () => {
-    cy.get(".pagination__list").then(($list) => {
+    cy.get('[data-cy="pagination-list"]').then(($list) => {
       const childList = $list[0].children;
 
       cy.paginationSelect1(childList);
@@ -25,7 +25,7 @@ context("Pagination", () => {
   });
 
   it("Should use right arrow to traverse to end of list", () => {
-    cy.get(".pagination__list").then(($list) => {
+    cy.get('[data-cy="pagination-list"]').then(($list) => {
       const childList = $list[0].children;
 
       // * 7th Button should be Right Arrow
@@ -99,7 +99,7 @@ context("Pagination", () => {
   });
 
   it("Should use left arrow to traverse back to the beginning of the list", () => {
-    cy.get(".pagination__list").then(($list) => {
+    cy.get('[data-cy="pagination-list"]').then(($list) => {
       const childList = $list[0].children;
       const rightArrowButton = childList[6].children[0];
       const leftArrowButton = childList[0].children[0];
@@ -189,7 +189,7 @@ context("Pagination", () => {
   });
 
   it("Should be able to hop to ends of pagination", () => {
-    cy.get(".pagination__list").then(($list) => {
+    cy.get('[data-cy="pagination-list"]').then(($list) => {
       const childList = $list[0].children;
       const page1Button = childList[1].children[0];
       const page10Button = childList[5].children[0];
@@ -213,28 +213,24 @@ context("Pagination", () => {
       cy.server();
       cy.route({
         method: "GET",
-        url: "/jobs/search?full_time=false&description=&location=Chicago",
+        url: "/jobs/search?full_time=false&description=&location1=Chicago",
         status: 200,
         response: jobsJson,
-        onRequest: (xhr) => {},
-        onResponse: (xhr) => {},
       });
     });
 
-    cy.get(".pagination__list").then(($list) => {
+    cy.get('[data-cy="pagination-list"]').then(($list) => {
       const childList = $list[0].children;
 
       cy.paginationSelect1(childList);
 
-      cy.get(
-        "#app > div.search__container > div.options-panel__container > label:nth-child(3) > span"
-      ).click();
+      cy.get(":nth-child(3) > [data-cy=checkmark]").click();
       cy.get("#search-submit").click();
 
-      cy.get(".jobcard__container").then(($jobs) => {
+      cy.get('[data-cy="job-container"]').then(($jobs) => {
         assert.equal($jobs.length, 3);
 
-        cy.get(".pagination__list").then(($list) => {
+        cy.get('[data-cy="pagination-list"]').then(($list) => {
           const childList = $list[0].children;
 
           // * Should contain 3 elements
@@ -246,7 +242,7 @@ context("Pagination", () => {
           // * 2nd Button should be "1"
           assert.equal(childList[1].innerText, "1");
           // * 2nd Button as "1" should be selected by default
-          assert.equal(childList[1].className, "pagination__item__selected");
+          assert.equal(childList[1].dataset.cy, "pagination-item-selected");
           // * 3rd Button should be Right Arrow
           assert.equal(childList[2].innerText, "chevron_right");
           // * 3rd button should be disabled
@@ -274,7 +270,7 @@ context("Pagination - 1 Page", () => {
   });
 
   it("Should display pagination correctly, when 5 jobs exist", () => {
-    cy.get(".pagination__list").then(($list) => {
+    cy.get('[data-cy="pagination-list"]').then(($list) => {
       const childList = $list[0].children;
 
       // * Should contain 3 elements
@@ -286,7 +282,7 @@ context("Pagination - 1 Page", () => {
       // * 2nd Button should be "1"
       assert.equal(childList[1].innerText, "1");
       // * 2nd Button as "1" should be selected by default
-      assert.equal(childList[1].className, "pagination__item__selected");
+      assert.equal(childList[1].dataset.cy, "pagination-item-selected");
       // * 3rd Button should be Right Arrow
       assert.equal(childList[2].innerText, "chevron_right");
       // * 3rd button should be disabled
@@ -312,7 +308,7 @@ context("Pagination - 2 Pages", () => {
   });
 
   it("Should display pagination correctly, when 10 jobs exist", () => {
-    cy.get(".pagination__list").then(($list) => {
+    cy.get('[data-cy="pagination-list"]').then(($list) => {
       const childList = $list[0].children;
 
       // * Should contain 4 elements
@@ -324,7 +320,7 @@ context("Pagination - 2 Pages", () => {
       // * 2nd Button should be "1"
       assert.equal(childList[1].innerText, "1");
       // * 2nd Button as "1" should be selected by default
-      assert.equal(childList[1].className, "pagination__item__selected");
+      assert.equal(childList[1].dataset.cy, "pagination-item-selected");
       // * 3rd Button should be "2"
       assert.equal(childList[2].innerText, "2");
       // * 4th Button should be Right Arrow
@@ -350,7 +346,7 @@ context("Pagination - 3 Pages", () => {
   });
 
   it("Should display pagination correctly, when 15 jobs exist", () => {
-    cy.get(".pagination__list").then(($list) => {
+    cy.get('[data-cy="pagination-list"]').then(($list) => {
       const childList = $list[0].children;
 
       // * Should contain 5 elements
@@ -362,7 +358,7 @@ context("Pagination - 3 Pages", () => {
       // * 2nd Button should be "1"
       assert.equal(childList[1].innerText, "1");
       // * 2nd Button as "1" should be selected by default
-      assert.equal(childList[1].className, "pagination__item__selected");
+      assert.equal(childList[1].dataset.cy, "pagination-item-selected");
       // * 3rd Button should be "2"
       assert.equal(childList[2].innerText, "2");
       // * 4th Button should be "3"
@@ -390,7 +386,7 @@ context("Pagination - 4 Pages", () => {
   });
 
   it("Should display pagination correctly, when 20 jobs exist", () => {
-    cy.get(".pagination__list").then(($list) => {
+    cy.get('[data-cy="pagination-list"]').then(($list) => {
       const childList = $list[0].children;
 
       // * Should contain 6 elements
@@ -402,7 +398,7 @@ context("Pagination - 4 Pages", () => {
       // * 2nd Button should be "1"
       assert.equal(childList[1].innerText, "1");
       // * 2nd Button as "1" should be selected by default
-      assert.equal(childList[1].className, "pagination__item__selected");
+      assert.equal(childList[1].dataset.cy, "pagination-item-selected");
       // * 3rd Button should be "2"
       assert.equal(childList[2].innerText, "2");
       // * 4th Button should be "3"

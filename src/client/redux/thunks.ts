@@ -1,17 +1,12 @@
-import endOfToday from "date-fns/endOfToday";
-import isWithinInterval from "date-fns/isWithinInterval";
-import startOfToday from "date-fns/startOfToday";
-
 import {
+  displayNotification,
   setCurrentJobs,
   setCurrentPage,
   setIsLoading,
   setJobs,
-  setJobsFetchedAt,
   setSearchValue,
   setTotalPages,
-  setNotificationMessage,
-  setNotificationType,
+  setJobDetails,
 } from "./actions/application";
 import {
   setConfirmPassword,
@@ -30,34 +25,49 @@ import {
   setResetNewPassword,
   setSavedJobs,
   setSavedJobsCurrentPage,
+  setSavedJobsDetails,
   setSavedJobsTotalPages,
 } from "./actions/user";
-import { fetchServerData, unique } from "../util";
+import { fetchServerData, isError } from "../util";
 
 import {
-  AddSavedJobResponse,
   AppThunk,
   DeleteProfileResponse,
   EditProfileResponse,
+  GetJobsErrorResponse,
+  GetJobsSuccessResponse,
+  GetSavedJobsDetailsErrorResponse,
+  GetSavedJobsDetailsSuccessResponse,
   Job,
   LocationOption,
   LoginResponse,
-  RemoveSavedJobResponse,
   ResetPasswordResponse,
   RootState,
   ServerResponseUser,
-  SignupResponse,
+  AddSavedJobErrorResponse,
+  AddSavedJobSuccessResponse,
+  SignupErrorResponse,
+  SignupSuccessResponse,
+  RemoveSavedJobErrorResponse,
+  RemoveSavedJobSuccessResponse,
 } from "../types";
 
 export const getJobs = (): AppThunk => async (dispatch) => {
   try {
-    const jobs: Job[] = await fetchServerData("/jobs", "GET");
+    const result = (await fetchServerData("/jobs", "GET")) as
+      | GetJobsErrorResponse
+      | GetJobsSuccessResponse;
 
-    dispatch(setJobs(jobs));
-    dispatch(setJobsFetchedAt(new Date().toString()));
+    if (isError(result)) {
+      dispatch(displayNotification(result.error, "error"));
+      dispatch(setIsLoading(false));
+      return;
+    }
+
+    dispatch(setJobs(result));
     dispatch(setCurrentPage(1));
-    dispatch(setTotalPages(Math.ceil(jobs.length / 5)));
-    dispatch(setCurrentJobs(jobs));
+    dispatch(setTotalPages(Math.ceil(result.length / 5)));
+    dispatch(setCurrentJobs(result));
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
@@ -69,11 +79,11 @@ export const searchJobs = (
   locationOptions: LocationOption[]
 ): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoading(true));
+  dispatch(displayNotification("", "default"));
   dispatch(setSearchValue(search));
+
   const state: RootState = getState();
   const { fullTime, locationSearch } = state.application;
-
-  const jobs = [];
 
   const locationsSearches = locationOptions.filter(
     (location: LocationOption) => location.value !== ""
@@ -87,38 +97,30 @@ export const searchJobs = (
     });
   }
 
-  // * Since location options have to be a thing for the challenge
-  // * Make as many requests as locations (since you can only have 1 location per request)
-  // * And push all the results into one array
-  await Promise.all(
-    locationsSearches.map(async (location: LocationOption) => {
-      const url = `/jobs/search?full_time=${encodeURI(
-        fullTime.toString()
-      )}&description=${encodeURI(search)}&location=${encodeURI(
-        location.value
-      )}`;
-      const data = await fetchServerData(url, "GET");
-      jobs.push(...data);
-    })
-  );
+  let url = `/jobs/search?full_time=${encodeURI(
+    fullTime.toString()
+  )}&description=${encodeURI(search)}`;
 
-  if (locationsSearches.length === 0) {
-    const url = `/jobs/search?full_time=${encodeURI(
-      fullTime.toString()
-    )}&description=${encodeURI(search)}`;
-    const data = await fetchServerData(url, "GET");
-    jobs.push(...data);
+  locationsSearches.forEach((locationSearch: LocationOption, i: number) => {
+    url = url + `&location${i + 1}=${encodeURI(locationSearch.value)}`;
+  });
+
+  const data = (await fetchServerData(url, "GET")) as
+    | GetJobsErrorResponse
+    | GetJobsSuccessResponse;
+
+  if (isError(data)) {
+    dispatch(displayNotification(data.error, "error"));
+    dispatch(setIsLoading(false));
+    return;
   }
 
-  const uniqueJobs = unique(jobs);
-
-  const finalJobs = uniqueJobs.filter((job: Job) =>
-    fullTime ? job.type === "Full Time" : job
-  );
-
-  dispatch(setCurrentJobs(finalJobs));
+  dispatch(setCurrentJobs(data));
   dispatch(setCurrentPage(1));
-  dispatch(setTotalPages(Math.ceil(finalJobs.length / 5)));
+  dispatch(setTotalPages(Math.ceil(data.length / 5)));
+  dispatch(
+    displayNotification(`Search returned ${data.length} results.`, "success")
+  );
   dispatch(setIsLoading(false));
 };
 
@@ -128,11 +130,12 @@ export const pagination = (pageNumber: number): AppThunk => (dispatch) => {
 
 export const logIn = (): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoading(true));
-  dispatch(setNotificationMessage(""));
+  dispatch(displayNotification("", "default"));
 
   const { user } = getState();
   const { email, password } = user;
 
+  // TODO - Modify
   const response: LoginResponse = await fetchServerData(
     "/user/login",
     "POST",
@@ -140,8 +143,7 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
   );
 
   if (response.error) {
-    dispatch(setNotificationType("error"));
-    dispatch(setNotificationMessage(response.error));
+    dispatch(displayNotification(response.error, "error"));
     dispatch(setIsLoading(false));
     return;
   }
@@ -156,63 +158,48 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
 
 export const signup = (): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoading(true));
-  dispatch(setNotificationMessage(""));
+  dispatch(displayNotification("", "default"));
 
   const { user } = getState();
   const { confirmPassword, email, name, password } = user;
 
   if (confirmPassword !== password) {
-    dispatch(setNotificationType("error"));
-    dispatch(setNotificationMessage("Passwords do not match."));
+    dispatch(displayNotification("Passwords do not match.", "error"));
     dispatch(setIsLoading(false));
     return;
   }
 
-  const response: SignupResponse = await fetchServerData(
+  // TODO - Modify
+  const result:
+    | SignupErrorResponse
+    | SignupSuccessResponse = await fetchServerData(
     "/user",
     "POST",
     JSON.stringify({ confirmPassword, email, name, password })
   );
 
-  if (response.error) {
-    dispatch(setNotificationType("error"));
-    dispatch(setNotificationMessage(response.error));
+  if (isError(result)) {
+    dispatch(displayNotification(result.error, "error"));
     dispatch(setIsLoading(false));
     return;
   }
 
   dispatch(setIsLoggedIn(true));
-  dispatch(setEmail(response.email));
-  dispatch(setName(response.name));
+  dispatch(setEmail(result.email));
+  dispatch(setName(result.name));
   dispatch(setPassword(""));
   dispatch(setConfirmPassword(""));
-  dispatch(setSavedJobs(response.savedJobs));
+  dispatch(setSavedJobs(result.savedJobs));
 
   dispatch(setIsLoading(false));
 };
 
-export const initializeApplication = (): AppThunk => async (
-  dispatch,
-  getState
-) => {
+export const initializeApplication = (): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
-  dispatch(setNotificationType("info"));
-  dispatch(setNotificationMessage(""));
-  const state: RootState = getState();
-  const { jobsFetchedAt } = state.application;
-  // * Establish Job Data
-  if (jobsFetchedAt) {
-    const isWithinToday = isWithinInterval(new Date(jobsFetchedAt), {
-      start: startOfToday(),
-      end: endOfToday(),
-    });
+  dispatch(displayNotification("", "default"));
 
-    if (!isWithinToday) {
-      dispatch(getJobs());
-    }
-  } else {
-    dispatch(getJobs());
-  }
+  // * Establish Job Data
+  dispatch(getJobs());
 
   // * Establish User Authentication
   dispatch(checkAuthentication());
@@ -237,14 +224,15 @@ export const checkAuthentication = (): AppThunk => async (dispatch) => {
 
 export const logOut = (): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
+  // TODO - Modify
   const response = await fetchServerData("/user/logout", "POST");
 
   if (response.error) {
     console.error(response.error);
-    dispatch(setNotificationType("error"));
     dispatch(
-      setNotificationMessage(
-        "Error when attempting to log out. Please try again or contact the developer."
+      displayNotification(
+        "Error when attempting to log out. Please try again or contact the developer.",
+        "error"
       )
     );
     return;
@@ -252,7 +240,7 @@ export const logOut = (): AppThunk => async (dispatch) => {
 
   dispatch(setConfirmPassword(""));
   dispatch(setEmail(""));
-  dispatch(setNotificationMessage(""));
+  dispatch(displayNotification("", "default"));
   dispatch(setName(""));
   dispatch(setPassword(""));
   dispatch(setSavedJobs([]));
@@ -263,14 +251,15 @@ export const logOut = (): AppThunk => async (dispatch) => {
 
 export const logOutAll = (): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
+  // TODO - Modify
   const response = await fetchServerData("/user/logout/all", "POST");
 
   if (response.error) {
     console.error(response.error);
-    dispatch(setNotificationType("error"));
     dispatch(
-      setNotificationMessage(
-        "Error when attempting to log out. Please try again or contact the developer."
+      displayNotification(
+        "Error when attempting to log out. Please try again or contact the developer.",
+        "error"
       )
     );
     return;
@@ -278,7 +267,7 @@ export const logOutAll = (): AppThunk => async (dispatch) => {
 
   dispatch(setConfirmPassword(""));
   dispatch(setEmail(""));
-  dispatch(setNotificationMessage(""));
+  dispatch(displayNotification("", "default"));
   dispatch(setName(""));
   dispatch(setPassword(""));
   dispatch(setSavedJobs([]));
@@ -289,6 +278,7 @@ export const logOutAll = (): AppThunk => async (dispatch) => {
 
 export const resetPassword = (): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoading(true));
+  dispatch(displayNotification("", "default"));
   const state: RootState = getState();
 
   const {
@@ -298,13 +288,13 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
   } = state.user;
 
   if (resetConfirmNewPassword !== resetNewPassword) {
-    dispatch(setNotificationType("error"));
-    dispatch(setNotificationMessage("Passwords do not match."));
+    dispatch(displayNotification("Passwords do not match.", "error"));
     dispatch(setIsLoading(false));
     return;
   }
 
   try {
+    // TODO - Modify
     const response: ResetPasswordResponse = await fetchServerData(
       "/user/me",
       "PATCH",
@@ -315,14 +305,12 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
     );
 
     if (response.error) {
-      dispatch(setNotificationType("error"));
-      dispatch(setNotificationMessage(response.error));
+      dispatch(displayNotification(response.error, "error"));
       dispatch(setIsLoading(false));
       return;
     }
 
-    dispatch(setNotificationType("info"));
-    dispatch(setNotificationMessage("Password reset successfully."));
+    dispatch(displayNotification("Password reset successfully.", "success"));
     dispatch(setResetConfirmNewPassword(""));
     dispatch(setResetCurrentPassword(""));
     dispatch(setResetNewPassword(""));
@@ -330,8 +318,7 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
-    dispatch(setNotificationType("error"));
-    dispatch(setNotificationMessage(error));
+    dispatch(displayNotification(error, "error"));
     dispatch(setIsLoading(false));
   }
 };
@@ -340,7 +327,7 @@ export const cancelResetPassword = (): AppThunk => (dispatch) => {
   dispatch(setResetConfirmNewPassword(""));
   dispatch(setResetCurrentPassword(""));
   dispatch(setResetNewPassword(""));
-  dispatch(setNotificationMessage(""));
+  dispatch(displayNotification("", "default"));
   dispatch(setIsResettingPassword(false));
 };
 
@@ -349,7 +336,7 @@ export const clickEditProfile = (): AppThunk => (dispatch, getState) => {
 
   const { email, name } = state.user;
 
-  dispatch(setNotificationMessage(""));
+  dispatch(displayNotification("", "default"));
   dispatch(setEditEmail(email));
   dispatch(setEditName(name));
   dispatch(setIsEditingProfile(true));
@@ -358,16 +345,18 @@ export const clickEditProfile = (): AppThunk => (dispatch, getState) => {
 export const cancelEditProfile = (): AppThunk => (dispatch) => {
   dispatch(setEditEmail(""));
   dispatch(setEditName(""));
-  dispatch(setNotificationMessage(""));
+  dispatch(displayNotification("", "default"));
   dispatch(setIsEditingProfile(false));
 };
 
 export const editProfile = (): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoading(true));
+  dispatch(displayNotification("", "default"));
   const state: RootState = getState();
 
   const { editEmail, editName } = state.user;
   try {
+    // TODO - Modify
     const response: EditProfileResponse = await fetchServerData(
       "/user/me",
       "PATCH",
@@ -375,15 +364,16 @@ export const editProfile = (): AppThunk => async (dispatch, getState) => {
     );
 
     if (response.error) {
-      dispatch(setNotificationType("error"));
-      dispatch(setNotificationMessage(response.error));
+      dispatch(displayNotification(response.error, "error"));
       dispatch(setIsLoading(false));
       return;
     }
 
-    dispatch(setNotificationType("info"));
     dispatch(
-      setNotificationMessage("Profile information updated successfully.")
+      displayNotification(
+        "Profile information updated successfully.",
+        "success"
+      )
     );
     dispatch(setEditEmail(""));
     dispatch(setEditName(""));
@@ -393,22 +383,21 @@ export const editProfile = (): AppThunk => async (dispatch, getState) => {
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
-    dispatch(setNotificationType("error"));
-    dispatch(setNotificationMessage(error));
+    dispatch(displayNotification(error, "error"));
     dispatch(setIsLoading(false));
   }
 };
 
 export const cancelDeleteProfile = (): AppThunk => (dispatch) => {
-  dispatch(setNotificationMessage(""));
+  dispatch(displayNotification("", "default"));
   dispatch(setIsDeletingProfile(false));
 };
 
 export const clickDeleteProfile = (): AppThunk => (dispatch) => {
-  dispatch(setNotificationType("warning"));
   dispatch(
-    setNotificationMessage(
-      "Are you sure you would like to delete your profile? This can not be reversed."
+    displayNotification(
+      "Are you sure you would like to delete your profile? This can not be reversed.",
+      "warning"
     )
   );
   dispatch(setIsDeletingProfile(true));
@@ -416,22 +405,22 @@ export const clickDeleteProfile = (): AppThunk => (dispatch) => {
 
 export const deleteProfile = (): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
+  dispatch(displayNotification("", "default"));
 
   try {
+    // TODO - Modify
     const response: DeleteProfileResponse = await fetchServerData(
       "/user/me",
       "DELETE"
     );
 
     if (response.error) {
-      dispatch(setNotificationType("error"));
-      dispatch(setNotificationMessage(response.error));
+      dispatch(displayNotification(response.error, "error"));
       dispatch(setIsLoading(false));
       return;
     }
 
-    dispatch(setNotificationType("info"));
-    dispatch(setNotificationMessage("Profile deleted successfully."));
+    dispatch(displayNotification("Profile deleted successfully.", "success"));
     dispatch(setEmail(""));
     dispatch(setName(""));
     dispatch(setSavedJobs([]));
@@ -440,76 +429,125 @@ export const deleteProfile = (): AppThunk => async (dispatch) => {
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
-    dispatch(setNotificationType("error"));
-    dispatch(setNotificationMessage(error));
+    dispatch(displayNotification(error, "error"));
     dispatch(setIsLoading(false));
   }
 };
 
-export const addSavedJob = (job: Job): AppThunk => async (dispatch) => {
+export const addSavedJob = (id: string): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
   try {
-    const response: AddSavedJobResponse = await fetchServerData(
+    // TODO - Modify
+    const result:
+      | AddSavedJobErrorResponse
+      | AddSavedJobSuccessResponse = await fetchServerData(
       "/user/savedJobs",
       "PATCH",
-      JSON.stringify({ method: "ADD", job })
+      JSON.stringify({ method: "ADD", id })
     );
 
-    if (response.error) {
-      dispatch(setNotificationType("error"));
-      dispatch(setNotificationMessage(response.error));
+    if (isError(result)) {
+      dispatch(displayNotification(result.error, "error"));
       dispatch(setIsLoading(false));
       return;
     }
 
-    const { savedJobs } = response;
+    const { savedJobs } = result;
 
     dispatch(setSavedJobs(savedJobs));
     dispatch(setSavedJobsCurrentPage(1));
     dispatch(setSavedJobsTotalPages(Math.ceil(savedJobs.length / 5)));
-    dispatch(setNotificationType("info"));
-    dispatch(setNotificationMessage("Job saved successfully."));
+    dispatch(displayNotification("Job saved successfully.", "success"));
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
-    dispatch(setNotificationType("error"));
-    dispatch(setNotificationMessage(error));
+    dispatch(displayNotification(error, "error"));
     dispatch(setIsLoading(false));
   }
 };
 
-export const removeSavedJob = (job: Job): AppThunk => async (dispatch) => {
+export const removeSavedJob = (id: string): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
   try {
-    const response: RemoveSavedJobResponse = await fetchServerData(
+    // TODO - Modify
+    const result:
+      | RemoveSavedJobErrorResponse
+      | RemoveSavedJobSuccessResponse = await fetchServerData(
       "/user/savedJobs",
       "PATCH",
-      JSON.stringify({ method: "REMOVE", job })
+      JSON.stringify({ method: "REMOVE", id })
     );
 
-    if (response.error) {
-      dispatch(setNotificationType("error"));
-      dispatch(setNotificationMessage(response.error));
+    if (isError(result)) {
+      dispatch(displayNotification(result.error, "error"));
       dispatch(setIsLoading(false));
       return;
     }
 
-    const { savedJobs } = response;
+    const { savedJobs } = result;
 
     dispatch(setSavedJobs(savedJobs));
     dispatch(setSavedJobsCurrentPage(1));
     dispatch(setSavedJobsTotalPages(Math.ceil(savedJobs.length / 5)));
-    dispatch(setNotificationType("info"));
-    dispatch(setNotificationMessage("Job removed successfully."));
+    dispatch(displayNotification("Job removed successfully.", "success"));
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
-    dispatch(setNotificationType("error"));
-    dispatch(setNotificationMessage(error));
+    dispatch(displayNotification(error, "error"));
     dispatch(setIsLoading(false));
   }
 };
 
 export const clickViewSavedJobs = (): AppThunk => (dispatch) => {
+  dispatch(displayNotification("", "default"));
   dispatch(setIsViewingSavedJobs(true));
+};
+
+export const getJobDetails = (id: string): AppThunk => async (dispatch) => {
+  dispatch(setIsLoading(true));
+  dispatch(displayNotification("", "default"));
+
+  try {
+    const result: Job = await fetchServerData(`/jobs/${id}`, "GET");
+
+    if (isError(result)) {
+      dispatch(displayNotification(result.error, "error"));
+      dispatch(setIsLoading(false));
+      return;
+    }
+
+    dispatch(setJobDetails(result));
+    dispatch(setIsLoading(false));
+  } catch (error) {
+    console.error(error);
+    dispatch(displayNotification(error, "error"));
+    dispatch(setIsLoading(false));
+  }
+};
+
+export const getSavedJobsDetails = (): AppThunk => async (dispatch) => {
+  dispatch(setIsLoading(true));
+  dispatch(displayNotification("", "default"));
+
+  try {
+    const result:
+      | GetSavedJobsDetailsErrorResponse
+      | GetSavedJobsDetailsSuccessResponse = await fetchServerData(
+      `/user/savedJobsDetails`,
+      "GET"
+    );
+
+    if (isError(result)) {
+      dispatch(displayNotification(result.error, "error"));
+      dispatch(setIsLoading(false));
+      return;
+    }
+
+    dispatch(setSavedJobsDetails(result));
+    dispatch(setIsLoading(false));
+  } catch (error) {
+    console.error(error);
+    dispatch(displayNotification(error, "error"));
+    dispatch(setIsLoading(false));
+  }
 };

@@ -74,6 +74,10 @@ class App {
     this.app.use(express.static(path.join(__dirname, "../dist")));
 
     this.app.get("*", (req: Request, res: Response) => {
+      console.log({ hostname: req.hostname });
+      if (req.hostname === "herokuapp") {
+        return res.status(308).redirect("https://www.githubjobs.io/");
+      }
       res.sendFile(path.join(__dirname, "../dist/index.html"));
     });
   }

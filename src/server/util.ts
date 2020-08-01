@@ -1,4 +1,6 @@
-import fetch from "node-fetch";
+import nfetch from "node-fetch";
+
+import { GetJobsErrorResponse, GetJobsSuccessResponse, Job } from "./types";
 
 /**
  * Check if MongoDB is running locally. Stops application from continuing if false.
@@ -41,3 +43,42 @@ export const createSearchURL = (
 
   return url;
 };
+
+export const getAllJobsFromAPI = async (): Promise<
+  GetJobsErrorResponse | GetJobsSuccessResponse
+> => {
+  const jobs: Job[] = [];
+  let jobsInBatch = null;
+  let page = 1;
+
+  // * Can only get 50 jobs at a time
+  // * keep going until there are no more jobs
+  try {
+    while (jobsInBatch !== 0) {
+      const response = await nfetch(
+        `https://jobs.github.com/positions.json?page=${page}`,
+        { headers: { "Content-Type": "application/json" }, method: "GET" }
+      );
+      const batchJobs: Job[] = await response.json();
+      jobsInBatch = batchJobs.length;
+      page++;
+      if (jobsInBatch !== 0) {
+        jobs.push(...batchJobs);
+      }
+    }
+
+    return jobs;
+  } catch (error) {
+    console.error(error);
+    return { error };
+  }
+};
+
+export const isError = (
+  result: GetJobsErrorResponse | GetJobsSuccessResponse
+): result is GetJobsErrorResponse => {
+  return (result as GetJobsErrorResponse).error !== undefined;
+};
+
+// eslint-disable-next-line
+export const unique = (arr: any[]): any[] => [...new Set(arr)];

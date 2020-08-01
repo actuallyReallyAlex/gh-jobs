@@ -13,7 +13,7 @@ context("Notification", () => {
       });
     });
     cy.visit("http://localhost:3000");
-    cy.wait(1000);
+    cy.wait(500);
   });
 
   it("Should reset the notification on initial load", () => {
@@ -22,7 +22,7 @@ context("Notification", () => {
     cy.get("#email").type("bobtest@email.com");
     cy.get("#password").type("Red123456!!!");
     cy.get("#log-in").click();
-    cy.wait(1500);
+    cy.wait(500);
     cy.get("#nav-login").should("not.exist");
     cy.get("#search").should("be.visible");
     cy.get("#nav-profile").click();
@@ -32,25 +32,25 @@ context("Notification", () => {
     cy.get("#edit-name").type("Cool Bob");
     cy.get("#edit-confirm").click();
 
-    cy.wait(1500);
+    cy.wait(500);
 
     cy.get("h1").should("have.text", "Profile");
-    cy.get("#notification-text").should(
+    cy.get("#notification").should(
       "have.text",
       "Profile information updated successfully."
     );
 
     cy.reload();
     cy.get("#nav-profile").click();
-    cy.get("#notification-text").should("not.exist");
+    cy.get("#notification").should("not.exist");
 
     // * Reset to normal data (Cleanup)
     cy.get("#edit").click();
-    cy.get("#notification-text").should("not.exist");
+    cy.get("#notification").should("not.exist");
     cy.get("#edit-name").clear();
     cy.get("#edit-name").type("Bob Test");
     cy.get("#edit-confirm").click();
-    cy.wait(1500);
+    cy.wait(500);
     cy.get("h1").should("have.text", "Profile");
     cy.get("#name").should("have.value", "Bob Test");
     cy.get("#email").should("have.value", "bobtest@email.com");
@@ -62,7 +62,7 @@ context("Notification", () => {
     cy.get("#email").type("bobtest@email.com");
     cy.get("#password").type("Red123456!!!");
     cy.get("#log-in").click();
-    cy.wait(1500);
+    cy.wait(500);
     cy.get("#nav-login").should("not.exist");
     cy.get("#search").should("be.visible");
     cy.get("#nav-profile").click();
@@ -72,22 +72,22 @@ context("Notification", () => {
     cy.get("#edit-name").type("Cool Bob");
     cy.get("#edit-confirm").click();
 
-    cy.wait(1500);
+    cy.wait(500);
 
     cy.get("h1").should("have.text", "Profile");
-    cy.get("#notification-text").should(
+    cy.get("#notification").should(
       "have.text",
       "Profile information updated successfully."
     );
     cy.wait(5000);
-    cy.get("#notification-text").should("not.exist");
+    cy.get("#notification").should("not.exist");
 
     // * Reset to normal data (Cleanup)
     cy.get("#edit").click();
     cy.get("#edit-name").clear();
     cy.get("#edit-name").type("Bob Test");
     cy.get("#edit-confirm").click();
-    cy.wait(1500);
+    cy.wait(500);
     cy.get("h1").should("have.text", "Profile");
     cy.get("#name").should("have.value", "Bob Test");
     cy.get("#email").should("have.value", "bobtest@email.com");

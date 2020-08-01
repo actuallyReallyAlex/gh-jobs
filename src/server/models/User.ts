@@ -79,17 +79,7 @@ const userSchema = new mongoose.Schema(
     },
     savedJobs: [
       {
-        company: String,
-        company_logo: String,
-        company_url: String,
-        created_at: String,
-        description: String,
-        how_to_apply: String,
-        id: String,
-        location: String,
-        title: String,
-        type: { type: String },
-        url: String,
+        type: String,
       },
     ],
     tokens: [

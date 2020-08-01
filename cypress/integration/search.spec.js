@@ -25,13 +25,13 @@ context("Search", () => {
   });
 
   it("Should search correctly", () => {
-    cy.get(".jobcard__container").then(($jobs) => {
+    cy.get('[data-cy="job-container"]').then(($jobs) => {
       assert.equal($jobs.length, 5);
     });
     cy.get("#search").type("developer");
     cy.get("#search-submit").click();
     cy.wait(1000);
-    cy.get(".jobcard__container").then(($jobs) => {
+    cy.get('[data-cy="job-container"]').then(($jobs) => {
       assert.equal($jobs.length, 5);
     });
   });
@@ -45,10 +45,10 @@ context("Search", () => {
   });
 
   it("Should be able to submit form with enter key", () => {
-    cy.get(".orbit-spinner").should("not.be.visible");
+    cy.get('[data-cy="orbit-container"]').should("not.be.visible");
     cy.get("#search").type("developer");
     cy.get("#search").type("{enter}");
-    cy.get(".orbit-spinner").should("be.visible");
+    cy.get('[data-cy="orbit-container"]').should("be.visible");
   });
 });
 
