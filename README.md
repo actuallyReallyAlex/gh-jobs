@@ -58,8 +58,10 @@ View [my solution](https://devchallenges.io/solutions/Lwb0aAViU0LzUKL6kscT) on D
 - [react-dom](https://www.npmjs.com/package/react-dom) - A declarative, efficient, and flexible JavaScript library for building user interfaces.
 - [react-redux](https://react-redux.js.org/) - Official React bindings for Redux.
 - [react-router-dom](https://reactrouter.com/) - Declarative routing for React.
+- [react-toastify](https://fkhadra.github.io/react-toastify/) - React notification made easy 🚀!
 - [redux](https://redux.js.org/) - Predictable state container for JavaScript apps.
 - [redux-thunk](https://github.com/reduxjs/redux-thunk) - Thunk middleware for Redux.
+- [styled-components](https://styled-components.com/) - Visual primitives for the component age. Use the best bits of ES6 and CSS to style your apps without stress 💅.
 - [validator](https://github.com/validatorjs/validator.js) - String validation.
 
 ### DevDependencies
