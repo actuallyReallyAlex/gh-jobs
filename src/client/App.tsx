@@ -14,17 +14,19 @@ import ErrorFallback from "./components/ErrorFallback";
 import LoadingIndicator from "./components/LoadingIndicator";
 import Navigation from "./components/Navigation";
 
+import { setError } from "./redux/actions/application";
 import { initializeApplication } from "./redux/thunks";
 
 interface AppProps {
   handleInitializeApplication: () => void;
+  handleSetError: (error: Error, componentStack: string) => void;
 }
 
 /**
  * Application.
  */
 const App: React.SFC<AppProps> = (props: AppProps) => {
-  const { handleInitializeApplication } = props;
+  const { handleInitializeApplication, handleSetError } = props;
 
   React.useEffect(() => {
     handleInitializeApplication();
@@ -35,6 +37,12 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
       <div id="app">
         <ErrorBoundary
           FallbackComponent={ErrorFallback}
+          onError={(error: Error, componentStack: string) => {
+            handleSetError(
+              { message: error.message, name: error.name, stack: error.stack },
+              componentStack
+            );
+          }}
           onReset={() => handleInitializeApplication()}
         >
           <Navigation />
@@ -65,6 +73,8 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
 
 const mapDispatchToProps = (dispatch) => ({
   handleInitializeApplication: () => dispatch(initializeApplication()),
+  handleSetError: (error: Error, componentStack: string) =>
+    dispatch(setError(error, componentStack)),
 });
 
 export default connect(null, mapDispatchToProps)(App);

@@ -29,6 +29,7 @@ const ErrorFallback: React.SFC<ErrorFallbackProps> = (
       </p>
       <Button
         buttonStyle="primary"
+        id="try-again"
         label="Try again"
         onClick={() => resetErrorBoundary()}
         type="button"

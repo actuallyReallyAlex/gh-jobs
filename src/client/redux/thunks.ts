@@ -8,6 +8,8 @@ import {
   setTotalPages,
   setJobDetails,
   setError,
+  setFullTime,
+  setLocationSearch,
 } from "./actions/application";
 import {
   setConfirmPassword,
@@ -199,6 +201,14 @@ export const initializeApplication = (): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
   dispatch(displayNotification("", "default"));
   dispatch(setError(null, null));
+  dispatch(setCurrentJobs([]));
+  dispatch(setCurrentPage(1));
+  dispatch(setFullTime(false));
+  dispatch(setJobDetails(null));
+  dispatch(setJobs([]));
+  dispatch(setLocationSearch(""));
+  dispatch(setSearchValue(""));
+  dispatch(setTotalPages(1));
 
   // * Establish Job Data
   dispatch(getJobs());
