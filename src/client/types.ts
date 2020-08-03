@@ -30,7 +30,6 @@ export interface ApplicationState {
   currentJobs: Job[];
   currentPage: number;
   error: ApplicationError;
-  fakeError: boolean;
   fullTime: boolean;
   isLoading: boolean;
   jobDetails: Job;

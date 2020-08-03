@@ -14,27 +14,17 @@ import ErrorFallback from "./components/ErrorFallback";
 import LoadingIndicator from "./components/LoadingIndicator";
 import Navigation from "./components/Navigation";
 
-import { setFakeError } from "./redux/actions/application";
 import { initializeApplication } from "./redux/thunks";
 
-import { RootState } from "./types";
-
 interface AppProps {
-  fakeError: boolean;
   handleInitializeApplication: () => void;
-  handleSetFakeError: (fakeError: boolean) => void;
-}
-
-function Bomb() {
-  throw new Error("💥 CABOOM 💥");
-  return <div></div>;
 }
 
 /**
  * Application.
  */
 const App: React.SFC<AppProps> = (props: AppProps) => {
-  const { fakeError, handleInitializeApplication, handleSetFakeError } = props;
+  const { handleInitializeApplication } = props;
 
   React.useEffect(() => {
     handleInitializeApplication();
@@ -47,7 +37,6 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
           FallbackComponent={ErrorFallback}
           onReset={() => handleInitializeApplication()}
         >
-          <button onClick={() => handleSetFakeError(true)}>BOOM?</button>
           <Navigation />
           <Switch>
             <Route exact path="/">
@@ -66,7 +55,6 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
               <Profile />
             </Route>
           </Switch>
-          {fakeError && <Bomb />}
         </ErrorBoundary>
         <LoadingIndicator />
         <ToastContainer />
@@ -75,13 +63,8 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  fakeError: state.application.fakeError,
-});
-
 const mapDispatchToProps = (dispatch) => ({
   handleInitializeApplication: () => dispatch(initializeApplication()),
-  handleSetFakeError: (fakeError) => dispatch(setFakeError(fakeError)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);

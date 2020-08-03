@@ -8,7 +8,6 @@ import {
   setTotalPages,
   setJobDetails,
   setError,
-  setFakeError,
 } from "./actions/application";
 import {
   setConfirmPassword,
@@ -199,7 +198,6 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
 export const initializeApplication = (): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
   dispatch(displayNotification("", "default"));
-  dispatch(setFakeError(false));
   dispatch(setError(null, null));
 
   // * Establish Job Data
