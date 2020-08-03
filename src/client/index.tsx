@@ -9,10 +9,12 @@ import store from "./redux/store";
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 
-Sentry.init({
-  dsn:
-    "https://4af7dab133e64ef08765616e040118fe@o202486.ingest.sentry.io/5375872",
-});
+if (process.env.NODE_ENV !== "test") {
+  Sentry.init({
+    dsn:
+      "https://4af7dab133e64ef08765616e040118fe@o202486.ingest.sentry.io/5375872",
+  });
+}
 
 ReactDOM.render(
   <Provider store={store}>
