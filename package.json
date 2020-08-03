@@ -25,6 +25,7 @@
   "license": "",
   "dependencies": {
     "@sendgrid/mail": "^7.2.1",
+    "@sentry/react": "^5.20.1",
     "bcryptjs": "^2.4.3",
     "chalk": "^4.1.0",
     "cookie-parser": "^1.4.5",
