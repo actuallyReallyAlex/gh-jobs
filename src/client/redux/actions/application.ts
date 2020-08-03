@@ -32,9 +32,12 @@ export const setCurrentPage = (currentPage: number): ApplicationAction => ({
   payload: { currentPage },
 });
 
-export const setError = (error: Error): ApplicationAction => ({
+export const setError = (
+  error: Error,
+  componentStack: string
+): ApplicationAction => ({
   type: SET_ERROR,
-  payload: { error },
+  payload: { error, componentStack },
 });
 
 export const setFullTime = (fullTime: boolean): ApplicationAction => ({

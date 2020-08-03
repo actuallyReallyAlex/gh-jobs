@@ -52,18 +52,18 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
   return (
     <Router>
       <div id="app">
-        <Navigation />
         <ErrorBoundary
           FallbackComponent={ErrorFallback}
           onError={(error: Error, componentStack: string) => {
-            console.log({ error, componentStack });
+            // ? Do something?
           }}
           onReset={() => {
-            console.log("RESET APP");
+            // * Reset functionality
             // alert("RESET APP");
             // reset the state of your app so the error doesn't happen again
           }}
         >
+          <Navigation />
           <Switch>
             <Route exact path="/">
               <Search />

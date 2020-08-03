@@ -21,10 +21,15 @@ export interface ApplicationAction {
   payload: any;
 }
 
+export interface ApplicationError {
+  error: Error;
+  componentStack: string;
+}
+
 export interface ApplicationState {
   currentJobs: Job[];
   currentPage: number;
-  error: Error;
+  error: ApplicationError;
   fullTime: boolean;
   isLoading: boolean;
   jobDetails: Job;

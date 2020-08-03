@@ -68,9 +68,25 @@ const reducer = (
         notificationType,
       };
     }
+    case SET_ERROR: {
+      if (!action.payload.error && !action.payload.componentStack) {
+        return { ...state, error: null };
+      }
+
+      return {
+        ...state,
+        error: {
+          error: {
+            message: action.payload.error.message,
+            name: action.payload.error.name,
+            stack: action.payload.error.stack,
+          },
+          componentStack: action.payload.componentStack,
+        },
+      };
+    }
     case SET_CURRENT_JOBS:
     case SET_CURRENT_PAGE:
-    case SET_ERROR:
     case SET_FULL_TIME:
     case SET_IS_LOADING:
     case SET_JOB_DETAILS:
