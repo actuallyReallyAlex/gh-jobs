@@ -3,6 +3,7 @@ import {
   SET_CURRENT_JOBS,
   SET_CURRENT_PAGE,
   SET_ERROR,
+  SET_FAKE_ERROR,
   SET_FULL_TIME,
   SET_IS_LOADING,
   SET_JOB_DETAILS,
@@ -38,6 +39,11 @@ export const setError = (
 ): ApplicationAction => ({
   type: SET_ERROR,
   payload: { error, componentStack },
+});
+
+export const setFakeError = (fakeError: boolean): ApplicationAction => ({
+  type: SET_FAKE_ERROR,
+  payload: { fakeError },
 });
 
 export const setFullTime = (fullTime: boolean): ApplicationAction => ({

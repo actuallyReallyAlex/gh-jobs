@@ -14,16 +14,15 @@ import ErrorFallback from "./components/ErrorFallback";
 import LoadingIndicator from "./components/LoadingIndicator";
 import Navigation from "./components/Navigation";
 
+import { setFakeError } from "./redux/actions/application";
 import { initializeApplication } from "./redux/thunks";
 
-interface AppProps {
-  handleInitializeApplication: () => void;
-}
+import { RootState } from "./types";
 
-interface ErrorFallbackProps {
-  error;
-  componentStack;
-  resetErrorBoundary;
+interface AppProps {
+  fakeError: boolean;
+  handleInitializeApplication: () => void;
+  handleSetFakeError: (fakeError: boolean) => void;
 }
 
 function Bomb() {
@@ -35,18 +34,10 @@ function Bomb() {
  * Application.
  */
 const App: React.SFC<AppProps> = (props: AppProps) => {
-  const { handleInitializeApplication } = props;
-
-  const [boom, setBoom] = React.useState(false);
+  const { fakeError, handleInitializeApplication, handleSetFakeError } = props;
 
   React.useEffect(() => {
     handleInitializeApplication();
-  }, []);
-
-  React.useEffect(() => {
-    setTimeout(() => {
-      setBoom(true);
-    }, 3000);
   }, []);
 
   return (
@@ -54,15 +45,9 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
       <div id="app">
         <ErrorBoundary
           FallbackComponent={ErrorFallback}
-          onError={(error: Error, componentStack: string) => {
-            // ? Do something?
-          }}
-          onReset={() => {
-            // * Reset functionality
-            // alert("RESET APP");
-            // reset the state of your app so the error doesn't happen again
-          }}
+          onReset={() => handleInitializeApplication()}
         >
+          <button onClick={() => handleSetFakeError(true)}>BOOM?</button>
           <Navigation />
           <Switch>
             <Route exact path="/">
@@ -81,7 +66,7 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
               <Profile />
             </Route>
           </Switch>
-          {boom && <Bomb />}
+          {fakeError && <Bomb />}
         </ErrorBoundary>
         <LoadingIndicator />
         <ToastContainer />
@@ -90,8 +75,13 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  handleInitializeApplication: () => dispatch(initializeApplication()),
+const mapStateToProps = (state: RootState) => ({
+  fakeError: state.application.fakeError,
 });
 
-export default connect(null, mapDispatchToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  handleInitializeApplication: () => dispatch(initializeApplication()),
+  handleSetFakeError: (fakeError) => dispatch(setFakeError(fakeError)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
