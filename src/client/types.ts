@@ -24,6 +24,7 @@ export interface ApplicationAction {
 export interface ApplicationState {
   currentJobs: Job[];
   currentPage: number;
+  error: Error;
   fullTime: boolean;
   isLoading: boolean;
   jobDetails: Job;

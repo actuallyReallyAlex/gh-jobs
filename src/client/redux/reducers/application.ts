@@ -4,6 +4,7 @@ import {
   DISPLAY_NOTIFICATION,
   SET_CURRENT_JOBS,
   SET_CURRENT_PAGE,
+  SET_ERROR,
   SET_FULL_TIME,
   SET_IS_LOADING,
   SET_JOB_DETAILS,
@@ -18,6 +19,7 @@ import { ApplicationAction, ApplicationState } from "../../types";
 export const initialState: ApplicationState = {
   currentJobs: [],
   currentPage: 1,
+  error: null,
   fullTime: false,
   isLoading: true,
   jobDetails: null,
@@ -68,6 +70,7 @@ const reducer = (
     }
     case SET_CURRENT_JOBS:
     case SET_CURRENT_PAGE:
+    case SET_ERROR:
     case SET_FULL_TIME:
     case SET_IS_LOADING:
     case SET_JOB_DETAILS:
