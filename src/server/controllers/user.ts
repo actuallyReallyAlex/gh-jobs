@@ -10,7 +10,10 @@ import User from "../models/User";
 
 import {
   AuthenticatedRequest,
+  EditHiddenJobsMethod,
   EditSavedJobsMethod,
+  GetHiddenJobsDetailsErrorResponse,
+  GetHiddenJobsDetailsSuccessResponse,
   GetSavedJobsDetailsErrorResponse,
   GetSavedJobsDetailsSuccessResponse,
   PatchSavedJobErrorResponse,
@@ -241,6 +244,49 @@ class UserController {
       }
     );
 
+    this.router.patch(
+      "/user/hiddenJobs",
+      auth,
+      async (
+        req: AuthenticatedRequest,
+        res: Response
+      ): Promise<
+        Response<PatchSavedJobErrorResponse | PatchSavedJobSuccessResponse>
+      > => {
+        try {
+          const method: EditHiddenJobsMethod = req.body.method;
+          const id: string = req.body.id;
+          const currentHiddenJobs: string[] = req.user.hiddenJobs;
+          let newJobs;
+
+          if (method !== "ADD" && method !== "REMOVE") {
+            // * Request is incorrect - error
+            // ! Should never happen
+            return res.status(400).send({ error: "Invalid request." });
+          }
+
+          if (method === "ADD") {
+            // * User is attempting to add a saved job
+            newJobs = [...currentHiddenJobs, id];
+          } else if (method === "REMOVE") {
+            // * User is attempting to remove a saved job
+            newJobs = currentHiddenJobs.filter(
+              (hiddenJobID: string) => hiddenJobID !== id
+            );
+          }
+          req.user.hiddenJobs = newJobs;
+          await req.user.save();
+          return res.send(req.user);
+        } catch (error) {
+          if (process.env.NODE_ENV !== "test") {
+            console.error(error);
+          }
+
+          return res.status(500).send({ error });
+        }
+      }
+    );
+
     this.router.get(
       "/user/savedJobsDetails",
       auth,
@@ -276,6 +322,51 @@ class UserController {
           }
 
           return res.send(savedJobsDetails);
+        } catch (error) {
+          if (process.env.NODE_ENV !== "test") {
+            console.error(error);
+          }
+          return res.status(500).send({ error });
+        }
+      }
+    );
+
+    this.router.get(
+      "/user/hiddenJobsDetails",
+      auth,
+      async (
+        req: AuthenticatedRequest,
+        res: Response
+      ): Promise<
+        Response<
+          | GetHiddenJobsDetailsErrorResponse
+          | GetHiddenJobsDetailsSuccessResponse
+        >
+      > => {
+        try {
+          const { hiddenJobs } = req.user;
+
+          const hiddenJobsDetails: Job[] = [];
+          let dbError = false;
+
+          await Promise.all(
+            hiddenJobs.map(async (id: string) => {
+              const job = await JobModel.findOne({ id });
+
+              if (!job) {
+                return (dbError = true);
+              }
+              return hiddenJobsDetails.push(job);
+            })
+          );
+
+          if (dbError) {
+            return res
+              .status(500)
+              .send({ error: "Error finding corresponding jobs in database." });
+          }
+
+          return res.send(hiddenJobsDetails);
         } catch (error) {
           if (process.env.NODE_ENV !== "test") {
             console.error(error);
