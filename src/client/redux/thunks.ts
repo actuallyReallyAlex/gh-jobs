@@ -31,6 +31,7 @@ import {
   setHiddenJobs,
   setHiddenJobsCurrentPage,
   setHiddenJobsTotalPages,
+  setHiddenJobsDetails,
 } from "./actions/user";
 import { fetchServerData, isError } from "../util";
 
@@ -42,6 +43,8 @@ import {
   AppThunk,
   DeleteProfileResponse,
   EditProfileResponse,
+  GetHiddenJobsDetailsErrorResponse,
+  GetHiddenJobsDetailsSuccessResponse,
   GetJobsErrorResponse,
   GetJobsSuccessResponse,
   GetSavedJobsDetailsErrorResponse,
@@ -623,6 +626,33 @@ export const getSavedJobsDetails = (): AppThunk => async (dispatch) => {
     }
 
     dispatch(setSavedJobsDetails(result));
+    dispatch(setIsLoading(false));
+  } catch (error) {
+    console.error(error);
+    dispatch(displayNotification(error, "error"));
+    dispatch(setIsLoading(false));
+  }
+};
+
+export const getHiddenJobsDetails = (): AppThunk => async (dispatch) => {
+  dispatch(setIsLoading(true));
+  dispatch(displayNotification("", "default"));
+
+  try {
+    const result:
+      | GetHiddenJobsDetailsErrorResponse
+      | GetHiddenJobsDetailsSuccessResponse = await fetchServerData(
+      `/user/hiddenJobsDetails`,
+      "GET"
+    );
+
+    if (isError(result)) {
+      dispatch(displayNotification(result.error, "error"));
+      dispatch(setIsLoading(false));
+      return;
+    }
+
+    dispatch(setHiddenJobsDetails(result));
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);

@@ -5,11 +5,13 @@ import {
   SET_EMAIL,
   SET_HIDDEN_JOBS,
   SET_HIDDEN_JOBS_CURRENT_PAGE,
+  SET_HIDDEN_JOBS_DETAILS,
   SET_HIDDEN_JOBS_TOTAL_PAGES,
   SET_IS_DELETING_PROFILE,
   SET_IS_EDITING_PROFILE,
   SET_IS_LOGGED_IN,
   SET_IS_RESETTING_PASSWORD,
+  SET_IS_VIEWING_HIDDEN_JOBS,
   SET_IS_VIEWING_SAVED_JOBS,
   SET_NAME,
   SET_PASSWORD,
@@ -56,6 +58,11 @@ export const setHiddenJobsCurrentPage = (
   payload: { hiddenJobsCurrentPage },
 });
 
+export const setHiddenJobsDetails = (hiddenJobsDetails: Job[]): UserAction => ({
+  type: SET_HIDDEN_JOBS_DETAILS,
+  payload: { hiddenJobsDetails },
+});
+
 export const setHiddenJobsTotalPages = (
   hiddenJobsTotalPages: number
 ): UserAction => ({
@@ -85,6 +92,13 @@ export const setIsResettingPassword = (
 ): UserAction => ({
   type: SET_IS_RESETTING_PASSWORD,
   payload: { isResettingPassword },
+});
+
+export const setIsViewingHiddenJobs = (
+  isViewingHiddenJobs: boolean
+): UserAction => ({
+  type: SET_IS_VIEWING_HIDDEN_JOBS,
+  payload: { isViewingHiddenJobs },
 });
 
 export const setIsViewingSavedJobs = (

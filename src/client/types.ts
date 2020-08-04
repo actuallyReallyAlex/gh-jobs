@@ -84,6 +84,12 @@ export interface GetJobsErrorResponse {
 
 export type GetJobsSuccessResponse = Job[];
 
+export interface GetHiddenJobsDetailsErrorResponse {
+  error: string;
+}
+
+export type GetHiddenJobsDetailsSuccessResponse = Job[];
+
 export interface GetSavedJobsDetailsErrorResponse {
   error: string;
 }
@@ -277,11 +283,13 @@ export interface UserState {
   email: string;
   hiddenJobs: string[];
   hiddenJobsCurrentPage: number;
+  hiddenJobsDetails: Job[];
   hiddenJobsTotalPages: number;
   isDeletingProfile: boolean;
   isEditingProfile: boolean;
   isLoggedIn: false;
   isResettingPassword: boolean;
+  isViewingHiddenJobs: boolean;
   isViewingSavedJobs: boolean;
   name: string;
   password: string;
