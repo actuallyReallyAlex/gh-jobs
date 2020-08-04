@@ -107,6 +107,7 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
             <>
               <StyledSavedButton
                 data-cy={jobIsSaved ? "selected" : "deselected"}
+                disabled={jobIsHidden}
                 id={jobIsSaved ? `remove-job-${job.id}` : `save-job-${job.id}`}
                 jobIsSaved={jobIsSaved}
                 onClick={
@@ -119,6 +120,7 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
               </StyledSavedButton>
               <StyledHideButton
                 data-cy={jobIsHidden ? "selected" : "deselected"}
+                disabled={jobIsSaved}
                 id={jobIsHidden ? `show-job-${job.id}` : `hide-job-${job.id}`}
                 jobIsHidden={jobIsHidden}
                 onClick={
