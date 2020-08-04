@@ -27,12 +27,15 @@ const ProfilePage = styled.div`
 `;
 
 interface ProfileFormProps {
+  isViewingHiddenJobs: boolean;
   isViewingSavedJobs: boolean;
 }
 
 const ProfileForm = styled.form<ProfileFormProps>`
-  max-width: ${(props) => (props.isViewingSavedJobs ? "800px" : "444px")};
-  width: ${(props) => (props.isViewingSavedJobs ? "100%" : "50%")};
+  max-width: ${(props) =>
+    props.isViewingSavedJobs || props.isViewingHiddenJobs ? "800px" : "444px"};
+  width: ${(props) =>
+    props.isViewingSavedJobs || props.isViewingHiddenJobs ? "100%" : "50%"};
 `;
 
 const ProfileTitleContainer = styled.div`
@@ -67,6 +70,10 @@ const ProfileTitleContainer = styled.div`
 `;
 
 const ProfileSavedContainer = styled.div`
+  width: 100%;
+`;
+
+const ProfileHiddenContainer = styled.div`
   width: 100%;
 `;
 
@@ -114,4 +121,5 @@ export {
   ProfileSavedContainer,
   ProfileNoResults,
   ProfileBackButton,
+  ProfileHiddenContainer,
 };

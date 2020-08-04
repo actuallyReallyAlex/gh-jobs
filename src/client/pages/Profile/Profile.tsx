@@ -58,6 +58,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
     return (
       <ProfilePage id="profile-page">
         <ProfileForm
+          isViewingHiddenJobs={isViewingHiddenJobs}
           isViewingSavedJobs={isViewingSavedJobs}
           onSubmit={(e) => e.preventDefault()}
         >
@@ -81,6 +82,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
           {!isResettingPassword &&
             !isEditingProfile &&
             !isDeletingProfile &&
+            !isViewingHiddenJobs &&
             !isViewingSavedJobs && <ProfileDisplay />}
         </ProfileForm>
       </ProfilePage>

@@ -5,12 +5,12 @@ import JobCard from "../JobCard";
 import Pagination from "../Pagination";
 
 import {
-  ProfileSavedContainer,
+  ProfileHiddenContainer,
   ProfileNoResults,
   ProfileBackButton,
 } from "./Profile-styled";
 
-import { setIsViewingSavedJobs } from "../../redux/actions/user";
+import { setIsViewingHiddenJobs } from "../../redux/actions/user";
 import { getHiddenJobsDetails } from "../../redux/thunks";
 
 import { RootState, Job } from "../../types";
@@ -54,7 +54,7 @@ const ProfileHiddenJobs: React.SFC<ProfileHiddenJobsProps> = (
         <i className="material-icons">west</i>
         <span>Back to profile</span>
       </ProfileBackButton>
-      <ProfileSavedContainer>
+      <ProfileHiddenContainer>
         {jobsOnPage &&
           jobsOnPage.map((job: Job) => <JobCard job={job} key={job.id} />)}
         {jobsOnPage.length > 0 && (
@@ -68,7 +68,7 @@ const ProfileHiddenJobs: React.SFC<ProfileHiddenJobsProps> = (
             No results. Please modify your search and try again.
           </ProfileNoResults>
         )}
-      </ProfileSavedContainer>
+      </ProfileHiddenContainer>
     </>
   );
 };
@@ -80,7 +80,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleBackToProfile: () => dispatch(setIsViewingSavedJobs(false)),
+  handleBackToProfile: () => dispatch(setIsViewingHiddenJobs(false)),
   handleGetHiddenJobsDetails: () => dispatch(getHiddenJobsDetails()),
 });
 
