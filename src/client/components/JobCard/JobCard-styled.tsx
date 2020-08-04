@@ -114,6 +114,23 @@ const StyledSavedButton = styled.button<SavedButtonProps>`
   }
 `;
 
+interface HideButtonProps {
+  jobIsHidden: boolean;
+}
+
+const StyledHideButton = styled.button<HideButtonProps>`
+  background: transparent;
+  border: none;
+  color: ${(props) => (props.jobIsHidden ? "#ff1e1e" : "#b9bdcf")};
+  margin: 0;
+  padding: 0;
+
+  &:hover {
+    color: #ff1e1e;
+    cursor: pointer;
+  }
+`;
+
 const StyledInfoContainer = styled.div`
   align-self: flex-end;
   display: flex;
@@ -210,4 +227,5 @@ export {
   StyledInfoContainer,
   StyledLocationContainer,
   StyledCreatedContainer,
+  StyledHideButton,
 };

@@ -50,6 +50,7 @@ class UserController {
 
           const newUser = new User({
             email: req.body.email,
+            hiddenJobs: [],
             name: req.body.name,
             password: req.body.password,
             savedJobs: [],

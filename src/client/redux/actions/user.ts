@@ -3,6 +3,9 @@ import {
   SET_EDIT_EMAIL,
   SET_EDIT_NAME,
   SET_EMAIL,
+  SET_HIDDEN_JOBS,
+  SET_HIDDEN_JOBS_CURRENT_PAGE,
+  SET_HIDDEN_JOBS_TOTAL_PAGES,
   SET_IS_DELETING_PROFILE,
   SET_IS_EDITING_PROFILE,
   SET_IS_LOGGED_IN,
@@ -39,6 +42,25 @@ export const setEditName = (editName: string): UserAction => ({
 export const setEmail = (email: string): UserAction => ({
   type: SET_EMAIL,
   payload: { email },
+});
+
+export const setHiddenJobs = (hiddenJobs: string[]): UserAction => ({
+  type: SET_HIDDEN_JOBS,
+  payload: { hiddenJobs },
+});
+
+export const setHiddenJobsCurrentPage = (
+  hiddenJobsCurrentPage: number
+): UserAction => ({
+  type: SET_HIDDEN_JOBS_CURRENT_PAGE,
+  payload: { hiddenJobsCurrentPage },
+});
+
+export const setHiddenJobsTotalPages = (
+  hiddenJobsTotalPages: number
+): UserAction => ({
+  type: SET_HIDDEN_JOBS_TOTAL_PAGES,
+  payload: { hiddenJobsTotalPages },
 });
 
 export const setIsDeletingProfile = (

@@ -1,6 +1,21 @@
 import { Action } from "redux";
 import { ThunkAction } from "redux-thunk";
 
+export interface AddHiddenJobErrorResponse {
+  error: string;
+}
+
+export interface AddHiddenJobSuccessResponse {
+  createdAt: string;
+  email: string;
+  hiddenJobs: [];
+  name: string;
+  savedJobs: string[];
+  updatedAt: string;
+  __v: number;
+  _id: string;
+}
+
 export interface AddSavedJobErrorResponse {
   error: string;
 }
@@ -8,6 +23,7 @@ export interface AddSavedJobErrorResponse {
 export interface AddSavedJobSuccessResponse {
   createdAt: string;
   email: string;
+  hiddenJobs: [];
   name: string;
   savedJobs: string[];
   updatedAt: string;
@@ -177,6 +193,21 @@ export type NotificationType =
 
 export type PaginationNavigationType = "left" | "right";
 
+export interface RemoveHiddenJobErrorResponse {
+  error: string;
+}
+
+export interface RemoveHiddenJobSuccessResponse {
+  createdAt: string;
+  email: string;
+  hiddenJobs: string[];
+  name: string;
+  savedJobs: string[];
+  updatedAt: string;
+  __v: number;
+  _id: string;
+}
+
 export interface RemoveSavedJobErrorResponse {
   error: string;
 }
@@ -184,6 +215,7 @@ export interface RemoveSavedJobErrorResponse {
 export interface RemoveSavedJobSuccessResponse {
   createdAt: string;
   email: string;
+  hiddenJobs: string[];
   name: string;
   savedJobs: string[];
   updatedAt: string;
@@ -209,6 +241,7 @@ export interface ServerResponseError {
 export interface ServerResponseUser {
   createdAt: string;
   email: string;
+  hiddenJobs: string[];
   name: string;
   savedJobs: string[];
   updatedAt: string;
@@ -223,6 +256,7 @@ export interface SignupErrorResponse {
 export interface SignupSuccessResponse {
   createdAt: string;
   email: string;
+  hiddenJobs: string[];
   name: string;
   savedJobs: string[];
   updatedAt: string;
@@ -241,6 +275,9 @@ export interface UserState {
   editEmail: string;
   editName: string;
   email: string;
+  hiddenJobs: string[];
+  hiddenJobsCurrentPage: number;
+  hiddenJobsTotalPages: number;
   isDeletingProfile: boolean;
   isEditingProfile: boolean;
   isLoggedIn: false;
