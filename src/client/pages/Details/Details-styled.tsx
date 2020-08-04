@@ -133,38 +133,43 @@ const DetailsMainInnerTitleContainer = styled.div<
 `;
 
 interface DetailsSavedJobButtonProps {
+  disabled: boolean;
   jobIsSaved: boolean;
 }
 
 const DetailsSavedJobButton = styled.button<DetailsSavedJobButtonProps>`
   background: transparent;
   border: none;
-  color: ${(props) => (props.jobIsSaved ? "#1e86ff" : "#b9bdcf")};
+  color: ${(props) =>
+    props.jobIsSaved && !props.disabled ? "#1e86ff" : "#b9bdcf"};
   margin: 0;
   margin-left: 15px;
   padding: 0;
 
   :hover {
-    color: #1e86ff;
+    color: ${(props) => (!props.disabled ? "#1e86ff" : "#b9bdcf")};
+    cursor: ${(props) => (!props.disabled ? "pointer" : "not-allowed")};
     cursor: pointer;
   }
 `;
 
 interface DetailsHiddenJobButtonProps {
+  disabled: boolean;
   jobIsHidden: boolean;
 }
 
 const DetailsHiddenJobButton = styled.button<DetailsHiddenJobButtonProps>`
   background: transparent;
   border: none;
-  color: ${(props) => (props.jobIsHidden ? "#ff1e1e" : "#b9bdcf")};
+  color: ${(props) =>
+    props.jobIsHidden && !props.disabled ? "#ff1e1e" : "#b9bdcf"};
   margin: 0;
   margin-left: 15px;
   padding: 0;
 
   :hover {
-    color: #ff1e1e;
-    cursor: pointer;
+    color: ${(props) => (!props.disabled ? "#ff1e1e" : "#b9bdcf")};
+    cursor: ${(props) => (!props.disabled ? "pointer" : "not-allowed")};
   }
 `;
 

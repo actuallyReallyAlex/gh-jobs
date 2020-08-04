@@ -62,6 +62,7 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
 
   React.useEffect((): void => {
     window.scrollTo(0, 0);
+    console.log("HERE");
     handleGetJobDetails(id);
   }, []);
 
@@ -73,7 +74,7 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
       : false;
 
   const jobIsHidden =
-    hiddenJobs && hiddenJobs
+    hiddenJobs && jobDetails
       ? hiddenJobs.findIndex(
           (hiddenJobID: string) => hiddenJobID === jobDetails.id
         ) >= 0
@@ -138,6 +139,7 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
                     {isLoggedIn && (
                       <>
                         <DetailsSavedJobButton
+                          disabled={jobIsHidden}
                           id={
                             jobIsSaved
                               ? `remove-job-${jobDetails.id}`
@@ -153,6 +155,7 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
                           <i className="material-icons">bookmark</i>
                         </DetailsSavedJobButton>
                         <DetailsHiddenJobButton
+                          disabled={jobIsSaved}
                           id={
                             jobIsHidden
                               ? `show-job-${jobDetails.id}`

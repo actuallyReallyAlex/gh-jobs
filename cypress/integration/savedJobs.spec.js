@@ -96,7 +96,7 @@ context("Saved Jobs", () => {
     cy.get("#remove-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
   });
 
-  it.only("Should display currentPage as '1' when viewing savedJobs", () => {
+  it("Should display currentPage as '1' when viewing savedJobs", () => {
     // * Save 6 jobs
     cy.get("#save-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
     cy.get("#save-job-72de09f2-5bc6-489f-be90-3d38e505e20a").click();
