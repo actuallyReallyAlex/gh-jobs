@@ -129,20 +129,42 @@ const DetailsMainInnerTitleContainer = styled.div<
         margin-top: 4px;
       }
     }
+  }
+`;
 
-    button {
-      background: transparent;
-      border: none;
-      color: ${(props) => (props.jobIsSaved ? "#1e86ff" : "#b9bdcf")};
-      margin: 0;
-      margin-left: 15px;
-      padding: 0;
+interface DetailsSavedJobButtonProps {
+  jobIsSaved: boolean;
+}
 
-      :hover {
-        color: #1e86ff;
-        cursor: pointer;
-      }
-    }
+const DetailsSavedJobButton = styled.button<DetailsSavedJobButtonProps>`
+  background: transparent;
+  border: none;
+  color: ${(props) => (props.jobIsSaved ? "#1e86ff" : "#b9bdcf")};
+  margin: 0;
+  margin-left: 15px;
+  padding: 0;
+
+  :hover {
+    color: #1e86ff;
+    cursor: pointer;
+  }
+`;
+
+interface DetailsHiddenJobButtonProps {
+  jobIsHidden: boolean;
+}
+
+const DetailsHiddenJobButton = styled.button<DetailsHiddenJobButtonProps>`
+  background: transparent;
+  border: none;
+  color: ${(props) => (props.jobIsHidden ? "#ff1e1e" : "#b9bdcf")};
+  margin: 0;
+  margin-left: 15px;
+  padding: 0;
+
+  :hover {
+    color: #ff1e1e;
+    cursor: pointer;
   }
 `;
 
@@ -274,4 +296,6 @@ export {
   DetailsLogoContainer,
   DetailsCompanyRightContainer,
   DetailsContainerDescription,
+  DetailsHiddenJobButton,
+  DetailsSavedJobButton,
 };
