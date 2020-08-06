@@ -43,6 +43,7 @@ View [my solution](https://devchallenges.io/solutions/Lwb0aAViU0LzUKL6kscT) on D
 ### Dependencies
 
 - [@sendgrid/mail](https://github.com/sendgrid/sendgrid-nodejs) - The Official Twilio SendGrid Led, Community Driven Node.js API Library.
+- [@sentry/react](https://sentry.io/) - Official Sentry SDKs for Javascript.
 - [bcryptjs](https://github.com/dcodeIO/bcrypt.js) - Optimized bcrypt in plain JavaScript with zero dependencies.
 - [chalk](https://github.com/chalk/chalk) - Terminal string styling done right.
 - [cookie-parser](https://github.com/expressjs/cookie-parser) - Parse HTTP request cookies.
@@ -56,6 +57,7 @@ View [my solution](https://devchallenges.io/solutions/Lwb0aAViU0LzUKL6kscT) on D
 - [node-fetch](https://github.com/node-fetch/node-fetch) - A light-weight module that brings window.fetch to Node.js.
 - [react](https://reactjs.org/) - A declarative, efficient, and flexible JavaScript library for building user interfaces.
 - [react-dom](https://www.npmjs.com/package/react-dom) - A declarative, efficient, and flexible JavaScript library for building user interfaces.
+- [react-error-boundary](https://github.com/bvaughn/react-error-boundary) - Simple reusable React error boundary component.
 - [react-redux](https://react-redux.js.org/) - Official React bindings for Redux.
 - [react-router-dom](https://reactrouter.com/) - Declarative routing for React.
 - [react-toastify](https://fkhadra.github.io/react-toastify/) - React notification made easy 🚀!
