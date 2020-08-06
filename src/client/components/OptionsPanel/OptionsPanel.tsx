@@ -1,6 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
+import Button from "../Button";
 import Checkbox from "../Checkbox";
 import Input from "../Input";
 
@@ -64,6 +65,8 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
           value={location.name}
         />
       ))}
+
+      <Button buttonStyle="primary" label="Search" type="button" />
     </OptionsPanelContainer>
   );
 };
