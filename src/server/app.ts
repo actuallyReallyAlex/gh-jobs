@@ -75,9 +75,8 @@ class App {
 
     this.app.get("*", (req: Request, res: Response) => {
       console.log({ hostname: req.hostname });
-      if (req.hostname === "herokuapp") {
-        return res.status(308).redirect("https://www.githubjobs.io/");
-      }
+      console.log({ referrer: req.headers.referer });
+      // return res.status(301).redirect("https://www.githubjobs.io/");
       res.sendFile(path.join(__dirname, "../dist/index.html"));
     });
   }

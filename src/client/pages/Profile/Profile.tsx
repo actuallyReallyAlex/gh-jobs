@@ -6,6 +6,7 @@ import {
   ProfileDelete,
   ProfileDisplay,
   ProfileEdit,
+  ProfileHiddenJobs,
   ProfileReset,
   ProfileSavedJobs,
 } from "../../components/Profile";
@@ -23,6 +24,7 @@ export interface ProfileProps {
   isEditingProfile: boolean;
   isLoggedIn: boolean;
   isResettingPassword: boolean;
+  isViewingHiddenJobs: boolean;
   isViewingSavedJobs: boolean;
 }
 
@@ -32,6 +34,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
     isEditingProfile,
     isLoggedIn,
     isResettingPassword,
+    isViewingHiddenJobs,
     isViewingSavedJobs,
   } = props;
 
@@ -43,6 +46,8 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
     heading = "Edit Profile";
   } else if (isDeletingProfile) {
     heading = "Delete Profile";
+  } else if (isViewingHiddenJobs) {
+    heading = "Hidden Jobs";
   } else if (isViewingSavedJobs) {
     heading = "Saved Jobs";
   }
@@ -53,6 +58,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
     return (
       <ProfilePage id="profile-page">
         <ProfileForm
+          isViewingHiddenJobs={isViewingHiddenJobs}
           isViewingSavedJobs={isViewingSavedJobs}
           onSubmit={(e) => e.preventDefault()}
         >
@@ -69,11 +75,14 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
 
           {isDeletingProfile && <ProfileDelete />}
 
+          {isViewingHiddenJobs && <ProfileHiddenJobs />}
+
           {isViewingSavedJobs && <ProfileSavedJobs />}
 
           {!isResettingPassword &&
             !isEditingProfile &&
             !isDeletingProfile &&
+            !isViewingHiddenJobs &&
             !isViewingSavedJobs && <ProfileDisplay />}
         </ProfileForm>
       </ProfilePage>
@@ -86,6 +95,7 @@ const mapStateToProps = (state: RootState) => ({
   isEditingProfile: state.user.isEditingProfile,
   isLoggedIn: state.user.isLoggedIn,
   isResettingPassword: state.user.isResettingPassword,
+  isViewingHiddenJobs: state.user.isViewingHiddenJobs,
   isViewingSavedJobs: state.user.isViewingSavedJobs,
 });
 

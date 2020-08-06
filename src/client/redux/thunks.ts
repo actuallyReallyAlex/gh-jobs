@@ -7,6 +7,7 @@ import {
   setSearchValue,
   setTotalPages,
   setJobDetails,
+  setError,
 } from "./actions/application";
 import {
   setConfirmPassword,
@@ -16,6 +17,7 @@ import {
   setIsDeletingProfile,
   setIsEditingProfile,
   setIsLoggedIn,
+  setIsViewingHiddenJobs,
   setIsViewingSavedJobs,
   setIsResettingPassword,
   setName,
@@ -27,13 +29,23 @@ import {
   setSavedJobsCurrentPage,
   setSavedJobsDetails,
   setSavedJobsTotalPages,
+  setHiddenJobs,
+  setHiddenJobsCurrentPage,
+  setHiddenJobsTotalPages,
+  setHiddenJobsDetails,
 } from "./actions/user";
 import { fetchServerData, isError } from "../util";
 
 import {
+  AddHiddenJobErrorResponse,
+  AddHiddenJobSuccessResponse,
+  AddSavedJobErrorResponse,
+  AddSavedJobSuccessResponse,
   AppThunk,
   DeleteProfileResponse,
   EditProfileResponse,
+  GetHiddenJobsDetailsErrorResponse,
+  GetHiddenJobsDetailsSuccessResponse,
   GetJobsErrorResponse,
   GetJobsSuccessResponse,
   GetSavedJobsDetailsErrorResponse,
@@ -41,15 +53,15 @@ import {
   Job,
   LocationOption,
   LoginResponse,
+  RemoveHiddenJobErrorResponse,
+  RemoveHiddenJobSuccessResponse,
+  RemoveSavedJobErrorResponse,
+  RemoveSavedJobSuccessResponse,
   ResetPasswordResponse,
   RootState,
   ServerResponseUser,
-  AddSavedJobErrorResponse,
-  AddSavedJobSuccessResponse,
   SignupErrorResponse,
   SignupSuccessResponse,
-  RemoveSavedJobErrorResponse,
-  RemoveSavedJobSuccessResponse,
 } from "../types";
 
 export const getJobs = (): AppThunk => async (dispatch) => {
@@ -152,6 +164,7 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
   dispatch(setEmail(response.email));
   dispatch(setName(response.name));
   dispatch(setSavedJobs(response.savedJobs));
+  dispatch(setHiddenJobs(response.hiddenJobs));
 
   dispatch(setIsLoading(false));
 };
@@ -190,6 +203,7 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
   dispatch(setPassword(""));
   dispatch(setConfirmPassword(""));
   dispatch(setSavedJobs(result.savedJobs));
+  dispatch(setHiddenJobs(result.hiddenJobs));
 
   dispatch(setIsLoading(false));
 };
@@ -197,6 +211,12 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
 export const initializeApplication = (): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
   dispatch(displayNotification("", "default"));
+  dispatch(setError(null, null));
+  dispatch(setCurrentJobs([]));
+  dispatch(setCurrentPage(1));
+  dispatch(setJobDetails(null));
+  dispatch(setJobs([]));
+  dispatch(setTotalPages(1));
 
   // * Establish Job Data
   dispatch(getJobs());
@@ -213,6 +233,7 @@ export const checkAuthentication = (): AppThunk => async (dispatch) => {
       dispatch(setName(user.name));
       dispatch(setEmail(user.email));
       dispatch(setSavedJobs(user.savedJobs));
+      dispatch(setHiddenJobs(user.hiddenJobs));
       dispatch(setIsLoggedIn(true));
     }
   } catch (error) {
@@ -244,6 +265,7 @@ export const logOut = (): AppThunk => async (dispatch) => {
   dispatch(setName(""));
   dispatch(setPassword(""));
   dispatch(setSavedJobs([]));
+  dispatch(setHiddenJobs([]));
   dispatch(setIsLoggedIn(false));
 
   dispatch(setIsLoading(false));
@@ -271,6 +293,7 @@ export const logOutAll = (): AppThunk => async (dispatch) => {
   dispatch(setName(""));
   dispatch(setPassword(""));
   dispatch(setSavedJobs([]));
+  dispatch(setHiddenJobs([]));
   dispatch(setIsLoggedIn(false));
 
   dispatch(setIsLoading(false));
@@ -424,8 +447,41 @@ export const deleteProfile = (): AppThunk => async (dispatch) => {
     dispatch(setEmail(""));
     dispatch(setName(""));
     dispatch(setSavedJobs([]));
+    dispatch(setHiddenJobs([]));
     dispatch(setIsDeletingProfile(false));
     dispatch(setIsLoggedIn(false));
+    dispatch(setIsLoading(false));
+  } catch (error) {
+    console.error(error);
+    dispatch(displayNotification(error, "error"));
+    dispatch(setIsLoading(false));
+  }
+};
+
+export const addHiddenJob = (id: string): AppThunk => async (dispatch) => {
+  dispatch(setIsLoading(true));
+  try {
+    // TODO - Modify
+    const result:
+      | AddHiddenJobErrorResponse
+      | AddHiddenJobSuccessResponse = await fetchServerData(
+      "/user/hiddenJobs",
+      "PATCH",
+      JSON.stringify({ method: "ADD", id })
+    );
+
+    if (isError(result)) {
+      dispatch(displayNotification(result.error, "error"));
+      dispatch(setIsLoading(false));
+      return;
+    }
+
+    const { hiddenJobs } = result;
+
+    dispatch(setHiddenJobs(hiddenJobs));
+    dispatch(setHiddenJobsCurrentPage(1));
+    dispatch(setHiddenJobsTotalPages(Math.ceil(hiddenJobs.length / 5)));
+    dispatch(displayNotification("Job hidden successfully.", "success"));
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
@@ -466,6 +522,38 @@ export const addSavedJob = (id: string): AppThunk => async (dispatch) => {
   }
 };
 
+export const removeHiddenJob = (id: string): AppThunk => async (dispatch) => {
+  dispatch(setIsLoading(true));
+  try {
+    // TODO - Modify
+    const result:
+      | RemoveHiddenJobErrorResponse
+      | RemoveHiddenJobSuccessResponse = await fetchServerData(
+      "/user/hiddenJobs",
+      "PATCH",
+      JSON.stringify({ method: "REMOVE", id })
+    );
+
+    if (isError(result)) {
+      dispatch(displayNotification(result.error, "error"));
+      dispatch(setIsLoading(false));
+      return;
+    }
+
+    const { hiddenJobs } = result;
+
+    dispatch(setHiddenJobs(hiddenJobs));
+    dispatch(setHiddenJobsCurrentPage(1));
+    dispatch(setHiddenJobsTotalPages(Math.ceil(hiddenJobs.length / 5)));
+    dispatch(displayNotification("Job shown successfully.", "success"));
+    dispatch(setIsLoading(false));
+  } catch (error) {
+    console.error(error);
+    dispatch(displayNotification(error, "error"));
+    dispatch(setIsLoading(false));
+  }
+};
+
 export const removeSavedJob = (id: string): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
   try {
@@ -498,7 +586,14 @@ export const removeSavedJob = (id: string): AppThunk => async (dispatch) => {
   }
 };
 
+export const clickViewHiddenJobs = (): AppThunk => (dispatch) => {
+  dispatch(setCurrentPage(1));
+  dispatch(displayNotification("", "default"));
+  dispatch(setIsViewingHiddenJobs(true));
+};
+
 export const clickViewSavedJobs = (): AppThunk => (dispatch) => {
+  dispatch(setCurrentPage(1));
   dispatch(displayNotification("", "default"));
   dispatch(setIsViewingSavedJobs(true));
 };
@@ -544,6 +639,33 @@ export const getSavedJobsDetails = (): AppThunk => async (dispatch) => {
     }
 
     dispatch(setSavedJobsDetails(result));
+    dispatch(setIsLoading(false));
+  } catch (error) {
+    console.error(error);
+    dispatch(displayNotification(error, "error"));
+    dispatch(setIsLoading(false));
+  }
+};
+
+export const getHiddenJobsDetails = (): AppThunk => async (dispatch) => {
+  dispatch(setIsLoading(true));
+  dispatch(displayNotification("", "default"));
+
+  try {
+    const result:
+      | GetHiddenJobsDetailsErrorResponse
+      | GetHiddenJobsDetailsSuccessResponse = await fetchServerData(
+      `/user/hiddenJobsDetails`,
+      "GET"
+    );
+
+    if (isError(result)) {
+      dispatch(displayNotification(result.error, "error"));
+      dispatch(setIsLoading(false));
+      return;
+    }
+
+    dispatch(setHiddenJobsDetails(result));
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);

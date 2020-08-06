@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2020-08-06
+
+### 🙈 Hide Job
+
+### Added
+
+- React Error Boundary - [#53](https://github.com/alexlee-dev/gh-jobs/issues/53)
+- Ability to Hide a Job - [#63](https://github.com/alexlee-dev/gh-jobs/issues/63)
+- Added better meta data - [#54](https://github.com/alexlee-dev/gh-jobs/issues/54)
+
+### Changed
+
+- Error Fallback reset sends to `/` - [#64](https://github.com/alexlee-dev/gh-jobs/issues/64)
+- Updated Cypress to `v4.12.1` - [#65](https://github.com/alexlee-dev/gh-jobs/issues/65)
+- Directly access `/signup/`, `/login/`, and `/jobs/:id` pages from a hard url - [#30](https://github.com/alexlee-dev/gh-jobs/issues/30)
+
+### Removed
+
+### Fixed
+
+- Fixed `currentPage` not being reset in between `jobs` and `savedJobs` - [#59](https://github.com/alexlee-dev/gh-jobs/issues/59)
+
 ## [1.2.0] - 2020-07-31
 
 ### 💻 Jobs on DB

@@ -3,10 +3,15 @@ import {
   SET_EDIT_EMAIL,
   SET_EDIT_NAME,
   SET_EMAIL,
+  SET_HIDDEN_JOBS,
+  SET_HIDDEN_JOBS_CURRENT_PAGE,
+  SET_HIDDEN_JOBS_DETAILS,
+  SET_HIDDEN_JOBS_TOTAL_PAGES,
   SET_IS_DELETING_PROFILE,
   SET_IS_EDITING_PROFILE,
   SET_IS_LOGGED_IN,
   SET_IS_RESETTING_PASSWORD,
+  SET_IS_VIEWING_HIDDEN_JOBS,
   SET_IS_VIEWING_SAVED_JOBS,
   SET_NAME,
   SET_PASSWORD,
@@ -26,10 +31,15 @@ export const initialState: UserState = {
   editEmail: "",
   editName: "",
   email: "",
+  hiddenJobs: [],
+  hiddenJobsCurrentPage: 1,
+  hiddenJobsDetails: [],
+  hiddenJobsTotalPages: 1,
   isDeletingProfile: false,
   isEditingProfile: false,
   isLoggedIn: false,
   isResettingPassword: false,
+  isViewingHiddenJobs: false,
   isViewingSavedJobs: false,
   name: "",
   password: "",
@@ -56,10 +66,15 @@ const reducer = (state = initialState, action: UserAction): UserState => {
     case SET_EDIT_EMAIL:
     case SET_EDIT_NAME:
     case SET_EMAIL:
+    case SET_HIDDEN_JOBS:
+    case SET_HIDDEN_JOBS_CURRENT_PAGE:
+    case SET_HIDDEN_JOBS_DETAILS:
+    case SET_HIDDEN_JOBS_TOTAL_PAGES:
     case SET_IS_DELETING_PROFILE:
     case SET_IS_EDITING_PROFILE:
     case SET_IS_LOGGED_IN:
     case SET_IS_RESETTING_PASSWORD:
+    case SET_IS_VIEWING_HIDDEN_JOBS:
     case SET_IS_VIEWING_SAVED_JOBS:
     case SET_NAME:
     case SET_PASSWORD:

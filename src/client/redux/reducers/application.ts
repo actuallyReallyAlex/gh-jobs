@@ -4,6 +4,7 @@ import {
   DISPLAY_NOTIFICATION,
   SET_CURRENT_JOBS,
   SET_CURRENT_PAGE,
+  SET_ERROR,
   SET_FULL_TIME,
   SET_IS_LOADING,
   SET_JOB_DETAILS,
@@ -18,6 +19,7 @@ import { ApplicationAction, ApplicationState } from "../../types";
 export const initialState: ApplicationState = {
   currentJobs: [],
   currentPage: 1,
+  error: null,
   fullTime: false,
   isLoading: true,
   jobDetails: null,
@@ -64,6 +66,23 @@ const reducer = (
         ...state,
         notificationMessage,
         notificationType,
+      };
+    }
+    case SET_ERROR: {
+      if (!action.payload.error && !action.payload.componentStack) {
+        return { ...state, error: null };
+      }
+
+      return {
+        ...state,
+        error: {
+          error: {
+            message: action.payload.error.message,
+            name: action.payload.error.name,
+            stack: action.payload.error.stack,
+          },
+          componentStack: action.payload.componentStack,
+        },
       };
     }
     case SET_CURRENT_JOBS:

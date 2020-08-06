@@ -3,10 +3,15 @@ import {
   SET_EDIT_EMAIL,
   SET_EDIT_NAME,
   SET_EMAIL,
+  SET_HIDDEN_JOBS,
+  SET_HIDDEN_JOBS_CURRENT_PAGE,
+  SET_HIDDEN_JOBS_DETAILS,
+  SET_HIDDEN_JOBS_TOTAL_PAGES,
   SET_IS_DELETING_PROFILE,
   SET_IS_EDITING_PROFILE,
   SET_IS_LOGGED_IN,
   SET_IS_RESETTING_PASSWORD,
+  SET_IS_VIEWING_HIDDEN_JOBS,
   SET_IS_VIEWING_SAVED_JOBS,
   SET_NAME,
   SET_PASSWORD,
@@ -41,6 +46,30 @@ export const setEmail = (email: string): UserAction => ({
   payload: { email },
 });
 
+export const setHiddenJobs = (hiddenJobs: string[]): UserAction => ({
+  type: SET_HIDDEN_JOBS,
+  payload: { hiddenJobs },
+});
+
+export const setHiddenJobsCurrentPage = (
+  hiddenJobsCurrentPage: number
+): UserAction => ({
+  type: SET_HIDDEN_JOBS_CURRENT_PAGE,
+  payload: { hiddenJobsCurrentPage },
+});
+
+export const setHiddenJobsDetails = (hiddenJobsDetails: Job[]): UserAction => ({
+  type: SET_HIDDEN_JOBS_DETAILS,
+  payload: { hiddenJobsDetails },
+});
+
+export const setHiddenJobsTotalPages = (
+  hiddenJobsTotalPages: number
+): UserAction => ({
+  type: SET_HIDDEN_JOBS_TOTAL_PAGES,
+  payload: { hiddenJobsTotalPages },
+});
+
 export const setIsDeletingProfile = (
   isDeletingProfile: boolean
 ): UserAction => ({
@@ -63,6 +92,13 @@ export const setIsResettingPassword = (
 ): UserAction => ({
   type: SET_IS_RESETTING_PASSWORD,
   payload: { isResettingPassword },
+});
+
+export const setIsViewingHiddenJobs = (
+  isViewingHiddenJobs: boolean
+): UserAction => ({
+  type: SET_IS_VIEWING_HIDDEN_JOBS,
+  payload: { isViewingHiddenJobs },
 });
 
 export const setIsViewingSavedJobs = (

@@ -2,6 +2,7 @@ import {
   DISPLAY_NOTIFICATION,
   SET_CURRENT_JOBS,
   SET_CURRENT_PAGE,
+  SET_ERROR,
   SET_FULL_TIME,
   SET_IS_LOADING,
   SET_JOB_DETAILS,
@@ -29,6 +30,14 @@ export const setCurrentJobs = (currentJobs: Job[]): ApplicationAction => ({
 export const setCurrentPage = (currentPage: number): ApplicationAction => ({
   type: SET_CURRENT_PAGE,
   payload: { currentPage },
+});
+
+export const setError = (
+  error: Error,
+  componentStack: string
+): ApplicationAction => ({
+  type: SET_ERROR,
+  payload: { error, componentStack },
 });
 
 export const setFullTime = (fullTime: boolean): ApplicationAction => ({

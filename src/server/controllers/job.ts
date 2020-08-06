@@ -1,8 +1,9 @@
 import endOfToday from "date-fns/endOfToday";
-import express, { Request, Response, Router } from "express";
 import isWithinInterval from "date-fns/isWithinInterval";
-import nfetch from "node-fetch";
 import startOfToday from "date-fns/startOfToday";
+import express, { Request, Response, Router } from "express";
+import nfetch from "node-fetch";
+import path from "path";
 
 import JobModel from "../models/Job";
 
@@ -204,9 +205,13 @@ class JobController {
       async (
         req: Request,
         res: Response
-      ): Promise<
-        Response<GetJobDetailsErrorResponse | GetJobDetailsSuccessResponse>
-      > => {
+      ): Promise<Response<
+        GetJobDetailsErrorResponse | GetJobDetailsSuccessResponse
+      > | void> => {
+        if (!req.headers.referer) {
+          return res.sendFile(path.join(__dirname, "../../dist/index.html"));
+        }
+
         try {
           const { id } = req.params;
           const jobDetails = await JobModel.findOne({ id });

@@ -18,16 +18,27 @@ import {
   DetailsLogoContainer,
   DetailsCompanyRightContainer,
   DetailsContainerDescription,
+  DetailsSavedJobButton,
+  DetailsHiddenJobButton,
 } from "./Details-styled";
 
-import { addSavedJob, getJobDetails, removeSavedJob } from "../../redux/thunks";
+import {
+  addSavedJob,
+  getJobDetails,
+  removeSavedJob,
+  addHiddenJob,
+  removeHiddenJob,
+} from "../../redux/thunks";
 
 import { Job, RootState } from "../../types";
 
 interface DetailsProps {
   handleAddSavedJob: (id: string) => void;
+  handleHideJob: (id: string) => void;
   handleGetJobDetails: (id: string) => void;
   handleRemoveSavedJob: (id: string) => void;
+  handleShowJob: (id: string) => void;
+  hiddenJobs: string[];
   jobDetails: Job;
   isLoggedIn: boolean;
   savedJobs: string[];
@@ -37,8 +48,11 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
   const { id } = useParams();
   const {
     handleAddSavedJob,
+    handleHideJob,
     handleGetJobDetails,
     handleRemoveSavedJob,
+    handleShowJob,
+    hiddenJobs,
     jobDetails,
     isLoggedIn,
     savedJobs,
@@ -48,6 +62,7 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
 
   React.useEffect((): void => {
     window.scrollTo(0, 0);
+    console.log("HERE");
     handleGetJobDetails(id);
   }, []);
 
@@ -55,6 +70,13 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
     savedJobs && jobDetails
       ? savedJobs.findIndex(
           (savedJobID: string) => savedJobID === jobDetails.id
+        ) >= 0
+      : false;
+
+  const jobIsHidden =
+    hiddenJobs && jobDetails
+      ? hiddenJobs.findIndex(
+          (hiddenJobID: string) => hiddenJobID === jobDetails.id
         ) >= 0
       : false;
 
@@ -115,20 +137,40 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
                       <p id="full-time-indicator">Full Time</p>
                     )}
                     {isLoggedIn && (
-                      <button
-                        id={
-                          jobIsSaved
-                            ? `remove-job-${jobDetails.id}`
-                            : `save-job-${jobDetails.id}`
-                        }
-                        onClick={
-                          jobIsSaved
-                            ? () => handleRemoveSavedJob(jobDetails.id)
-                            : () => handleAddSavedJob(jobDetails.id)
-                        }
-                      >
-                        <i className="material-icons">bookmark</i>
-                      </button>
+                      <>
+                        <DetailsSavedJobButton
+                          disabled={jobIsHidden}
+                          id={
+                            jobIsSaved
+                              ? `remove-job-${jobDetails.id}`
+                              : `save-job-${jobDetails.id}`
+                          }
+                          jobIsSaved={jobIsSaved}
+                          onClick={
+                            jobIsSaved
+                              ? () => handleRemoveSavedJob(jobDetails.id)
+                              : () => handleAddSavedJob(jobDetails.id)
+                          }
+                        >
+                          <i className="material-icons">bookmark</i>
+                        </DetailsSavedJobButton>
+                        <DetailsHiddenJobButton
+                          disabled={jobIsSaved}
+                          id={
+                            jobIsHidden
+                              ? `show-job-${jobDetails.id}`
+                              : `hide-job-${jobDetails.id}`
+                          }
+                          jobIsHidden={jobIsHidden}
+                          onClick={
+                            jobIsHidden
+                              ? () => handleShowJob(jobDetails.id)
+                              : () => handleHideJob(jobDetails.id)
+                          }
+                        >
+                          <i className="material-icons">block</i>
+                        </DetailsHiddenJobButton>
+                      </>
                     )}
                   </div>
                 </DetailsMainInnerTitleContainer>
@@ -195,6 +237,7 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
+  hiddenJobs: state.user.hiddenJobs,
   isLoggedIn: state.user.isLoggedIn,
   jobDetails: state.application.jobDetails,
   savedJobs: state.user.savedJobs,
@@ -202,8 +245,10 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleAddSavedJob: (id: string) => dispatch(addSavedJob(id)),
+  handleHideJob: (id: string) => dispatch(addHiddenJob(id)),
   handleGetJobDetails: (id: string) => dispatch(getJobDetails(id)),
   handleRemoveSavedJob: (id: string) => dispatch(removeSavedJob(id)),
+  handleShowJob: (id: string) => dispatch(removeHiddenJob(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Details);

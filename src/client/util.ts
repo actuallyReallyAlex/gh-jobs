@@ -1,3 +1,5 @@
+import { createBrowserHistory } from "history";
+
 import {
   RequestMethod,
   GetJobDetailsErrorResponse,
@@ -95,3 +97,5 @@ export const isError = (
 ): result is GetJobsErrorResponse => {
   return (result as GetJobsErrorResponse).error !== undefined;
 };
+
+export const history = createBrowserHistory();

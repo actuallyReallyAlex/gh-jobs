@@ -11,6 +11,7 @@ import { setIsResettingPassword } from "../../redux/actions/user";
 import {
   clickEditProfile,
   clickDeleteProfile,
+  clickViewHiddenJobs,
   clickViewSavedJobs,
   logOut,
   logOutAll,
@@ -23,10 +24,12 @@ export interface ProfileDisplayProps {
   handleClearFormError: () => void;
   handleClickDeleteProfile: () => void;
   handleClickEditProfile: () => void;
+  handleClickViewHiddenJobs: () => void;
   handleClickViewSavedJobs: () => void;
   handleLogOut: () => void;
   handleLogOutAll: () => void;
   handleSetIsResettingPassword: (isResettingPassword: boolean) => void;
+  hiddenJobs: string[];
   name: string;
   savedJobs: string[];
 }
@@ -39,10 +42,12 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
     handleClearFormError,
     handleClickDeleteProfile,
     handleClickEditProfile,
+    handleClickViewHiddenJobs,
     handleClickViewSavedJobs,
     handleLogOut,
     handleLogOutAll,
     handleSetIsResettingPassword,
+    hiddenJobs,
     name,
     savedJobs,
   } = props;
@@ -74,6 +79,17 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
           id="edit"
           label="Edit profile"
           onClick={() => handleClickEditProfile()}
+          type="button"
+        />
+      </ProfileActionsContainer>
+
+      <ProfileActionsContainer>
+        <Button
+          buttonStyle="secondary"
+          disabled={hiddenJobs.length === 0}
+          id="view-hidden-jobs"
+          label="View hidden jobs"
+          onClick={() => handleClickViewHiddenJobs()}
           type="button"
         />
         <Button
@@ -128,6 +144,7 @@ const ProfileDisplay: React.SFC<ProfileDisplayProps> = (
 
 const mapStateToProps = (state: RootState) => ({
   email: state.user.email,
+  hiddenJobs: state.user.hiddenJobs,
   name: state.user.name,
   savedJobs: state.user.savedJobs,
 });
@@ -136,6 +153,7 @@ const mapDispatchToProps = (dispatch) => ({
   handleClearFormError: () => dispatch(displayNotification("", "default")),
   handleClickDeleteProfile: () => dispatch(clickDeleteProfile()),
   handleClickEditProfile: () => dispatch(clickEditProfile()),
+  handleClickViewHiddenJobs: () => dispatch(clickViewHiddenJobs()),
   handleClickViewSavedJobs: () => dispatch(clickViewSavedJobs()),
   handleLogOut: () => dispatch(logOut()),
   handleLogOutAll: () => dispatch(logOutAll()),

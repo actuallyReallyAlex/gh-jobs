@@ -129,20 +129,47 @@ const DetailsMainInnerTitleContainer = styled.div<
         margin-top: 4px;
       }
     }
+  }
+`;
 
-    button {
-      background: transparent;
-      border: none;
-      color: ${(props) => (props.jobIsSaved ? "#1e86ff" : "#b9bdcf")};
-      margin: 0;
-      margin-left: 15px;
-      padding: 0;
+interface DetailsSavedJobButtonProps {
+  disabled: boolean;
+  jobIsSaved: boolean;
+}
 
-      :hover {
-        color: #1e86ff;
-        cursor: pointer;
-      }
-    }
+const DetailsSavedJobButton = styled.button<DetailsSavedJobButtonProps>`
+  background: transparent;
+  border: none;
+  color: ${(props) =>
+    props.jobIsSaved && !props.disabled ? "#1e86ff" : "#b9bdcf"};
+  margin: 0;
+  margin-left: 15px;
+  padding: 0;
+
+  :hover {
+    color: ${(props) => (!props.disabled ? "#1e86ff" : "#b9bdcf")};
+    cursor: ${(props) => (!props.disabled ? "pointer" : "not-allowed")};
+    cursor: pointer;
+  }
+`;
+
+interface DetailsHiddenJobButtonProps {
+  disabled: boolean;
+  jobIsHidden: boolean;
+}
+
+const DetailsHiddenJobButton = styled.button<DetailsHiddenJobButtonProps>`
+  background: transparent;
+  border: none;
+  color: ${(props) =>
+    props.jobIsHidden && !props.disabled ? "#ff1e1e" : "#b9bdcf"};
+  margin: 0;
+  margin-left: 15px;
+  padding: 0;
+
+  :hover {
+    color: ${(props) => (!props.disabled ? "#ff1e1e" : "#b9bdcf")};
+    cursor: ${(props) => (!props.disabled ? "pointer" : "not-allowed")};
   }
 `;
 
@@ -274,4 +301,6 @@ export {
   DetailsLogoContainer,
   DetailsCompanyRightContainer,
   DetailsContainerDescription,
+  DetailsHiddenJobButton,
+  DetailsSavedJobButton,
 };

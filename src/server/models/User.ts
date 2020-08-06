@@ -23,6 +23,11 @@ const userSchema = new mongoose.Schema(
         return true;
       },
     },
+    hiddenJobs: [
+      {
+        type: String,
+      },
+    ],
     name: {
       required: false,
       trim: true,

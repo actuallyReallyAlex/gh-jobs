@@ -18,9 +18,15 @@ import {
   StyledInfoContainer,
   StyledLocationContainer,
   StyledCreatedContainer,
+  StyledHideButton,
 } from "./JobCard-styled";
 
-import { addSavedJob, removeSavedJob } from "../../redux/thunks";
+import {
+  addHiddenJob,
+  addSavedJob,
+  removeHiddenJob,
+  removeSavedJob,
+} from "../../redux/thunks";
 
 import { Job, RootState } from "../../types";
 import { setJobDetails } from "../../redux/actions/application";
@@ -28,7 +34,10 @@ import { setJobDetails } from "../../redux/actions/application";
 export interface JobCardProps {
   handleAddSavedJob: (id: string) => void;
   handleClearJobDetails: () => void;
+  handleHideJob: (id: string) => void;
   handleRemoveSavedJob: (id: string) => void;
+  handleShowJob: (id: string) => void;
+  hiddenJobs: string[];
   isLoggedIn: boolean;
   job: Job;
   savedJobs: string[];
@@ -38,7 +47,10 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
   const {
     handleAddSavedJob,
     handleClearJobDetails,
+    handleHideJob,
     handleRemoveSavedJob,
+    handleShowJob,
+    hiddenJobs,
     isLoggedIn,
     job,
     savedJobs,
@@ -50,6 +62,10 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
 
   const jobIsSaved = savedJobs
     ? savedJobs.findIndex((savedJobID: string) => savedJobID === job.id) >= 0
+    : false;
+
+  const jobIsHidden = hiddenJobs
+    ? hiddenJobs.findIndex((hidenJobID: string) => hidenJobID === job.id) >= 0
     : false;
 
   return (
@@ -88,18 +104,34 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
       <StyledRightContainer>
         <StyledActions>
           {isLoggedIn && (
-            <StyledSavedButton
-              data-cy={jobIsSaved ? "selected" : "deselected"}
-              id={jobIsSaved ? `remove-job-${job.id}` : `save-job-${job.id}`}
-              jobIsSaved={jobIsSaved}
-              onClick={
-                jobIsSaved
-                  ? () => handleRemoveSavedJob(job.id)
-                  : () => handleAddSavedJob(job.id)
-              }
-            >
-              <i className="material-icons">bookmark</i>
-            </StyledSavedButton>
+            <>
+              <StyledSavedButton
+                data-cy={jobIsSaved ? "selected" : "deselected"}
+                disabled={jobIsHidden}
+                id={jobIsSaved ? `remove-job-${job.id}` : `save-job-${job.id}`}
+                jobIsSaved={jobIsSaved}
+                onClick={
+                  jobIsSaved
+                    ? () => handleRemoveSavedJob(job.id)
+                    : () => handleAddSavedJob(job.id)
+                }
+              >
+                <i className="material-icons">bookmark</i>
+              </StyledSavedButton>
+              <StyledHideButton
+                data-cy={jobIsHidden ? "selected" : "deselected"}
+                disabled={jobIsSaved}
+                id={jobIsHidden ? `show-job-${job.id}` : `hide-job-${job.id}`}
+                jobIsHidden={jobIsHidden}
+                onClick={
+                  jobIsHidden
+                    ? () => handleShowJob(job.id)
+                    : () => handleHideJob(job.id)
+                }
+              >
+                <i className="material-icons">block</i>
+              </StyledHideButton>
+            </>
           )}
         </StyledActions>
         <StyledInfoContainer>
@@ -122,6 +154,7 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
+  hiddenJobs: state.user.hiddenJobs,
   isLoggedIn: state.user.isLoggedIn,
   savedJobs: state.user.savedJobs,
 });
@@ -129,7 +162,9 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch) => ({
   handleAddSavedJob: (id: string) => dispatch(addSavedJob(id)),
   handleClearJobDetails: () => dispatch(setJobDetails(null)),
+  handleHideJob: (id: string) => dispatch(addHiddenJob(id)),
   handleRemoveSavedJob: (id: string) => dispatch(removeSavedJob(id)),
+  handleShowJob: (id: string) => dispatch(removeHiddenJob(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(JobCard);
