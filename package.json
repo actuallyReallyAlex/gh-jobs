@@ -13,7 +13,6 @@
     "dev": "env-cmd -e development npm run start",
     "format": "prettier --write src/**/*",
     "lint": "eslint src",
-    "preinstall": "npx npm-force-resolutions",
     "start": "node build/index.js",
     "start:dev": "start-server-and-test dev http://localhost:3000 'webpack-dev-server --info=false'",
     "test": "start-server-and-test test-server http://localhost:3000 cy:run",
