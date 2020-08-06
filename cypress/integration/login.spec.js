@@ -61,11 +61,22 @@ context("Login - Error", () => {
     cy.get("h1").should("have.text", "Login");
   });
 
-  it("Should not allow to login with invalid credentials", () => {
+  it("Should not allow to login with invalid credentials for an existing account", () => {
+    cy.get("#email").type("bobtest@email.com");
+    cy.get("#password").type("Blue123456!!!");
+    cy.get("#log-in").click();
+    cy.wait(500);
+    cy.get("#notification").should("have.text", "Invalid credentials.");
+  });
+
+  it("Should not allow to login with an account that does not exist", () => {
     cy.get("#email").type("fake@email.com");
     cy.get("#password").type("Red123456!!!");
     cy.get("#log-in").click();
     cy.wait(500);
-    cy.get("#notification").should("have.text", "Invalid credentials.");
+    cy.get("#notification").should(
+      "have.text",
+      "We couldn't find a user with that email address. Please create an account, or provide another email address."
+    );
   });
 });
