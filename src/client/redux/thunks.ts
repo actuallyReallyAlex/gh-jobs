@@ -66,6 +66,8 @@ import {
 
 export const getJobs = (): AppThunk => async (dispatch) => {
   try {
+    dispatch(setIsLoading(true));
+
     const result = (await fetchServerData("/jobs", "GET")) as
       | GetJobsErrorResponse
       | GetJobsSuccessResponse;
@@ -240,7 +242,6 @@ export const checkAuthentication = (): AppThunk => async (dispatch) => {
     // eslint-disable-next-line no-console
     console.error(error);
   }
-  dispatch(setIsLoading(false));
 };
 
 export const logOut = (): AppThunk => async (dispatch) => {
