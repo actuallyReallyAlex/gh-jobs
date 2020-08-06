@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import Details from "./pages/Details";
@@ -16,6 +16,8 @@ import Navigation from "./components/Navigation";
 
 import { setError } from "./redux/actions/application";
 import { initializeApplication } from "./redux/thunks";
+
+import { history } from "./util";
 
 interface AppProps {
   handleInitializeApplication: () => void;
@@ -33,7 +35,7 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
   }, []);
 
   return (
-    <Router>
+    <Router history={history}>
       <div id="app">
         <ErrorBoundary
           FallbackComponent={ErrorFallback}
@@ -43,7 +45,10 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
               componentStack
             );
           }}
-          onReset={() => handleInitializeApplication()}
+          onReset={() => {
+            history.push("/");
+            handleInitializeApplication();
+          }}
         >
           <Navigation />
           <Switch>
