@@ -74,9 +74,15 @@ class App {
     this.app.use(express.static(path.join(__dirname, "../dist")));
 
     this.app.get("*", (req: Request, res: Response) => {
-      console.log({ hostname: req.hostname });
-      console.log({ referrer: req.headers.referer });
-      // return res.status(301).redirect("https://www.githubjobs.io/");
+      if (req.headers.host === "gh-jobs.herokuapp.com") {
+        return res.status(301).redirect("https://www.githubjobs.io/");
+      }
+      console.log(
+        chalk.blueBright.inverse({
+          host: req.headers.host,
+          referrer: req.headers.referer,
+        })
+      );
       res.sendFile(path.join(__dirname, "../dist/index.html"));
     });
   }
