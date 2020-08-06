@@ -97,7 +97,7 @@ context("Search - Loading Indicator", () => {
     });
   });
 
-  it("Should display note when there are no results", () => {
+  it("Should display LoadingIndicator correctly on jobs loading", () => {
     cy.visit("http://localhost:3000");
     cy.get("#no-results").should("be.visible");
     cy.get("[data-cy=orbit-container] > :nth-child(3)").should("be.visible");
