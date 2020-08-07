@@ -41,6 +41,14 @@ context("Options Panel", () => {
             delay: 1000,
             response: jobsSearch1Json,
           });
+          cy.route({
+            method: "GET",
+            url:
+              "/jobs/search?full_time=false&description=&location1=Los Angeles",
+            status: 200,
+            delay: 1000,
+            response: jobsSearch1Json,
+          });
         });
       });
     });
@@ -90,5 +98,13 @@ context("Options Panel", () => {
     cy.get('[data-cy="job-container"]').then(($jobs) => {
       assert.equal($jobs.length, 4);
     });
+  });
+
+  it("Should be able to search within the OptionsPanel", () => {
+    cy.get("#location-search").type("Los Angeles");
+    cy.get("#options-panel-search").click();
+    cy.wait(1000);
+
+    cy.get("#notification").should("have.text", "Search returned 7 results.");
   });
 });

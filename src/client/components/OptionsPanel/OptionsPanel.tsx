@@ -71,6 +71,7 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
 
       <Button
         buttonStyle="primary"
+        id="options-panel-search"
         label="Search"
         onClick={() => handleSearch("", locationOptions)}
         type="button"
