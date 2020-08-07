@@ -11,12 +11,14 @@ import {
   setFullTime,
   setLocationSearch,
 } from "../../redux/actions/application";
+import { searchJobs } from "../../redux/thunks";
 
 import { LocationOption, RootState } from "../../types";
 
 export interface OptionsPanelProps {
   fullTime: boolean;
   handleCheckBox: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSearch: (search: string, locationOptions: LocationOption[]) => void;
   handleSetFullTime: (fullTime: boolean) => void;
   handleSetLocationSearch: (locationSearch: string) => void;
   locationOptions: LocationOption[];
@@ -29,6 +31,7 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
   const {
     fullTime,
     handleCheckBox,
+    handleSearch,
     handleSetFullTime,
     handleSetLocationSearch,
     locationOptions,
@@ -66,7 +69,12 @@ const OptionsPanel: React.SFC<OptionsPanelProps> = (
         />
       ))}
 
-      <Button buttonStyle="primary" label="Search" type="button" />
+      <Button
+        buttonStyle="primary"
+        label="Search"
+        onClick={() => handleSearch("", locationOptions)}
+        type="button"
+      />
     </OptionsPanelContainer>
   );
 };
@@ -77,6 +85,8 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  handleSearch: (search: string, locationOptions: LocationOption[]) =>
+    dispatch(searchJobs(search, locationOptions)),
   handleSetFullTime: (fullTime: boolean) => dispatch(setFullTime(fullTime)),
   handleSetLocationSearch: (locationSearch: string) =>
     dispatch(setLocationSearch(locationSearch)),
