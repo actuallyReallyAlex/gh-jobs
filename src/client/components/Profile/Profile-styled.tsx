@@ -15,7 +15,6 @@ const ProfileActionsContainer = styled.div`
 `;
 
 const ProfilePage = styled.div`
-  align-items: center;
   display: flex;
   flex-direction: column;
 
@@ -113,6 +112,15 @@ const ProfileBackButton = styled.button`
   }
 `;
 
+const ProfileHeroContainer = styled.div`
+  background: url("/assets/profile.svg");
+  background-color: #172b4d;
+  border-radius: 1.25rem;
+  color: #ffffff;
+  height: 400px;
+  padding: 50px;
+`;
+
 export {
   ProfileActionsContainer,
   ProfilePage,
@@ -122,4 +130,5 @@ export {
   ProfileNoResults,
   ProfileBackButton,
   ProfileHiddenContainer,
+  ProfileHeroContainer,
 };

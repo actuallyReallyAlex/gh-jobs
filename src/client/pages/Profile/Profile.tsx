@@ -6,6 +6,7 @@ import {
   ProfileDelete,
   ProfileDisplay,
   ProfileEdit,
+  ProfileHero,
   ProfileHiddenJobs,
   ProfileReset,
   ProfileSavedJobs,
@@ -57,6 +58,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
   } else {
     return (
       <ProfilePage id="profile-page">
+        <ProfileHero />
         <ProfileForm
           isViewingHiddenJobs={isViewingHiddenJobs}
           isViewingSavedJobs={isViewingSavedJobs}
