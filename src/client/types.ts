@@ -278,8 +278,6 @@ export interface UserAction {
 
 export interface UserState {
   confirmPassword: string;
-  editEmail: string;
-  editName: string;
   email: string;
   hiddenJobs: string[];
   hiddenJobsCurrentPage: number;

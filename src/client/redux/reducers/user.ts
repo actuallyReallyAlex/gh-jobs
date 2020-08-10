@@ -1,7 +1,5 @@
 import {
   SET_CONFIRM_PASSWORD,
-  SET_EDIT_EMAIL,
-  SET_EDIT_NAME,
   SET_EMAIL,
   SET_HIDDEN_JOBS,
   SET_HIDDEN_JOBS_CURRENT_PAGE,
@@ -28,8 +26,6 @@ import { UserAction, UserState } from "../../types";
 
 export const initialState: UserState = {
   confirmPassword: "",
-  editEmail: "",
-  editName: "",
   email: "",
   hiddenJobs: [],
   hiddenJobsCurrentPage: 1,
@@ -63,8 +59,6 @@ const reducer = (state = initialState, action: UserAction): UserState => {
 
   switch (action.type) {
     case SET_CONFIRM_PASSWORD:
-    case SET_EDIT_EMAIL:
-    case SET_EDIT_NAME:
     case SET_EMAIL:
     case SET_HIDDEN_JOBS:
     case SET_HIDDEN_JOBS_CURRENT_PAGE:

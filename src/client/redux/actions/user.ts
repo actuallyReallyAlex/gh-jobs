@@ -1,7 +1,5 @@
 import {
   SET_CONFIRM_PASSWORD,
-  SET_EDIT_EMAIL,
-  SET_EDIT_NAME,
   SET_EMAIL,
   SET_HIDDEN_JOBS,
   SET_HIDDEN_JOBS_CURRENT_PAGE,
@@ -29,16 +27,6 @@ import { UserAction, Job } from "../../types";
 export const setConfirmPassword = (confirmPassword: string): UserAction => ({
   type: SET_CONFIRM_PASSWORD,
   payload: { confirmPassword },
-});
-
-export const setEditEmail = (editEmail: string): UserAction => ({
-  type: SET_EDIT_EMAIL,
-  payload: { editEmail },
-});
-
-export const setEditName = (editName: string): UserAction => ({
-  type: SET_EDIT_NAME,
-  payload: { editName },
 });
 
 export const setEmail = (email: string): UserAction => ({

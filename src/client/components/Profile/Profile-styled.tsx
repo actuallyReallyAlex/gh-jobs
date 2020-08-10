@@ -131,7 +131,10 @@ const ProfileAccountDetailsContentContainer = styled.div`
   }
 
   input {
-    color: #b9bdcf;
+    :disabled {
+      color: #b9bdcf;
+    }
+    color: #000000;
   }
 
   div {

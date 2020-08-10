@@ -6,7 +6,7 @@ import Input from "../Input";
 
 import { ProfileActionsContainer } from "./Profile-styled";
 
-import { setEditEmail, setEditName } from "../../redux/actions/user";
+// import { setEditEmail, setEditName } from "../../redux/actions/user";
 import { cancelEditProfile, editProfile } from "../../redux/thunks";
 
 import { RootState } from "../../types";
@@ -81,17 +81,26 @@ const ProfileEdit: React.SFC<ProfileEditProps> = (props: ProfileEditProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  editEmail: state.user.editEmail,
-  editName: state.user.editName,
+  editEmail: "",
+  editName: "",
   email: state.user.email,
   name: state.user.name,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   handleCancelEditProfile: () => dispatch(cancelEditProfile()),
-  handleEditProfile: () => dispatch(editProfile()),
-  handleSetEditEmail: (editEmail: string) => dispatch(setEditEmail(editEmail)),
-  handleSetEditName: (editName: string) => dispatch(setEditName(editName)),
+  // handleEditProfile: () => dispatch(editProfile()),
+  handleEditProfile: () => {
+    console.log("EMPTY FUNCTION");
+  },
+  // handleSetEditEmail: (editEmail: string) => dispatch(setEditEmail(editEmail)),
+  handleSetEditEmail: (editEmail: string) => {
+    console.log("EMPTY FUNCTION");
+  },
+  // handleSetEditName: (editName: string) => dispatch(setEditName(editName)),
+  handleSetEditName: (editName: string) => {
+    console.log("EMPTY FUNCTION");
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileEdit);

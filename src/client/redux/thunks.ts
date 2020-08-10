@@ -11,8 +11,6 @@ import {
 } from "./actions/application";
 import {
   setConfirmPassword,
-  setEditEmail,
-  setEditName,
   setEmail,
   setIsDeletingProfile,
   setIsEditingProfile,
@@ -355,36 +353,28 @@ export const cancelResetPassword = (): AppThunk => (dispatch) => {
   dispatch(setIsResettingPassword(false));
 };
 
-export const clickEditProfile = (): AppThunk => (dispatch, getState) => {
-  const state: RootState = getState();
-
-  const { email, name } = state.user;
-
+export const clickEditProfile = (): AppThunk => (dispatch) => {
   dispatch(displayNotification("", "default"));
-  dispatch(setEditEmail(email));
-  dispatch(setEditName(name));
   dispatch(setIsEditingProfile(true));
 };
 
 export const cancelEditProfile = (): AppThunk => (dispatch) => {
-  dispatch(setEditEmail(""));
-  dispatch(setEditName(""));
   dispatch(displayNotification("", "default"));
   dispatch(setIsEditingProfile(false));
 };
 
-export const editProfile = (): AppThunk => async (dispatch, getState) => {
+export const editProfile = (email: string, name: string): AppThunk => async (
+  dispatch
+) => {
   dispatch(setIsLoading(true));
   dispatch(displayNotification("", "default"));
-  const state: RootState = getState();
 
-  const { editEmail, editName } = state.user;
   try {
     // TODO - Modify
     const response: EditProfileResponse = await fetchServerData(
       "/user/me",
       "PATCH",
-      JSON.stringify({ email: editEmail, name: editName })
+      JSON.stringify({ email, name })
     );
 
     if (response.error) {
@@ -399,8 +389,6 @@ export const editProfile = (): AppThunk => async (dispatch, getState) => {
         "success"
       )
     );
-    dispatch(setEditEmail(""));
-    dispatch(setEditName(""));
     dispatch(setEmail(response.email));
     dispatch(setName(response.name));
     dispatch(setIsEditingProfile(false));
