@@ -121,9 +121,53 @@ const ProfileHeroContainer = styled.div`
   padding: 50px;
 `;
 
-const ProfileAccountDetailsContainer = styled.div``;
+const ProfileAccountDetailsContentContainer = styled.div`
+  padding: 25px;
+
+  h4 {
+    font-size: 14px;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  input {
+    border-bottom-left-radius: 4px;
+    border-left: 1px solid #b9bdcf;
+    border-top-left-radius: 4px;
+    color: #b9bdcf;
+  }
+
+  div {
+    max-width: 100%;
+  }
+`;
+
+const ProfileAccountDetailsHeadingContainer = styled.div`
+  align-items: center;
+  background-color: #ffffff;
+  border-top-left-radius: 1.25rem;
+  border-top-right-radius: 1.25rem;
+  display: flex;
+  height: 50px;
+  padding-left: 25px;
+  padding-right: 25px;
+
+  h3 {
+    margin: 0;
+  }
+`;
+
+const ProfileAccountDetailsContainer = styled.div`
+  background-color: rgba(246, 249, 251, 1);
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  margin-top: -100px;
+  width: 50%;
+`;
 
 export {
+  ProfileAccountDetailsContentContainer,
+  ProfileAccountDetailsHeadingContainer,
   ProfileAccountDetailsContainer,
   ProfileActionsContainer,
   ProfilePage,

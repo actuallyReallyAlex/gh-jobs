@@ -3,7 +3,11 @@ import { connect } from "react-redux";
 
 import Input from "../Input";
 
-import { ProfileAccountDetailsContainer } from "./Profile-styled";
+import {
+  ProfileAccountDetailsContentContainer,
+  ProfileAccountDetailsHeadingContainer,
+  ProfileAccountDetailsContainer,
+} from "./Profile-styled";
 
 import { RootState } from "../../types";
 
@@ -18,16 +22,16 @@ const ProfileAccountDetails: React.SFC<ProfileAccountDetailsProps> = (
   const { email, name } = props;
   return (
     <ProfileAccountDetailsContainer>
-      <div>
+      <ProfileAccountDetailsHeadingContainer>
         <h3>My account</h3>
-      </div>
-      <div>
+      </ProfileAccountDetailsHeadingContainer>
+      <ProfileAccountDetailsContentContainer>
         <h4>User Information</h4>
         <form>
           <Input id="email" label="Email" value={email} />
           <Input id="name" label="Name" value={name} />
         </form>
-      </div>
+      </ProfileAccountDetailsContentContainer>
     </ProfileAccountDetailsContainer>
   );
 };
