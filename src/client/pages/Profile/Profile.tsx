@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 
 import {
   ProfileAccountDetails,
+  ProfileAccountStats,
   ProfileDelete,
   ProfileDisplay,
   ProfileEdit,
@@ -17,6 +18,7 @@ import {
   ProfilePage,
   ProfileForm,
   ProfileTitleContainer,
+  ProfileInnerContainer,
 } from "../../components/Profile/Profile-styled";
 
 import { RootState } from "../../types";
@@ -60,7 +62,11 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
     return (
       <ProfilePage id="profile-page">
         <ProfileHero />
-        <ProfileAccountDetails />
+        <ProfileInnerContainer>
+          <ProfileAccountDetails />
+          <ProfileAccountStats />
+        </ProfileInnerContainer>
+
         <ProfileForm
           isViewingHiddenJobs={isViewingHiddenJobs}
           isViewingSavedJobs={isViewingSavedJobs}

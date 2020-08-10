@@ -1,4 +1,5 @@
 import ProfileAccountDetails from "./ProfileAccountDetails";
+import ProfileAccountStats from "./ProfileAccountStats";
 import ProfileDelete from "./ProfileDelete";
 import ProfileDisplay from "./ProfileDisplay";
 import ProfileEdit from "./ProfileEdit";
@@ -9,6 +10,7 @@ import ProfileSavedJobs from "./ProfileSavedJobs";
 
 export {
   ProfileAccountDetails,
+  ProfileAccountStats,
   ProfileDelete,
   ProfileDisplay,
   ProfileEdit,

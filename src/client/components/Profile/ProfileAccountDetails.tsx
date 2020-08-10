@@ -28,8 +28,24 @@ const ProfileAccountDetails: React.SFC<ProfileAccountDetailsProps> = (
       <ProfileAccountDetailsContentContainer>
         <h4>User Information</h4>
         <form>
-          <Input id="email" label="Email" value={email} />
-          <Input id="name" label="Name" value={name} />
+          <Input
+            disabled
+            full
+            icon="account_circle"
+            id="name"
+            label="Name"
+            type="text"
+            value={name}
+          />
+          <Input
+            disabled
+            full
+            icon="email"
+            id="email"
+            label="Email Address"
+            type="email"
+            value={email}
+          />
         </form>
       </ProfileAccountDetailsContentContainer>
     </ProfileAccountDetailsContainer>

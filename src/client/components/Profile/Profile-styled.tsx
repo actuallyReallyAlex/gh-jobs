@@ -131,9 +131,6 @@ const ProfileAccountDetailsContentContainer = styled.div`
   }
 
   input {
-    border-bottom-left-radius: 4px;
-    border-left: 1px solid #b9bdcf;
-    border-top-left-radius: 4px;
     color: #b9bdcf;
   }
 
@@ -162,10 +159,37 @@ const ProfileAccountDetailsContainer = styled.div`
   border-radius: 1.25rem;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
   margin-top: -100px;
-  width: 50%;
+  width: 40%;
+`;
+
+const ProfileAccountStatsContainer = styled.div`
+  background-color: rgba(246, 249, 251, 1);
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  margin-top: -100px;
+  width: 40%;
+`;
+
+const ProfileAccountStatsAvatar = styled.img`
+  background-image: linear-gradient(135deg, #ce9ffc 10%, #7367f0 100%);
+  border-radius: 50%;
+  height: 150px;
+  margin: -75px auto;
+  width: 150px;
+`;
+
+const ProfileInnerContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 `;
 
 export {
+  ProfileInnerContainer,
+  ProfileAccountStatsAvatar,
+  ProfileAccountStatsContainer,
   ProfileAccountDetailsContentContainer,
   ProfileAccountDetailsHeadingContainer,
   ProfileAccountDetailsContainer,
