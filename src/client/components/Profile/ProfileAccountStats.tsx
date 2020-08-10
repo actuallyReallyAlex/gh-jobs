@@ -1,9 +1,12 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
+import Stat from "../Stat";
+
 import {
   ProfileAccountStatsContainer,
   ProfileAccountStatsAvatar,
+  ProfileAccountStatsInnerContainer,
 } from "./Profile-styled";
 
 import { RootState } from "../../types";
@@ -22,8 +25,10 @@ const ProfileAccountStats: React.SFC<ProfileAccountStatsProps> = (
     <ProfileAccountStatsContainer>
       <ProfileAccountStatsAvatar />
       <h2>{name}</h2>
-      <span>{hiddenJobs.length} hidden jobs</span>
-      <span>{savedJobs.length} saved jobs</span>
+      <ProfileAccountStatsInnerContainer>
+        <Stat figure={hiddenJobs.length} label="Hidden Jobs" />
+        <Stat figure={savedJobs.length} label="Saved Jobs" />
+      </ProfileAccountStatsInnerContainer>
     </ProfileAccountStatsContainer>
   );
 };
