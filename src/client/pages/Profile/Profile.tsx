@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import {
+  ProfileAccountDetails,
   ProfileDelete,
   ProfileDisplay,
   ProfileEdit,
@@ -59,6 +60,7 @@ const Profile: React.SFC<ProfileProps> = (props: ProfileProps) => {
     return (
       <ProfilePage id="profile-page">
         <ProfileHero />
+        <ProfileAccountDetails />
         <ProfileForm
           isViewingHiddenJobs={isViewingHiddenJobs}
           isViewingSavedJobs={isViewingSavedJobs}

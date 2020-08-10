@@ -121,7 +121,10 @@ const ProfileHeroContainer = styled.div`
   padding: 50px;
 `;
 
+const ProfileAccountDetailsContainer = styled.div``;
+
 export {
+  ProfileAccountDetailsContainer,
   ProfileActionsContainer,
   ProfilePage,
   ProfileForm,
