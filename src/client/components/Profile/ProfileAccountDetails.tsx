@@ -33,6 +33,12 @@ const ProfileAccountDetails: React.SFC<ProfileAccountDetailsProps> = (
     <ProfileAccountDetailsContainer>
       <ProfileAccountDetailsHeadingContainer>
         <h3>My account</h3>
+        <Button
+          buttonStyle="secondary"
+          id="settings"
+          label="settings"
+          type="button"
+        />
       </ProfileAccountDetailsHeadingContainer>
       <ProfileAccountDetailsContentContainer>
         <h4>User Information</h4>

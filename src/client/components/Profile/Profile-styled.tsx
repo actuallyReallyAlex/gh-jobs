@@ -149,6 +149,7 @@ const ProfileAccountDetailsHeadingContainer = styled.div`
   border-top-right-radius: 1.25rem;
   display: flex;
   height: 50px;
+  justify-content: space-between;
   padding-left: 25px;
   padding-right: 25px;
 
