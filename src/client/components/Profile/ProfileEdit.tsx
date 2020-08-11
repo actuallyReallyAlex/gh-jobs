@@ -7,7 +7,7 @@ import Input from "../Input";
 import { ProfileActionsContainer } from "./Profile-styled";
 
 // import { setEditEmail, setEditName } from "../../redux/actions/user";
-import { cancelEditProfile, editProfile } from "../../redux/thunks";
+import { cancelEditProfile } from "../../redux/thunks";
 
 import { RootState } from "../../types";
 
@@ -94,11 +94,11 @@ const mapDispatchToProps = (dispatch) => ({
     console.log("EMPTY FUNCTION");
   },
   // handleSetEditEmail: (editEmail: string) => dispatch(setEditEmail(editEmail)),
-  handleSetEditEmail: (editEmail: string) => {
+  handleSetEditEmail: () => {
     console.log("EMPTY FUNCTION");
   },
   // handleSetEditName: (editName: string) => dispatch(setEditName(editName)),
-  handleSetEditName: (editName: string) => {
+  handleSetEditName: () => {
     console.log("EMPTY FUNCTION");
   },
 });
