@@ -180,6 +180,7 @@ const ProfileAccountStatsContainer = styled.div`
   flex-direction: column;
   height: fit-content;
   margin-top: -200px;
+  padding: 25px;
   width: 40%;
 
   h2 {

@@ -589,13 +589,17 @@ export const removeSavedJob = (id: string): AppThunk => async (dispatch) => {
 export const clickViewHiddenJobs = (): AppThunk => (dispatch) => {
   dispatch(setCurrentPage(1));
   dispatch(displayNotification("", "default"));
-  dispatch(setIsViewingHiddenJobs(true));
+  dispatch(setModalContent("hiddenJobs"));
+  dispatch(setModalTitle("Hidden Jobs"));
+  dispatch(setIsModalOpen(true));
 };
 
 export const clickViewSavedJobs = (): AppThunk => (dispatch) => {
   dispatch(setCurrentPage(1));
   dispatch(displayNotification("", "default"));
-  dispatch(setIsViewingSavedJobs(true));
+  dispatch(setModalContent("savedJobs"));
+  dispatch(setModalTitle("Saved Jobs"));
+  dispatch(setIsModalOpen(true));
 };
 
 export const getJobDetails = (id: string): AppThunk => async (dispatch) => {
