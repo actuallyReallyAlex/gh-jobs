@@ -303,6 +303,9 @@ export const logOutAll = (): AppThunk => async (dispatch) => {
   dispatch(setSavedJobs([]));
   dispatch(setHiddenJobs([]));
   dispatch(setIsLoggedIn(false));
+  dispatch(setIsModalOpen(false));
+  dispatch(setModalContent(""));
+  dispatch(setModalTitle(""));
 
   dispatch(setIsLoading(false));
 };
