@@ -75,7 +75,7 @@ export const setLocationSearch = (
   payload: { locationSearch },
 });
 
-export const setModalContent = (modalContent: any): ApplicationAction => ({
+export const setModalContent = (modalContent: string): ApplicationAction => ({
   type: SET_MODAL_CONTENT,
   payload: { modalContent },
 });

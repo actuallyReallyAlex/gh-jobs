@@ -220,6 +220,9 @@ export const initializeApplication = (): AppThunk => async (dispatch) => {
   dispatch(setJobDetails(null));
   dispatch(setJobs([]));
   dispatch(setTotalPages(1));
+  dispatch(setIsModalOpen(false));
+  dispatch(setModalContent(""));
+  dispatch(setModalTitle(""));
 
   // * Establish Job Data
   dispatch(getJobs());

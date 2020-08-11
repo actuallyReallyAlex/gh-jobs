@@ -8,6 +8,8 @@ import {
   Shade,
 } from "./Modal-styled";
 
+import contents from "./contents";
+
 import { resetModal } from "../../redux/thunks";
 
 import { RootState } from "../../types";
@@ -15,14 +17,15 @@ import { RootState } from "../../types";
 export interface ModalProps {
   handleCloseModal: () => void;
   isModalOpen: boolean;
-  modalContent: any;
+  modalContent: string;
   modalTitle: string;
 }
 
 const Modal: React.SFC<ModalProps> = (props: ModalProps) => {
   const { handleCloseModal, isModalOpen, modalContent, modalTitle } = props;
 
-  console.log(typeof modalContent);
+  const Content = contents[modalContent];
+
   return (
     <>
       <Shade isModalOpen={isModalOpen} />
@@ -34,7 +37,7 @@ const Modal: React.SFC<ModalProps> = (props: ModalProps) => {
               x
             </button>
           </ModalTitle>
-          {modalContent}
+          {Content && <Content />}
         </ModalInnerContainer>
       </ModalContainer>
     </>

@@ -52,7 +52,7 @@ export interface ApplicationState {
   jobDetails: Job;
   jobs: Job[];
   locationSearch: string;
-  modalContent: any;
+  modalContent: string;
   modalTitle: string;
   notificationMessage: string;
   notificationType: NotificationType;

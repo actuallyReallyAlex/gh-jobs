@@ -29,7 +29,7 @@ export const initialState: ApplicationState = {
   jobDetails: null,
   jobs: [],
   locationSearch: "",
-  modalContent: null,
+  modalContent: "",
   modalTitle: "",
   notificationMessage: "",
   notificationType: "default",
