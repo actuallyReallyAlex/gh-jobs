@@ -452,6 +452,9 @@ export const deleteProfile = (): AppThunk => async (dispatch) => {
     dispatch(setIsDeletingProfile(false));
     dispatch(setIsLoggedIn(false));
     dispatch(setIsLoading(false));
+    dispatch(setIsModalOpen(false));
+    dispatch(setModalContent(""));
+    dispatch(setModalTitle(""));
   } catch (error) {
     console.error(error);
     dispatch(displayNotification(error, "error"));
@@ -677,6 +680,6 @@ export const getHiddenJobsDetails = (): AppThunk => async (dispatch) => {
 
 export const resetModal = (): AppThunk => (dispatch) => {
   dispatch(setIsModalOpen(false));
-  dispatch(setModalContent(null));
+  dispatch(setModalContent(""));
   dispatch(setModalTitle(""));
 };

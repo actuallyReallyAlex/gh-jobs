@@ -3,15 +3,21 @@ import { connect } from "react-redux";
 
 import Button from "../../components/Button";
 
+import {
+  displayNotification,
+  setModalContent,
+  setModalTitle,
+} from "../../redux/actions/application";
 import { logOut, logOutAll } from "../../redux/thunks";
 
 export interface SettingsProps {
+  handleClickDeleteProfile: () => void;
   handleLogOut: () => void;
   handleLogOutAll: () => void;
 }
 
 const Settings: React.SFC<SettingsProps> = (props: SettingsProps) => {
-  const { handleLogOut, handleLogOutAll } = props;
+  const { handleClickDeleteProfile, handleLogOut, handleLogOutAll } = props;
 
   return (
     <div>
@@ -29,11 +35,28 @@ const Settings: React.SFC<SettingsProps> = (props: SettingsProps) => {
         onClick={() => handleLogOutAll()}
         type="button"
       />
+      <Button
+        buttonStyle="danger"
+        id="delete-profile"
+        label="Delete profile"
+        onClick={() => handleClickDeleteProfile()}
+        type="button"
+      />
     </div>
   );
 };
 
 const mapDispatchToProps = (dispatch) => ({
+  handleClickDeleteProfile: () => {
+    dispatch(
+      displayNotification(
+        "Are you sure you would like to delete your profile? This can not be reversed.",
+        "warning"
+      )
+    );
+    dispatch(setModalContent("deleteProfile"));
+    dispatch(setModalTitle("Delete Profile"));
+  },
   handleLogOut: () => dispatch(logOut()),
   handleLogOutAll: () => dispatch(logOutAll()),
 });
