@@ -8,6 +8,9 @@ import {
   setTotalPages,
   setJobDetails,
   setError,
+  setModalContent,
+  setModalTitle,
+  setIsModalOpen,
 } from "./actions/application";
 import {
   setConfirmPassword,
@@ -661,4 +664,10 @@ export const getHiddenJobsDetails = (): AppThunk => async (dispatch) => {
     dispatch(displayNotification(error, "error"));
     dispatch(setIsLoading(false));
   }
+};
+
+export const resetModal = (): AppThunk => (dispatch) => {
+  dispatch(setIsModalOpen(false));
+  dispatch(setModalContent(null));
+  dispatch(setModalTitle(""));
 };

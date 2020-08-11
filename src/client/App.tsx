@@ -12,6 +12,7 @@ import Signup from "./pages/Signup";
 
 import ErrorFallback from "./components/ErrorFallback";
 import LoadingIndicator from "./components/LoadingIndicator";
+import Modal from "./components/Modal";
 import Navigation from "./components/Navigation";
 
 import { setError } from "./redux/actions/application";
@@ -71,6 +72,7 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
         </ErrorBoundary>
         <LoadingIndicator />
         <ToastContainer />
+        <Modal />
       </div>
     </Router>
   );

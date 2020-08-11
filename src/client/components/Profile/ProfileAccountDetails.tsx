@@ -13,10 +13,16 @@ import {
 import { editProfile } from "../../redux/thunks";
 
 import { RootState } from "../../types";
+import {
+  setModalContent,
+  setModalTitle,
+  setIsModalOpen,
+} from "../../redux/actions/application";
 
 export interface ProfileAccountDetailsProps {
   email: string;
   handleEditProfile: (email: string, name: string) => void;
+  handleSettingsClick: () => void;
   isEditingProfile: boolean;
   name: string;
 }
@@ -24,7 +30,13 @@ export interface ProfileAccountDetailsProps {
 const ProfileAccountDetails: React.SFC<ProfileAccountDetailsProps> = (
   props: ProfileAccountDetailsProps
 ) => {
-  const { email, handleEditProfile, isEditingProfile, name } = props;
+  const {
+    email,
+    handleEditProfile,
+    handleSettingsClick,
+    isEditingProfile,
+    name,
+  } = props;
 
   const [newName, setNewName] = React.useState(name);
   const [newEmail, setNewEmail] = React.useState(email);
@@ -37,6 +49,7 @@ const ProfileAccountDetails: React.SFC<ProfileAccountDetailsProps> = (
           buttonStyle="secondary"
           id="settings"
           label="settings"
+          onClick={() => handleSettingsClick()}
           type="button"
         />
       </ProfileAccountDetailsHeadingContainer>
@@ -96,6 +109,11 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch) => ({
   handleEditProfile: (email: string, name: string) =>
     dispatch(editProfile(email, name)),
+  handleSettingsClick: () => {
+    dispatch(setModalContent("SETTINGS CONTENT"));
+    dispatch(setModalTitle("Settings"));
+    dispatch(setIsModalOpen(true));
+  },
 });
 
 export default connect(

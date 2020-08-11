@@ -48,9 +48,12 @@ export interface ApplicationState {
   error: ApplicationError;
   fullTime: boolean;
   isLoading: boolean;
+  isModalOpen: boolean;
   jobDetails: Job;
   jobs: Job[];
   locationSearch: string;
+  modalContent: any;
+  modalTitle: string;
   notificationMessage: string;
   notificationType: NotificationType;
   searchValue: string;

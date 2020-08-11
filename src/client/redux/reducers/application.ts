@@ -7,9 +7,12 @@ import {
   SET_ERROR,
   SET_FULL_TIME,
   SET_IS_LOADING,
+  SET_IS_MODAL_OPEN,
   SET_JOB_DETAILS,
   SET_JOBS,
   SET_LOCATION_SEARCH,
+  SET_MODAL_CONTENT,
+  SET_MODAL_TITLE,
   SET_SEARCH_VALUE,
   SET_TOTAL_PAGES,
 } from "../actionTypes";
@@ -22,9 +25,12 @@ export const initialState: ApplicationState = {
   error: null,
   fullTime: false,
   isLoading: true,
+  isModalOpen: false,
   jobDetails: null,
   jobs: [],
   locationSearch: "",
+  modalContent: null,
+  modalTitle: "",
   notificationMessage: "",
   notificationType: "default",
   searchValue: "",
@@ -89,9 +95,12 @@ const reducer = (
     case SET_CURRENT_PAGE:
     case SET_FULL_TIME:
     case SET_IS_LOADING:
+    case SET_IS_MODAL_OPEN:
     case SET_JOB_DETAILS:
     case SET_JOBS:
     case SET_LOCATION_SEARCH:
+    case SET_MODAL_CONTENT:
+    case SET_MODAL_TITLE:
     case SET_SEARCH_VALUE:
     case SET_TOTAL_PAGES: {
       return { ...state, [key]: value };
