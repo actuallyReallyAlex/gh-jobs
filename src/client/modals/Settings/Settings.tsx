@@ -1,23 +1,32 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { RootState } from "../../types";
+
+import Button from "../../components/Button";
+
+import { logOut } from "../../redux/thunks";
 
 export interface SettingsProps {
-  email: string;
+  handleLogOut: () => void;
 }
 
 const Settings: React.SFC<SettingsProps> = (props: SettingsProps) => {
-  const { email } = props;
+  const { handleLogOut } = props;
 
   return (
     <div>
-      <span>{email}</span>
+      <Button
+        buttonStyle="danger"
+        id="log-out"
+        label="Log out"
+        onClick={() => handleLogOut()}
+        type="button"
+      />
     </div>
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  email: state.user.email,
+const mapDispatchToProps = (dispatch) => ({
+  handleLogOut: () => dispatch(logOut()),
 });
 
-export default connect(mapStateToProps)(Settings);
+export default connect(null, mapDispatchToProps)(Settings);
