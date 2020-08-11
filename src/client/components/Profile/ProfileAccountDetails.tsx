@@ -10,8 +10,6 @@ import {
   ProfileAccountDetailsContainer,
 } from "./Profile-styled";
 
-import Settings from "../../modals/Settings/Settings";
-
 import { editProfile } from "../../redux/thunks";
 
 import { RootState } from "../../types";

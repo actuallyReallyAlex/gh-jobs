@@ -13,6 +13,14 @@ const Row = styled.div`
   button {
     width: 45%;
   }
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+
+    button {
+      width: 100%;
+    }
+  }
 `;
 
 export { Container, Row };

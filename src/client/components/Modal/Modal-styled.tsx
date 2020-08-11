@@ -24,6 +24,10 @@ const ModalInnerContainer = styled.div`
   height: fit-content;
   padding: 25px;
   width: 50%;
+
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const ModalTitle = styled.div`

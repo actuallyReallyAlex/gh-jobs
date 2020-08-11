@@ -148,13 +148,14 @@ const ProfileAccountDetailsHeadingContainer = styled.div`
   border-top-left-radius: 1.25rem;
   border-top-right-radius: 1.25rem;
   display: flex;
-  height: 50px;
+  height: fit-content;
   justify-content: space-between;
   padding-left: 25px;
   padding-right: 25px;
 
   h3 {
-    margin: 0;
+    margin-bottom: 20px;
+    margin-top: 20px;
   }
 `;
 
@@ -164,6 +165,10 @@ const ProfileAccountDetailsContainer = styled.div`
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
   margin-top: -200px;
   width: 40%;
+
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const ProfileAccountStatsContainer = styled.div`
@@ -180,6 +185,12 @@ const ProfileAccountStatsContainer = styled.div`
   h2 {
     margin-top: 100px;
   }
+
+  @media only screen and (max-width: 600px) {
+    margin-bottom: 50px;
+    margin-top: 100px;
+    width: 100%;
+  }
 `;
 
 const ProfileAccountStatsAvatar = styled.img`
@@ -194,6 +205,10 @@ const ProfileInnerContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 
 const ProfileAccountStatsInnerContainer = styled.div`
