@@ -310,22 +310,12 @@ export const logOutAll = (): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(false));
 };
 
-export const resetPassword = (): AppThunk => async (dispatch, getState) => {
+export const resetPassword = (
+  currentPassword: string,
+  newPassword: string
+): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
   dispatch(displayNotification("", "default"));
-  const state: RootState = getState();
-
-  const {
-    resetConfirmNewPassword,
-    resetCurrentPassword,
-    resetNewPassword,
-  } = state.user;
-
-  if (resetConfirmNewPassword !== resetNewPassword) {
-    dispatch(displayNotification("Passwords do not match.", "error"));
-    dispatch(setIsLoading(false));
-    return;
-  }
 
   try {
     // TODO - Modify
@@ -333,8 +323,8 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
       "/user/me",
       "PATCH",
       JSON.stringify({
-        currentPassword: resetCurrentPassword,
-        newPassword: resetNewPassword,
+        currentPassword,
+        newPassword,
       })
     );
 
@@ -349,6 +339,9 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
     dispatch(setResetCurrentPassword(""));
     dispatch(setResetNewPassword(""));
     dispatch(setIsResettingPassword(false));
+    dispatch(setIsModalOpen(false));
+    dispatch(setModalContent(""));
+    dispatch(setModalTitle(""));
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
@@ -357,6 +350,7 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
   }
 };
 
+// TODO - Remove
 export const cancelResetPassword = (): AppThunk => (dispatch) => {
   dispatch(setResetConfirmNewPassword(""));
   dispatch(setResetCurrentPassword(""));
@@ -365,11 +359,13 @@ export const cancelResetPassword = (): AppThunk => (dispatch) => {
   dispatch(setIsResettingPassword(false));
 };
 
+// TODO - Remove
 export const clickEditProfile = (): AppThunk => (dispatch) => {
   dispatch(displayNotification("", "default"));
   dispatch(setIsEditingProfile(true));
 };
 
+// TODO - Remove
 export const cancelEditProfile = (): AppThunk => (dispatch) => {
   dispatch(displayNotification("", "default"));
   dispatch(setIsEditingProfile(false));

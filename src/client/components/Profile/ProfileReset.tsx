@@ -107,7 +107,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleCancelResetPassword: () => dispatch(cancelResetPassword()),
-  handleResetPassword: () => dispatch(resetPassword()),
+  handleResetPassword: () => dispatch(resetPassword("", "")),
   handleSetResetConfirmNewPassword: (resetConfirmNewPassword: string) =>
     dispatch(setResetConfirmNewPassword(resetConfirmNewPassword)),
   handleSetResetCurrentPassword: (resetCurrentPassword: string) =>

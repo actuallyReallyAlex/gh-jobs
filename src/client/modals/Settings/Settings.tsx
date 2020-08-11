@@ -12,12 +12,18 @@ import { logOut, logOutAll } from "../../redux/thunks";
 
 export interface SettingsProps {
   handleClickDeleteProfile: () => void;
+  handleClickResetPassword: () => void;
   handleLogOut: () => void;
   handleLogOutAll: () => void;
 }
 
 const Settings: React.SFC<SettingsProps> = (props: SettingsProps) => {
-  const { handleClickDeleteProfile, handleLogOut, handleLogOutAll } = props;
+  const {
+    handleClickDeleteProfile,
+    handleClickResetPassword,
+    handleLogOut,
+    handleLogOutAll,
+  } = props;
 
   return (
     <div>
@@ -42,6 +48,13 @@ const Settings: React.SFC<SettingsProps> = (props: SettingsProps) => {
         onClick={() => handleClickDeleteProfile()}
         type="button"
       />
+      <Button
+        buttonStyle="danger"
+        id="reset-password"
+        label="Reset password"
+        onClick={() => handleClickResetPassword()}
+        type="button"
+      />
     </div>
   );
 };
@@ -56,6 +69,10 @@ const mapDispatchToProps = (dispatch) => ({
     );
     dispatch(setModalContent("deleteProfile"));
     dispatch(setModalTitle("Delete Profile"));
+  },
+  handleClickResetPassword: () => {
+    dispatch(setModalContent("resetPassword"));
+    dispatch(setModalTitle("Reset Password"));
   },
   handleLogOut: () => dispatch(logOut()),
   handleLogOutAll: () => dispatch(logOutAll()),
