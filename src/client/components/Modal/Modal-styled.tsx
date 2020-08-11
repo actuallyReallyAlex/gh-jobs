@@ -21,7 +21,7 @@ const ModalContainer = styled.div<ModalContainerProps>`
 const ModalInnerContainer = styled.div`
   background-color: #ffffff;
   border-radius: 1.25rem;
-  height: 50%;
+  height: fit-content;
   padding: 25px;
   width: 50%;
 `;
