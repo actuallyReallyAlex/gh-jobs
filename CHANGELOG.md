@@ -5,15 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.4.0] - _Unreleased_
+## [1.4.0] - 2020-08-12
+
+### 🎨 Profile Redesign
 
 ### Added
 
+- Message when a user is not found in the DB - [#67](https://github.com/alexlee-dev/gh-jobs/issues/67)
+- Ability to Search from the OptionsPanel - [#43](https://github.com/alexlee-dev/gh-jobs/issues/43)
+- `ModalState` - [#69](https://github.com/alexlee-dev/gh-jobs/issues/69)
+
 ### Changed
+
+- Redesign Profile - [#47](https://github.com/alexlee-dev/gh-jobs/issues/47)
+- Rename `created_at` to `listingDate` - [#50](https://github.com/alexlee-dev/gh-jobs/issues/50)
 
 ### Removed
 
 ### Fixed
+
+- LoadingIndicator stopping before page fully loaded - [#68](https://github.com/alexlee-dev/gh-jobs/issues/68)
 
 ## [1.3.0] - 2020-08-06
 
