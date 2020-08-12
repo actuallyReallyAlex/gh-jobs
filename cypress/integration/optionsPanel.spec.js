@@ -22,14 +22,14 @@ context("Options Panel", () => {
           cy.route({
             method: "GET",
             url:
-              "/jobs/search?full_time=false&description=&location=Los Angeles",
+              "/jobs/search?full_time=false&description=&location1=Los Angeles",
             status: 200,
             delay: 1000,
             response: jobsSearch1Json,
           });
           cy.route({
             method: "GET",
-            url: "/jobs/search?full_time=false&description=&location=Chicago",
+            url: "/jobs/search?full_time=false&description=&location1=Chicago",
             status: 200,
             delay: 1000,
             response: jobsSearch1Json,

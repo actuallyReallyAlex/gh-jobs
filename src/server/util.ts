@@ -24,6 +24,7 @@ export const checkIfMongoDBIsRunning = async (): Promise<boolean> =>
     }
   });
 
+// TODO - Remove
 export const createSearchURL = (
   page: number,
   // eslint-disable-next-line
