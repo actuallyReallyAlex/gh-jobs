@@ -1,6 +1,10 @@
 import nfetch from "node-fetch";
 
-import { GetJobsErrorResponse, GetJobsSuccessResponse, Job } from "./types";
+import {
+  GetJobsErrorResponse,
+  GetJobsSuccessResponse,
+  GitHubJob,
+} from "./types";
 
 /**
  * Check if MongoDB is running locally. Stops application from continuing if false.
@@ -47,7 +51,7 @@ export const createSearchURL = (
 export const getAllJobsFromAPI = async (): Promise<
   GetJobsErrorResponse | GetJobsSuccessResponse
 > => {
-  const jobs: Job[] = [];
+  const jobs: GitHubJob[] = [];
   let jobsInBatch = null;
   let page = 1;
 
@@ -59,7 +63,7 @@ export const getAllJobsFromAPI = async (): Promise<
         `https://jobs.github.com/positions.json?page=${page}`,
         { headers: { "Content-Type": "application/json" }, method: "GET" }
       );
-      const batchJobs: Job[] = await response.json();
+      const batchJobs: GitHubJob[] = await response.json();
       jobsInBatch = batchJobs.length;
       page++;
       if (jobsInBatch !== 0) {
