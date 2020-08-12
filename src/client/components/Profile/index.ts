@@ -1,15 +1,5 @@
-import ProfileDelete from "./ProfileDelete";
-import ProfileDisplay from "./ProfileDisplay";
-import ProfileEdit from "./ProfileEdit";
-import ProfileHiddenJobs from "./ProfileHiddenJobs";
-import ProfileReset from "./ProfileReset";
-import ProfileSavedJobs from "./ProfileSavedJobs";
+import ProfileAccountDetails from "./ProfileAccountDetails";
+import ProfileAccountStats from "./ProfileAccountStats";
+import ProfileHero from "./ProfileHero";
 
-export {
-  ProfileDelete,
-  ProfileDisplay,
-  ProfileEdit,
-  ProfileHiddenJobs,
-  ProfileReset,
-  ProfileSavedJobs,
-};
+export { ProfileAccountDetails, ProfileAccountStats, ProfileHero };

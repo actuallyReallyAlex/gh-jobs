@@ -82,3 +82,31 @@ context("Search - No Results", () => {
     );
   });
 });
+
+context("Search - Loading Indicator", () => {
+  beforeEach(() => {
+    cy.fixture("jobs50").then((jobsJson) => {
+      cy.server();
+      cy.route({
+        method: "GET",
+        url: "/jobs",
+        status: 200,
+        response: jobsJson,
+        delay: 3000,
+      });
+    });
+  });
+
+  it("Should display LoadingIndicator correctly on jobs loading", () => {
+    cy.visit("http://localhost:3000");
+    cy.get("#no-results").should("be.visible");
+    cy.get("[data-cy=orbit-container] > :nth-child(3)").should("be.visible");
+
+    cy.wait(3100);
+
+    cy.get("#no-results").should("not.be.visible");
+    cy.get("[data-cy=orbit-container] > :nth-child(3)").should(
+      "not.be.visible"
+    );
+  });
+});

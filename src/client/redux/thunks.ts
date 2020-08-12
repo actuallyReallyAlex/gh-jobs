@@ -10,16 +10,15 @@ import {
   setError,
 } from "./actions/application";
 import {
+  setIsModalOpen,
+  setModalContent,
+  setModalTitle,
+} from "./actions/modal";
+import {
   setConfirmPassword,
-  setEditEmail,
-  setEditName,
   setEmail,
-  setIsDeletingProfile,
   setIsEditingProfile,
   setIsLoggedIn,
-  setIsViewingHiddenJobs,
-  setIsViewingSavedJobs,
-  setIsResettingPassword,
   setName,
   setPassword,
   setResetConfirmNewPassword,
@@ -66,6 +65,8 @@ import {
 
 export const getJobs = (): AppThunk => async (dispatch) => {
   try {
+    dispatch(setIsLoading(true));
+
     const result = (await fetchServerData("/jobs", "GET")) as
       | GetJobsErrorResponse
       | GetJobsSuccessResponse;
@@ -217,6 +218,9 @@ export const initializeApplication = (): AppThunk => async (dispatch) => {
   dispatch(setJobDetails(null));
   dispatch(setJobs([]));
   dispatch(setTotalPages(1));
+  dispatch(setIsModalOpen(false));
+  dispatch(setModalContent(""));
+  dispatch(setModalTitle(""));
 
   // * Establish Job Data
   dispatch(getJobs());
@@ -240,7 +244,6 @@ export const checkAuthentication = (): AppThunk => async (dispatch) => {
     // eslint-disable-next-line no-console
     console.error(error);
   }
-  dispatch(setIsLoading(false));
 };
 
 export const logOut = (): AppThunk => async (dispatch) => {
@@ -267,6 +270,9 @@ export const logOut = (): AppThunk => async (dispatch) => {
   dispatch(setSavedJobs([]));
   dispatch(setHiddenJobs([]));
   dispatch(setIsLoggedIn(false));
+  dispatch(setIsModalOpen(false));
+  dispatch(setModalContent(""));
+  dispatch(setModalTitle(""));
 
   dispatch(setIsLoading(false));
 };
@@ -295,26 +301,19 @@ export const logOutAll = (): AppThunk => async (dispatch) => {
   dispatch(setSavedJobs([]));
   dispatch(setHiddenJobs([]));
   dispatch(setIsLoggedIn(false));
+  dispatch(setIsModalOpen(false));
+  dispatch(setModalContent(""));
+  dispatch(setModalTitle(""));
 
   dispatch(setIsLoading(false));
 };
 
-export const resetPassword = (): AppThunk => async (dispatch, getState) => {
+export const resetPassword = (
+  currentPassword: string,
+  newPassword: string
+): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
   dispatch(displayNotification("", "default"));
-  const state: RootState = getState();
-
-  const {
-    resetConfirmNewPassword,
-    resetCurrentPassword,
-    resetNewPassword,
-  } = state.user;
-
-  if (resetConfirmNewPassword !== resetNewPassword) {
-    dispatch(displayNotification("Passwords do not match.", "error"));
-    dispatch(setIsLoading(false));
-    return;
-  }
 
   try {
     // TODO - Modify
@@ -322,8 +321,8 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
       "/user/me",
       "PATCH",
       JSON.stringify({
-        currentPassword: resetCurrentPassword,
-        newPassword: resetNewPassword,
+        currentPassword,
+        newPassword,
       })
     );
 
@@ -337,7 +336,9 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
     dispatch(setResetConfirmNewPassword(""));
     dispatch(setResetCurrentPassword(""));
     dispatch(setResetNewPassword(""));
-    dispatch(setIsResettingPassword(false));
+    dispatch(setIsModalOpen(false));
+    dispatch(setModalContent(""));
+    dispatch(setModalTitle(""));
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
@@ -346,44 +347,18 @@ export const resetPassword = (): AppThunk => async (dispatch, getState) => {
   }
 };
 
-export const cancelResetPassword = (): AppThunk => (dispatch) => {
-  dispatch(setResetConfirmNewPassword(""));
-  dispatch(setResetCurrentPassword(""));
-  dispatch(setResetNewPassword(""));
-  dispatch(displayNotification("", "default"));
-  dispatch(setIsResettingPassword(false));
-};
-
-export const clickEditProfile = (): AppThunk => (dispatch, getState) => {
-  const state: RootState = getState();
-
-  const { email, name } = state.user;
-
-  dispatch(displayNotification("", "default"));
-  dispatch(setEditEmail(email));
-  dispatch(setEditName(name));
-  dispatch(setIsEditingProfile(true));
-};
-
-export const cancelEditProfile = (): AppThunk => (dispatch) => {
-  dispatch(setEditEmail(""));
-  dispatch(setEditName(""));
-  dispatch(displayNotification("", "default"));
-  dispatch(setIsEditingProfile(false));
-};
-
-export const editProfile = (): AppThunk => async (dispatch, getState) => {
+export const editProfile = (email: string, name: string): AppThunk => async (
+  dispatch
+) => {
   dispatch(setIsLoading(true));
   dispatch(displayNotification("", "default"));
-  const state: RootState = getState();
 
-  const { editEmail, editName } = state.user;
   try {
     // TODO - Modify
     const response: EditProfileResponse = await fetchServerData(
       "/user/me",
       "PATCH",
-      JSON.stringify({ email: editEmail, name: editName })
+      JSON.stringify({ email, name })
     );
 
     if (response.error) {
@@ -398,8 +373,6 @@ export const editProfile = (): AppThunk => async (dispatch, getState) => {
         "success"
       )
     );
-    dispatch(setEditEmail(""));
-    dispatch(setEditName(""));
     dispatch(setEmail(response.email));
     dispatch(setName(response.name));
     dispatch(setIsEditingProfile(false));
@@ -409,21 +382,6 @@ export const editProfile = (): AppThunk => async (dispatch, getState) => {
     dispatch(displayNotification(error, "error"));
     dispatch(setIsLoading(false));
   }
-};
-
-export const cancelDeleteProfile = (): AppThunk => (dispatch) => {
-  dispatch(displayNotification("", "default"));
-  dispatch(setIsDeletingProfile(false));
-};
-
-export const clickDeleteProfile = (): AppThunk => (dispatch) => {
-  dispatch(
-    displayNotification(
-      "Are you sure you would like to delete your profile? This can not be reversed.",
-      "warning"
-    )
-  );
-  dispatch(setIsDeletingProfile(true));
 };
 
 export const deleteProfile = (): AppThunk => async (dispatch) => {
@@ -448,9 +406,11 @@ export const deleteProfile = (): AppThunk => async (dispatch) => {
     dispatch(setName(""));
     dispatch(setSavedJobs([]));
     dispatch(setHiddenJobs([]));
-    dispatch(setIsDeletingProfile(false));
     dispatch(setIsLoggedIn(false));
     dispatch(setIsLoading(false));
+    dispatch(setIsModalOpen(false));
+    dispatch(setModalContent(""));
+    dispatch(setModalTitle(""));
   } catch (error) {
     console.error(error);
     dispatch(displayNotification(error, "error"));
@@ -589,13 +549,17 @@ export const removeSavedJob = (id: string): AppThunk => async (dispatch) => {
 export const clickViewHiddenJobs = (): AppThunk => (dispatch) => {
   dispatch(setCurrentPage(1));
   dispatch(displayNotification("", "default"));
-  dispatch(setIsViewingHiddenJobs(true));
+  dispatch(setModalContent("hiddenJobs"));
+  dispatch(setModalTitle("Hidden Jobs"));
+  dispatch(setIsModalOpen(true));
 };
 
 export const clickViewSavedJobs = (): AppThunk => (dispatch) => {
   dispatch(setCurrentPage(1));
   dispatch(displayNotification("", "default"));
-  dispatch(setIsViewingSavedJobs(true));
+  dispatch(setModalContent("savedJobs"));
+  dispatch(setModalTitle("Saved Jobs"));
+  dispatch(setIsModalOpen(true));
 };
 
 export const getJobDetails = (id: string): AppThunk => async (dispatch) => {
@@ -672,4 +636,10 @@ export const getHiddenJobsDetails = (): AppThunk => async (dispatch) => {
     dispatch(displayNotification(error, "error"));
     dispatch(setIsLoading(false));
   }
+};
+
+export const resetModal = (): AppThunk => (dispatch) => {
+  dispatch(setIsModalOpen(false));
+  dispatch(setModalContent(""));
+  dispatch(setModalTitle(""));
 };

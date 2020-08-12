@@ -30,6 +30,7 @@ export const fetchServerData = async (
   return data;
 };
 
+// TODO - Remove
 // eslint-disable-next-line
 export const groupBy = (arr: any[], key: any): any =>
   arr.reduce(
@@ -37,9 +38,11 @@ export const groupBy = (arr: any[], key: any): any =>
     {}
   );
 
+// TODO - Remove
 // eslint-disable-next-line
 export const unique = (arr: any[]): any[] => [...new Set(arr)];
 
+// TODO - Remove
 export const validURL = (str: string): boolean => {
   const pattern = new RegExp(
     "^(https?:\\/\\/)?" + // protocol

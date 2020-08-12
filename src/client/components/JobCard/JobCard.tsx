@@ -142,7 +142,7 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
           <StyledCreatedContainer>
             <i className="material-icons">access_time</i>
             <p>
-              {formatDistanceToNow(new Date(job.created_at), {
+              {formatDistanceToNow(new Date(job.listingDate), {
                 addSuffix: true,
               })}
             </p>

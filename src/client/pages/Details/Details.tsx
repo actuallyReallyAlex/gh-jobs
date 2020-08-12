@@ -178,7 +178,7 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
                 <DetailsCreatedContainer>
                   <i className="material-icons">access_time</i>
                   <p>
-                    {formatDistanceToNow(new Date(jobDetails.created_at), {
+                    {formatDistanceToNow(new Date(jobDetails.listingDate), {
                       addSuffix: true,
                     })}
                   </p>

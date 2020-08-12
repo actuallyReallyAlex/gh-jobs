@@ -131,6 +131,15 @@ class UserController {
             return res.status(400).send({ error: "Invalid email" });
           }
 
+          const usersWithEmail = await User.findOne({ email: req.body.email });
+
+          if (!usersWithEmail) {
+            return res.status(401).send({
+              error:
+                "We couldn't find a user with that email address. Please create an account, or provide another email address.",
+            });
+          }
+
           const user: UserDocument = await User.findByCredentials(
             req.body.email,
             req.body.password

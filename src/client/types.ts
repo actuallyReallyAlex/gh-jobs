@@ -169,10 +169,10 @@ export interface Job {
   company: string;
   company_logo: string;
   company_url: string;
-  created_at: string;
   description: string;
   how_to_apply: string;
   id: string;
+  listingDate: string;
   location: string;
   title: string;
   type: JobType;
@@ -188,6 +188,18 @@ export interface LocationOption {
 }
 
 export type LoginResponse = ServerResponseError & ServerResponseUser;
+
+export interface ModalAction {
+  type: string;
+  // eslint-disable-next-line
+  payload: any;
+}
+
+export interface ModalState {
+  isModalOpen: boolean;
+  modalContent: string;
+  modalTitle: string;
+}
 
 export type NotificationType =
   | "error"
@@ -235,6 +247,7 @@ export type ResetPasswordResponse = ServerResponseError & ServerResponseUser;
 
 export type RootState = {
   application: ApplicationState;
+  modal: ModalState;
   user: UserState;
 };
 
@@ -278,19 +291,13 @@ export interface UserAction {
 
 export interface UserState {
   confirmPassword: string;
-  editEmail: string;
-  editName: string;
   email: string;
   hiddenJobs: string[];
   hiddenJobsCurrentPage: number;
   hiddenJobsDetails: Job[];
   hiddenJobsTotalPages: number;
-  isDeletingProfile: boolean;
   isEditingProfile: boolean;
   isLoggedIn: false;
-  isResettingPassword: boolean;
-  isViewingHiddenJobs: boolean;
-  isViewingSavedJobs: boolean;
   name: string;
   password: string;
   resetConfirmNewPassword: string;
