@@ -8,10 +8,12 @@ import {
   setTotalPages,
   setJobDetails,
   setError,
+} from "./actions/application";
+import {
+  setIsModalOpen,
   setModalContent,
   setModalTitle,
-  setIsModalOpen,
-} from "./actions/application";
+} from "./actions/modal";
 import {
   setConfirmPassword,
   setEmail,

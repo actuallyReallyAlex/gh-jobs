@@ -11,10 +11,10 @@ import {
 } from "./Profile-styled";
 
 import {
+  setIsModalOpen,
   setModalContent,
   setModalTitle,
-  setIsModalOpen,
-} from "../../redux/actions/application";
+} from "../../redux/actions/modal";
 import { setIsEditingProfile } from "../../redux/actions/user";
 import { editProfile } from "../../redux/thunks";
 

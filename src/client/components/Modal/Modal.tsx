@@ -45,9 +45,9 @@ const Modal: React.SFC<ModalProps> = (props: ModalProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  isModalOpen: state.application.isModalOpen,
-  modalContent: state.application.modalContent,
-  modalTitle: state.application.modalTitle,
+  isModalOpen: state.modal.isModalOpen,
+  modalContent: state.modal.modalContent,
+  modalTitle: state.modal.modalTitle,
 });
 
 const mapDispatchToProps = (dispatch) => ({

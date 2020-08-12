@@ -5,12 +5,9 @@ import {
   SET_ERROR,
   SET_FULL_TIME,
   SET_IS_LOADING,
-  SET_IS_MODAL_OPEN,
   SET_JOB_DETAILS,
   SET_JOBS,
   SET_LOCATION_SEARCH,
-  SET_MODAL_CONTENT,
-  SET_MODAL_TITLE,
   SET_SEARCH_VALUE,
   SET_TOTAL_PAGES,
 } from "../actionTypes";
@@ -53,11 +50,6 @@ export const setIsLoading = (isLoading: boolean): ApplicationAction => ({
   payload: { isLoading },
 });
 
-export const setIsModalOpen = (isModalOpen: boolean): ApplicationAction => ({
-  type: SET_IS_MODAL_OPEN,
-  payload: { isModalOpen },
-});
-
 export const setJobDetails = (jobDetails: Job): ApplicationAction => ({
   type: SET_JOB_DETAILS,
   payload: { jobDetails },
@@ -73,16 +65,6 @@ export const setLocationSearch = (
 ): ApplicationAction => ({
   type: SET_LOCATION_SEARCH,
   payload: { locationSearch },
-});
-
-export const setModalContent = (modalContent: string): ApplicationAction => ({
-  type: SET_MODAL_CONTENT,
-  payload: { modalContent },
-});
-
-export const setModalTitle = (modalTitle: string): ApplicationAction => ({
-  type: SET_MODAL_TITLE,
-  payload: { modalTitle },
 });
 
 export const setSearchValue = (searchValue: string): ApplicationAction => ({

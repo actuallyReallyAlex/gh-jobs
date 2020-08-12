@@ -48,12 +48,9 @@ export interface ApplicationState {
   error: ApplicationError;
   fullTime: boolean;
   isLoading: boolean;
-  isModalOpen: boolean;
   jobDetails: Job;
   jobs: Job[];
   locationSearch: string;
-  modalContent: string;
-  modalTitle: string;
   notificationMessage: string;
   notificationType: NotificationType;
   searchValue: string;
@@ -192,6 +189,18 @@ export interface LocationOption {
 
 export type LoginResponse = ServerResponseError & ServerResponseUser;
 
+export interface ModalAction {
+  type: string;
+  // eslint-disable-next-line
+  payload: any;
+}
+
+export interface ModalState {
+  isModalOpen: boolean;
+  modalContent: string;
+  modalTitle: string;
+}
+
 export type NotificationType =
   | "error"
   | "dark"
@@ -238,6 +247,7 @@ export type ResetPasswordResponse = ServerResponseError & ServerResponseUser;
 
 export type RootState = {
   application: ApplicationState;
+  modal: ModalState;
   user: UserState;
 };
 
