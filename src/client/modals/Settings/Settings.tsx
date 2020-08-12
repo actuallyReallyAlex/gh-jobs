@@ -5,11 +5,8 @@ import Button from "../../components/Button";
 
 import { Container, Row } from "./Settings-styled";
 
-import {
-  displayNotification,
-  setModalContent,
-  setModalTitle,
-} from "../../redux/actions/application";
+import { displayNotification } from "../../redux/actions/application";
+import { setModalContent, setModalTitle } from "../../redux/actions/modal";
 import { logOut, logOutAll } from "../../redux/thunks";
 
 export interface SettingsProps {

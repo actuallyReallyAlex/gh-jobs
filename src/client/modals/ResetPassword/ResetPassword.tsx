@@ -4,11 +4,8 @@ import { connect } from "react-redux";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 
-import {
-  displayNotification,
-  setModalContent,
-  setModalTitle,
-} from "../../redux/actions/application";
+import { displayNotification } from "../../redux/actions/application";
+import { setModalContent, setModalTitle } from "../../redux/actions/modal";
 import { resetPassword } from "../../redux/thunks";
 
 export interface ResetPasswordProps {
