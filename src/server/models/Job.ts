@@ -16,10 +16,6 @@ const jobSchema = new mongoose.Schema(
       required: false,
       type: String,
     },
-    created_at: {
-      required: [true, "Field 'created_at' is required."],
-      type: String,
-    },
     description: {
       required: [true, "Field 'description' is required."],
       type: String,
@@ -30,6 +26,10 @@ const jobSchema = new mongoose.Schema(
     },
     id: {
       required: [true, "Field 'id' is required."],
+      type: String,
+    },
+    listingDate: {
+      required: [true, "Field 'listingDate' is required."],
       type: String,
     },
     location: {
