@@ -15,6 +15,7 @@ import {
   Job,
   GetJobDetailsErrorResponse,
   GetJobDetailsSuccessResponse,
+  GitHubJob,
 } from "../types";
 
 /**
@@ -46,8 +47,12 @@ class JobController {
             }
 
             await Promise.all(
-              result.map(async (job: Job) => {
-                const newJob = new JobModel(job);
+              result.map(async (job: GitHubJob) => {
+                const newJobObject: Job = {
+                  ...job,
+                  listingDate: job.created_at,
+                };
+                const newJob = new JobModel(newJobObject);
                 await newJob.save();
                 return;
               })
@@ -77,8 +82,12 @@ class JobController {
 
               // * Create new Job entries
               await Promise.all(
-                result.map(async (job: Job) => {
-                  const newJob = new JobModel(job);
+                result.map(async (job: GitHubJob) => {
+                  const newJobObject: Job = {
+                    ...job,
+                    listingDate: job.created_at,
+                  };
+                  const newJob = new JobModel(newJobObject);
                   await newJob.save();
                   return;
                 })

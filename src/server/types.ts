@@ -25,7 +25,7 @@ export interface GetJobsErrorResponse {
   error: string;
 }
 
-export type GetJobsSuccessResponse = Job[];
+export type GetJobsSuccessResponse = GitHubJob[];
 
 export interface GetHiddenJobsDetailsErrorResponse {
   error: string;
@@ -38,6 +38,20 @@ export interface GetSavedJobsDetailsErrorResponse {
 }
 
 export type GetSavedJobsDetailsSuccessResponse = Job[];
+
+export interface GitHubJob {
+  company: string;
+  company_logo: string;
+  company_url: string;
+  created_at: string;
+  description: string;
+  how_to_apply: string;
+  id: string;
+  location: string;
+  title: string;
+  type: JobType;
+  url: string;
+}
 
 export interface Job {
   company: string;
