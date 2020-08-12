@@ -183,7 +183,7 @@ const ProfileAccountStatsContainer = styled.div`
   padding: 25px;
   width: 40%;
 
-  h2 {
+  h3 {
     margin-top: 100px;
   }
 

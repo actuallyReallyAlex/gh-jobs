@@ -10,17 +10,19 @@ import {
   ProfileAccountDetailsContainer,
 } from "./Profile-styled";
 
-import { editProfile } from "../../redux/thunks";
-
-import { RootState } from "../../types";
 import {
   setModalContent,
   setModalTitle,
   setIsModalOpen,
 } from "../../redux/actions/application";
+import { setIsEditingProfile } from "../../redux/actions/user";
+import { editProfile } from "../../redux/thunks";
+
+import { RootState } from "../../types";
 
 export interface ProfileAccountDetailsProps {
   email: string;
+  handleCancelEditProfile: () => void;
   handleEditProfile: (email: string, name: string) => void;
   handleSettingsClick: () => void;
   isEditingProfile: boolean;
@@ -32,6 +34,7 @@ const ProfileAccountDetails: React.SFC<ProfileAccountDetailsProps> = (
 ) => {
   const {
     email,
+    handleCancelEditProfile,
     handleEditProfile,
     handleSettingsClick,
     isEditingProfile,
@@ -82,17 +85,30 @@ const ProfileAccountDetails: React.SFC<ProfileAccountDetailsProps> = (
             value={newEmail}
           />
           {isEditingProfile && (
-            <Button
-              buttonStyle="primary"
-              disabled={
-                newEmail === "" ||
-                (newEmail === email && newName === name) ||
-                newName === ""
-              }
-              id="edit-confirm"
-              label="Accept changes"
-              type="submit"
-            />
+            <div>
+              <Button
+                buttonStyle="primary"
+                disabled={
+                  newEmail === "" ||
+                  (newEmail === email && newName === name) ||
+                  newName === ""
+                }
+                id="edit-confirm"
+                label="Accept changes"
+                type="submit"
+              />
+              <Button
+                buttonStyle="secondary"
+                id="edit-cancel"
+                label="Cancel"
+                onClick={() => {
+                  setNewName(name);
+                  setNewEmail(email);
+                  handleCancelEditProfile();
+                }}
+                type="button"
+              />
+            </div>
           )}
         </form>
       </ProfileAccountDetailsContentContainer>
@@ -107,6 +123,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  handleCancelEditProfile: () => dispatch(setIsEditingProfile(false)),
   handleEditProfile: (email: string, name: string) =>
     dispatch(editProfile(email, name)),
   handleSettingsClick: () => {

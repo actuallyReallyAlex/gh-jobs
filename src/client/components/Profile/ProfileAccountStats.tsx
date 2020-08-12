@@ -34,7 +34,7 @@ const ProfileAccountStats: React.SFC<ProfileAccountStatsProps> = (
   return (
     <ProfileAccountStatsContainer>
       <ProfileAccountStatsAvatar />
-      <h2>{name}</h2>
+      <h3>{name}</h3>
       <ProfileAccountStatsInnerContainer>
         <Stat figure={hiddenJobs.length} label="Hidden Jobs" />
         <Stat figure={savedJobs.length} label="Saved Jobs" />

@@ -74,7 +74,7 @@ context("Saved Jobs", () => {
 
     cy.get("#nav-profile").click();
     cy.get("#view-saved-jobs").click();
-    cy.get("h1").should("have.text", "Saved Jobs");
+    cy.get("#modal-title").should("have.text", "Saved Jobs");
     cy.get("#f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").should("exist");
 
     // * Cleanup
@@ -86,10 +86,10 @@ context("Saved Jobs", () => {
 
     cy.get("#nav-profile").click();
     cy.get("#view-saved-jobs").click();
-    cy.get("h1").should("have.text", "Saved Jobs");
+    cy.get("#modal-title").should("have.text", "Saved Jobs");
 
-    cy.get("#back-to-profile").click();
-    cy.get("h1").should("have.text", "Profile");
+    cy.get("#modal-close").click();
+    cy.get("h2").should("have.text", "Hello, Bob");
 
     // * Cleanup
     cy.get("#view-saved-jobs").click();
@@ -119,6 +119,7 @@ context("Saved Jobs", () => {
     );
 
     // * Cleanup
+    cy.get("#modal-close").click();
     cy.get("header").click();
     cy.get("#remove-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
     cy.get("#remove-job-72de09f2-5bc6-489f-be90-3d38e505e20a").click();

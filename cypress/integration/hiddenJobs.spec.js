@@ -74,22 +74,22 @@ context("Hidden Jobs", () => {
 
     cy.get("#nav-profile").click();
     cy.get("#view-hidden-jobs").click();
-    cy.get("h1").should("have.text", "Hidden Jobs");
+    cy.get("#modal-title").should("have.text", "Hidden Jobs");
     cy.get("#f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").should("exist");
 
     // * Cleanup
     cy.get("#show-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
   });
 
-  it("Should be able to return to the profile display page", () => {
+  it("Should be able to return to the profile page", () => {
     cy.get("#hide-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
 
     cy.get("#nav-profile").click();
     cy.get("#view-hidden-jobs").click();
-    cy.get("h1").should("have.text", "Hidden Jobs");
+    cy.get("#modal-title").should("have.text", "Hidden Jobs");
 
-    cy.get("#back-to-profile").click();
-    cy.get("h1").should("have.text", "Profile");
+    cy.get("#modal-close").click();
+    cy.get("h2").should("have.text", "Hello, Bob");
 
     // * Cleanup
     cy.get("#view-hidden-jobs").click();
@@ -119,6 +119,7 @@ context("Hidden Jobs", () => {
     );
 
     // * Cleanup
+    cy.get("#modal-close").click();
     cy.get("header").click();
     cy.get("#show-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
     cy.get("#show-job-72de09f2-5bc6-489f-be90-3d38e505e20a").click();

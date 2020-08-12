@@ -32,7 +32,7 @@ const Modal: React.SFC<ModalProps> = (props: ModalProps) => {
       <ModalContainer id="modal" isModalOpen={isModalOpen}>
         <ModalInnerContainer>
           <ModalTitle>
-            <h2>{modalTitle}</h2>
+            <h2 id="modal-title">{modalTitle}</h2>
             <button id="modal-close" onClick={() => handleCloseModal()}>
               x
             </button>

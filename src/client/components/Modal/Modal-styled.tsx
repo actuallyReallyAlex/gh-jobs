@@ -22,6 +22,8 @@ const ModalInnerContainer = styled.div`
   background-color: #ffffff;
   border-radius: 1.25rem;
   height: fit-content;
+  max-height: 80%;
+  overflow-y: scroll;
   padding: 25px;
   width: 50%;
 

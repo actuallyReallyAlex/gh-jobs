@@ -24,7 +24,7 @@ const DeleteProfile: React.SFC<DeleteProfileProps> = (
     <div>
       <Button
         buttonStyle="secondary"
-        id="cancel"
+        id="delete-cancel"
         label="Cancel"
         onClick={() => handleCancelDeleteProfile()}
         type="button"

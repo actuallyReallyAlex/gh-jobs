@@ -29,6 +29,7 @@ const ProfileHero: React.SFC<ProfileHeroProps> = (props: ProfileHeroProps) => {
       <Button
         buttonStyle="primary"
         label="Edit profile"
+        id="edit-profile"
         onClick={() => handleEditProfile()}
         type="button"
       />
