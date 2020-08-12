@@ -7,9 +7,6 @@ import {
   SET_HIDDEN_JOBS_TOTAL_PAGES,
   SET_IS_EDITING_PROFILE,
   SET_IS_LOGGED_IN,
-  SET_IS_RESETTING_PASSWORD,
-  SET_IS_VIEWING_HIDDEN_JOBS,
-  SET_IS_VIEWING_SAVED_JOBS,
   SET_NAME,
   SET_PASSWORD,
   SET_RESET_CONFIRM_NEW_PASSWORD,
@@ -32,9 +29,6 @@ export const initialState: UserState = {
   hiddenJobsTotalPages: 1,
   isEditingProfile: false,
   isLoggedIn: false,
-  isResettingPassword: false,
-  isViewingHiddenJobs: false,
-  isViewingSavedJobs: false,
   name: "",
   password: "",
   resetConfirmNewPassword: "",
@@ -64,9 +58,6 @@ const reducer = (state = initialState, action: UserAction): UserState => {
     case SET_HIDDEN_JOBS_TOTAL_PAGES:
     case SET_IS_EDITING_PROFILE:
     case SET_IS_LOGGED_IN:
-    case SET_IS_RESETTING_PASSWORD:
-    case SET_IS_VIEWING_HIDDEN_JOBS:
-    case SET_IS_VIEWING_SAVED_JOBS:
     case SET_NAME:
     case SET_PASSWORD:
     case SET_RESET_CONFIRM_NEW_PASSWORD:

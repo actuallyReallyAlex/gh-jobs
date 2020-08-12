@@ -7,9 +7,6 @@ import {
   SET_HIDDEN_JOBS_TOTAL_PAGES,
   SET_IS_EDITING_PROFILE,
   SET_IS_LOGGED_IN,
-  SET_IS_RESETTING_PASSWORD,
-  SET_IS_VIEWING_HIDDEN_JOBS,
-  SET_IS_VIEWING_SAVED_JOBS,
   SET_NAME,
   SET_PASSWORD,
   SET_RESET_CONFIRM_NEW_PASSWORD,
@@ -65,27 +62,6 @@ export const setIsEditingProfile = (isEditingProfile: boolean): UserAction => ({
 export const setIsLoggedIn = (isLoggedIn: boolean): UserAction => ({
   type: SET_IS_LOGGED_IN,
   payload: { isLoggedIn },
-});
-
-export const setIsResettingPassword = (
-  isResettingPassword: boolean
-): UserAction => ({
-  type: SET_IS_RESETTING_PASSWORD,
-  payload: { isResettingPassword },
-});
-
-export const setIsViewingHiddenJobs = (
-  isViewingHiddenJobs: boolean
-): UserAction => ({
-  type: SET_IS_VIEWING_HIDDEN_JOBS,
-  payload: { isViewingHiddenJobs },
-});
-
-export const setIsViewingSavedJobs = (
-  isViewingSavedJobs: boolean
-): UserAction => ({
-  type: SET_IS_VIEWING_SAVED_JOBS,
-  payload: { isViewingSavedJobs },
 });
 
 export const setName = (name: string): UserAction => ({

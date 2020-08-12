@@ -17,7 +17,6 @@ import {
   setEmail,
   setIsEditingProfile,
   setIsLoggedIn,
-  setIsResettingPassword,
   setName,
   setPassword,
   setResetConfirmNewPassword,
@@ -335,7 +334,6 @@ export const resetPassword = (
     dispatch(setResetConfirmNewPassword(""));
     dispatch(setResetCurrentPassword(""));
     dispatch(setResetNewPassword(""));
-    dispatch(setIsResettingPassword(false));
     dispatch(setIsModalOpen(false));
     dispatch(setModalContent(""));
     dispatch(setModalTitle(""));
