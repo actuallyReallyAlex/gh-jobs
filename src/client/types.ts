@@ -286,7 +286,6 @@ export interface UserState {
   hiddenJobsCurrentPage: number;
   hiddenJobsDetails: Job[];
   hiddenJobsTotalPages: number;
-  isDeletingProfile: boolean;
   isEditingProfile: boolean;
   isLoggedIn: false;
   isResettingPassword: boolean;

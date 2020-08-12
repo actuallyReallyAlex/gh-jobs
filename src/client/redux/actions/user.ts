@@ -5,7 +5,6 @@ import {
   SET_HIDDEN_JOBS_CURRENT_PAGE,
   SET_HIDDEN_JOBS_DETAILS,
   SET_HIDDEN_JOBS_TOTAL_PAGES,
-  SET_IS_DELETING_PROFILE,
   SET_IS_EDITING_PROFILE,
   SET_IS_LOGGED_IN,
   SET_IS_RESETTING_PASSWORD,
@@ -56,13 +55,6 @@ export const setHiddenJobsTotalPages = (
 ): UserAction => ({
   type: SET_HIDDEN_JOBS_TOTAL_PAGES,
   payload: { hiddenJobsTotalPages },
-});
-
-export const setIsDeletingProfile = (
-  isDeletingProfile: boolean
-): UserAction => ({
-  type: SET_IS_DELETING_PROFILE,
-  payload: { isDeletingProfile },
 });
 
 export const setIsEditingProfile = (isEditingProfile: boolean): UserAction => ({

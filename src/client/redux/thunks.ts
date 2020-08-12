@@ -15,11 +15,8 @@ import {
 import {
   setConfirmPassword,
   setEmail,
-  setIsDeletingProfile,
   setIsEditingProfile,
   setIsLoggedIn,
-  setIsViewingHiddenJobs,
-  setIsViewingSavedJobs,
   setIsResettingPassword,
   setName,
   setPassword,
@@ -350,27 +347,6 @@ export const resetPassword = (
   }
 };
 
-// TODO - Remove
-export const cancelResetPassword = (): AppThunk => (dispatch) => {
-  dispatch(setResetConfirmNewPassword(""));
-  dispatch(setResetCurrentPassword(""));
-  dispatch(setResetNewPassword(""));
-  dispatch(displayNotification("", "default"));
-  dispatch(setIsResettingPassword(false));
-};
-
-// TODO - Remove
-export const clickEditProfile = (): AppThunk => (dispatch) => {
-  dispatch(displayNotification("", "default"));
-  dispatch(setIsEditingProfile(true));
-};
-
-// TODO - Remove
-export const cancelEditProfile = (): AppThunk => (dispatch) => {
-  dispatch(displayNotification("", "default"));
-  dispatch(setIsEditingProfile(false));
-};
-
 export const editProfile = (email: string, name: string): AppThunk => async (
   dispatch
 ) => {
@@ -408,21 +384,6 @@ export const editProfile = (email: string, name: string): AppThunk => async (
   }
 };
 
-export const cancelDeleteProfile = (): AppThunk => (dispatch) => {
-  dispatch(displayNotification("", "default"));
-  dispatch(setIsDeletingProfile(false));
-};
-
-export const clickDeleteProfile = (): AppThunk => (dispatch) => {
-  dispatch(
-    displayNotification(
-      "Are you sure you would like to delete your profile? This can not be reversed.",
-      "warning"
-    )
-  );
-  dispatch(setIsDeletingProfile(true));
-};
-
 export const deleteProfile = (): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
   dispatch(displayNotification("", "default"));
@@ -445,7 +406,6 @@ export const deleteProfile = (): AppThunk => async (dispatch) => {
     dispatch(setName(""));
     dispatch(setSavedJobs([]));
     dispatch(setHiddenJobs([]));
-    dispatch(setIsDeletingProfile(false));
     dispatch(setIsLoggedIn(false));
     dispatch(setIsLoading(false));
     dispatch(setIsModalOpen(false));
