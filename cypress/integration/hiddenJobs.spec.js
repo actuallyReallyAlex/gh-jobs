@@ -130,3 +130,37 @@ context("Hidden Jobs", () => {
     cy.get("#show-job-11cbce13-e6cd-4c79-b904-d292b569b22f").click();
   });
 });
+
+context("Hidden Jobs - No Results", () => {
+  beforeEach(() => {
+    cy.fixture("jobs50").then((jobsJson) => {
+      cy.server();
+      cy.route({
+        method: "GET",
+        url: "/jobs",
+        status: 200,
+        response: jobsJson,
+        delay: 1000,
+      });
+    });
+    cy.visit("http://localhost:3000");
+    cy.wait(500);
+    cy.get("#nav-login").click();
+    cy.get("h1").should("have.text", "Login");
+    cy.get("#email").type("bobtest@email.com");
+    cy.get("#password").type("Red123456!!!");
+    cy.get("#log-in").click();
+    cy.wait(500);
+
+    cy.get("#nav-login").should("not.exist");
+    cy.get("#search").should("be.visible");
+  });
+
+  it("Should not make call to BE if there are no jobs in the list", () => {
+    cy.get("#nav-profile").click();
+
+    cy.get("#view-hidden-jobs").click();
+
+    assert.equal(cy.state("requests").length, 3);
+  });
+});
