@@ -4,10 +4,12 @@ const ProfileAccountDetailsContainer = styled.div`
   background-color: rgba(246, 249, 251, 1);
   border-radius: 1.25rem;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  margin-bottom: 25px;
   margin-top: -200px;
   width: 40%;
 
   @media only screen and (max-width: 600px) {
+    margin-bottom: 0;
     width: 100%;
   }
 `;
