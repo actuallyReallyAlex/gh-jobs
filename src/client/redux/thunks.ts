@@ -418,9 +418,14 @@ export const deleteProfile = (): AppThunk => async (dispatch) => {
   }
 };
 
-export const addHiddenJob = (id: string): AppThunk => async (dispatch) => {
+export const addHiddenJob = (id: string): AppThunk => async (
+  dispatch,
+  getState
+) => {
   dispatch(setIsLoading(true));
   try {
+    const state: RootState = getState();
+    const { currentJobs } = state.application;
     // TODO - Modify
     const result:
       | AddHiddenJobErrorResponse
@@ -438,9 +443,13 @@ export const addHiddenJob = (id: string): AppThunk => async (dispatch) => {
 
     const { hiddenJobs } = result;
 
+    const newCurrentJobs = currentJobs.filter((job: Job) => job.id !== id);
+
     dispatch(setHiddenJobs(hiddenJobs));
     dispatch(setHiddenJobsCurrentPage(1));
     dispatch(setHiddenJobsTotalPages(Math.ceil(hiddenJobs.length / 5)));
+    dispatch(setCurrentJobs(newCurrentJobs));
+    dispatch(setTotalPages(Math.ceil(newCurrentJobs.length / 5)));
     dispatch(displayNotification("Job hidden successfully.", "success"));
     dispatch(setIsLoading(false));
   } catch (error) {
