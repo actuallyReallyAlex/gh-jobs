@@ -10,6 +10,7 @@ import { RootState, Job } from "../../types";
 
 export interface SavedJobsProps {
   handleGetSavedJobsDetails: () => void;
+  savedJobs: string[];
   savedJobsCurrentPage: number;
   savedJobsDetails: Job[];
   savedJobsTotalPages: number;
@@ -18,6 +19,7 @@ export interface SavedJobsProps {
 const SavedJobs: React.SFC<SavedJobsProps> = (props: SavedJobsProps) => {
   const {
     handleGetSavedJobsDetails,
+    savedJobs,
     savedJobsCurrentPage,
     savedJobsDetails,
     savedJobsTotalPages,
@@ -31,7 +33,9 @@ const SavedJobs: React.SFC<SavedJobsProps> = (props: SavedJobsProps) => {
     );
 
   React.useEffect((): void => {
-    handleGetSavedJobsDetails();
+    if (savedJobs.length > 0) {
+      handleGetSavedJobsDetails();
+    }
   }, []);
 
   return (
@@ -54,6 +58,7 @@ const SavedJobs: React.SFC<SavedJobsProps> = (props: SavedJobsProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
+  savedJobs: state.user.savedJobs,
   savedJobsCurrentPage: state.user.savedJobsCurrentPage,
   savedJobsDetails: state.user.savedJobsDetails,
   savedJobsTotalPages: state.user.savedJobsTotalPages,

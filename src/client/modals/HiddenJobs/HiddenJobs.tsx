@@ -10,6 +10,7 @@ import { RootState, Job } from "../../types";
 
 export interface HiddenJobsProps {
   handleGetHiddenJobsDetails: () => void;
+  hiddenJobs: string[];
   hiddenJobsCurrentPage: number;
   hiddenJobsDetails: Job[];
   hiddenJobsTotalPages: number;
@@ -18,6 +19,7 @@ export interface HiddenJobsProps {
 const HiddenJobs: React.SFC<HiddenJobsProps> = (props: HiddenJobsProps) => {
   const {
     handleGetHiddenJobsDetails,
+    hiddenJobs,
     hiddenJobsCurrentPage,
     hiddenJobsDetails,
     hiddenJobsTotalPages,
@@ -31,7 +33,9 @@ const HiddenJobs: React.SFC<HiddenJobsProps> = (props: HiddenJobsProps) => {
     );
 
   React.useEffect((): void => {
-    handleGetHiddenJobsDetails();
+    if (hiddenJobs.length > 0) {
+      handleGetHiddenJobsDetails();
+    }
   }, []);
 
   return (
@@ -54,6 +58,7 @@ const HiddenJobs: React.SFC<HiddenJobsProps> = (props: HiddenJobsProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
+  hiddenJobs: state.user.hiddenJobs,
   hiddenJobsCurrentPage: state.user.hiddenJobsCurrentPage,
   hiddenJobsDetails: state.user.hiddenJobsDetails,
   hiddenJobsTotalPages: state.user.hiddenJobsTotalPages,
