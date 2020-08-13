@@ -158,9 +158,15 @@ context("Saved Jobs - No Results", () => {
 
   it("Should not make call to BE if there are no jobs in the list", () => {
     cy.get("#nav-profile").click();
-
     cy.get("#view-saved-jobs").click();
 
     assert.equal(cy.state("requests").length, 3);
+  });
+
+  it("Should display correct text", () => {
+    cy.get("#nav-profile").click();
+    cy.get("#view-hidden-jobs").click();
+
+    cy.get("#no-results").should("have.text", "No results.");
   });
 });
