@@ -50,7 +50,7 @@ const SavedJobs: React.SFC<SavedJobsProps> = (props: SavedJobsProps) => {
       )}
       {jobsOnPage.length === 0 && (
         <div id="no-results">
-          No results. Please modify your search and try again.
+          No results.
         </div>
       )}
     </div>
