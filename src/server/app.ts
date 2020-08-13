@@ -74,9 +74,16 @@ class App {
     this.app.use(express.static(path.join(__dirname, "../dist")));
 
     this.app.get("*", (req: Request, res: Response) => {
-      if (req.headers.host === "gh-jobs.herokuapp.com") {
+      // if (req.headers.host === "gh-jobs.herokuapp.com") {
+      //   return res.status(301).redirect("https://www.githubjobs.io/");
+      // }
+
+      if (req.hostname === "gh-jobs.herokuapp.com") {
         return res.status(301).redirect("https://www.githubjobs.io/");
       }
+
+      // ? Use this.app.all?
+
       console.log(
         chalk.blueBright.inverse({
           host: req.headers.host,
