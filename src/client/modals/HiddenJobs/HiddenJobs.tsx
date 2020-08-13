@@ -48,11 +48,7 @@ const HiddenJobs: React.SFC<HiddenJobsProps> = (props: HiddenJobsProps) => {
           totalPages={hiddenJobsTotalPages}
         />
       )}
-      {jobsOnPage.length === 0 && (
-        <div id="no-results">
-          No results.
-        </div>
-      )}
+      {jobsOnPage.length === 0 && <div id="no-results">No results.</div>}
     </div>
   );
 };
