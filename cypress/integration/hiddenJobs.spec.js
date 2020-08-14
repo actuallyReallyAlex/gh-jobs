@@ -30,13 +30,12 @@ context("Hidden Jobs", () => {
       .its("data")
       .should("be", '{ cy: "deselected" }');
     cy.get("#hide-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
-    cy.get("#show-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb")
-      .its("data")
-      .should("be", "{ cy: 'selected' }");
     cy.get("#notification").should("have.text", "Job hidden successfully.");
     cy.get("#notification > button").click();
 
     // * Cleanup
+    cy.get("#nav-profile").click();
+    cy.get("#view-hidden-jobs").click();
     cy.get("#show-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
     cy.get("#notification").should("have.text", "Job shown successfully.");
     cy.get("#notification > button").click();
@@ -66,9 +65,6 @@ context("Hidden Jobs", () => {
       .its("data")
       .should("be", "{ cy: 'deselected' }");
     cy.get("#hide-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
-    cy.get("#show-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb")
-      .its("data")
-      .should("be", '{ cy: "selected" }');
     cy.get("#notification").should("have.text", "Job hidden successfully.");
     cy.get("#notification > button").click();
 
@@ -96,14 +92,13 @@ context("Hidden Jobs", () => {
     cy.get("#show-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
   });
 
-  it("Should display currentPage as '1' when viewing hiddenJobs", () => {
+  it.only("Should display currentPage as '1' when viewing hiddenJobs", () => {
     // * Save 6 jobs
     cy.get("#hide-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
     cy.get("#hide-job-72de09f2-5bc6-489f-be90-3d38e505e20a").click();
     cy.get("#hide-job-cc20d9f2-0102-4785-8253-66093d3ca5c0").click();
     cy.get("#hide-job-65ed6c1f-e74e-47ed-a85f-126ef1071a47").click();
     cy.get("#hide-job-285aa472-990f-418d-b376-e03c27f48d17").click();
-    cy.get("[data-cy=pagination-list] > :nth-child(3) > button").click();
     cy.get("#hide-job-11cbce13-e6cd-4c79-b904-d292b569b22f").click();
 
     // * View Saved Jobs
@@ -119,16 +114,36 @@ context("Hidden Jobs", () => {
     );
 
     // * Cleanup
-    cy.get("#modal-close").click();
-    cy.get("header").click();
     cy.get("#show-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
     cy.get("#show-job-72de09f2-5bc6-489f-be90-3d38e505e20a").click();
     cy.get("#show-job-cc20d9f2-0102-4785-8253-66093d3ca5c0").click();
     cy.get("#show-job-65ed6c1f-e74e-47ed-a85f-126ef1071a47").click();
     cy.get("#show-job-285aa472-990f-418d-b376-e03c27f48d17").click();
-    cy.get("[data-cy=pagination-list] > :nth-child(3) > button").click();
     cy.get("#show-job-11cbce13-e6cd-4c79-b904-d292b569b22f").click();
   });
+
+  it("Should hide the job from the list of current jobs when user hides job", () => {
+    cy.get("#hide-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb")
+      .its("data")
+      .should("be", '{ cy: "deselected" }');
+    cy.get("#hide-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
+    cy.get("#show-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").should(
+      "not.exist"
+    );
+    cy.get("#notification").should("have.text", "Job hidden successfully.");
+    cy.get("#notification > button").click();
+
+    // * Cleanup
+    cy.get("#nav-profile").click();
+    cy.get("#view-hidden-jobs").click();
+    cy.get("#show-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
+    cy.get("#notification").should("have.text", "Job shown successfully.");
+    cy.get("#notification > button").click();
+  });
+
+  it("Should display pagination correctly", () => {});
+
+  it("Should not display hidden jobs when page reloads", () => {});
 });
 
 context("Hidden Jobs - No Results", () => {
