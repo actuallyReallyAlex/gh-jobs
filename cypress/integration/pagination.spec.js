@@ -224,7 +224,7 @@ context("Pagination", () => {
 
       cy.paginationSelect1(childList);
 
-      cy.get(":nth-child(3) > [data-cy=checkmark]").click();
+      cy.get(":nth-child(4) > [data-cy=checkmark]").click();
       cy.get("#search-submit").click();
 
       cy.get('[data-cy="job-container"]').then(($jobs) => {
