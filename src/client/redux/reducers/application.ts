@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 
 import {
   DISPLAY_NOTIFICATION,
+  SET_CONTRACT,
   SET_CURRENT_JOBS,
   SET_CURRENT_PAGE,
   SET_ERROR,
@@ -20,6 +21,7 @@ import {
 import { ApplicationAction, ApplicationState } from "../../types";
 
 export const initialState: ApplicationState = {
+  contract: false,
   currentJobs: [],
   currentPage: 1,
   error: null,
@@ -88,6 +90,7 @@ const reducer = (
         },
       };
     }
+    case SET_CONTRACT:
     case SET_CURRENT_JOBS:
     case SET_CURRENT_PAGE:
     case SET_FULL_TIME:

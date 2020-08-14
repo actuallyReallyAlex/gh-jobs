@@ -70,7 +70,7 @@ export const searchJobs = (
   dispatch(setSearchValue(search));
 
   const state: RootState = getState();
-  const { fullTime, locationSearch } = state.application;
+  const { contract, fullTime, locationSearch } = state.application;
 
   const locationsSearches = locationOptions.filter(
     (location: LocationOption) => location.value !== ""
@@ -86,7 +86,9 @@ export const searchJobs = (
 
   let url = `/jobs/search?full_time=${encodeURI(
     fullTime.toString()
-  )}&description=${encodeURI(search)}`;
+  )}&contract=${encodeURI(contract.toString())}&description=${encodeURI(
+    search
+  )}`;
 
   locationsSearches.forEach((locationSearch: LocationOption, i: number) => {
     url = url + `&location${i + 1}=${encodeURI(locationSearch.value)}`;

@@ -118,6 +118,7 @@ class JobController {
       ): Promise<Response<GetJobsErrorResponse | GetJobsSuccessResponse>> => {
         try {
           const {
+            contract,
             description,
             full_time,
             location1,
@@ -184,6 +185,10 @@ class JobController {
             companyQuery.find({ type: "Full Time" });
             descriptionQuery.find({ type: "Full Time" });
             titleQuery.find({ type: "Full Time" });
+          } else if (contract === "true") {
+            companyQuery.find({ type: "Contract" });
+            descriptionQuery.find({ type: "Contract" });
+            titleQuery.find({ type: "Contract" });
           }
 
           const companyResults = await companyQuery.exec();

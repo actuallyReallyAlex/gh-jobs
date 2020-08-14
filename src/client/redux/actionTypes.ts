@@ -1,5 +1,6 @@
 // * Application
 export const DISPLAY_NOTIFICATION = "DISPLAY_NOTIFICATION";
+export const SET_CONTRACT = "SET_CONTRACT";
 export const SET_CURRENT_JOBS = "SET_CURRENT_JOBS";
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const SET_ERROR = "SET_ERROR";

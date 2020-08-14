@@ -43,6 +43,7 @@ export interface ApplicationError {
 }
 
 export interface ApplicationState {
+  contract: boolean;
   currentJobs: Job[];
   currentPage: number;
   error: ApplicationError;
