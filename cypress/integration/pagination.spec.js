@@ -213,7 +213,7 @@ context("Pagination", () => {
       cy.server();
       cy.route({
         method: "GET",
-        url: "/jobs/search?full_time=false&description=&location1=Chicago",
+        url: "/jobs/search?full_time=false&contract=false&description=&location1=Chicago",
         status: 200,
         response: jobsJson,
       });
