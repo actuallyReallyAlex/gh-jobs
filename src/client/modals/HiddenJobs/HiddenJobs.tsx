@@ -9,44 +9,40 @@ import { getHiddenJobsDetails } from "../../redux/thunks";
 import { RootState, Job } from "../../types";
 
 export interface HiddenJobsProps {
+  currentPage: number;
   handleGetHiddenJobsDetails: () => void;
   hiddenJobs: string[];
-  hiddenJobsCurrentPage: number;
   hiddenJobsDetails: Job[];
-  hiddenJobsTotalPages: number;
+  totalPages: number;
 }
 
 const HiddenJobs: React.SFC<HiddenJobsProps> = (props: HiddenJobsProps) => {
   const {
+    currentPage,
     handleGetHiddenJobsDetails,
     hiddenJobs,
-    hiddenJobsCurrentPage,
     hiddenJobsDetails,
-    hiddenJobsTotalPages,
+    totalPages,
   } = props;
 
   const jobsOnPage =
     hiddenJobsDetails &&
-    hiddenJobsDetails.slice(
-      hiddenJobsCurrentPage * 5 - 5,
-      hiddenJobsCurrentPage * 5
-    );
+    hiddenJobsDetails.slice(currentPage * 5 - 5, currentPage * 5);
+
+  const pages = Math.ceil(hiddenJobs.length / 5);
 
   React.useEffect((): void => {
     if (hiddenJobs.length > 0) {
       handleGetHiddenJobsDetails();
     }
-  }, []);
+  }, [totalPages]);
 
   return (
     <div>
       {jobsOnPage &&
         jobsOnPage.map((job: Job) => <JobCard job={job} key={job.id} />)}
       {jobsOnPage.length > 0 && (
-        <Pagination
-          currentPage={hiddenJobsCurrentPage}
-          totalPages={hiddenJobsTotalPages}
-        />
+        <Pagination currentPage={currentPage} totalPages={pages} />
       )}
       {jobsOnPage.length === 0 && <div id="no-results">No results.</div>}
     </div>
@@ -54,10 +50,10 @@ const HiddenJobs: React.SFC<HiddenJobsProps> = (props: HiddenJobsProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
+  currentPage: state.application.currentPage,
   hiddenJobs: state.user.hiddenJobs,
-  hiddenJobsCurrentPage: state.user.hiddenJobsCurrentPage,
   hiddenJobsDetails: state.user.hiddenJobsDetails,
-  hiddenJobsTotalPages: state.user.hiddenJobsTotalPages,
+  totalPages: state.application.totalPages,
 });
 
 const mapDispatchToProps = (dispatch) => ({

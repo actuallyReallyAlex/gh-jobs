@@ -293,9 +293,7 @@ export interface UserState {
   confirmPassword: string;
   email: string;
   hiddenJobs: string[];
-  hiddenJobsCurrentPage: number;
   hiddenJobsDetails: Job[];
-  hiddenJobsTotalPages: number;
   isEditingProfile: boolean;
   isLoggedIn: false;
   name: string;

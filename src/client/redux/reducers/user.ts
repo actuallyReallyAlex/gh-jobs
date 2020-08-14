@@ -2,9 +2,7 @@ import {
   SET_CONFIRM_PASSWORD,
   SET_EMAIL,
   SET_HIDDEN_JOBS,
-  SET_HIDDEN_JOBS_CURRENT_PAGE,
   SET_HIDDEN_JOBS_DETAILS,
-  SET_HIDDEN_JOBS_TOTAL_PAGES,
   SET_IS_EDITING_PROFILE,
   SET_IS_LOGGED_IN,
   SET_NAME,
@@ -24,9 +22,7 @@ export const initialState: UserState = {
   confirmPassword: "",
   email: "",
   hiddenJobs: [],
-  hiddenJobsCurrentPage: 1,
   hiddenJobsDetails: [],
-  hiddenJobsTotalPages: 1,
   isEditingProfile: false,
   isLoggedIn: false,
   name: "",
@@ -53,9 +49,7 @@ const reducer = (state = initialState, action: UserAction): UserState => {
     case SET_CONFIRM_PASSWORD:
     case SET_EMAIL:
     case SET_HIDDEN_JOBS:
-    case SET_HIDDEN_JOBS_CURRENT_PAGE:
     case SET_HIDDEN_JOBS_DETAILS:
-    case SET_HIDDEN_JOBS_TOTAL_PAGES:
     case SET_IS_EDITING_PROFILE:
     case SET_IS_LOGGED_IN:
     case SET_NAME:

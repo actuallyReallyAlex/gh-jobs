@@ -2,9 +2,7 @@ import {
   SET_CONFIRM_PASSWORD,
   SET_EMAIL,
   SET_HIDDEN_JOBS,
-  SET_HIDDEN_JOBS_CURRENT_PAGE,
   SET_HIDDEN_JOBS_DETAILS,
-  SET_HIDDEN_JOBS_TOTAL_PAGES,
   SET_IS_EDITING_PROFILE,
   SET_IS_LOGGED_IN,
   SET_NAME,
@@ -35,23 +33,9 @@ export const setHiddenJobs = (hiddenJobs: string[]): UserAction => ({
   payload: { hiddenJobs },
 });
 
-export const setHiddenJobsCurrentPage = (
-  hiddenJobsCurrentPage: number
-): UserAction => ({
-  type: SET_HIDDEN_JOBS_CURRENT_PAGE,
-  payload: { hiddenJobsCurrentPage },
-});
-
 export const setHiddenJobsDetails = (hiddenJobsDetails: Job[]): UserAction => ({
   type: SET_HIDDEN_JOBS_DETAILS,
   payload: { hiddenJobsDetails },
-});
-
-export const setHiddenJobsTotalPages = (
-  hiddenJobsTotalPages: number
-): UserAction => ({
-  type: SET_HIDDEN_JOBS_TOTAL_PAGES,
-  payload: { hiddenJobsTotalPages },
 });
 
 export const setIsEditingProfile = (isEditingProfile: boolean): UserAction => ({
