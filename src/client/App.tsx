@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Router, Switch, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
+import ButtonTest from "./pages/ButtonTest";
 import Details from "./pages/Details";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
@@ -34,6 +35,12 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
   React.useEffect(() => {
     handleInitializeApplication();
   }, []);
+
+  // return (
+  //   <div id="app">
+  //     <ButtonTest />
+  //   </div>
+  // );
 
   return (
     <Router history={history}>
