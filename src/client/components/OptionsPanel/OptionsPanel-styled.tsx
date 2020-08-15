@@ -11,6 +11,10 @@ const OptionsPanelContainer = styled.div`
   @media only screen and (max-width: 600px) {
     width: 100%;
   }
+
+  button {
+    margin-top: 10px;
+  }
 `;
 
 export { OptionsPanelContainer };
