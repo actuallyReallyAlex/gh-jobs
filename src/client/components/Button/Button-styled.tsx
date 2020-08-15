@@ -26,9 +26,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   background-color: ${(props) => defaultColors[props.buttonStyle]};
   border: none;
   border-radius: 7px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.11), 0 2px 2px rgba(0, 0, 0, 0.11),
-    0 4px 4px rgba(0, 0, 0, 0.11), 0 6px 8px rgba(0, 0, 0, 0.11),
-    0 8px 16px rgba(0, 0, 0, 0.11);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
   color: #ffffff;
   cursor: pointer;
   display: inline-block;
