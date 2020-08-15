@@ -132,7 +132,16 @@ const ProfileAccountStatsActionsContainer = styled.div`
   width: 100%;
 `;
 
+const ProfileAccountDetailsActionsContainer = styled.div`
+  display: flex;
+
+  button:nth-child(1) {
+    margin-right: 15px;
+  }
+`;
+
 export {
+  ProfileAccountDetailsActionsContainer,
   ProfileAccountDetailsContainer,
   ProfileAccountDetailsContentContainer,
   ProfileAccountDetailsHeadingContainer,

@@ -5,6 +5,7 @@ import Button from "../Button";
 import Input from "../Input";
 
 import {
+  ProfileAccountDetailsActionsContainer,
   ProfileAccountDetailsContentContainer,
   ProfileAccountDetailsHeadingContainer,
   ProfileAccountDetailsContainer,
@@ -85,7 +86,7 @@ const ProfileAccountDetails: React.SFC<ProfileAccountDetailsProps> = (
             value={newEmail}
           />
           {isEditingProfile && (
-            <div>
+            <ProfileAccountDetailsActionsContainer>
               <Button
                 buttonStyle="primary"
                 disabled={
@@ -108,7 +109,7 @@ const ProfileAccountDetails: React.SFC<ProfileAccountDetailsProps> = (
                 }}
                 type="button"
               />
-            </div>
+            </ProfileAccountDetailsActionsContainer>
           )}
         </form>
       </ProfileAccountDetailsContentContainer>
