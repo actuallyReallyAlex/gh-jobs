@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 
+import { ActionsContainer } from "./ResetPassword-styled";
+
 import { displayNotification } from "../../redux/actions/application";
 import { setModalContent, setModalTitle } from "../../redux/actions/modal";
 import { resetPassword } from "../../redux/thunks";
@@ -63,31 +65,33 @@ const ResetPassword: React.SFC<ResetPasswordProps> = (
         value={resetConfirmNewPassword}
       />
 
-      <Button
-        buttonStyle="secondary"
-        id="cancel"
-        label="Cancel"
-        onClick={() => handleCancelResetPassword()}
-        type="button"
-      />
-      <Button
-        buttonStyle="danger"
-        disabled={
-          resetCurrentPassword === "" ||
-          resetNewPassword === "" ||
-          resetConfirmNewPassword === ""
-        }
-        id="reset"
-        label="Confirm reset"
-        onClick={() =>
-          handleResetPassword(
-            resetCurrentPassword,
-            resetNewPassword,
-            resetConfirmNewPassword
-          )
-        }
-        type="button"
-      />
+      <ActionsContainer>
+        <Button
+          buttonStyle="secondary"
+          id="cancel"
+          label="Cancel"
+          onClick={() => handleCancelResetPassword()}
+          type="button"
+        />
+        <Button
+          buttonStyle="danger"
+          disabled={
+            resetCurrentPassword === "" ||
+            resetNewPassword === "" ||
+            resetConfirmNewPassword === ""
+          }
+          id="reset"
+          label="Confirm reset"
+          onClick={() =>
+            handleResetPassword(
+              resetCurrentPassword,
+              resetNewPassword,
+              resetConfirmNewPassword
+            )
+          }
+          type="button"
+        />
+      </ActionsContainer>
     </div>
   );
 };
