@@ -27,7 +27,7 @@ const SearchInputForm = styled.form`
 const SearchInputLeft = styled.div`
   align-items: center;
   background-color: #ffffff;
-  border: 1px solid #b9bdcf;
+  border: 3px solid #ffffff;
   border-bottom-left-radius: 0.25rem;
   border-right: none;
   border-top-left-radius: 0.25rem;
@@ -46,7 +46,7 @@ const SearchInputLeft = styled.div`
 const SearchInputInput = styled.input`
   background-clip: padding-box;
   background-color: #fff;
-  border: 1px solid #b9bdcf;
+  border: 3px solid #ffffff;
   border-bottom-right-radius: 0;
   border-left: none;
   border-right: none;
@@ -69,7 +69,12 @@ const SearchInputInput = styled.input`
 
 const SearchInputButtonContainer = styled.div`
   display: flex;
-  margin-left: -1px;
+  margin-left: -8px;
+
+  button {
+    border: 3px solid #ffffff;
+    box-shadow: none;
+  }
 `;
 
 export {
