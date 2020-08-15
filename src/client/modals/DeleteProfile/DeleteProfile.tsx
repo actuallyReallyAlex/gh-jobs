@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 
 import Button from "../../components/Button";
 
+import { ActionsContainer } from "./DeleteProfile-styled";
+
 import { displayNotification } from "../../redux/actions/application";
 import { setModalContent, setModalTitle } from "../../redux/actions/modal";
 import { deleteProfile } from "../../redux/thunks";
@@ -18,7 +20,7 @@ const DeleteProfile: React.SFC<DeleteProfileProps> = (
   const { handleCancelDeleteProfile, handleDeleteProfile } = props;
 
   return (
-    <div>
+    <ActionsContainer>
       <Button
         buttonStyle="secondary"
         id="delete-cancel"
@@ -33,7 +35,7 @@ const DeleteProfile: React.SFC<DeleteProfileProps> = (
         onClick={() => handleDeleteProfile()}
         type="button"
       />
-    </div>
+    </ActionsContainer>
   );
 };
 
