@@ -1,5 +1,6 @@
 import {
   DISPLAY_NOTIFICATION,
+  SET_CONTRACT,
   SET_CURRENT_JOBS,
   SET_CURRENT_PAGE,
   SET_ERROR,
@@ -20,6 +21,11 @@ export const displayNotification = (
 ): ApplicationAction => ({
   type: DISPLAY_NOTIFICATION,
   payload: { notificationMessage, notificationType },
+});
+
+export const setContract = (contract: boolean): ApplicationAction => ({
+  type: SET_CONTRACT,
+  payload: { contract },
 });
 
 export const setCurrentJobs = (currentJobs: Job[]): ApplicationAction => ({

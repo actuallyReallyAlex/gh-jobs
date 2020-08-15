@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "type": "Full Time",
+    "type": "Contract",
     "url": "http://nbcnews.com/id/justo.html?ante=tellus&vestibulum=in&ante=sagittis&ipsum=dui&primis=vel&in=nisl&faucibus=duis&orci=ac&luctus=nibh&et=fusce&ultrices=lacus&posuere=purus&cubilia=aliquet&curae=at&duis=feugiat&faucibus=non&accumsan=pretium&odio=quis&curabitur=lectus&convallis=suspendisse&duis=potenti&consequat=in&dui=eleifend&nec=quam&nisi=a&volutpat=odio&eleifend=in&donec=hac&ut=habitasse&dolor=platea&morbi=dictumst&vel=maecenas&lectus=ut&in=massa&quam=quis&fringilla=augue&rhoncus=luctus&mauris=tincidunt&enim=nulla&leo=mollis",
     "listingDate": "Thu Jul 16 12:03:19 UTC 2020",
     "company": "Anderson LLC",
@@ -14,7 +14,7 @@
   },
   {
     "id": 2,
-    "type": "Full Time",
+    "type": "Contract",
     "url": "https://posterous.com/et/ultrices/posuere/cubilia/curae/duis.json?nunc=non&purus=velit&phasellus=donec&in=diam&felis=neque&donec=vestibulum&semper=eget&sapien=vulputate&a=ut&libero=ultrices&nam=vel&dui=augue&proin=vestibulum&leo=ante&odio=ipsum&porttitor=primis&id=in&consequat=faucibus&in=orci&consequat=luctus&ut=et&nulla=ultrices&sed=posuere&accumsan=cubilia&felis=curae&ut=donec&at=pharetra&dolor=magna&quis=vestibulum&odio=aliquet&consequat=ultrices&varius=erat",
     "listingDate": "Thu Jul 16 12:03:19 UTC 2020",
     "company": "Herman-Kuhic",
@@ -27,7 +27,7 @@
   },
   {
     "id": 3,
-    "type": "Full Time",
+    "type": "Contract",
     "url": "https://craigslist.org/luctus/rutrum.png?vestibulum=elit&rutrum=proin&rutrum=risus&neque=praesent&aenean=lectus&auctor=vestibulum&gravida=quam&sem=sapien&praesent=varius&id=ut&massa=blandit&id=non&nisl=interdum&venenatis=in&lacinia=ante&aenean=vestibulum&sit=ante&amet=ipsum&justo=primis&morbi=in&ut=faucibus&odio=orci&cras=luctus&mi=et&pede=ultrices&malesuada=posuere&in=cubilia&imperdiet=curae&et=duis&commodo=faucibus&vulputate=accumsan&justo=odio&in=curabitur&blandit=convallis&ultrices=duis&enim=consequat&lorem=dui&ipsum=nec&dolor=nisi&sit=volutpat&amet=eleifend&consectetuer=donec&adipiscing=ut&elit=dolor&proin=morbi&interdum=vel&mauris=lectus&non=in&ligula=quam&pellentesque=fringilla&ultrices=rhoncus&phasellus=mauris&id=enim&sapien=leo&in=rhoncus&sapien=sed&iaculis=vestibulum&congue=sit&vivamus=amet&metus=cursus&arcu=id&adipiscing=turpis&molestie=integer&hendrerit=aliquet&at=massa&vulputate=id&vitae=lobortis&nisl=convallis&aenean=tortor&lectus=risus&pellentesque=dapibus&eget=augue&nunc=vel&donec=accumsan&quis=tellus&orci=nisi&eget=eu&orci=orci&vehicula=mauris&condimentum=lacinia&curabitur=sapien&in=quis&libero=libero&ut=nullam&massa=sit&volutpat=amet&convallis=turpis&morbi=elementum&odio=ligula&odio=vehicula&elementum=consequat&eu=morbi&interdum=a",
     "listingDate": "Thu Jul 16 12:03:19 UTC 2020",
     "company": "Howe-Becker",
@@ -37,18 +37,5 @@
     "description": "",
     "how_to_apply": "",
     "company_logo": "http://dummyimage.com/111x130.bmp/5fa2dd/ffffff"
-  },
-  {
-    "id": 4,
-    "type": "Full Time",
-    "url": "http://usa.gov/at/diam/nam/tristique/tortor/eu/pede.jsp?in=turpis&blandit=adipiscing&ultrices=lorem&enim=vitae&lorem=mattis&ipsum=nibh&dolor=ligula&sit=nec&amet=sem&consectetuer=duis&adipiscing=aliquam&elit=convallis&proin=nunc",
-    "listingDate": "Thu Jul 16 12:03:19 UTC 2020",
-    "company": "Wolff LLC",
-    "company_url": "http://time.com/congue.jsp?pretium=turpis&iaculis=enim&justo=blandit&in=mi&hac=in&habitasse=porttitor&platea=pede&dictumst=justo&etiam=eu&faucibus=massa&cursus=donec&urna=dapibus&ut=duis&tellus=at&nulla=velit&ut=eu&erat=est&id=congue",
-    "location": "Texas",
-    "title": "Staff Scientist",
-    "description": "",
-    "how_to_apply": "",
-    "company_logo": "http://dummyimage.com/122x234.bmp/5fa2dd/ffffff"
   }
 ]

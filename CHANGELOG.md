@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2020-08-15
+
+### ⏹️ Button Redesign
+
+### Added
+
+- Ability to filter by jobs with a `type` of `"Contract"` - [#77](https://github.com/alexlee-dev/gh-jobs/issues/77)
+
+### Changed
+
+- Margin on Account Details - [#71](https://github.com/alexlee-dev/gh-jobs/issues/71)
+- Don't make BE call if no jobs exist - [#73](https://github.com/alexlee-dev/gh-jobs/issues/73)
+- Text when no results display in Hidde/Saved Jobs - [#76](https://github.com/alexlee-dev/gh-jobs/issues/76)
+- Hiding a job will remove it from the current jobs list - [#75](https://github.com/alexlee-dev/gh-jobs/issues/75)
+- Redesigned the `Button` component - [#72](https://github.com/alexlee-dev/gh-jobs/issues/72)
+
+### Removed
+
+### Fixed
+
 ## [1.4.0] - 2020-08-12
 
 ### 🎨 Profile Redesign

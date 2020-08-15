@@ -29,8 +29,6 @@ import {
   setSavedJobsDetails,
   setSavedJobsTotalPages,
   setHiddenJobs,
-  setHiddenJobsCurrentPage,
-  setHiddenJobsTotalPages,
   setHiddenJobsDetails,
 } from "./actions/user";
 import { fetchServerData, isError } from "../util";
@@ -63,30 +61,6 @@ import {
   SignupSuccessResponse,
 } from "../types";
 
-export const getJobs = (): AppThunk => async (dispatch) => {
-  try {
-    dispatch(setIsLoading(true));
-
-    const result = (await fetchServerData("/jobs", "GET")) as
-      | GetJobsErrorResponse
-      | GetJobsSuccessResponse;
-
-    if (isError(result)) {
-      dispatch(displayNotification(result.error, "error"));
-      dispatch(setIsLoading(false));
-      return;
-    }
-
-    dispatch(setJobs(result));
-    dispatch(setCurrentPage(1));
-    dispatch(setTotalPages(Math.ceil(result.length / 5)));
-    dispatch(setCurrentJobs(result));
-    dispatch(setIsLoading(false));
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 export const searchJobs = (
   search: string,
   locationOptions: LocationOption[]
@@ -96,7 +70,7 @@ export const searchJobs = (
   dispatch(setSearchValue(search));
 
   const state: RootState = getState();
-  const { fullTime, locationSearch } = state.application;
+  const { contract, fullTime, locationSearch } = state.application;
 
   const locationsSearches = locationOptions.filter(
     (location: LocationOption) => location.value !== ""
@@ -112,7 +86,9 @@ export const searchJobs = (
 
   let url = `/jobs/search?full_time=${encodeURI(
     fullTime.toString()
-  )}&description=${encodeURI(search)}`;
+  )}&contract=${encodeURI(contract.toString())}&description=${encodeURI(
+    search
+  )}`;
 
   locationsSearches.forEach((locationSearch: LocationOption, i: number) => {
     url = url + `&location${i + 1}=${encodeURI(locationSearch.value)}`;
@@ -210,39 +186,60 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
 };
 
 export const initializeApplication = (): AppThunk => async (dispatch) => {
-  dispatch(setIsLoading(true));
-  dispatch(displayNotification("", "default"));
-  dispatch(setError(null, null));
-  dispatch(setCurrentJobs([]));
-  dispatch(setCurrentPage(1));
-  dispatch(setJobDetails(null));
-  dispatch(setJobs([]));
-  dispatch(setTotalPages(1));
-  dispatch(setIsModalOpen(false));
-  dispatch(setModalContent(""));
-  dispatch(setModalTitle(""));
-
-  // * Establish Job Data
-  dispatch(getJobs());
-
-  // * Establish User Authentication
-  dispatch(checkAuthentication());
-};
-
-export const checkAuthentication = (): AppThunk => async (dispatch) => {
   try {
-    const response = await fetch("/user/me");
-    if (response.status === 200) {
-      const user: ServerResponseUser = await response.json();
+    dispatch(setIsLoading(true));
+    dispatch(displayNotification("", "default"));
+    dispatch(setError(null, null));
+    dispatch(setCurrentJobs([]));
+    dispatch(setCurrentPage(1));
+    dispatch(setJobDetails(null));
+    dispatch(setJobs([]));
+    dispatch(setTotalPages(1));
+    dispatch(setIsModalOpen(false));
+    dispatch(setModalContent(""));
+    dispatch(setModalTitle(""));
+
+    // * Establish Job Data
+    dispatch(setIsLoading(true));
+
+    const jobsResult = (await fetchServerData("/jobs", "GET")) as
+      | GetJobsErrorResponse
+      | GetJobsSuccessResponse;
+
+    if (isError(jobsResult)) {
+      dispatch(displayNotification(jobsResult.error, "error"));
+      dispatch(setIsLoading(false));
+      return;
+    }
+
+    dispatch(setJobs(jobsResult));
+    dispatch(setCurrentPage(1));
+    dispatch(setTotalPages(Math.ceil(jobsResult.length / 5)));
+    dispatch(setCurrentJobs(jobsResult));
+
+    // * Establish User Authentication
+    const userResponse = await fetch("/user/me");
+
+    if (userResponse.status === 200) {
+      const user: ServerResponseUser = await userResponse.json();
+
+      const nonHiddenJobs = jobsResult.filter(
+        (job: Job) => user.hiddenJobs.indexOf(job.id) < 0
+      );
+
       dispatch(setName(user.name));
       dispatch(setEmail(user.email));
       dispatch(setSavedJobs(user.savedJobs));
       dispatch(setHiddenJobs(user.hiddenJobs));
       dispatch(setIsLoggedIn(true));
+      dispatch(setCurrentJobs(nonHiddenJobs));
+      dispatch(setTotalPages(Math.ceil(nonHiddenJobs.length / 5)));
     }
+    dispatch(setIsLoading(false));
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error(error);
+    dispatch(displayNotification(error, "error"));
+    dispatch(setIsLoading(false));
   }
 };
 
@@ -418,9 +415,14 @@ export const deleteProfile = (): AppThunk => async (dispatch) => {
   }
 };
 
-export const addHiddenJob = (id: string): AppThunk => async (dispatch) => {
+export const addHiddenJob = (id: string): AppThunk => async (
+  dispatch,
+  getState
+) => {
   dispatch(setIsLoading(true));
   try {
+    const state: RootState = getState();
+    const { currentJobs } = state.application;
     // TODO - Modify
     const result:
       | AddHiddenJobErrorResponse
@@ -438,9 +440,11 @@ export const addHiddenJob = (id: string): AppThunk => async (dispatch) => {
 
     const { hiddenJobs } = result;
 
+    const newCurrentJobs = currentJobs.filter((job: Job) => job.id !== id);
+
     dispatch(setHiddenJobs(hiddenJobs));
-    dispatch(setHiddenJobsCurrentPage(1));
-    dispatch(setHiddenJobsTotalPages(Math.ceil(hiddenJobs.length / 5)));
+    dispatch(setCurrentJobs(newCurrentJobs));
+    dispatch(setTotalPages(Math.ceil(newCurrentJobs.length / 5)));
     dispatch(displayNotification("Job hidden successfully.", "success"));
     dispatch(setIsLoading(false));
   } catch (error) {
@@ -503,8 +507,6 @@ export const removeHiddenJob = (id: string): AppThunk => async (dispatch) => {
     const { hiddenJobs } = result;
 
     dispatch(setHiddenJobs(hiddenJobs));
-    dispatch(setHiddenJobsCurrentPage(1));
-    dispatch(setHiddenJobsTotalPages(Math.ceil(hiddenJobs.length / 5)));
     dispatch(displayNotification("Job shown successfully.", "success"));
     dispatch(setIsLoading(false));
   } catch (error) {

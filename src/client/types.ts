@@ -43,6 +43,7 @@ export interface ApplicationError {
 }
 
 export interface ApplicationState {
+  contract: boolean;
   currentJobs: Job[];
   currentPage: number;
   error: ApplicationError;
@@ -293,9 +294,7 @@ export interface UserState {
   confirmPassword: string;
   email: string;
   hiddenJobs: string[];
-  hiddenJobsCurrentPage: number;
   hiddenJobsDetails: Job[];
-  hiddenJobsTotalPages: number;
   isEditingProfile: boolean;
   isLoggedIn: false;
   name: string;

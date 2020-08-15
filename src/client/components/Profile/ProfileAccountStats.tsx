@@ -1,17 +1,19 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
+import Button from "../Button";
 import Stat from "../Stat";
 
 import {
-  ProfileAccountStatsContainer,
+  ProfileAccountStatsActionsContainer,
   ProfileAccountStatsAvatar,
+  ProfileAccountStatsContainer,
   ProfileAccountStatsInnerContainer,
 } from "./Profile-styled";
 
-import { RootState } from "../../types";
-import Button from "../Button";
 import { clickViewHiddenJobs, clickViewSavedJobs } from "../../redux/thunks";
+
+import { RootState } from "../../types";
 
 export interface ProfileAccountStatsProps {
   handleClickViewHiddenJobs: () => void;
@@ -39,20 +41,22 @@ const ProfileAccountStats: React.SFC<ProfileAccountStatsProps> = (
         <Stat figure={hiddenJobs.length} label="Hidden Jobs" />
         <Stat figure={savedJobs.length} label="Saved Jobs" />
       </ProfileAccountStatsInnerContainer>
-      <Button
-        buttonStyle="primary"
-        id="view-hidden-jobs"
-        label="View Hidden Jobs"
-        onClick={() => handleClickViewHiddenJobs()}
-        type="button"
-      />
-      <Button
-        buttonStyle="primary"
-        id="view-saved-jobs"
-        label="View Saved Jobs"
-        onClick={() => handleClickViewSavedJobs()}
-        type="button"
-      />
+      <ProfileAccountStatsActionsContainer>
+        <Button
+          buttonStyle="primary"
+          id="view-hidden-jobs"
+          label="Hidden Jobs"
+          onClick={() => handleClickViewHiddenJobs()}
+          type="button"
+        />
+        <Button
+          buttonStyle="primary"
+          id="view-saved-jobs"
+          label="Saved Jobs"
+          onClick={() => handleClickViewSavedJobs()}
+          type="button"
+        />
+      </ProfileAccountStatsActionsContainer>
     </ProfileAccountStatsContainer>
   );
 };

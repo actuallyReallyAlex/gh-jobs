@@ -9,9 +9,11 @@ const Row = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  margin-bottom: 25px;
+  margin-top: 25px;
 
   button {
-    width: 45%;
+    width: 200px;
   }
 
   @media only screen and (max-width: 600px) {

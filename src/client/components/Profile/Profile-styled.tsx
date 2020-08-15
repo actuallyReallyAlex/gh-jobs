@@ -4,10 +4,12 @@ const ProfileAccountDetailsContainer = styled.div`
   background-color: rgba(246, 249, 251, 1);
   border-radius: 1.25rem;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  margin-bottom: 25px;
   margin-top: -200px;
   width: 40%;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 820px) {
+    margin-bottom: 0;
     width: 100%;
   }
 `;
@@ -44,6 +46,11 @@ const ProfileAccountDetailsHeadingContainer = styled.div`
   padding-left: 25px;
   padding-right: 25px;
 
+  button {
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+
   h3 {
     margin-bottom: 20px;
     margin-top: 20px;
@@ -74,7 +81,7 @@ const ProfileAccountStatsContainer = styled.div`
     margin-top: 100px;
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 820px) {
     margin-bottom: 50px;
     margin-top: 100px;
     width: 100%;
@@ -103,7 +110,7 @@ const ProfileInnerContainer = styled.div`
   flex-direction: row;
   justify-content: space-around;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 820px) {
     flex-direction: column;
   }
 `;
@@ -112,17 +119,33 @@ const ProfilePage = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 820px) {
     form {
       width: 100%;
     }
   }
 `;
 
+const ProfileAccountStatsActionsContainer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+`;
+
+const ProfileAccountDetailsActionsContainer = styled.div`
+  display: flex;
+
+  button:nth-child(1) {
+    margin-right: 15px;
+  }
+`;
+
 export {
+  ProfileAccountDetailsActionsContainer,
   ProfileAccountDetailsContainer,
   ProfileAccountDetailsContentContainer,
   ProfileAccountDetailsHeadingContainer,
+  ProfileAccountStatsActionsContainer,
   ProfileAccountStatsAvatar,
   ProfileAccountStatsContainer,
   ProfileAccountStatsInnerContainer,

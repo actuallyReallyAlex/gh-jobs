@@ -3,13 +3,22 @@
 context("Saved Jobs", () => {
   beforeEach(() => {
     cy.fixture("jobs50").then((jobsJson) => {
-      cy.server();
-      cy.route({
-        method: "GET",
-        url: "/jobs",
-        status: 200,
-        response: jobsJson,
-        delay: 1000,
+      cy.fixture("savedDetails").then((savedDetailsJson) => {
+        cy.server();
+        cy.route({
+          method: "GET",
+          url: "/jobs",
+          status: 200,
+          response: jobsJson,
+          delay: 1000,
+        });
+        cy.route({
+          method: "GET",
+          url: "/user/savedJobsDetails",
+          status: 200,
+          response: savedDetailsJson,
+          delay: 1000,
+        });
       });
     });
     cy.visit("http://localhost:3000");
@@ -128,5 +137,45 @@ context("Saved Jobs", () => {
     cy.get("#remove-job-285aa472-990f-418d-b376-e03c27f48d17").click();
     cy.get("[data-cy=pagination-list] > :nth-child(3) > button").click();
     cy.get("#remove-job-11cbce13-e6cd-4c79-b904-d292b569b22f").click();
+  });
+});
+
+context("Saved Jobs - No Results", () => {
+  beforeEach(() => {
+    cy.fixture("jobs50").then((jobsJson) => {
+      cy.server();
+      cy.route({
+        method: "GET",
+        url: "/jobs",
+        status: 200,
+        response: jobsJson,
+        delay: 1000,
+      });
+    });
+    cy.visit("http://localhost:3000");
+    cy.wait(500);
+    cy.get("#nav-login").click();
+    cy.get("h1").should("have.text", "Login");
+    cy.get("#email").type("bobtest@email.com");
+    cy.get("#password").type("Red123456!!!");
+    cy.get("#log-in").click();
+    cy.wait(500);
+
+    cy.get("#nav-login").should("not.exist");
+    cy.get("#search").should("be.visible");
+  });
+
+  it("Should not make call to BE if there are no jobs in the list", () => {
+    cy.get("#nav-profile").click();
+    cy.get("#view-saved-jobs").click();
+
+    assert.equal(cy.state("requests").length, 3);
+  });
+
+  it("Should display correct text", () => {
+    cy.get("#nav-profile").click();
+    cy.get("#view-hidden-jobs").click();
+
+    cy.get("#no-results").should("have.text", "No results.");
   });
 });

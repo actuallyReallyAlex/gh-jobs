@@ -15,6 +15,7 @@ export interface ButtonProps {
 
 const Button: React.SFC<ButtonProps> = (props: ButtonProps) => {
   const { buttonStyle, disabled, id, label, onClick, type } = props;
+
   return (
     <StyledButton
       buttonStyle={buttonStyle}

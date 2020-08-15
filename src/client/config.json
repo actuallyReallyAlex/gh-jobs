@@ -1,0 +1,10 @@
+{
+  "colors": {
+    "danger": "#f71e1e",
+    "danger__hover": "#c21b1b",
+    "primary": "#1e55f7",
+    "primary__hover": "#153db4",
+    "secondary": "#b2b7c6",
+    "secondary__hover": "#8b8f9b"
+  }
+}
