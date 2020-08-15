@@ -46,6 +46,11 @@ const ProfileAccountDetailsHeadingContainer = styled.div`
   padding-left: 25px;
   padding-right: 25px;
 
+  button {
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+
   h3 {
     margin-bottom: 20px;
     margin-top: 20px;
