@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const OptionsPanelContainer = styled.div`
+  padding: 10px;
   width: 25%;
 
   @media only screen and (max-width: 800px) {
