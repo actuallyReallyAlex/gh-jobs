@@ -188,6 +188,8 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
 export const initializeApplication = (): AppThunk => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));
+
+    // * Reset State to Defaults
     dispatch(displayNotification("", "default"));
     dispatch(setError(null, null));
     dispatch(setCurrentJobs([]));
@@ -199,12 +201,29 @@ export const initializeApplication = (): AppThunk => async (dispatch) => {
     dispatch(setModalContent(""));
     dispatch(setModalTitle(""));
 
-    // * Establish Job Data
-    dispatch(setIsLoading(true));
+    // * Establish User Authentication
+    const userResponse = await fetch("/user/me");
+    let userId = "";
 
-    const jobsResult = (await fetchServerData("/jobs", "GET")) as
-      | GetJobsErrorResponse
-      | GetJobsSuccessResponse;
+    if (userResponse.status === 200) {
+      // * User is authenticated
+      const user: ServerResponseUser = await userResponse.json();
+
+      userId = user._id;
+
+      dispatch(setName(user.name));
+      dispatch(setEmail(user.email));
+      dispatch(setSavedJobs(user.savedJobs));
+      dispatch(setHiddenJobs(user.hiddenJobs));
+      dispatch(setIsLoggedIn(true));
+    }
+
+    // * Establish Job Data
+    const jobsResult = (await fetchServerData(
+      "/jobs",
+      "POST",
+      JSON.stringify({ userId })
+    )) as GetJobsErrorResponse | GetJobsSuccessResponse;
 
     if (isError(jobsResult)) {
       dispatch(displayNotification(jobsResult.error, "error"));
@@ -212,29 +231,18 @@ export const initializeApplication = (): AppThunk => async (dispatch) => {
       return;
     }
 
+    // ? Needed? Or on BE?
+    // const nonHiddenJobs = jobsResult.filter(
+    //   (job: Job) => user.hiddenJobs.indexOf(job.id) < 0
+    // );
+
+    // dispatch(setCurrentJobs(nonHiddenJobs));
+    // dispatch(setTotalPages(Math.ceil(nonHiddenJobs.length / 5)));
+
     dispatch(setJobs(jobsResult));
     dispatch(setCurrentPage(1));
     dispatch(setTotalPages(Math.ceil(jobsResult.length / 5)));
     dispatch(setCurrentJobs(jobsResult));
-
-    // * Establish User Authentication
-    const userResponse = await fetch("/user/me");
-
-    if (userResponse.status === 200) {
-      const user: ServerResponseUser = await userResponse.json();
-
-      const nonHiddenJobs = jobsResult.filter(
-        (job: Job) => user.hiddenJobs.indexOf(job.id) < 0
-      );
-
-      dispatch(setName(user.name));
-      dispatch(setEmail(user.email));
-      dispatch(setSavedJobs(user.savedJobs));
-      dispatch(setHiddenJobs(user.hiddenJobs));
-      dispatch(setIsLoggedIn(true));
-      dispatch(setCurrentJobs(nonHiddenJobs));
-      dispatch(setTotalPages(Math.ceil(nonHiddenJobs.length / 5)));
-    }
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
