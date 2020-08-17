@@ -278,7 +278,22 @@ export const logOut = (): AppThunk => async (dispatch) => {
     return;
   }
 
+  // * Establish Job Data
+  const jobsResult = (await fetchServerData(
+    "/jobs",
+    "POST",
+    JSON.stringify({ userId: "" })
+  )) as GetJobsErrorResponse | GetJobsSuccessResponse;
+
+  if (isError(jobsResult)) {
+    dispatch(displayNotification(jobsResult.error, "error"));
+    dispatch(setIsLoading(false));
+    return;
+  }
+
   dispatch(displayNotification("", "default"));
+  dispatch(setCurrentJobs(jobsResult));
+  dispatch(setTotalPages(Math.ceil(jobsResult.length / 5)));
   dispatch(setConfirmPassword(""));
   dispatch(setEmail(""));
   dispatch(setName(""));
@@ -310,8 +325,23 @@ export const logOutAll = (): AppThunk => async (dispatch) => {
     return;
   }
 
+  // * Establish Job Data
+  const jobsResult = (await fetchServerData(
+    "/jobs",
+    "POST",
+    JSON.stringify({ userId: "" })
+  )) as GetJobsErrorResponse | GetJobsSuccessResponse;
+
+  if (isError(jobsResult)) {
+    dispatch(displayNotification(jobsResult.error, "error"));
+    dispatch(setIsLoading(false));
+    return;
+  }
+
   dispatch(setConfirmPassword(""));
   dispatch(displayNotification("", "default"));
+  dispatch(setCurrentJobs(jobsResult));
+  dispatch(setTotalPages(Math.ceil(jobsResult.length / 5)));
   dispatch(setEmail(""));
   dispatch(setName(""));
   dispatch(setId(""));
