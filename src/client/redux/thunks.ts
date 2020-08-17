@@ -72,6 +72,7 @@ export const searchJobs = (
 
   const state: RootState = getState();
   const { contract, fullTime, locationSearch } = state.application;
+  const { id } = state.user;
 
   const locationsSearches = locationOptions.filter(
     (location: LocationOption) => location.value !== ""
@@ -85,7 +86,7 @@ export const searchJobs = (
     });
   }
 
-  let url = `/jobs/search?full_time=${encodeURI(
+  let url = `/jobs/search?userId=${encodeURI(id)}&full_time=${encodeURI(
     fullTime.toString()
   )}&contract=${encodeURI(contract.toString())}&description=${encodeURI(
     search
