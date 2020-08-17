@@ -37,7 +37,7 @@ context("Direct Page Access", () => {
     cy.get("h1").should("have.text", "Create Account");
   });
 
-  it("Should be able to access '/jobs/:id' directly", () => {
+  it("Should be able to access '/jobDetails/:id' directly", () => {
     cy.visit("http://localhost:3000/jobDetails/f1884b46-ecb4-473c-81f5-08d9bf2ab3bb");
     cy.wait(500);
 
