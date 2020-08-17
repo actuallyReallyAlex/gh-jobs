@@ -25,7 +25,7 @@ context("Application Error", () => {
       });
       cy.route({
         method: "GET",
-        url: "/jobs/f1884b46-ecb4-473c-81f5-08d9bf2ab3bb",
+        url: "/jobDetails/f1884b46-ecb4-473c-81f5-08d9bf2ab3bb",
         status: 200,
         response: {},
         delay: 1000,
