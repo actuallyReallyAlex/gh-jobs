@@ -5,15 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.6.0] - _Unreleased_
+## [1.6.0] - 2020-08-17
+
+### 🐛 Bug Fixeroo
 
 ### Added
 
 ### Changed
 
+- Hide hidden jobs in search results - [#79](https://github.com/alexlee-dev/gh-jobs/issues/79)
+- Single `ErrorResponse` type for error responses - [#88](https://github.com/alexlee-dev/gh-jobs/issues/88)
+
 ### Removed
 
+- Template Configuration - [#93](https://github.com/alexlee-dev/gh-jobs/issues/93)
+
 ### Fixed
+
+- `unique()` function not working as expected, resulting in search results containing more entires than jobs in DB - [#85](https://github.com/alexlee-dev/gh-jobs/issues/85)
+- Now able to access `Details` page with a direct url - [#80](https://github.com/alexlee-dev/gh-jobs/issues/80)
+- `ProfileAccountStats` container width spilling out on mobile - [#93](https://github.com/alexlee-dev/gh-jobs/issues/93)
 
 ## [1.5.0] - 2020-08-15
 
