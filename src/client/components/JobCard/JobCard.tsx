@@ -91,7 +91,7 @@ const JobCard: React.SFC<JobCardProps> = (props: JobCardProps) => {
           <Link
             id={job.id}
             onClick={() => handleClearJobDetails()}
-            to={`/jobs/${job.id}`}
+            to={`/jobDetails/${job.id}`}
           >
             <StyledTitle>{job.title}</StyledTitle>
           </Link>

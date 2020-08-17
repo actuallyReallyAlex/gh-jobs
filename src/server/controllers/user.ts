@@ -12,15 +12,13 @@ import {
   AuthenticatedRequest,
   EditHiddenJobsMethod,
   EditSavedJobsMethod,
-  GetHiddenJobsDetailsErrorResponse,
+  ErrorResponse,
   GetHiddenJobsDetailsSuccessResponse,
-  GetSavedJobsDetailsErrorResponse,
   GetSavedJobsDetailsSuccessResponse,
-  PatchSavedJobErrorResponse,
+  Job,
   PatchSavedJobSuccessResponse,
   Token,
   UserDocument,
-  Job,
 } from "../types";
 
 /**
@@ -216,9 +214,7 @@ class UserController {
       async (
         req: AuthenticatedRequest,
         res: Response
-      ): Promise<
-        Response<PatchSavedJobErrorResponse | PatchSavedJobSuccessResponse>
-      > => {
+      ): Promise<Response<ErrorResponse | PatchSavedJobSuccessResponse>> => {
         try {
           const method: EditSavedJobsMethod = req.body.method;
           const id: string = req.body.id;
@@ -259,9 +255,7 @@ class UserController {
       async (
         req: AuthenticatedRequest,
         res: Response
-      ): Promise<
-        Response<PatchSavedJobErrorResponse | PatchSavedJobSuccessResponse>
-      > => {
+      ): Promise<Response<ErrorResponse | PatchSavedJobSuccessResponse>> => {
         try {
           const method: EditHiddenJobsMethod = req.body.method;
           const id: string = req.body.id;
@@ -303,9 +297,7 @@ class UserController {
         req: AuthenticatedRequest,
         res: Response
       ): Promise<
-        Response<
-          GetSavedJobsDetailsErrorResponse | GetSavedJobsDetailsSuccessResponse
-        >
+        Response<ErrorResponse | GetSavedJobsDetailsSuccessResponse>
       > => {
         try {
           const { savedJobs } = req.user;
@@ -347,10 +339,7 @@ class UserController {
         req: AuthenticatedRequest,
         res: Response
       ): Promise<
-        Response<
-          | GetHiddenJobsDetailsErrorResponse
-          | GetHiddenJobsDetailsSuccessResponse
-        >
+        Response<ErrorResponse | GetHiddenJobsDetailsSuccessResponse>
       > => {
         try {
           const { hiddenJobs } = req.user;

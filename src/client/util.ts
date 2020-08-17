@@ -1,14 +1,11 @@
 import { createBrowserHistory } from "history";
 
 import {
+  ErrorResponse,
   RequestMethod,
-  GetJobDetailsErrorResponse,
   GetJobDetailsSuccessResponse,
-  GetJobsErrorResponse,
   GetJobsSuccessResponse,
-  AddSavedJobErrorResponse,
   AddSavedJobSuccessResponse,
-  SignupErrorResponse,
   SignupSuccessResponse,
 } from "./types";
 
@@ -28,32 +25,6 @@ export const fetchServerData = async (
   }
   const data = await response.json();
   return data;
-};
-
-// TODO - Remove
-// eslint-disable-next-line
-export const groupBy = (arr: any[], key: any): any =>
-  arr.reduce(
-    (acc, item) => ((acc[item[key]] = [...(acc[item[key]] || []), item]), acc),
-    {}
-  );
-
-// TODO - Remove
-// eslint-disable-next-line
-export const unique = (arr: any[]): any[] => [...new Set(arr)];
-
-// TODO - Remove
-export const validURL = (str: string): boolean => {
-  const pattern = new RegExp(
-    "^(https?:\\/\\/)?" + // protocol
-    "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-    "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-    "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-    "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-      "(\\#[-a-z\\d_]*)?$",
-    "i"
-  ); // fragment locator
-  return !!pattern.test(str);
 };
 
 /**
@@ -89,16 +60,13 @@ export const saveState = (state: any): void => {
 
 export const isError = (
   result:
-    | GetJobsErrorResponse
-    | GetJobsSuccessResponse
-    | GetJobDetailsErrorResponse
-    | GetJobDetailsSuccessResponse
-    | AddSavedJobErrorResponse
     | AddSavedJobSuccessResponse
-    | SignupErrorResponse
+    | ErrorResponse
+    | GetJobDetailsSuccessResponse
+    | GetJobsSuccessResponse
     | SignupSuccessResponse
-): result is GetJobsErrorResponse => {
-  return (result as GetJobsErrorResponse).error !== undefined;
+): result is ErrorResponse => {
+  return (result as ErrorResponse).error !== undefined;
 };
 
 export const history = createBrowserHistory();

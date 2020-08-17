@@ -3,6 +3,7 @@ import {
   SET_EMAIL,
   SET_HIDDEN_JOBS,
   SET_HIDDEN_JOBS_DETAILS,
+  SET_ID,
   SET_IS_EDITING_PROFILE,
   SET_IS_LOGGED_IN,
   SET_NAME,
@@ -23,6 +24,7 @@ export const initialState: UserState = {
   email: "",
   hiddenJobs: [],
   hiddenJobsDetails: [],
+  id: "",
   isEditingProfile: false,
   isLoggedIn: false,
   name: "",
@@ -50,6 +52,7 @@ const reducer = (state = initialState, action: UserAction): UserState => {
     case SET_EMAIL:
     case SET_HIDDEN_JOBS:
     case SET_HIDDEN_JOBS_DETAILS:
+    case SET_ID:
     case SET_IS_EDITING_PROFILE:
     case SET_IS_LOGGED_IN:
     case SET_NAME:

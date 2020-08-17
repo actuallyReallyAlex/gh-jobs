@@ -15,27 +15,15 @@ export type EditHiddenJobsMethod = "ADD" | "REMOVE";
 
 export type EditSavedJobsMethod = "ADD" | "REMOVE";
 
-export interface GetJobDetailsErrorResponse {
+export interface ErrorResponse {
   error: string;
 }
 
 export type GetJobDetailsSuccessResponse = Job;
 
-export interface GetJobsErrorResponse {
-  error: string;
-}
-
 export type GetJobsSuccessResponse = GitHubJob[];
 
-export interface GetHiddenJobsDetailsErrorResponse {
-  error: string;
-}
-
 export type GetHiddenJobsDetailsSuccessResponse = Job[];
-
-export interface GetSavedJobsDetailsErrorResponse {
-  error: string;
-}
 
 export type GetSavedJobsDetailsSuccessResponse = Job[];
 
@@ -86,10 +74,6 @@ export interface JobDocument extends Document {
 }
 
 export type JobType = "Contract" | "Full Time";
-
-export interface PatchSavedJobErrorResponse {
-  error: string;
-}
 
 export interface PatchSavedJobSuccessResponse {
   createdAt: string;

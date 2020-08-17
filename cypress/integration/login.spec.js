@@ -6,7 +6,7 @@ context("Login - Success", () => {
       cy.fixture("login").then((loginJson) => {
         cy.server();
         cy.route({
-          method: "GET",
+          method: "POST",
           url: "/jobs",
           status: 200,
           response: jobsJson,
@@ -48,7 +48,7 @@ context("Login - Error", () => {
     cy.fixture("jobs50").then((jobsJson) => {
       cy.server();
       cy.route({
-        method: "GET",
+        method: "POST",
         url: "/jobs",
         status: 200,
         response: jobsJson,

@@ -3,6 +3,7 @@ import {
   SET_EMAIL,
   SET_HIDDEN_JOBS,
   SET_HIDDEN_JOBS_DETAILS,
+  SET_ID,
   SET_IS_EDITING_PROFILE,
   SET_IS_LOGGED_IN,
   SET_NAME,
@@ -36,6 +37,11 @@ export const setHiddenJobs = (hiddenJobs: string[]): UserAction => ({
 export const setHiddenJobsDetails = (hiddenJobsDetails: Job[]): UserAction => ({
   type: SET_HIDDEN_JOBS_DETAILS,
   payload: { hiddenJobsDetails },
+});
+
+export const setId = (id: string): UserAction => ({
+  type: SET_ID,
+  payload: { id },
 });
 
 export const setIsEditingProfile = (isEditingProfile: boolean): UserAction => ({

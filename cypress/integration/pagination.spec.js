@@ -5,7 +5,7 @@ context("Pagination", () => {
     cy.fixture("jobs50").then((jobsJson) => {
       cy.server();
       cy.route({
-        method: "GET",
+        method: "POST",
         url: "/jobs",
         status: 200,
         response: jobsJson,
@@ -213,7 +213,7 @@ context("Pagination", () => {
       cy.server();
       cy.route({
         method: "GET",
-        url: "/jobs/search?full_time=false&contract=false&description=&location1=Chicago",
+        url: "/jobs/search?userId=&full_time=false&contract=false&description=&location1=Chicago",
         status: 200,
         response: jobsJson,
       });
@@ -258,7 +258,7 @@ context("Pagination - 1 Page", () => {
     cy.fixture("jobs5").then((jobsJson) => {
       cy.server();
       cy.route({
-        method: "GET",
+        method: "POST",
         url: "/jobs",
         status: 200,
         response: jobsJson,
@@ -296,7 +296,7 @@ context("Pagination - 2 Pages", () => {
     cy.fixture("jobs10").then((jobsJson) => {
       cy.server();
       cy.route({
-        method: "GET",
+        method: "POST",
         url: "/jobs",
         status: 200,
         response: jobsJson,
@@ -334,7 +334,7 @@ context("Pagination - 3 Pages", () => {
     cy.fixture("jobs15").then((jobsJson) => {
       cy.server();
       cy.route({
-        method: "GET",
+        method: "POST",
         url: "/jobs",
         status: 200,
         response: jobsJson,
@@ -374,7 +374,7 @@ context("Pagination - 4 Pages", () => {
     cy.fixture("jobs20").then((jobsJson) => {
       cy.server();
       cy.route({
-        method: "GET",
+        method: "POST",
         url: "/jobs",
         status: 200,
         response: jobsJson,

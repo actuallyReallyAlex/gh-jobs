@@ -30,34 +30,28 @@ import {
   setSavedJobsTotalPages,
   setHiddenJobs,
   setHiddenJobsDetails,
+  setId,
 } from "./actions/user";
 import { fetchServerData, isError } from "../util";
 
 import {
-  AddHiddenJobErrorResponse,
   AddHiddenJobSuccessResponse,
-  AddSavedJobErrorResponse,
   AddSavedJobSuccessResponse,
   AppThunk,
   DeleteProfileResponse,
   EditProfileResponse,
-  GetHiddenJobsDetailsErrorResponse,
+  ErrorResponse,
   GetHiddenJobsDetailsSuccessResponse,
-  GetJobsErrorResponse,
   GetJobsSuccessResponse,
-  GetSavedJobsDetailsErrorResponse,
   GetSavedJobsDetailsSuccessResponse,
   Job,
   LocationOption,
   LoginResponse,
-  RemoveHiddenJobErrorResponse,
   RemoveHiddenJobSuccessResponse,
-  RemoveSavedJobErrorResponse,
   RemoveSavedJobSuccessResponse,
   ResetPasswordResponse,
   RootState,
   ServerResponseUser,
-  SignupErrorResponse,
   SignupSuccessResponse,
 } from "../types";
 
@@ -71,6 +65,7 @@ export const searchJobs = (
 
   const state: RootState = getState();
   const { contract, fullTime, locationSearch } = state.application;
+  const { id } = state.user;
 
   const locationsSearches = locationOptions.filter(
     (location: LocationOption) => location.value !== ""
@@ -84,7 +79,7 @@ export const searchJobs = (
     });
   }
 
-  let url = `/jobs/search?full_time=${encodeURI(
+  let url = `/jobs/search?userId=${encodeURI(id)}&full_time=${encodeURI(
     fullTime.toString()
   )}&contract=${encodeURI(contract.toString())}&description=${encodeURI(
     search
@@ -95,7 +90,7 @@ export const searchJobs = (
   });
 
   const data = (await fetchServerData(url, "GET")) as
-    | GetJobsErrorResponse
+    | ErrorResponse
     | GetJobsSuccessResponse;
 
   if (isError(data)) {
@@ -137,9 +132,25 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
     return;
   }
 
+  // * Establish Job Data
+  const jobsResult = (await fetchServerData(
+    "/jobs",
+    "POST",
+    JSON.stringify({ userId: response._id })
+  )) as ErrorResponse | GetJobsSuccessResponse;
+
+  if (isError(jobsResult)) {
+    dispatch(displayNotification(jobsResult.error, "error"));
+    dispatch(setIsLoading(false));
+    return;
+  }
+
   dispatch(setIsLoggedIn(true));
+  dispatch(setCurrentJobs(jobsResult));
+  dispatch(setTotalPages(Math.ceil(jobsResult.length / 5)));
   dispatch(setEmail(response.email));
   dispatch(setName(response.name));
+  dispatch(setId(response._id));
   dispatch(setSavedJobs(response.savedJobs));
   dispatch(setHiddenJobs(response.hiddenJobs));
 
@@ -160,9 +171,7 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
   }
 
   // TODO - Modify
-  const result:
-    | SignupErrorResponse
-    | SignupSuccessResponse = await fetchServerData(
+  const result: ErrorResponse | SignupSuccessResponse = await fetchServerData(
     "/user",
     "POST",
     JSON.stringify({ confirmPassword, email, name, password })
@@ -188,6 +197,8 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
 export const initializeApplication = (): AppThunk => async (dispatch) => {
   try {
     dispatch(setIsLoading(true));
+
+    // * Reset State to Defaults
     dispatch(displayNotification("", "default"));
     dispatch(setError(null, null));
     dispatch(setCurrentJobs([]));
@@ -199,12 +210,30 @@ export const initializeApplication = (): AppThunk => async (dispatch) => {
     dispatch(setModalContent(""));
     dispatch(setModalTitle(""));
 
-    // * Establish Job Data
-    dispatch(setIsLoading(true));
+    // * Establish User Authentication
+    const userResponse = await fetch("/user/me");
+    let userId = "";
 
-    const jobsResult = (await fetchServerData("/jobs", "GET")) as
-      | GetJobsErrorResponse
-      | GetJobsSuccessResponse;
+    if (userResponse.status === 200) {
+      // * User is authenticated
+      const user: ServerResponseUser = await userResponse.json();
+
+      userId = user._id;
+
+      dispatch(setName(user.name));
+      dispatch(setEmail(user.email));
+      dispatch(setId(userId));
+      dispatch(setSavedJobs(user.savedJobs));
+      dispatch(setHiddenJobs(user.hiddenJobs));
+      dispatch(setIsLoggedIn(true));
+    }
+
+    // * Establish Job Data
+    const jobsResult = (await fetchServerData(
+      "/jobs",
+      "POST",
+      JSON.stringify({ userId })
+    )) as ErrorResponse | GetJobsSuccessResponse;
 
     if (isError(jobsResult)) {
       dispatch(displayNotification(jobsResult.error, "error"));
@@ -216,25 +245,6 @@ export const initializeApplication = (): AppThunk => async (dispatch) => {
     dispatch(setCurrentPage(1));
     dispatch(setTotalPages(Math.ceil(jobsResult.length / 5)));
     dispatch(setCurrentJobs(jobsResult));
-
-    // * Establish User Authentication
-    const userResponse = await fetch("/user/me");
-
-    if (userResponse.status === 200) {
-      const user: ServerResponseUser = await userResponse.json();
-
-      const nonHiddenJobs = jobsResult.filter(
-        (job: Job) => user.hiddenJobs.indexOf(job.id) < 0
-      );
-
-      dispatch(setName(user.name));
-      dispatch(setEmail(user.email));
-      dispatch(setSavedJobs(user.savedJobs));
-      dispatch(setHiddenJobs(user.hiddenJobs));
-      dispatch(setIsLoggedIn(true));
-      dispatch(setCurrentJobs(nonHiddenJobs));
-      dispatch(setTotalPages(Math.ceil(nonHiddenJobs.length / 5)));
-    }
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
@@ -259,10 +269,26 @@ export const logOut = (): AppThunk => async (dispatch) => {
     return;
   }
 
+  // * Establish Job Data
+  const jobsResult = (await fetchServerData(
+    "/jobs",
+    "POST",
+    JSON.stringify({ userId: "" })
+  )) as ErrorResponse | GetJobsSuccessResponse;
+
+  if (isError(jobsResult)) {
+    dispatch(displayNotification(jobsResult.error, "error"));
+    dispatch(setIsLoading(false));
+    return;
+  }
+
+  dispatch(displayNotification("", "default"));
+  dispatch(setCurrentJobs(jobsResult));
+  dispatch(setTotalPages(Math.ceil(jobsResult.length / 5)));
   dispatch(setConfirmPassword(""));
   dispatch(setEmail(""));
-  dispatch(displayNotification("", "default"));
   dispatch(setName(""));
+  dispatch(setId(""));
   dispatch(setPassword(""));
   dispatch(setSavedJobs([]));
   dispatch(setHiddenJobs([]));
@@ -290,10 +316,26 @@ export const logOutAll = (): AppThunk => async (dispatch) => {
     return;
   }
 
+  // * Establish Job Data
+  const jobsResult = (await fetchServerData(
+    "/jobs",
+    "POST",
+    JSON.stringify({ userId: "" })
+  )) as ErrorResponse | GetJobsSuccessResponse;
+
+  if (isError(jobsResult)) {
+    dispatch(displayNotification(jobsResult.error, "error"));
+    dispatch(setIsLoading(false));
+    return;
+  }
+
   dispatch(setConfirmPassword(""));
-  dispatch(setEmail(""));
   dispatch(displayNotification("", "default"));
+  dispatch(setCurrentJobs(jobsResult));
+  dispatch(setTotalPages(Math.ceil(jobsResult.length / 5)));
+  dispatch(setEmail(""));
   dispatch(setName(""));
+  dispatch(setId(""));
   dispatch(setPassword(""));
   dispatch(setSavedJobs([]));
   dispatch(setHiddenJobs([]));
@@ -425,7 +467,7 @@ export const addHiddenJob = (id: string): AppThunk => async (
     const { currentJobs } = state.application;
     // TODO - Modify
     const result:
-      | AddHiddenJobErrorResponse
+      | ErrorResponse
       | AddHiddenJobSuccessResponse = await fetchServerData(
       "/user/hiddenJobs",
       "PATCH",
@@ -459,7 +501,7 @@ export const addSavedJob = (id: string): AppThunk => async (dispatch) => {
   try {
     // TODO - Modify
     const result:
-      | AddSavedJobErrorResponse
+      | ErrorResponse
       | AddSavedJobSuccessResponse = await fetchServerData(
       "/user/savedJobs",
       "PATCH",
@@ -491,7 +533,7 @@ export const removeHiddenJob = (id: string): AppThunk => async (dispatch) => {
   try {
     // TODO - Modify
     const result:
-      | RemoveHiddenJobErrorResponse
+      | ErrorResponse
       | RemoveHiddenJobSuccessResponse = await fetchServerData(
       "/user/hiddenJobs",
       "PATCH",
@@ -521,7 +563,7 @@ export const removeSavedJob = (id: string): AppThunk => async (dispatch) => {
   try {
     // TODO - Modify
     const result:
-      | RemoveSavedJobErrorResponse
+      | ErrorResponse
       | RemoveSavedJobSuccessResponse = await fetchServerData(
       "/user/savedJobs",
       "PATCH",
@@ -592,7 +634,7 @@ export const getSavedJobsDetails = (): AppThunk => async (dispatch) => {
 
   try {
     const result:
-      | GetSavedJobsDetailsErrorResponse
+      | ErrorResponse
       | GetSavedJobsDetailsSuccessResponse = await fetchServerData(
       `/user/savedJobsDetails`,
       "GET"
@@ -619,7 +661,7 @@ export const getHiddenJobsDetails = (): AppThunk => async (dispatch) => {
 
   try {
     const result:
-      | GetHiddenJobsDetailsErrorResponse
+      | ErrorResponse
       | GetHiddenJobsDetailsSuccessResponse = await fetchServerData(
       `/user/hiddenJobsDetails`,
       "GET"

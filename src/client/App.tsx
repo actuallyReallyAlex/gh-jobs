@@ -56,7 +56,7 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
             <Route exact path="/">
               <Search />
             </Route>
-            <Route path="/jobs/:id">
+            <Route path="/jobDetails/:id">
               <Details />
             </Route>
             <Route path="/login">

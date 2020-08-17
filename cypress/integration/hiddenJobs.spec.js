@@ -4,20 +4,29 @@ context("Hidden Jobs", () => {
   beforeEach(() => {
     cy.fixture("jobs50").then((jobsJson) => {
       cy.fixture("hiddenDetails").then((hiddenDetailsJson) => {
-        cy.server();
-        cy.route({
-          method: "GET",
-          url: "/jobs",
-          status: 200,
-          response: jobsJson,
-          delay: 1000,
-        });
-        cy.route({
-          method: "GET",
-          url: "/user/hiddenJobsDetails",
-          status: 200,
-          response: hiddenDetailsJson,
-          delay: 1000,
+        cy.fixture("jobDetails").then((jobDetailsJson) => {
+          cy.server();
+          cy.route({
+            method: "POST",
+            url: "/jobs",
+            status: 200,
+            response: jobsJson,
+            delay: 1000,
+          });
+          cy.route({
+            method: "GET",
+            url: "/user/hiddenJobsDetails",
+            status: 200,
+            response: hiddenDetailsJson,
+            delay: 1000,
+          });
+          cy.route({
+            method: "GET",
+            url: "/jobs/f1884b46-ecb4-473c-81f5-08d9bf2ab3bb",
+            status: 200,
+            response: jobDetailsJson,
+            delay: 1000,
+          });
         });
       });
     });
@@ -223,6 +232,29 @@ context("Hidden Jobs", () => {
     cy.get("#show-job-72de09f2-5bc6-489f-be90-3d38e505e20a").click();
     cy.get("#show-job-cc20d9f2-0102-4785-8253-66093d3ca5c0").click();
   });
+
+  // ! Unable to do with current implementation
+  // * If you don't stub it, the real db may not contain that job listing anymore
+  // * If you do stub it, you can't conditionally send a smaller list of jobs each time it hits /user/hiddenJobDetails
+  it.skip("Should not display hidden jobs in currentJobs", () => {
+    // * Hide a job
+    cy.get("#hide-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
+    // * Log User out
+    cy.get("#nav-profile").click();
+    cy.get("#settings").click();
+    cy.get("#log-out").click();
+
+    cy.get("#f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").should("exist");
+
+    // * Log In
+    cy.get("#nav-login").click();
+    cy.get("#email").type("bobtest@email.com");
+    cy.get("#password").type("Red123456!!!");
+    cy.get("#log-in").click();
+    cy.wait(500);
+
+    cy.get("#f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").should("not.exist");
+  });
 });
 
 context("Hidden Jobs - No Results", () => {
@@ -230,7 +262,7 @@ context("Hidden Jobs - No Results", () => {
     cy.fixture("jobs50").then((jobsJson) => {
       cy.server();
       cy.route({
-        method: "GET",
+        method: "POST",
         url: "/jobs",
         status: 200,
         response: jobsJson,
@@ -254,7 +286,7 @@ context("Hidden Jobs - No Results", () => {
     cy.get("#nav-profile").click();
     cy.get("#view-hidden-jobs").click();
 
-    assert.equal(cy.state("requests").length, 3);
+    assert.equal(cy.state("requests").length, 4);
   });
 
   it("Should display correct text", () => {

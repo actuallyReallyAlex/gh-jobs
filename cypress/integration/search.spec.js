@@ -6,7 +6,7 @@ context("Search", () => {
       cy.fixture("jobsSearch1").then((searchJson) => {
         cy.server();
         cy.route({
-          method: "GET",
+          method: "POST",
           url: "/jobs",
           status: 200,
           response: jobsJson,
@@ -14,7 +14,8 @@ context("Search", () => {
         });
         cy.route({
           method: "GET",
-          url: "/jobs/search?full_time=false&contract=false&description=developer",
+          url:
+            "/jobs/search?userId=&full_time=false&contract=false&description=developer",
           status: 200,
           response: searchJson,
           delay: 1000,
@@ -50,13 +51,38 @@ context("Search", () => {
     cy.get("#search").type("{enter}");
     cy.get('[data-cy="orbit-container"]').should("be.visible");
   });
+
+  // ! Unable to do with current implementation
+  // * If you don't stub it, the real db may not contain that job listing anymore
+  // * If you do stub it, you can't conditionally send a smaller list of jobs each time it hits /user/hiddenJobDetails
+  it.skip("Should not display hidden jobs in currentJobs on search", () => {
+    // * Hide a job
+    cy.get("#hide-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
+    // * Log User out
+    cy.get("#nav-profile").click();
+    cy.get("#settings").click();
+    cy.get("#log-out").click();
+
+    cy.get("#f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").should("exist");
+
+    // * Log In
+    cy.get("#nav-login").click();
+    cy.get("#email").type("bobtest@email.com");
+    cy.get("#password").type("Red123456!!!");
+    cy.get("#log-in").click();
+    cy.wait(500);
+
+    cy.get("#f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").should("not.exist");
+
+    // * Do search
+  });
 });
 
 context("Search - No Results", () => {
   beforeEach(() => {
     cy.server();
     cy.route({
-      method: "GET",
+      method: "POST",
       url: "/jobs",
       status: 200,
       response: [],
@@ -64,7 +90,8 @@ context("Search - No Results", () => {
     });
     cy.route({
       method: "GET",
-      url: "/jobs/search?full_time=false&contract=false&description=developer",
+      url:
+        "/jobs/search?userId=&full_time=false&contract=false&description=developer",
       status: 200,
       response: [],
       delay: 1000,
@@ -88,7 +115,7 @@ context("Search - Loading Indicator", () => {
     cy.fixture("jobs50").then((jobsJson) => {
       cy.server();
       cy.route({
-        method: "GET",
+        method: "POST",
         url: "/jobs",
         status: 200,
         response: jobsJson,

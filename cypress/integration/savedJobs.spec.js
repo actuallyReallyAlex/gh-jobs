@@ -4,20 +4,29 @@ context("Saved Jobs", () => {
   beforeEach(() => {
     cy.fixture("jobs50").then((jobsJson) => {
       cy.fixture("savedDetails").then((savedDetailsJson) => {
-        cy.server();
-        cy.route({
-          method: "GET",
-          url: "/jobs",
-          status: 200,
-          response: jobsJson,
-          delay: 1000,
-        });
-        cy.route({
-          method: "GET",
-          url: "/user/savedJobsDetails",
-          status: 200,
-          response: savedDetailsJson,
-          delay: 1000,
+        cy.fixture("jobDetails").then((jobDetailsJson) => {
+          cy.server();
+          cy.route({
+            method: "POST",
+            url: "/jobs",
+            status: 200,
+            response: jobsJson,
+            delay: 1000,
+          });
+          cy.route({
+            method: "GET",
+            url: "/user/savedJobsDetails",
+            status: 200,
+            response: savedDetailsJson,
+            delay: 1000,
+          });
+          cy.route({
+            method: "GET",
+            url: "/jobs/f1884b46-ecb4-473c-81f5-08d9bf2ab3bb",
+            status: 200,
+            response: jobDetailsJson,
+            delay: 1000,
+          });
         });
       });
     });
@@ -145,7 +154,7 @@ context("Saved Jobs - No Results", () => {
     cy.fixture("jobs50").then((jobsJson) => {
       cy.server();
       cy.route({
-        method: "GET",
+        method: "POST",
         url: "/jobs",
         status: 200,
         response: jobsJson,
@@ -169,7 +178,7 @@ context("Saved Jobs - No Results", () => {
     cy.get("#nav-profile").click();
     cy.get("#view-saved-jobs").click();
 
-    assert.equal(cy.state("requests").length, 3);
+    assert.equal(cy.state("requests").length, 4);
   });
 
   it("Should display correct text", () => {

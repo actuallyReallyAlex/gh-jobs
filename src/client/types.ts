@@ -1,10 +1,6 @@
 import { Action } from "redux";
 import { ThunkAction } from "redux-thunk";
 
-export interface AddHiddenJobErrorResponse {
-  error: string;
-}
-
 export interface AddHiddenJobSuccessResponse {
   createdAt: string;
   email: string;
@@ -14,10 +10,6 @@ export interface AddHiddenJobSuccessResponse {
   updatedAt: string;
   __v: number;
   _id: string;
-}
-
-export interface AddSavedJobErrorResponse {
-  error: string;
 }
 
 export interface AddSavedJobSuccessResponse {
@@ -69,31 +61,19 @@ export type ButtonStyle = "primary" | "secondary" | "danger";
 
 export type ButtonType = "button" | "reset" | "submit";
 
-export type DeleteProfileResponse = ServerResponseError & ServerResponseUser;
+export type DeleteProfileResponse = ErrorResponse & ServerResponseUser;
 
-export type EditProfileResponse = ServerResponseError & ServerResponseUser;
+export type EditProfileResponse = ErrorResponse & ServerResponseUser;
 
-export interface GetJobDetailsErrorResponse {
+export interface ErrorResponse {
   error: string;
 }
 
 export type GetJobDetailsSuccessResponse = Job;
 
-export interface GetJobsErrorResponse {
-  error: string;
-}
-
 export type GetJobsSuccessResponse = Job[];
 
-export interface GetHiddenJobsDetailsErrorResponse {
-  error: string;
-}
-
 export type GetHiddenJobsDetailsSuccessResponse = Job[];
-
-export interface GetSavedJobsDetailsErrorResponse {
-  error: string;
-}
 
 export type GetSavedJobsDetailsSuccessResponse = Job[];
 
@@ -188,7 +168,7 @@ export interface LocationOption {
   value: string;
 }
 
-export type LoginResponse = ServerResponseError & ServerResponseUser;
+export type LoginResponse = ErrorResponse & ServerResponseUser;
 
 export interface ModalAction {
   type: string;
@@ -212,10 +192,6 @@ export type NotificationType =
 
 export type PaginationNavigationType = "left" | "right";
 
-export interface RemoveHiddenJobErrorResponse {
-  error: string;
-}
-
 export interface RemoveHiddenJobSuccessResponse {
   createdAt: string;
   email: string;
@@ -225,10 +201,6 @@ export interface RemoveHiddenJobSuccessResponse {
   updatedAt: string;
   __v: number;
   _id: string;
-}
-
-export interface RemoveSavedJobErrorResponse {
-  error: string;
 }
 
 export interface RemoveSavedJobSuccessResponse {
@@ -244,7 +216,7 @@ export interface RemoveSavedJobSuccessResponse {
 
 export type RequestMethod = "DELETE" | "GET" | "PATCH" | "POST";
 
-export type ResetPasswordResponse = ServerResponseError & ServerResponseUser;
+export type ResetPasswordResponse = ErrorResponse & ServerResponseUser;
 
 export type RootState = {
   application: ApplicationState;
@@ -253,10 +225,6 @@ export type RootState = {
 };
 
 export type SearchType = "description" | "location";
-
-export interface ServerResponseError {
-  error: string;
-}
 
 export interface ServerResponseUser {
   createdAt: string;
@@ -267,10 +235,6 @@ export interface ServerResponseUser {
   updatedAt: string;
   __v: number;
   _id: string;
-}
-
-export interface SignupErrorResponse {
-  error: string;
 }
 
 export interface SignupSuccessResponse {
@@ -295,6 +259,7 @@ export interface UserState {
   email: string;
   hiddenJobs: string[];
   hiddenJobsDetails: Job[];
+  id: string;
   isEditingProfile: boolean;
   isLoggedIn: false;
   name: string;
