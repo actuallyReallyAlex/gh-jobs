@@ -1,15 +1,24 @@
 /// <reference types="cypress" />
 
-context("Details", () => {
+context("Direct Page Access", () => {
   beforeEach(() => {
     cy.fixture("jobs50").then((jobsJson) => {
-      cy.server();
-      cy.route({
-        method: "POST",
-        url: "/jobs",
-        status: 200,
-        response: jobsJson,
-        delay: 1000,
+      cy.fixture("jobDetails").then((jobDetailsJson) => {
+        cy.server();
+        cy.route({
+          method: "POST",
+          url: "/jobs",
+          status: 200,
+          response: jobsJson,
+          delay: 1000,
+        });
+        cy.route({
+          method: "GET",
+          url: "/jobs/f1884b46-ecb4-473c-81f5-08d9bf2ab3bb",
+          status: 200,
+          response: jobDetailsJson,
+          delay: 1000,
+        });
       });
     });
   });
