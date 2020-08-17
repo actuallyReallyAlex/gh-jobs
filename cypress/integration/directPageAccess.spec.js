@@ -38,7 +38,7 @@ context("Direct Page Access", () => {
   });
 
   it("Should be able to access '/jobDetails/:id' directly", () => {
-    cy.visit("http://localhost:3000/jobs/f1884b46-ecb4-473c-81f5-08d9bf2ab3bb");
+    cy.visit("http://localhost:3000/jobDetails/f1884b46-ecb4-473c-81f5-08d9bf2ab3bb");
     cy.wait(500);
 
     cy.get("h2").should("have.text", "Cloud DevOps Engineer");
