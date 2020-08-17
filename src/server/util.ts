@@ -1,9 +1,12 @@
 import nfetch from "node-fetch";
 
+import JobModel from "./models/Job";
+
 import {
   GetJobsErrorResponse,
   GetJobsSuccessResponse,
   GitHubJob,
+  Job,
 } from "./types";
 
 /**
@@ -87,3 +90,34 @@ export const isError = (
 
 // eslint-disable-next-line
 export const unique = (arr: any[]): any[] => [...new Set(arr)];
+
+export const rehydrateJobsDB = async (): Promise<
+  GetJobsErrorResponse | true
+> => {
+  try {
+    const result = await getAllJobsFromAPI();
+
+    if (isError(result)) {
+      return result;
+    }
+    // * Drop the current database of Jobs
+    await JobModel.collection.drop();
+
+    // * Create new Job entries
+    await Promise.all(
+      result.map(async (job: GitHubJob) => {
+        const newJobObject: Job = {
+          ...job,
+          listingDate: job.created_at,
+        };
+        const newJob = new JobModel(newJobObject);
+        await newJob.save();
+        return;
+      })
+    );
+
+    return true;
+  } catch (error) {
+    console.error(error);
+  }
+};

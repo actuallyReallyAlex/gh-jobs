@@ -7,7 +7,7 @@ import path from "path";
 
 import JobModel from "../models/Job";
 
-import { getAllJobsFromAPI, isError, unique } from "../util";
+import { unique, rehydrateJobsDB } from "../util";
 
 import {
   GetJobsErrorResponse,
@@ -15,8 +15,9 @@ import {
   Job,
   GetJobDetailsErrorResponse,
   GetJobDetailsSuccessResponse,
-  GitHubJob,
+  JobDocument,
 } from "../types";
+import User from "../models/User";
 
 /**
  * Job Controller.
@@ -29,40 +30,39 @@ class JobController {
   }
 
   public initializeRoutes(): void {
-    this.router.get(
+    this.router.post(
       "/jobs",
       async (
         req: Request,
         res: Response
       ): Promise<Response<GetJobsErrorResponse | GetJobsSuccessResponse>> => {
         try {
-          const currentJobs = await JobModel.find({});
+          // * Get User Information
+          const userId: string = req.body.userId;
+          let user = null;
+          let hiddenJobs: string[] = [];
+          if (userId !== "") {
+            user = await User.findById(userId);
+            hiddenJobs = user.hiddenJobs;
+          }
+
+          // * Get Job Information
+          let dbJobs: JobDocument[] = await JobModel.find({});
 
           // * No Jobs exist in DB
-          if (currentJobs.length === 0) {
-            const result = await getAllJobsFromAPI();
+          if (dbJobs.length === 0) {
+            const rehydrationResult = await rehydrateJobsDB();
 
-            if (isError(result)) {
-              return res.status(500).send(result);
+            // TODO - Check for this in a different way
+            if (rehydrationResult !== true) {
+              return res.status(500).send(rehydrationResult);
             }
 
-            await Promise.all(
-              result.map(async (job: GitHubJob) => {
-                const newJobObject: Job = {
-                  ...job,
-                  listingDate: job.created_at,
-                };
-                const newJob = new JobModel(newJobObject);
-                await newJob.save();
-                return;
-              })
-            );
-
-            const dbJobs = await JobModel.find({});
-            return res.send(dbJobs);
+            // * Set dbJobs to new jobs
+            dbJobs = await JobModel.find({});
           } else {
-            // * Jobs exist in DB
-            const { createdAt } = currentJobs[0];
+            // * Jobs exist in DB, but we need to ensure they are not stale jobs (from yesterday)
+            const { createdAt } = dbJobs[0];
 
             const isWithinToday = isWithinInterval(new Date(createdAt), {
               start: startOfToday(),
@@ -71,35 +71,24 @@ class JobController {
 
             if (!isWithinToday) {
               // * Jobs are stale. Get new jobs.
-              const result = await getAllJobsFromAPI();
+              const rehydration2Result = await rehydrateJobsDB();
 
-              if (isError(result)) {
-                return res.status(500).send(result);
+              // TODO - Check for this in a different way
+              if (rehydration2Result !== true) {
+                return res.status(500).send(rehydration2Result);
               }
 
-              // * Drop the current database of Jobs
-              await JobModel.collection.drop();
-
-              // * Create new Job entries
-              await Promise.all(
-                result.map(async (job: GitHubJob) => {
-                  const newJobObject: Job = {
-                    ...job,
-                    listingDate: job.created_at,
-                  };
-                  const newJob = new JobModel(newJobObject);
-                  await newJob.save();
-                  return;
-                })
-              );
-
-              const dbJobs = await JobModel.find({});
-              return res.send(dbJobs);
-            } else {
-              // * Jobs are fine, send that.
-              return res.send(currentJobs);
+              // * Set dbJobs to new jobs
+              dbJobs = await JobModel.find({});
             }
           }
+
+          // * Ensure that the user's hiddenJobs do not show in results
+          const filteredDBJobs: JobDocument[] = dbJobs.filter(
+            (jobDocument: JobDocument) => hiddenJobs.indexOf(jobDocument.id) < 0
+          );
+
+          return res.send(filteredDBJobs);
         } catch (error) {
           if (process.env.NODE_ENV !== "test") {
             console.error(error);

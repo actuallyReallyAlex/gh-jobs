@@ -137,6 +137,8 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
     return;
   }
 
+  // TODO - Make call to get jobs (now they will be filtered)
+
   dispatch(setIsLoggedIn(true));
   dispatch(setEmail(response.email));
   dispatch(setName(response.name));
