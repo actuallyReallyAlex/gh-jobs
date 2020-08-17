@@ -139,9 +139,22 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
     return;
   }
 
-  // TODO - Make call to get jobs (now they will be filtered)
+  // * Establish Job Data
+  const jobsResult = (await fetchServerData(
+    "/jobs",
+    "POST",
+    JSON.stringify({ userId: response._id })
+  )) as GetJobsErrorResponse | GetJobsSuccessResponse;
+
+  if (isError(jobsResult)) {
+    dispatch(displayNotification(jobsResult.error, "error"));
+    dispatch(setIsLoading(false));
+    return;
+  }
 
   dispatch(setIsLoggedIn(true));
+  dispatch(setCurrentJobs(jobsResult));
+  dispatch(setTotalPages(Math.ceil(jobsResult.length / 5)));
   dispatch(setEmail(response.email));
   dispatch(setName(response.name));
   dispatch(setId(response._id));
@@ -236,14 +249,6 @@ export const initializeApplication = (): AppThunk => async (dispatch) => {
       dispatch(setIsLoading(false));
       return;
     }
-
-    // ? Needed? Or on BE?
-    // const nonHiddenJobs = jobsResult.filter(
-    //   (job: Job) => user.hiddenJobs.indexOf(job.id) < 0
-    // );
-
-    // dispatch(setCurrentJobs(nonHiddenJobs));
-    // dispatch(setTotalPages(Math.ceil(nonHiddenJobs.length / 5)));
 
     dispatch(setJobs(jobsResult));
     dispatch(setCurrentPage(1));
