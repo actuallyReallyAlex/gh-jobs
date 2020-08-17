@@ -8,7 +8,7 @@ context("Options Panel", () => {
           cy.fixture("jobsSearch3").then((jobsSearch3Json) => {
             cy.server();
             cy.route({
-              method: "GET",
+              method: "POST",
               url: "/jobs",
               status: 200,
               response: jobsJson,

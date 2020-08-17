@@ -6,7 +6,7 @@ context("Search", () => {
       cy.fixture("jobsSearch1").then((searchJson) => {
         cy.server();
         cy.route({
-          method: "GET",
+          method: "POST",
           url: "/jobs",
           status: 200,
           response: jobsJson,
@@ -56,7 +56,7 @@ context("Search - No Results", () => {
   beforeEach(() => {
     cy.server();
     cy.route({
-      method: "GET",
+      method: "POST",
       url: "/jobs",
       status: 200,
       response: [],
@@ -88,7 +88,7 @@ context("Search - Loading Indicator", () => {
     cy.fixture("jobs50").then((jobsJson) => {
       cy.server();
       cy.route({
-        method: "GET",
+        method: "POST",
         url: "/jobs",
         status: 200,
         response: jobsJson,

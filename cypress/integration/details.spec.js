@@ -6,7 +6,7 @@ context("Details", () => {
       cy.fixture("jobDetails").then((jobDetails) => {
         cy.server();
         cy.route({
-          method: "GET",
+          method: "POST",
           url: "/jobs",
           status: 200,
           response: jobsJson,

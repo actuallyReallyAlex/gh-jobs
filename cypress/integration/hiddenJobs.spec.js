@@ -6,7 +6,7 @@ context("Hidden Jobs", () => {
       cy.fixture("hiddenDetails").then((hiddenDetailsJson) => {
         cy.server();
         cy.route({
-          method: "GET",
+          method: "POST",
           url: "/jobs",
           status: 200,
           response: jobsJson,
@@ -230,7 +230,7 @@ context("Hidden Jobs - No Results", () => {
     cy.fixture("jobs50").then((jobsJson) => {
       cy.server();
       cy.route({
-        method: "GET",
+        method: "POST",
         url: "/jobs",
         status: 200,
         response: jobsJson,
