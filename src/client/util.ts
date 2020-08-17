@@ -1,14 +1,11 @@
 import { createBrowserHistory } from "history";
 
 import {
+  ErrorResponse,
   RequestMethod,
-  GetJobDetailsErrorResponse,
   GetJobDetailsSuccessResponse,
-  GetJobsErrorResponse,
   GetJobsSuccessResponse,
-  AddSavedJobErrorResponse,
   AddSavedJobSuccessResponse,
-  SignupErrorResponse,
   SignupSuccessResponse,
 } from "./types";
 
@@ -89,16 +86,13 @@ export const saveState = (state: any): void => {
 
 export const isError = (
   result:
-    | GetJobsErrorResponse
-    | GetJobsSuccessResponse
-    | GetJobDetailsErrorResponse
-    | GetJobDetailsSuccessResponse
-    | AddSavedJobErrorResponse
     | AddSavedJobSuccessResponse
-    | SignupErrorResponse
+    | ErrorResponse
+    | GetJobDetailsSuccessResponse
+    | GetJobsSuccessResponse
     | SignupSuccessResponse
-): result is GetJobsErrorResponse => {
-  return (result as GetJobsErrorResponse).error !== undefined;
+): result is ErrorResponse => {
+  return (result as ErrorResponse).error !== undefined;
 };
 
 export const history = createBrowserHistory();
