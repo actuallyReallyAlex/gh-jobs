@@ -18,7 +18,7 @@ context("Application Error", () => {
       });
       cy.route({
         method: "GET",
-        url: "/jobs/search?full_time=false&contract=false&description=react",
+        url: "/jobs/search?userId=&full_time=false&contract=false&description=react",
         status: 200,
         response: {},
         delay: 1000,

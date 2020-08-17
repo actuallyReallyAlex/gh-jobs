@@ -14,7 +14,7 @@ context("Search", () => {
         });
         cy.route({
           method: "GET",
-          url: "/jobs/search?full_time=false&contract=false&description=developer",
+          url: "/jobs/search?userId=&full_time=false&contract=false&description=developer",
           status: 200,
           response: searchJson,
           delay: 1000,
@@ -64,7 +64,7 @@ context("Search - No Results", () => {
     });
     cy.route({
       method: "GET",
-      url: "/jobs/search?full_time=false&contract=false&description=developer",
+      url: "/jobs/search?userId=&full_time=false&contract=false&description=developer",
       status: 200,
       response: [],
       delay: 1000,

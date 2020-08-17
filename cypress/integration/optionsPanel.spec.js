@@ -16,7 +16,7 @@ context("Options Panel", () => {
             cy.route({
               method: "GET",
               url:
-                "/jobs/search?full_time=true&contract=false&description=developer",
+                "/jobs/search?userId=&full_time=true&contract=false&description=developer",
               status: 200,
               delay: 1000,
               response: jobsSearch2Json,
@@ -24,7 +24,7 @@ context("Options Panel", () => {
             cy.route({
               method: "GET",
               url:
-                "/jobs/search?full_time=false&contract=false&description=&location1=Los Angeles",
+                "/jobs/search?userId=&full_time=false&contract=false&description=&location1=Los Angeles",
               status: 200,
               delay: 1000,
               response: jobsSearch1Json,
@@ -32,7 +32,7 @@ context("Options Panel", () => {
             cy.route({
               method: "GET",
               url:
-                "/jobs/search?full_time=false&contract=false&description=&location1=Chicago",
+                "/jobs/search?userId=&full_time=false&contract=false&description=&location1=Chicago",
               status: 200,
               delay: 1000,
               response: jobsSearch1Json,
@@ -40,7 +40,7 @@ context("Options Panel", () => {
             cy.route({
               method: "GET",
               url:
-                "/jobs/search?full_time=false&contract=false&description=developer",
+                "/jobs/search?userId=&full_time=false&contract=false&description=developer",
               status: 200,
               delay: 1000,
               response: jobsSearch1Json,
@@ -48,7 +48,7 @@ context("Options Panel", () => {
             cy.route({
               method: "GET",
               url:
-                "/jobs/search?full_time=false&contract=false&description=&location1=Los Angeles",
+                "/jobs/search?userId=&full_time=false&contract=false&description=&location1=Los Angeles",
               status: 200,
               delay: 1000,
               response: jobsSearch1Json,
@@ -56,7 +56,7 @@ context("Options Panel", () => {
             cy.route({
               method: "GET",
               url:
-                "/jobs/search?full_time=false&contract=true&description=developer",
+                "/jobs/search?userId=&full_time=false&contract=true&description=developer",
               status: 200,
               delay: 1000,
               response: jobsSearch3Json,
