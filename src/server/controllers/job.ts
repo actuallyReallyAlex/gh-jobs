@@ -10,10 +10,9 @@ import JobModel from "../models/Job";
 import { unique, rehydrateJobsDB } from "../util";
 
 import {
-  GetJobsErrorResponse,
+  ErrorResponse,
   GetJobsSuccessResponse,
   Job,
-  GetJobDetailsErrorResponse,
   GetJobDetailsSuccessResponse,
   JobDocument,
 } from "../types";
@@ -35,7 +34,7 @@ class JobController {
       async (
         req: Request,
         res: Response
-      ): Promise<Response<GetJobsErrorResponse | GetJobsSuccessResponse>> => {
+      ): Promise<Response<ErrorResponse | GetJobsSuccessResponse>> => {
         try {
           // * Get User Information
           const userId: string = req.body.userId;
@@ -104,7 +103,7 @@ class JobController {
       async (
         req: Request,
         res: Response
-      ): Promise<Response<GetJobsErrorResponse | GetJobsSuccessResponse>> => {
+      ): Promise<Response<ErrorResponse | GetJobsSuccessResponse>> => {
         try {
           const {
             contract,
@@ -232,7 +231,7 @@ class JobController {
         req: Request,
         res: Response
       ): Promise<Response<
-        GetJobDetailsErrorResponse | GetJobDetailsSuccessResponse
+        ErrorResponse | GetJobDetailsSuccessResponse
       > | void> => {
         if (!req.headers.referer) {
           return res.sendFile(path.join(__dirname, "../../dist/index.html"));

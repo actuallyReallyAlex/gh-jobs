@@ -2,12 +2,7 @@ import nfetch from "node-fetch";
 
 import JobModel from "./models/Job";
 
-import {
-  GetJobsErrorResponse,
-  GetJobsSuccessResponse,
-  GitHubJob,
-  Job,
-} from "./types";
+import { ErrorResponse, GetJobsSuccessResponse, GitHubJob, Job } from "./types";
 
 /**
  * Check if MongoDB is running locally. Stops application from continuing if false.
@@ -53,7 +48,7 @@ export const createSearchURL = (
 };
 
 export const getAllJobsFromAPI = async (): Promise<
-  GetJobsErrorResponse | GetJobsSuccessResponse
+  ErrorResponse | GetJobsSuccessResponse
 > => {
   const jobs: GitHubJob[] = [];
   let jobsInBatch = null;
@@ -83,17 +78,15 @@ export const getAllJobsFromAPI = async (): Promise<
 };
 
 export const isError = (
-  result: GetJobsErrorResponse | GetJobsSuccessResponse
-): result is GetJobsErrorResponse => {
-  return (result as GetJobsErrorResponse).error !== undefined;
+  result: ErrorResponse | GetJobsSuccessResponse
+): result is ErrorResponse => {
+  return (result as ErrorResponse).error !== undefined;
 };
 
 // eslint-disable-next-line
 export const unique = (arr: any[]): any[] => [...new Set(arr)];
 
-export const rehydrateJobsDB = async (): Promise<
-  GetJobsErrorResponse | true
-> => {
+export const rehydrateJobsDB = async (): Promise<ErrorResponse | true> => {
   try {
     const result = await getAllJobsFromAPI();
 
