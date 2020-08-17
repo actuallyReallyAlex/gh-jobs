@@ -115,6 +115,7 @@ class JobController {
             location3,
             location4,
             location5,
+            userId,
           } = req.query;
 
           const isLocationSearch =
@@ -159,8 +160,19 @@ class JobController {
             );
 
             const uniqueResults: Job[] = unique(jobs);
+            let finalResults = uniqueResults;
 
-            return res.send(uniqueResults);
+            // * Filter by non-hidden jobs
+            if (userId) {
+              // * Get User Information
+              const user = await User.findById(userId);
+              const hiddenJobs: string[] = user.hiddenJobs;
+              finalResults = uniqueResults.filter(
+                (job: Job) => hiddenJobs.indexOf(job.id) < 0
+              );
+            }
+
+            return res.send(finalResults);
           }
 
           // * Make Searches
@@ -192,8 +204,19 @@ class JobController {
           ];
 
           const uniqueResults: Job[] = unique(searchResults);
+          let finalResults = uniqueResults;
 
-          return res.send(uniqueResults);
+          // * Filter by non-hidden jobs
+          if (userId) {
+            // * Get User Information
+            const user = await User.findById(userId);
+            const hiddenJobs: string[] = user.hiddenJobs;
+            finalResults = uniqueResults.filter(
+              (job: Job) => hiddenJobs.indexOf(job.id) < 0
+            );
+          }
+
+          return res.send(finalResults);
         } catch (error) {
           if (process.env.NODE_ENV !== "test") {
             console.error(error);
