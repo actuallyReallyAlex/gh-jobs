@@ -85,10 +85,16 @@ class App {
       // ? Use this.app.all?
 
       console.log(
-        chalk.blueBright.inverse({
-          host: req.headers.host,
-          referrer: req.headers.referer,
-        })
+        chalk.blueBright.inverse(
+          JSON.stringify(
+            {
+              host: req.headers.host,
+              referrer: req.headers.referer,
+            },
+            null,
+            2
+          )
+        )
       );
       res.sendFile(path.join(__dirname, "../dist/index.html"));
     });
