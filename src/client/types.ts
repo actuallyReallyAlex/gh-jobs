@@ -295,6 +295,7 @@ export interface UserState {
   email: string;
   hiddenJobs: string[];
   hiddenJobsDetails: Job[];
+  id: string;
   isEditingProfile: boolean;
   isLoggedIn: false;
   name: string;

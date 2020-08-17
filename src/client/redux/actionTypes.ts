@@ -24,6 +24,7 @@ export const SET_EDIT_NAME = "SET_EDIT_NAME";
 export const SET_EMAIL = "SET_EMAIL";
 export const SET_HIDDEN_JOBS = "SET_HIDDEN_JOBS";
 export const SET_HIDDEN_JOBS_DETAILS = "SET_HIDDEN_JOBS_DETAILS";
+export const SET_ID = "SET_ID";
 export const SET_IS_EDITING_PROFILE = "SET_IS_EDITING_PROFILE";
 export const SET_IS_LOGGED_IN = "SET_IS_LOGGED_IN";
 export const SET_NAME = "SET_NAME";

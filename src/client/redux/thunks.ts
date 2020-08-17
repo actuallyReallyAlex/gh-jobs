@@ -30,6 +30,7 @@ import {
   setSavedJobsTotalPages,
   setHiddenJobs,
   setHiddenJobsDetails,
+  setId,
 } from "./actions/user";
 import { fetchServerData, isError } from "../util";
 
@@ -142,6 +143,7 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoggedIn(true));
   dispatch(setEmail(response.email));
   dispatch(setName(response.name));
+  dispatch(setId(response._id));
   dispatch(setSavedJobs(response.savedJobs));
   dispatch(setHiddenJobs(response.hiddenJobs));
 
@@ -215,6 +217,7 @@ export const initializeApplication = (): AppThunk => async (dispatch) => {
 
       dispatch(setName(user.name));
       dispatch(setEmail(user.email));
+      dispatch(setId(userId));
       dispatch(setSavedJobs(user.savedJobs));
       dispatch(setHiddenJobs(user.hiddenJobs));
       dispatch(setIsLoggedIn(true));
@@ -269,10 +272,11 @@ export const logOut = (): AppThunk => async (dispatch) => {
     return;
   }
 
+  dispatch(displayNotification("", "default"));
   dispatch(setConfirmPassword(""));
   dispatch(setEmail(""));
-  dispatch(displayNotification("", "default"));
   dispatch(setName(""));
+  dispatch(setId(""));
   dispatch(setPassword(""));
   dispatch(setSavedJobs([]));
   dispatch(setHiddenJobs([]));
@@ -301,9 +305,10 @@ export const logOutAll = (): AppThunk => async (dispatch) => {
   }
 
   dispatch(setConfirmPassword(""));
-  dispatch(setEmail(""));
   dispatch(displayNotification("", "default"));
+  dispatch(setEmail(""));
   dispatch(setName(""));
+  dispatch(setId(""));
   dispatch(setPassword(""));
   dispatch(setSavedJobs([]));
   dispatch(setHiddenJobs([]));
