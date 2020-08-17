@@ -84,7 +84,10 @@ export const isError = (
 };
 
 // eslint-disable-next-line
-export const unique = (arr: any[]): any[] => [...new Set(arr)];
+export const unique = (arr: any[]): any[] =>
+  [...new Set(arr.map((item) => JSON.stringify(item)))].map((item) =>
+    JSON.parse(item)
+  );
 
 export const rehydrateJobsDB = async (): Promise<ErrorResponse | true> => {
   try {
