@@ -84,7 +84,7 @@ const ProfileAccountStatsContainer = styled.div`
   @media only screen and (max-width: 820px) {
     margin-bottom: 50px;
     margin-top: 100px;
-    width: 100%;
+    width: auto;
   }
 `;
 
