@@ -62,7 +62,6 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
 
   React.useEffect((): void => {
     window.scrollTo(0, 0);
-    console.log("HERE");
     handleGetJobDetails(id);
   }, []);
 
