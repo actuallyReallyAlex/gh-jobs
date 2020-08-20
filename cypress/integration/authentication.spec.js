@@ -98,7 +98,7 @@ context("Authentication", () => {
     cy.get("h1").should("have.text", "Login");
   });
 
-  it("Should handle log out normally when user attempts to log out after becoming unauthenticated", () => {
+  it.skip("Should handle log out normally when user attempts to log out after becoming unauthenticated", () => {
     // * Remove authentication cookie
     cy.clearCookie("ghjobs");
 
@@ -116,7 +116,7 @@ context("Authentication", () => {
     cy.get("#search").should("be.visible");
   });
 
-  it("Should handle log out all normally when user attempts to log out all after becoming unauthenticated", () => {
+  it.skip("Should handle log out all normally when user attempts to log out all after becoming unauthenticated", () => {
     // * Remove authentication cookie
     cy.clearCookie("ghjobs");
 
@@ -141,25 +141,16 @@ context("Authentication", () => {
   it.skip("Should redirect to '/login' when user attempts to hide a saved job on their profile after becoming unauthenticated", () => {});
 });
 
-context("Authentication - Search Page", () => {
+context.skip("Authentication - Search Page", () => {
   beforeEach(() => {
     cy.fixture("jobs50").then((jobsJson) => {
-      cy.fixture("login").then((loginJson) => {
-        cy.server();
-        cy.route({
-          method: "POST",
-          url: "/jobs",
-          status: 200,
-          response: jobsJson,
-          delay: 1000,
-        });
-        // cy.route({
-        //   method: "POST",
-        //   url: "/user/login",
-        //   status: 200,
-        //   response: loginJson,
-        //   delay: 1000,
-        // });
+      cy.server();
+      cy.route({
+        method: "POST",
+        url: "/jobs",
+        status: 200,
+        response: jobsJson,
+        delay: 1000,
       });
     });
 
@@ -203,33 +194,24 @@ context("Authentication - Search Page", () => {
   });
 });
 
-context("Authentication - Details Page", () => {
+context.skip("Authentication - Details Page", () => {
   beforeEach(() => {
     cy.fixture("jobs50").then((jobsJson) => {
-      cy.fixture("login").then((loginJson) => {
-        cy.fixture("jobDetails").then((jobDetailsJson) => {
-          cy.server();
-          cy.route({
-            method: "POST",
-            url: "/jobs",
-            status: 200,
-            response: jobsJson,
-            delay: 1000,
-          });
-          // cy.route({
-          //   method: "POST",
-          //   url: "/user/login",
-          //   status: 200,
-          //   response: loginJson,
-          //   delay: 1000,
-          // });
-          cy.route({
-            method: "GET",
-            url: "/jobs/f1884b46-ecb4-473c-81f5-08d9bf2ab3bb",
-            status: 200,
-            response: jobDetailsJson,
-            delay: 1000,
-          });
+      cy.fixture("jobDetails").then((jobDetailsJson) => {
+        cy.server();
+        cy.route({
+          method: "POST",
+          url: "/jobs",
+          status: 200,
+          response: jobsJson,
+          delay: 1000,
+        });
+        cy.route({
+          method: "GET",
+          url: "/jobs/f1884b46-ecb4-473c-81f5-08d9bf2ab3bb",
+          status: 200,
+          response: jobDetailsJson,
+          delay: 1000,
         });
       });
     });
