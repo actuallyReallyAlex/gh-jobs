@@ -256,7 +256,6 @@ export interface UserAction {
 }
 
 export interface UserState {
-  confirmPassword: string;
   email: string;
   hiddenJobs: string[];
   hiddenJobsDetails: Job[];
@@ -264,10 +263,6 @@ export interface UserState {
   isEditingProfile: boolean;
   isLoggedIn: false;
   name: string;
-  password: string;
-  resetConfirmNewPassword: string;
-  resetCurrentPassword: string;
-  resetNewPassword: string;
   savedJobs: string[];
   savedJobsCurrentPage: number;
   savedJobsDetails: Job[];

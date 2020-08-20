@@ -1,5 +1,4 @@
 import {
-  SET_CONFIRM_PASSWORD,
   SET_EMAIL,
   SET_HIDDEN_JOBS,
   SET_HIDDEN_JOBS_DETAILS,
@@ -7,10 +6,6 @@ import {
   SET_IS_EDITING_PROFILE,
   SET_IS_LOGGED_IN,
   SET_NAME,
-  SET_PASSWORD,
-  SET_RESET_CONFIRM_NEW_PASSWORD,
-  SET_RESET_CURRENT_PASSWORD,
-  SET_RESET_NEW_PASSWORD,
   SET_SAVED_JOBS,
   SET_SAVED_JOBS_CURRENT_PAGE,
   SET_SAVED_JOBS_DETAILS,
@@ -18,11 +13,6 @@ import {
 } from "../actionTypes";
 
 import { UserAction, Job } from "../../types";
-
-export const setConfirmPassword = (confirmPassword: string): UserAction => ({
-  type: SET_CONFIRM_PASSWORD,
-  payload: { confirmPassword },
-});
 
 export const setEmail = (email: string): UserAction => ({
   type: SET_EMAIL,
@@ -57,30 +47,6 @@ export const setIsLoggedIn = (isLoggedIn: boolean): UserAction => ({
 export const setName = (name: string): UserAction => ({
   type: SET_NAME,
   payload: { name },
-});
-
-export const setPassword = (password: string): UserAction => ({
-  type: SET_PASSWORD,
-  payload: { password },
-});
-
-export const setResetConfirmNewPassword = (
-  resetConfirmNewPassword: string
-): UserAction => ({
-  type: SET_RESET_CONFIRM_NEW_PASSWORD,
-  payload: { resetConfirmNewPassword },
-});
-
-export const setResetCurrentPassword = (
-  resetCurrentPassword: string
-): UserAction => ({
-  type: SET_RESET_CURRENT_PASSWORD,
-  payload: { resetCurrentPassword },
-});
-
-export const setResetNewPassword = (resetNewPassword: string): UserAction => ({
-  type: SET_RESET_NEW_PASSWORD,
-  payload: { resetNewPassword },
 });
 
 export const setSavedJobs = (savedJobs: string[]): UserAction => ({
