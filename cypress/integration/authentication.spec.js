@@ -194,7 +194,7 @@ context("Authentication - Search Page", () => {
   });
 });
 
-context.skip("Authentication - Details Page", () => {
+context("Authentication - Details Page", () => {
   beforeEach(() => {
     cy.fixture("jobs50").then((jobsJson) => {
       cy.fixture("jobDetails").then((jobDetailsJson) => {
