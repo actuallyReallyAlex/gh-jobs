@@ -33,7 +33,7 @@ const SavedJobs: React.SFC<SavedJobsProps> = (props: SavedJobsProps) => {
     );
 
   React.useEffect((): void => {
-    if (savedJobs.length > 0) {
+    if (savedJobs && savedJobs.length > 0) {
       handleGetSavedJobsDetails();
     }
   }, []);
