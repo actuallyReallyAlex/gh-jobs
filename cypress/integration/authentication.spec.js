@@ -162,13 +162,13 @@ context("Authentication - Search Page", () => {
           response: jobsJson,
           delay: 1000,
         });
-        cy.route({
-          method: "POST",
-          url: "/user/login",
-          status: 200,
-          response: loginJson,
-          delay: 1000,
-        });
+        // cy.route({
+        //   method: "POST",
+        //   url: "/user/login",
+        //   status: 200,
+        //   response: loginJson,
+        //   delay: 1000,
+        // });
       });
     });
 
@@ -225,13 +225,13 @@ context("Authentication - Details Page", () => {
             response: jobsJson,
             delay: 1000,
           });
-          cy.route({
-            method: "POST",
-            url: "/user/login",
-            status: 200,
-            response: loginJson,
-            delay: 1000,
-          });
+          // cy.route({
+          //   method: "POST",
+          //   url: "/user/login",
+          //   status: 200,
+          //   response: loginJson,
+          //   delay: 1000,
+          // });
           cy.route({
             method: "GET",
             url: "/jobs/f1884b46-ecb4-473c-81f5-08d9bf2ab3bb",

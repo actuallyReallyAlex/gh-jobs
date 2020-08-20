@@ -13,7 +13,7 @@ import {
 } from "./Login-styled";
 
 import { setRedirectPath } from "../../redux/actions/application";
-import { setEmail, setPassword } from "../../redux/actions/user";
+import { setEmail, setPassword, setIsLoggedIn } from "../../redux/actions/user";
 import { logIn } from "../../redux/thunks";
 
 import { RootState } from "../../types";
@@ -47,7 +47,11 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
     }
   }, [redirectPath]);
 
-  if (isLoggedIn) {
+  // debugger;
+
+  console.log({ isLoggedIn, redirectPath });
+
+  if (isLoggedIn && !redirectPath) {
     return <Redirect to="/" />;
   } else {
     return (
@@ -116,7 +120,10 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleClearRedirectPath: () => dispatch(setRedirectPath("")),
+  handleClearRedirectPath: () => {
+    dispatch(setRedirectPath(""));
+    dispatch(setIsLoggedIn(false));
+  },
   handleEmailChange: (email: string) => dispatch(setEmail(email)),
   handleLogIn: () => dispatch(logIn()),
   handlePasswordChange: (password: string) => dispatch(setPassword(password)),
