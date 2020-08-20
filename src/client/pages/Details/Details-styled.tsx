@@ -52,7 +52,7 @@ const DetailsHowToContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 36px;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
 `;
 
 const DetailsHowToLabel = styled.span`
