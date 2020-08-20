@@ -158,12 +158,14 @@ export const logIn = (email: string, password: string): AppThunk => async (
   dispatch(setIsLoading(false));
 };
 
-export const signup = (): AppThunk => async (dispatch, getState) => {
+export const signup = (
+  name: string,
+  email: string,
+  password: string,
+  confirmPassword: string
+): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
   dispatch(displayNotification("", "default"));
-
-  const { user } = getState();
-  const { confirmPassword, email, name, password } = user;
 
   if (confirmPassword !== password) {
     dispatch(displayNotification("Passwords do not match.", "error"));
