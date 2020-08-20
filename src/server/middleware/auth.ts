@@ -36,7 +36,7 @@ const auth = async (
       next();
     } else {
       // * User is not authenticated correctly
-      res.redirect("/login");
+      res.status(401).send({ error: "Please authenticate." });
     }
   } catch (error) {
     // eslint-disable-next-line no-console

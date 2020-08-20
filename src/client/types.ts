@@ -46,6 +46,7 @@ export interface ApplicationState {
   locationSearch: string;
   notificationMessage: string;
   notificationType: NotificationType;
+  redirectPath: string;
   searchValue: string;
   totalPages: number;
 }

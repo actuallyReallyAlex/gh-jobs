@@ -9,6 +9,7 @@ export const SET_IS_LOADING = "SET_IS_LOADING";
 export const SET_JOB_DETAILS = "SET_JOB_DETAILS";
 export const SET_JOBS = "SET_JOBS";
 export const SET_LOCATION_SEARCH = "SET_LOCATION_SEARCH";
+export const SET_REDIRECT_PATH = "SET_REDIRECT_PATH";
 export const SET_SEARCH_VALUE = "SET_SEARCH_VALUE";
 export const SET_TOTAL_PAGES = "SET_TOTAL_PAGES";
 
