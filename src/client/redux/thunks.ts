@@ -8,6 +8,7 @@ import {
   setTotalPages,
   setJobDetails,
   setError,
+  setRedirectPath,
 } from "./actions/application";
 import {
   setIsModalOpen,
@@ -475,6 +476,9 @@ export const addHiddenJob = (id: string): AppThunk => async (
     );
 
     if (isError(result)) {
+      if (result.error === "Please authenticate.") {
+        return dispatch(setRedirectPath("/login"));
+      }
       dispatch(displayNotification(result.error, "error"));
       dispatch(setIsLoading(false));
       return;
@@ -509,6 +513,9 @@ export const addSavedJob = (id: string): AppThunk => async (dispatch) => {
     );
 
     if (isError(result)) {
+      if (result.error === "Please authenticate.") {
+        return dispatch(setRedirectPath("/login"));
+      }
       dispatch(displayNotification(result.error, "error"));
       dispatch(setIsLoading(false));
       return;
@@ -541,6 +548,9 @@ export const removeHiddenJob = (id: string): AppThunk => async (dispatch) => {
     );
 
     if (isError(result)) {
+      if (result.error === "Please authenticate.") {
+        return dispatch(setRedirectPath("/login"));
+      }
       dispatch(displayNotification(result.error, "error"));
       dispatch(setIsLoading(false));
       return;
@@ -571,6 +581,9 @@ export const removeSavedJob = (id: string): AppThunk => async (dispatch) => {
     );
 
     if (isError(result)) {
+      if (result.error === "Please authenticate.") {
+        return dispatch(setRedirectPath("/login"));
+      }
       dispatch(displayNotification(result.error, "error"));
       dispatch(setIsLoading(false));
       return;
