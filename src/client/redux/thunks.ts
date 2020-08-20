@@ -9,6 +9,7 @@ import {
   setJobDetails,
   setError,
   setRedirectPath,
+  setLocationSearch,
 } from "./actions/application";
 import {
   setIsModalOpen,
@@ -210,6 +211,8 @@ export const initializeApplication = (): AppThunk => async (dispatch) => {
     dispatch(setIsModalOpen(false));
     dispatch(setModalContent(""));
     dispatch(setModalTitle(""));
+    dispatch(setSearchValue(""));
+    dispatch(setLocationSearch(""));
 
     // * Establish User Authentication
     const userResponse = await fetch("/user/me");
