@@ -116,7 +116,7 @@ context("Authentication", () => {
     cy.get("#search").should("be.visible");
   });
 
-  it.skip("Should handle log out all normally when user attempts to log out all after becoming unauthenticated", () => {
+  it("Should handle log out all normally when user attempts to log out all after becoming unauthenticated", () => {
     // * Remove authentication cookie
     cy.clearCookie("ghjobs");
 

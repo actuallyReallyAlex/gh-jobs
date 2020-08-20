@@ -309,14 +309,16 @@ export const logOutAll = (): AppThunk => async (dispatch) => {
   const response = await fetchServerData("/user/logout/all", "POST");
 
   if (response.error) {
-    console.error(response.error);
-    dispatch(
-      displayNotification(
-        "Error when attempting to log out. Please try again or contact the developer.",
-        "error"
-      )
-    );
-    return;
+    if (response.error !== "Please authenticate.") {
+      console.error(response.error);
+      dispatch(
+        displayNotification(
+          "Error when attempting to log out. Please try again or contact the developer.",
+          "error"
+        )
+      );
+      return;
+    }
   }
 
   // * Establish Job Data
