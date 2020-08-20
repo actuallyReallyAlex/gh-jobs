@@ -15,6 +15,7 @@ import {
   Job,
   GetJobDetailsSuccessResponse,
   JobDocument,
+  GitHubJob,
 } from "../types";
 import User from "../models/User";
 
@@ -124,7 +125,7 @@ class JobController {
           // * If there is not a location, just query the DB
 
           if (isLocationSearch) {
-            const jobs: Job[] = [];
+            const jobs: GitHubJob[] = [];
             let jobsInBatch = null;
             let page = 1;
             const locations = [
@@ -147,7 +148,7 @@ class JobController {
                       headers: { "Content-Type": "application/json" },
                       method: "GET",
                     });
-                    const batchJobs: Job[] = await response.json();
+                    const batchJobs: GitHubJob[] = await response.json();
                     jobsInBatch = batchJobs.length;
                     page++;
                     if (jobsInBatch !== 0) {
@@ -158,7 +159,12 @@ class JobController {
               })
             );
 
-            const uniqueResults: Job[] = unique(jobs);
+            const modifiedJobs = jobs.map((job: GitHubJob) => ({
+              ...job,
+              listingDate: job.created_at,
+            }));
+
+            const uniqueResults: Job[] = unique(modifiedJobs);
             let finalResults = uniqueResults;
 
             // * Filter by non-hidden jobs
