@@ -9,6 +9,7 @@ import {
   SET_JOB_DETAILS,
   SET_JOBS,
   SET_LOCATION_SEARCH,
+  SET_REDIRECT_PATH,
   SET_SEARCH_VALUE,
   SET_TOTAL_PAGES,
 } from "../actionTypes";
@@ -71,6 +72,11 @@ export const setLocationSearch = (
 ): ApplicationAction => ({
   type: SET_LOCATION_SEARCH,
   payload: { locationSearch },
+});
+
+export const setRedirectPath = (redirectPath: string): ApplicationAction => ({
+  type: SET_REDIRECT_PATH,
+  payload: { redirectPath },
 });
 
 export const setSearchValue = (searchValue: string): ApplicationAction => ({
