@@ -39,7 +39,35 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
   }, []);
 
   if (redirectPath) {
-    return <Redirect to={redirectPath} />;
+    return (
+      <Router history={history}>
+        <div id="app">
+          <ErrorBoundary
+            FallbackComponent={ErrorFallback}
+            onError={(error: Error, componentStack: string) => {
+              handleSetError(
+                {
+                  message: error.message,
+                  name: error.name,
+                  stack: error.stack,
+                },
+                componentStack
+              );
+            }}
+            onReset={() => {
+              history.push("/");
+              handleInitializeApplication();
+            }}
+          >
+            <Navigation />
+            <Redirect to={redirectPath} />
+          </ErrorBoundary>
+          <LoadingIndicator />
+          <ToastContainer />
+          <Modal />
+        </div>
+      </Router>
+    );
   }
 
   return (
