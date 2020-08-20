@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { connect } from "react-redux";
-import { Router, Switch, Route } from "react-router-dom";
+import { Redirect, Route, Router, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import Details from "./pages/Details";
@@ -20,20 +20,27 @@ import { initializeApplication } from "./redux/thunks";
 
 import { history } from "./util";
 
+import { RootState } from "./types";
+
 interface AppProps {
   handleInitializeApplication: () => void;
   handleSetError: (error: Error, componentStack: string) => void;
+  redirectPath: string;
 }
 
 /**
  * Application.
  */
 const App: React.SFC<AppProps> = (props: AppProps) => {
-  const { handleInitializeApplication, handleSetError } = props;
+  const { handleInitializeApplication, handleSetError, redirectPath } = props;
 
   React.useEffect(() => {
     handleInitializeApplication();
   }, []);
+
+  if (redirectPath) {
+    return <Redirect to={redirectPath} />;
+  }
 
   return (
     <Router history={history}>
@@ -78,10 +85,14 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
   );
 };
 
+const mapStateToProps = (state: RootState) => ({
+  redirectPath: state.application.redirectPath,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   handleInitializeApplication: () => dispatch(initializeApplication()),
   handleSetError: (error: Error, componentStack: string) =>
     dispatch(setError(error, componentStack)),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
