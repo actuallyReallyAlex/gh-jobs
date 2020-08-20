@@ -47,10 +47,6 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
     }
   }, [redirectPath]);
 
-  // debugger;
-
-  console.log({ isLoggedIn, redirectPath });
-
   if (isLoggedIn && !redirectPath) {
     return <Redirect to="/" />;
   } else {

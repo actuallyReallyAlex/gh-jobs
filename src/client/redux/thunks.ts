@@ -453,6 +453,23 @@ export const deleteProfile = (): AppThunk => async (dispatch) => {
     );
 
     if (response.error) {
+      if (response.error === "Please authenticate.") {
+        // * Clear User and Redirect to Login
+        dispatch(setRedirectPath("/login"));
+        dispatch(setConfirmPassword(""));
+        dispatch(setEmail(""));
+        dispatch(setName(""));
+        dispatch(setId(""));
+        dispatch(setPassword(""));
+        dispatch(setSavedJobs([]));
+        dispatch(setHiddenJobs([]));
+        dispatch(setIsModalOpen(false));
+        dispatch(setModalContent(""));
+        dispatch(setModalTitle(""));
+        dispatch(displayNotification(response.error, "error"));
+        dispatch(setIsLoading(false));
+        return;
+      }
       dispatch(displayNotification(response.error, "error"));
       dispatch(setIsLoading(false));
       return;
