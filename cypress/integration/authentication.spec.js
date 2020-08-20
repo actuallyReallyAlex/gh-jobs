@@ -98,7 +98,7 @@ context("Authentication", () => {
     cy.get("h1").should("have.text", "Login");
   });
 
-  it.skip("Should handle log out normally when user attempts to log out after becoming unauthenticated", () => {
+  it("Should handle log out normally when user attempts to log out after becoming unauthenticated", () => {
     // * Remove authentication cookie
     cy.clearCookie("ghjobs");
 
