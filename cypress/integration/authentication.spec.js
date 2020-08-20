@@ -141,7 +141,7 @@ context("Authentication", () => {
   it.skip("Should redirect to '/login' when user attempts to hide a saved job on their profile after becoming unauthenticated", () => {});
 });
 
-context.skip("Authentication - Search Page", () => {
+context("Authentication - Search Page", () => {
   beforeEach(() => {
     cy.fixture("jobs50").then((jobsJson) => {
       cy.server();
