@@ -12,6 +12,7 @@ import {
   LoginActionsContainer,
 } from "./Login-styled";
 
+import { setRedirectPath } from "../../redux/actions/application";
 import { setEmail, setPassword } from "../../redux/actions/user";
 import { logIn } from "../../redux/thunks";
 
@@ -19,22 +20,32 @@ import { RootState } from "../../types";
 
 export interface LoginProps {
   email: string;
+  handleClearRedirectPath: () => void;
   handleEmailChange: (email: string) => void;
   handleLogIn: () => void;
   handlePasswordChange: (password: string) => void;
   isLoggedIn: boolean;
   password: string;
+  redirectPath: string;
 }
 
 const Login: React.SFC<LoginProps> = (props: LoginProps) => {
   const {
     email,
+    handleClearRedirectPath,
     handleEmailChange,
     handleLogIn,
     handlePasswordChange,
     isLoggedIn,
     password,
+    redirectPath,
   } = props;
+
+  React.useEffect((): void => {
+    if (redirectPath) {
+      handleClearRedirectPath();
+    }
+  }, [redirectPath]);
 
   if (isLoggedIn) {
     return <Redirect to="/" />;
@@ -101,9 +112,11 @@ const mapStateToProps = (state: RootState) => ({
   email: state.user.email,
   isLoggedIn: state.user.isLoggedIn,
   password: state.user.password,
+  redirectPath: state.application.redirectPath,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  handleClearRedirectPath: () => dispatch(setRedirectPath("")),
   handleEmailChange: (email: string) => dispatch(setEmail(email)),
   handleLogIn: () => dispatch(logIn()),
   handlePasswordChange: (password: string) => dispatch(setPassword(password)),
