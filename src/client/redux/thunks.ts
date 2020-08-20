@@ -114,12 +114,11 @@ export const pagination = (pageNumber: number): AppThunk => (dispatch) => {
   dispatch(setCurrentPage(pageNumber));
 };
 
-export const logIn = (): AppThunk => async (dispatch, getState) => {
+export const logIn = (email: string, password: string): AppThunk => async (
+  dispatch
+) => {
   dispatch(setIsLoading(true));
   dispatch(displayNotification("", "default"));
-
-  const { user } = getState();
-  const { email, password } = user;
 
   // TODO - Modify
   const response: LoginResponse = await fetchServerData(
