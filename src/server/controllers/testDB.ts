@@ -2,7 +2,7 @@ import express, { Request, Response, Router } from "express";
 
 import JobModel from "../models/Job";
 
-import { ErrorResponse, Job } from "../types";
+import { ErrorResponse, Job, JobDocument } from "../types";
 import { generateFakeJob } from "../util";
 
 /**
@@ -46,6 +46,39 @@ class TestDBController {
           );
 
           return res.send(fakeJobs);
+        } catch (error) {
+          console.error(error);
+          res.status(500).send({ error });
+        }
+      }
+    );
+
+    this.router.get(
+      "/fix-how-to-apply",
+      async (
+        req: Request,
+        res: Response
+      ): Promise<Response<ErrorResponse | void>> => {
+        if (process.env.NODE_ENV !== "test") {
+          return res.status(500).send({ error: "Invalid environment." });
+        }
+
+        try {
+          // * Get each job in DB
+          const jobs: JobDocument[] = await JobModel.find({});
+
+          // * Modify `how_to_apply` field of each job
+          await Promise.all(
+            jobs.map(async (job: JobDocument) => {
+              const dbJob = await JobModel.find({ id: job.id });
+              dbJob[0].how_to_apply =
+                '<p><a href="https://www.google.com/"></a></p>';
+              await dbJob[0].save();
+              return;
+            })
+          );
+
+          return res.send();
         } catch (error) {
           console.error(error);
           res.status(500).send({ error });
