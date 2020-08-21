@@ -8,7 +8,7 @@ import { ActionsContainer } from "./ResetPassword-styled";
 
 import { displayNotification } from "../../redux/actions/application";
 import { setModalContent, setModalTitle } from "../../redux/actions/modal";
-import { resetPassword } from "../../redux/thunks";
+import { resetPassword } from "../../redux/thunks/user";
 
 export interface ResetPasswordProps {
   handleCancelResetPassword: () => void;

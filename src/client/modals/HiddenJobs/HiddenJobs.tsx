@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import JobCard from "../../components/JobCard";
 import Pagination from "../../components/Pagination";
 
-import { getHiddenJobsDetails } from "../../redux/thunks";
+import { getHiddenJobsDetails } from "../../redux/thunks/user";
 
 import { RootState, Job } from "../../types";
 

@@ -7,7 +7,7 @@ import { Container, Row } from "./Settings-styled";
 
 import { displayNotification } from "../../redux/actions/application";
 import { setModalContent, setModalTitle } from "../../redux/actions/modal";
-import { logOut } from "../../redux/thunks";
+import { logOut } from "../../redux/thunks/user";
 
 export interface SettingsProps {
   handleClickDeleteProfile: () => void;

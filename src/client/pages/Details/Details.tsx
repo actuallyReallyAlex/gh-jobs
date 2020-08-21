@@ -23,12 +23,12 @@ import {
 } from "./Details-styled";
 
 import {
-  addSavedJob,
-  getJobDetails,
-  removeSavedJob,
   addHiddenJob,
+  addSavedJob,
   removeHiddenJob,
-} from "../../redux/thunks";
+  removeSavedJob,
+} from "../../redux/thunks/user";
+import { getJobDetails } from "../../redux/thunks/application";
 
 import { Job, RootState } from "../../types";
 

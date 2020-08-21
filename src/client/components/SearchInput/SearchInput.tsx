@@ -12,7 +12,7 @@ import {
   SearchInputButtonContainer,
 } from "./SearchInput-styled";
 
-import { searchJobs } from "../../redux/thunks";
+import { searchJobs } from "../../redux/thunks/application";
 
 import { LocationOption, RootState } from "../../types";
 

@@ -17,7 +17,7 @@ import {
   setModalTitle,
 } from "../../redux/actions/modal";
 import { setIsEditingProfile } from "../../redux/actions/user";
-import { editProfile } from "../../redux/thunks";
+import { editProfile } from "../../redux/thunks/user";
 
 import { RootState } from "../../types";
 

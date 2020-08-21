@@ -12,7 +12,7 @@ import {
   setFullTime,
   setLocationSearch,
 } from "../../redux/actions/application";
-import { searchJobs } from "../../redux/thunks";
+import { searchJobs } from "../../redux/thunks/application";
 
 import { LocationOption, RootState } from "../../types";
 

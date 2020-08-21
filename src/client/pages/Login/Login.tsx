@@ -14,7 +14,7 @@ import {
 
 import { setRedirectPath } from "../../redux/actions/application";
 import { setIsLoggedIn } from "../../redux/actions/user";
-import { logIn } from "../../redux/thunks";
+import { logIn } from "../../redux/thunks/user";
 
 import { RootState } from "../../types";
 

@@ -16,7 +16,7 @@ import Modal from "./components/Modal";
 import Navigation from "./components/Navigation";
 
 import { setError } from "./redux/actions/application";
-import { initializeApplication } from "./redux/thunks";
+import { initializeApplication } from "./redux/thunks/application";
 
 import { history } from "./util";
 

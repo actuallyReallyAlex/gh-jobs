@@ -12,7 +12,7 @@ import {
   SignupActionsContainer,
 } from "./Signup-styled";
 
-import { signup } from "../../redux/thunks";
+import { signup } from "../../redux/thunks/user";
 
 import { RootState } from "../../types";
 

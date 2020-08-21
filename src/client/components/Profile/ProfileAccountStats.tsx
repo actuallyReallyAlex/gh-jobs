@@ -11,7 +11,10 @@ import {
   ProfileAccountStatsInnerContainer,
 } from "./Profile-styled";
 
-import { clickViewHiddenJobs, clickViewSavedJobs } from "../../redux/thunks";
+import {
+  clickViewHiddenJobs,
+  clickViewSavedJobs,
+} from "../../redux/thunks/user";
 
 import { RootState } from "../../types";
 
