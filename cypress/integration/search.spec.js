@@ -2,24 +2,15 @@
 
 context("Search", () => {
   beforeEach(() => {
-    cy.fixture("jobs50").then((jobsJson) => {
-      cy.fixture("jobsSearch1").then((searchJson) => {
-        cy.server();
-        cy.route({
-          method: "POST",
-          url: "/jobs",
-          status: 200,
-          response: jobsJson,
-          delay: 1000,
-        });
-        cy.route({
-          method: "GET",
-          url:
-            "/jobs/search?userId=&full_time=false&contract=false&description=developer",
-          status: 200,
-          response: searchJson,
-          delay: 1000,
-        });
+    cy.fixture("jobsSearch1").then((searchJson) => {
+      cy.server();
+      cy.route({
+        method: "GET",
+        url:
+          "/jobs/search?userId=&full_time=false&contract=false&description=developer",
+        status: 200,
+        response: searchJson,
+        delay: 1000,
       });
     });
     cy.visit("http://localhost:3000");

@@ -2,17 +2,6 @@
 
 context("Authentication", () => {
   beforeEach(() => {
-    cy.fixture("jobs50").then((jobsJson) => {
-      cy.server();
-      cy.route({
-        method: "POST",
-        url: "/jobs",
-        status: 200,
-        response: jobsJson,
-        delay: 1000,
-      });
-    });
-
     // * Login
     cy.visit("http://localhost:3000");
     cy.wait(1000);
@@ -135,10 +124,10 @@ context("Authentication", () => {
   });
 
   // ! Can't implement this until you create a Test Database with Test Jobs
-  it.skip("Should redirect to '/login' when user attempts to show a hidden job on their profile after becoming unauthenticated", () => {});
+  it("Should redirect to '/login' when user attempts to show a hidden job on their profile after becoming unauthenticated", () => {});
 
   // ! Can't implement this until you create a Test Database with Test Jobs
-  it.skip("Should redirect to '/login' when user attempts to hide a saved job on their profile after becoming unauthenticated", () => {});
+  it("Should redirect to '/login' when user attempts to hide a saved job on their profile after becoming unauthenticated", () => {});
 });
 
 context("Authentication - Search Page", () => {

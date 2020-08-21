@@ -2,16 +2,6 @@
 
 context("Profile", () => {
   beforeEach(() => {
-    cy.fixture("jobs50").then((jobsJson) => {
-      cy.server();
-      cy.route({
-        method: "POST",
-        url: "/jobs",
-        status: 200,
-        response: jobsJson,
-        delay: 1000,
-      });
-    });
     cy.visit("http://localhost:3000");
     cy.get("#nav-login").click();
     cy.get("#email").type("bobtest@email.com");

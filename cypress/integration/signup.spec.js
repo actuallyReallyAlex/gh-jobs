@@ -2,25 +2,6 @@
 
 context("Signup - Success", () => {
   beforeEach(() => {
-    cy.fixture("jobs50").then((jobsJson) => {
-      cy.fixture("signup").then((signupJson) => {
-        cy.server();
-        cy.route({
-          method: "POST",
-          url: "/jobs",
-          status: 200,
-          response: jobsJson,
-          delay: 1000,
-        });
-        cy.route({
-          method: "POST",
-          url: "/user",
-          status: 200,
-          response: signupJson,
-          delay: 1000,
-        });
-      });
-    });
     cy.visit("http://localhost:3000");
     cy.wait(500);
     cy.get("#nav-login").click();
@@ -31,8 +12,8 @@ context("Signup - Success", () => {
   });
 
   it("Should be able to sign up a new account", () => {
-    cy.get("#name").type("Bob Test");
-    cy.get("#email").type("bobtest@email.com");
+    cy.get("#name").type("Bob Test 2");
+    cy.get("#email").type("bobtest2@email.com");
     cy.get("#password").type("Red123456!!!");
     cy.get("#confirm-password").type("Red123456!!!");
     cy.get("#signup").click();
@@ -40,6 +21,12 @@ context("Signup - Success", () => {
 
     cy.get("#nav-login").should("not.exist");
     cy.get("#search").should("be.visible");
+
+    // * Cleanup
+    cy.get("#nav-profile").click();
+    cy.get("#settings").click();
+    cy.get("#delete-profile").click();
+    cy.get("#delete-profile-confirm").click();
   });
 
   it("Should be able to get to Login from Signup page", () => {
@@ -50,16 +37,6 @@ context("Signup - Success", () => {
 
 context("Signup - Error", () => {
   beforeEach(() => {
-    cy.fixture("jobs50").then((jobsJson) => {
-      cy.server();
-      cy.route({
-        method: "POST",
-        url: "/jobs",
-        status: 200,
-        response: jobsJson,
-        delay: 1000,
-      });
-    });
     cy.visit("http://localhost:3000");
     cy.wait(500);
     cy.get("#nav-login").click();

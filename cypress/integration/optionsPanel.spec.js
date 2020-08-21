@@ -2,69 +2,6 @@
 
 context("Options Panel", () => {
   beforeEach(() => {
-    cy.fixture("jobs50").then((jobsJson) => {
-      cy.fixture("jobsSearch1").then((jobsSearch1Json) => {
-        cy.fixture("jobsSearch2").then((jobsSearch2Json) => {
-          cy.fixture("jobsSearch3").then((jobsSearch3Json) => {
-            cy.server();
-            cy.route({
-              method: "POST",
-              url: "/jobs",
-              status: 200,
-              response: jobsJson,
-            });
-            cy.route({
-              method: "GET",
-              url:
-                "/jobs/search?userId=&full_time=true&contract=false&description=developer",
-              status: 200,
-              delay: 1000,
-              response: jobsSearch2Json,
-            });
-            cy.route({
-              method: "GET",
-              url:
-                "/jobs/search?userId=&full_time=false&contract=false&description=&location1=Los Angeles",
-              status: 200,
-              delay: 1000,
-              response: jobsSearch1Json,
-            });
-            cy.route({
-              method: "GET",
-              url:
-                "/jobs/search?userId=&full_time=false&contract=false&description=&location1=Chicago",
-              status: 200,
-              delay: 1000,
-              response: jobsSearch1Json,
-            });
-            cy.route({
-              method: "GET",
-              url:
-                "/jobs/search?userId=&full_time=false&contract=false&description=developer",
-              status: 200,
-              delay: 1000,
-              response: jobsSearch1Json,
-            });
-            cy.route({
-              method: "GET",
-              url:
-                "/jobs/search?userId=&full_time=false&contract=false&description=&location1=Los Angeles",
-              status: 200,
-              delay: 1000,
-              response: jobsSearch1Json,
-            });
-            cy.route({
-              method: "GET",
-              url:
-                "/jobs/search?userId=&full_time=false&contract=true&description=developer",
-              status: 200,
-              delay: 1000,
-              response: jobsSearch3Json,
-            });
-          });
-        });
-      });
-    });
     cy.visit("http://localhost:3000");
   });
 
@@ -100,17 +37,13 @@ context("Options Panel", () => {
     cy.get("#search-submit").click();
 
     cy.wait(1000);
-    cy.get('[data-cy="job-container"]').then(($jobs) => {
-      assert.equal($jobs.length, 5);
-    });
+    cy.get("#notification").should("have.text", "Search returned 30 results.");
 
     cy.get(":nth-child(1) > [data-cy=checkmark]").click();
     cy.get("#search-submit").click();
 
     cy.wait(1000);
-    cy.get('[data-cy="job-container"]').then(($jobs) => {
-      assert.equal($jobs.length, 4);
-    });
+    cy.get("#notification").should("have.text", "Search returned 17 results.");
   });
 
   it("Should filter with contract correctly", () => {
@@ -118,17 +51,13 @@ context("Options Panel", () => {
     cy.get("#search-submit").click();
 
     cy.wait(1000);
-    cy.get('[data-cy="job-container"]').then(($jobs) => {
-      assert.equal($jobs.length, 5);
-    });
+    cy.get("#notification").should("have.text", "Search returned 30 results.");
 
     cy.get(":nth-child(2) > [data-cy=checkmark]").click();
     cy.get("#search-submit").click();
 
     cy.wait(1000);
-    cy.get('[data-cy="job-container"]').then(($jobs) => {
-      assert.equal($jobs.length, 3);
-    });
+    cy.get("#notification").should("have.text", "Search returned 13 results.");
   });
 
   it("Should be able to search within the OptionsPanel", () => {
@@ -136,6 +65,6 @@ context("Options Panel", () => {
     cy.get("#options-panel-search").click();
     cy.wait(1000);
 
-    cy.get("#notification").should("have.text", "Search returned 7 results.");
+    cy.get("#notification").should("have.text", "Search returned 5 results.");
   });
 });
