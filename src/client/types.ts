@@ -193,6 +193,12 @@ export type NotificationType =
 
 export type PaginationNavigationType = "left" | "right";
 
+export interface ReduxAction {
+  type: string;
+  // eslint-disable-next-line
+  payload: any;
+}
+
 export interface RemoveHiddenJobSuccessResponse {
   createdAt: string;
   email: string;
