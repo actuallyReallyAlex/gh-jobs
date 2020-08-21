@@ -19,7 +19,7 @@ import {
   SET_TOTAL_PAGES,
 } from "../actionTypes";
 
-import { ApplicationAction, ApplicationState } from "../../types";
+import { ReduxAction, ApplicationState } from "../../types";
 
 export const initialState: ApplicationState = {
   contract: false,
@@ -40,7 +40,7 @@ export const initialState: ApplicationState = {
 
 const reducer = (
   state = initialState,
-  action: ApplicationAction
+  action: ReduxAction
 ): ApplicationState => {
   let key: string;
   let value;

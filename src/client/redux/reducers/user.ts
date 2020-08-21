@@ -12,7 +12,7 @@ import {
   SET_SAVED_JOBS_TOTAL_PAGES,
 } from "../actionTypes";
 
-import { UserAction, UserState } from "../../types";
+import { ReduxAction, UserState } from "../../types";
 
 export const initialState: UserState = {
   email: "",
@@ -28,7 +28,7 @@ export const initialState: UserState = {
   savedJobsTotalPages: 1,
 };
 
-const reducer = (state = initialState, action: UserAction): UserState => {
+const reducer = (state = initialState, action: ReduxAction): UserState => {
   let key: string;
   let value;
 

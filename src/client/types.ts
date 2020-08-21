@@ -23,12 +23,6 @@ export interface AddSavedJobSuccessResponse {
   _id: string;
 }
 
-export interface ApplicationAction {
-  type: string;
-  // eslint-disable-next-line
-  payload: any;
-}
-
 export interface ApplicationError {
   error: Error;
   componentStack: string;
@@ -171,12 +165,6 @@ export interface LocationOption {
 
 export type LoginResponse = ErrorResponse & ServerResponseUser;
 
-export interface ModalAction {
-  type: string;
-  // eslint-disable-next-line
-  payload: any;
-}
-
 export interface ModalState {
   isModalOpen: boolean;
   modalContent: string;
@@ -253,12 +241,6 @@ export interface SignupSuccessResponse {
   updatedAt: string;
   __v: number;
   _id: string;
-}
-
-export interface UserAction {
-  type: string;
-  // eslint-disable-next-line
-  payload: any;
 }
 
 export interface UserState {

@@ -4,7 +4,7 @@ import {
   SET_MODAL_TITLE,
 } from "../actionTypes";
 
-import { ModalAction, ModalState } from "../../types";
+import { ReduxAction, ModalState } from "../../types";
 
 export const initialState: ModalState = {
   isModalOpen: false,
@@ -12,7 +12,7 @@ export const initialState: ModalState = {
   modalTitle: "",
 };
 
-const reducer = (state = initialState, action: ModalAction): ModalState => {
+const reducer = (state = initialState, action: ReduxAction): ModalState => {
   let key: string;
   let value;
 
