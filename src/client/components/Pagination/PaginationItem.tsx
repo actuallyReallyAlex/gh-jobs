@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { PaginationListItem } from "./Pagination-styled";
 
-import { pagination } from "../../redux/thunks";
+import { setCurrentPage } from "../../redux/actions/application";
 
 import { RootState } from "../../types";
 
@@ -37,7 +37,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handlePaginationClick: (pageNumber: number) =>
-    dispatch(pagination(pageNumber)),
+    dispatch(setCurrentPage(pageNumber)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PaginationItem);
