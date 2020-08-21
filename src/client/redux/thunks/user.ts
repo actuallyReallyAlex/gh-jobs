@@ -1,4 +1,4 @@
-import { authenticationRedirect, globalErrorHandler } from "./util";
+import { authenticationRedirect, globalErrorHandler, resetState } from "./util";
 import {
   displayNotification,
   setCurrentJobs,
@@ -120,19 +120,13 @@ export const addSavedJob = (id: string): AppThunk => async (dispatch) => {
   }
 };
 
-export const clickViewHiddenJobs = (): AppThunk => (dispatch) => {
+export const clickViewJobs = (type: "hidden" | "saved"): AppThunk => (
+  dispatch
+) => {
   dispatch(setCurrentPage(1));
   dispatch(displayNotification("", "default"));
-  dispatch(setModalContent("hiddenJobs"));
-  dispatch(setModalTitle("Hidden Jobs"));
-  dispatch(setIsModalOpen(true));
-};
-
-export const clickViewSavedJobs = (): AppThunk => (dispatch) => {
-  dispatch(setCurrentPage(1));
-  dispatch(displayNotification("", "default"));
-  dispatch(setModalContent("savedJobs"));
-  dispatch(setModalTitle("Saved Jobs"));
+  dispatch(setModalContent(type === "hidden" ? "hiddenJobs" : "savedJobs"));
+  dispatch(setModalTitle(type === "hidden" ? "Hidden Jobs" : "Saved Jobs"));
   dispatch(setIsModalOpen(true));
 };
 
@@ -159,16 +153,10 @@ export const deleteProfile = (): AppThunk => async (dispatch) => {
       return;
     }
 
+    dispatch(resetState());
+
     dispatch(displayNotification("Profile deleted successfully.", "success"));
-    dispatch(setEmail(""));
-    dispatch(setName(""));
-    dispatch(setSavedJobs([]));
-    dispatch(setHiddenJobs([]));
-    dispatch(setIsLoggedIn(false));
     dispatch(setIsLoading(false));
-    dispatch(setIsModalOpen(false));
-    dispatch(setModalContent(""));
-    dispatch(setModalTitle(""));
   } catch (error) {
     console.error(error);
     dispatch(displayNotification(error, "error"));
@@ -349,18 +337,10 @@ export const logOut = (all?: boolean): AppThunk => async (dispatch) => {
     return;
   }
 
-  dispatch(displayNotification("", "default"));
+  dispatch(resetState());
+
   dispatch(setCurrentJobs(jobsResult));
   dispatch(setTotalPages(Math.ceil(jobsResult.length / 5)));
-  dispatch(setEmail(""));
-  dispatch(setName(""));
-  dispatch(setId(""));
-  dispatch(setSavedJobs([]));
-  dispatch(setHiddenJobs([]));
-  dispatch(setIsLoggedIn(false));
-  dispatch(setIsModalOpen(false));
-  dispatch(setModalContent(""));
-  dispatch(setModalTitle(""));
 
   dispatch(setIsLoading(false));
 };

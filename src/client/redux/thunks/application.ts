@@ -24,7 +24,7 @@ import {
   setName,
   setSavedJobs,
 } from "../actions/user";
-import { fetchServerData, isError } from "../../util";
+import { createSearchUrl, fetchServerData, isError } from "../../util";
 
 import {
   AppThunk,
@@ -128,30 +128,8 @@ export const searchJobs = (
   dispatch(setSearchValue(search));
 
   const state: RootState = getState();
-  const { contract, fullTime, locationSearch } = state.application;
-  const { id } = state.user;
 
-  const locationsSearches = locationOptions.filter(
-    (location: LocationOption) => location.value !== ""
-  );
-
-  if (locationSearch) {
-    locationsSearches.push({
-      name: "locationSearch",
-      setter: null,
-      value: locationSearch,
-    });
-  }
-
-  let url = `/jobs/search?userId=${encodeURI(id)}&full_time=${encodeURI(
-    fullTime.toString()
-  )}&contract=${encodeURI(contract.toString())}&description=${encodeURI(
-    search
-  )}`;
-
-  locationsSearches.forEach((locationSearch: LocationOption, i: number) => {
-    url = url + `&location${i + 1}=${encodeURI(locationSearch.value)}`;
-  });
+  const url = createSearchUrl(search, locationOptions, state);
 
   const data = (await fetchServerData(url, "GET")) as
     | ErrorResponse

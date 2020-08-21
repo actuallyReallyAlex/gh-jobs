@@ -8,6 +8,7 @@ import {
   setEmail,
   setHiddenJobs,
   setId,
+  setIsLoggedIn,
   setName,
   setSavedJobs,
 } from "../actions/user";
@@ -39,4 +40,20 @@ export const globalErrorHandler = (
     }
   }
   dispatch(displayNotification(response.error, "error"));
+};
+
+export const resetState = (): AppThunk => (dispatch) => {
+  // * Application
+  dispatch(displayNotification("", "default"));
+  // * Modal
+  dispatch(setIsModalOpen(false));
+  dispatch(setModalContent(""));
+  dispatch(setModalTitle(""));
+  // * User
+  dispatch(setEmail(""));
+  dispatch(setHiddenJobs([]));
+  dispatch(setId(""));
+  dispatch(setIsLoggedIn(false));
+  dispatch(setName(""));
+  dispatch(setSavedJobs([]));
 };
