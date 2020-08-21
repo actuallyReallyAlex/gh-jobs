@@ -12,42 +12,27 @@ import {
   SignupActionsContainer,
 } from "./Signup-styled";
 
-import {
-  setConfirmPassword,
-  setEmail,
-  setName,
-  setPassword,
-} from "../../redux/actions/user";
 import { signup } from "../../redux/thunks";
 
 import { RootState } from "../../types";
 
 export interface SignupProps {
-  confirmPassword: string;
-  email: string;
-  handleConfirmPasswordChange: (confirmPassword: string) => void;
-  handleEmailChange: (email: string) => void;
-  handleNameChange: (name: string) => void;
-  handlePasswordChange: (password: string) => void;
-  handleSignup: () => void;
+  handleSignup: (
+    name: string,
+    email: string,
+    password: string,
+    confirmPassword: string
+  ) => void;
   isLoggedIn: boolean;
-  name: string;
-  password: string;
 }
 
 const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
-  const {
-    confirmPassword,
-    email,
-    handleConfirmPasswordChange,
-    handleEmailChange,
-    handleNameChange,
-    handlePasswordChange,
-    handleSignup,
-    isLoggedIn,
-    name,
-    password,
-  } = props;
+  const { handleSignup, isLoggedIn } = props;
+
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
 
   if (isLoggedIn) {
     return <Redirect to="/" />;
@@ -57,7 +42,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleSignup();
+            handleSignup(name, email, password, confirmPassword);
           }}
         >
           <SignupTitleContainer>
@@ -73,7 +58,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
             icon="account_circle"
             id="name"
             label="Name"
-            onChange={(e) => handleNameChange(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             placeholder="John Smith"
             required
             type="text"
@@ -85,7 +70,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
             icon="email"
             id="email"
             label="Email Address"
-            onChange={(e) => handleEmailChange(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="example@email.com"
             required
             type="email"
@@ -97,7 +82,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
             icon="lock"
             id="password"
             label="Password"
-            onChange={(e) => handlePasswordChange(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
             type="password"
             value={password}
@@ -108,7 +93,7 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
             icon="lock"
             id="confirm-password"
             label="Confirm Password"
-            onChange={(e) => handleConfirmPasswordChange(e.target.value)}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             required
             type="password"
             value={confirmPassword}
@@ -130,20 +115,16 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  confirmPassword: state.user.confirmPassword,
-  email: state.user.email,
   isLoggedIn: state.user.isLoggedIn,
-  name: state.user.name,
-  password: state.user.password,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleConfirmPasswordChange: (confirmPassword: string) =>
-    dispatch(setConfirmPassword(confirmPassword)),
-  handleEmailChange: (email: string) => dispatch(setEmail(email)),
-  handleNameChange: (name: string) => dispatch(setName(name)),
-  handlePasswordChange: (password: string) => dispatch(setPassword(password)),
-  handleSignup: () => dispatch(signup()),
+  handleSignup: (
+    name: string,
+    email: string,
+    password: string,
+    confirmPassword: string
+  ) => dispatch(signup(name, email, password, confirmPassword)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);

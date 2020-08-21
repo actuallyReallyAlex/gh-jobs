@@ -8,6 +8,8 @@ import {
   setTotalPages,
   setJobDetails,
   setError,
+  setRedirectPath,
+  setLocationSearch,
 } from "./actions/application";
 import {
   setIsModalOpen,
@@ -15,15 +17,10 @@ import {
   setModalTitle,
 } from "./actions/modal";
 import {
-  setConfirmPassword,
   setEmail,
   setIsEditingProfile,
   setIsLoggedIn,
   setName,
-  setPassword,
-  setResetConfirmNewPassword,
-  setResetCurrentPassword,
-  setResetNewPassword,
   setSavedJobs,
   setSavedJobsCurrentPage,
   setSavedJobsDetails,
@@ -112,12 +109,11 @@ export const pagination = (pageNumber: number): AppThunk => (dispatch) => {
   dispatch(setCurrentPage(pageNumber));
 };
 
-export const logIn = (): AppThunk => async (dispatch, getState) => {
+export const logIn = (email: string, password: string): AppThunk => async (
+  dispatch
+) => {
   dispatch(setIsLoading(true));
   dispatch(displayNotification("", "default"));
-
-  const { user } = getState();
-  const { email, password } = user;
 
   // TODO - Modify
   const response: LoginResponse = await fetchServerData(
@@ -157,12 +153,14 @@ export const logIn = (): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoading(false));
 };
 
-export const signup = (): AppThunk => async (dispatch, getState) => {
+export const signup = (
+  name: string,
+  email: string,
+  password: string,
+  confirmPassword: string
+): AppThunk => async (dispatch) => {
   dispatch(setIsLoading(true));
   dispatch(displayNotification("", "default"));
-
-  const { user } = getState();
-  const { confirmPassword, email, name, password } = user;
 
   if (confirmPassword !== password) {
     dispatch(displayNotification("Passwords do not match.", "error"));
@@ -186,8 +184,6 @@ export const signup = (): AppThunk => async (dispatch, getState) => {
   dispatch(setIsLoggedIn(true));
   dispatch(setEmail(result.email));
   dispatch(setName(result.name));
-  dispatch(setPassword(""));
-  dispatch(setConfirmPassword(""));
   dispatch(setSavedJobs(result.savedJobs));
   dispatch(setHiddenJobs(result.hiddenJobs));
 
@@ -209,6 +205,8 @@ export const initializeApplication = (): AppThunk => async (dispatch) => {
     dispatch(setIsModalOpen(false));
     dispatch(setModalContent(""));
     dispatch(setModalTitle(""));
+    dispatch(setSearchValue(""));
+    dispatch(setLocationSearch(""));
 
     // * Establish User Authentication
     const userResponse = await fetch("/user/me");
@@ -259,14 +257,16 @@ export const logOut = (): AppThunk => async (dispatch) => {
   const response = await fetchServerData("/user/logout", "POST");
 
   if (response.error) {
-    console.error(response.error);
-    dispatch(
-      displayNotification(
-        "Error when attempting to log out. Please try again or contact the developer.",
-        "error"
-      )
-    );
-    return;
+    if (response.error !== "Please authenticate.") {
+      console.error(response.error);
+      dispatch(
+        displayNotification(
+          "Error when attempting to log out. Please try again or contact the developer.",
+          "error"
+        )
+      );
+      return;
+    }
   }
 
   // * Establish Job Data
@@ -285,11 +285,9 @@ export const logOut = (): AppThunk => async (dispatch) => {
   dispatch(displayNotification("", "default"));
   dispatch(setCurrentJobs(jobsResult));
   dispatch(setTotalPages(Math.ceil(jobsResult.length / 5)));
-  dispatch(setConfirmPassword(""));
   dispatch(setEmail(""));
   dispatch(setName(""));
   dispatch(setId(""));
-  dispatch(setPassword(""));
   dispatch(setSavedJobs([]));
   dispatch(setHiddenJobs([]));
   dispatch(setIsLoggedIn(false));
@@ -306,14 +304,16 @@ export const logOutAll = (): AppThunk => async (dispatch) => {
   const response = await fetchServerData("/user/logout/all", "POST");
 
   if (response.error) {
-    console.error(response.error);
-    dispatch(
-      displayNotification(
-        "Error when attempting to log out. Please try again or contact the developer.",
-        "error"
-      )
-    );
-    return;
+    if (response.error !== "Please authenticate.") {
+      console.error(response.error);
+      dispatch(
+        displayNotification(
+          "Error when attempting to log out. Please try again or contact the developer.",
+          "error"
+        )
+      );
+      return;
+    }
   }
 
   // * Establish Job Data
@@ -329,14 +329,12 @@ export const logOutAll = (): AppThunk => async (dispatch) => {
     return;
   }
 
-  dispatch(setConfirmPassword(""));
   dispatch(displayNotification("", "default"));
   dispatch(setCurrentJobs(jobsResult));
   dispatch(setTotalPages(Math.ceil(jobsResult.length / 5)));
   dispatch(setEmail(""));
   dispatch(setName(""));
   dispatch(setId(""));
-  dispatch(setPassword(""));
   dispatch(setSavedJobs([]));
   dispatch(setHiddenJobs([]));
   dispatch(setIsLoggedIn(false));
@@ -366,15 +364,27 @@ export const resetPassword = (
     );
 
     if (response.error) {
+      if (response.error === "Please authenticate.") {
+        // * Clear User and Redirect to Login
+        dispatch(setRedirectPath("/login"));
+        dispatch(setEmail(""));
+        dispatch(setName(""));
+        dispatch(setId(""));
+        dispatch(setSavedJobs([]));
+        dispatch(setHiddenJobs([]));
+        dispatch(setIsModalOpen(false));
+        dispatch(setModalContent(""));
+        dispatch(setModalTitle(""));
+        dispatch(displayNotification(response.error, "error"));
+        dispatch(setIsLoading(false));
+        return;
+      }
       dispatch(displayNotification(response.error, "error"));
       dispatch(setIsLoading(false));
       return;
     }
 
     dispatch(displayNotification("Password reset successfully.", "success"));
-    dispatch(setResetConfirmNewPassword(""));
-    dispatch(setResetCurrentPassword(""));
-    dispatch(setResetNewPassword(""));
     dispatch(setIsModalOpen(false));
     dispatch(setModalContent(""));
     dispatch(setModalTitle(""));
@@ -401,6 +411,21 @@ export const editProfile = (email: string, name: string): AppThunk => async (
     );
 
     if (response.error) {
+      if (response.error === "Please authenticate.") {
+        // * Clear User and Redirect to Login
+        dispatch(setRedirectPath("/login"));
+        dispatch(setEmail(""));
+        dispatch(setName(""));
+        dispatch(setId(""));
+        dispatch(setSavedJobs([]));
+        dispatch(setHiddenJobs([]));
+        dispatch(setIsModalOpen(false));
+        dispatch(setModalContent(""));
+        dispatch(setModalTitle(""));
+        dispatch(displayNotification(response.error, "error"));
+        dispatch(setIsLoading(false));
+        return;
+      }
       dispatch(displayNotification(response.error, "error"));
       dispatch(setIsLoading(false));
       return;
@@ -435,6 +460,21 @@ export const deleteProfile = (): AppThunk => async (dispatch) => {
     );
 
     if (response.error) {
+      if (response.error === "Please authenticate.") {
+        // * Clear User and Redirect to Login
+        dispatch(setRedirectPath("/login"));
+        dispatch(setEmail(""));
+        dispatch(setName(""));
+        dispatch(setId(""));
+        dispatch(setSavedJobs([]));
+        dispatch(setHiddenJobs([]));
+        dispatch(setIsModalOpen(false));
+        dispatch(setModalContent(""));
+        dispatch(setModalTitle(""));
+        dispatch(displayNotification(response.error, "error"));
+        dispatch(setIsLoading(false));
+        return;
+      }
       dispatch(displayNotification(response.error, "error"));
       dispatch(setIsLoading(false));
       return;
@@ -464,7 +504,7 @@ export const addHiddenJob = (id: string): AppThunk => async (
   dispatch(setIsLoading(true));
   try {
     const state: RootState = getState();
-    const { currentJobs } = state.application;
+    const { currentJobs, currentPage } = state.application;
     // TODO - Modify
     const result:
       | ErrorResponse
@@ -475,6 +515,21 @@ export const addHiddenJob = (id: string): AppThunk => async (
     );
 
     if (isError(result)) {
+      if (result.error === "Please authenticate.") {
+        // * Clear User and Redirect to Login
+        dispatch(setRedirectPath("/login"));
+        dispatch(setEmail(""));
+        dispatch(setName(""));
+        dispatch(setId(""));
+        dispatch(setSavedJobs([]));
+        dispatch(setHiddenJobs([]));
+        dispatch(setIsModalOpen(false));
+        dispatch(setModalContent(""));
+        dispatch(setModalTitle(""));
+        dispatch(displayNotification(result.error, "error"));
+        dispatch(setIsLoading(false));
+        return;
+      }
       dispatch(displayNotification(result.error, "error"));
       dispatch(setIsLoading(false));
       return;
@@ -483,10 +538,14 @@ export const addHiddenJob = (id: string): AppThunk => async (
     const { hiddenJobs } = result;
 
     const newCurrentJobs = currentJobs.filter((job: Job) => job.id !== id);
+    const newTotalPages = Math.ceil(newCurrentJobs.length / 5);
 
     dispatch(setHiddenJobs(hiddenJobs));
     dispatch(setCurrentJobs(newCurrentJobs));
-    dispatch(setTotalPages(Math.ceil(newCurrentJobs.length / 5)));
+    dispatch(setTotalPages(newTotalPages));
+    if (currentPage > newTotalPages) {
+      dispatch(setCurrentPage(newTotalPages));
+    }
     dispatch(displayNotification("Job hidden successfully.", "success"));
     dispatch(setIsLoading(false));
   } catch (error) {
@@ -509,6 +568,21 @@ export const addSavedJob = (id: string): AppThunk => async (dispatch) => {
     );
 
     if (isError(result)) {
+      if (result.error === "Please authenticate.") {
+        // * Clear User and Redirect to Login
+        dispatch(setRedirectPath("/login"));
+        dispatch(setEmail(""));
+        dispatch(setName(""));
+        dispatch(setId(""));
+        dispatch(setSavedJobs([]));
+        dispatch(setHiddenJobs([]));
+        dispatch(setIsModalOpen(false));
+        dispatch(setModalContent(""));
+        dispatch(setModalTitle(""));
+        dispatch(displayNotification(result.error, "error"));
+        dispatch(setIsLoading(false));
+        return;
+      }
       dispatch(displayNotification(result.error, "error"));
       dispatch(setIsLoading(false));
       return;
@@ -541,6 +615,21 @@ export const removeHiddenJob = (id: string): AppThunk => async (dispatch) => {
     );
 
     if (isError(result)) {
+      if (result.error === "Please authenticate.") {
+        // * Clear User and Redirect to Login
+        dispatch(setRedirectPath("/login"));
+        dispatch(setEmail(""));
+        dispatch(setName(""));
+        dispatch(setId(""));
+        dispatch(setSavedJobs([]));
+        dispatch(setHiddenJobs([]));
+        dispatch(setIsModalOpen(false));
+        dispatch(setModalContent(""));
+        dispatch(setModalTitle(""));
+        dispatch(displayNotification(result.error, "error"));
+        dispatch(setIsLoading(false));
+        return;
+      }
       dispatch(displayNotification(result.error, "error"));
       dispatch(setIsLoading(false));
       return;
@@ -571,6 +660,21 @@ export const removeSavedJob = (id: string): AppThunk => async (dispatch) => {
     );
 
     if (isError(result)) {
+      if (result.error === "Please authenticate.") {
+        // * Clear User and Redirect to Login
+        dispatch(setRedirectPath("/login"));
+        dispatch(setEmail(""));
+        dispatch(setName(""));
+        dispatch(setId(""));
+        dispatch(setSavedJobs([]));
+        dispatch(setHiddenJobs([]));
+        dispatch(setIsModalOpen(false));
+        dispatch(setModalContent(""));
+        dispatch(setModalTitle(""));
+        dispatch(displayNotification(result.error, "error"));
+        dispatch(setIsLoading(false));
+        return;
+      }
       dispatch(displayNotification(result.error, "error"));
       dispatch(setIsLoading(false));
       return;

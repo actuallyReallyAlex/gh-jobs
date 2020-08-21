@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { connect } from "react-redux";
-import { Router, Switch, Route } from "react-router-dom";
+import { Route, Router, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import Details from "./pages/Details";

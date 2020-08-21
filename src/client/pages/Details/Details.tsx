@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import { useParams, Link } from "react-router-dom";
+import { Link, Redirect, useParams } from "react-router-dom";
 
 import Copyright from "../../components/Copyright";
 
@@ -41,6 +41,7 @@ interface DetailsProps {
   hiddenJobs: string[];
   jobDetails: Job;
   isLoggedIn: boolean;
+  redirectPath: string;
   savedJobs: string[];
 }
 
@@ -55,6 +56,7 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
     hiddenJobs,
     jobDetails,
     isLoggedIn,
+    redirectPath,
     savedJobs,
   } = props;
 
@@ -62,7 +64,6 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
 
   React.useEffect((): void => {
     window.scrollTo(0, 0);
-    console.log("HERE");
     handleGetJobDetails(id);
   }, []);
 
@@ -94,6 +95,10 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
       }
     }
   }, [jobDetails]);
+
+  if (redirectPath) {
+    return <Redirect to={redirectPath} />;
+  }
 
   return (
     <>
@@ -240,6 +245,7 @@ const mapStateToProps = (state: RootState) => ({
   hiddenJobs: state.user.hiddenJobs,
   isLoggedIn: state.user.isLoggedIn,
   jobDetails: state.application.jobDetails,
+  redirectPath: state.application.redirectPath,
   savedJobs: state.user.savedJobs,
 });
 

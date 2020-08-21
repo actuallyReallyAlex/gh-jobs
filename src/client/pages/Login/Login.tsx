@@ -12,31 +12,37 @@ import {
   LoginActionsContainer,
 } from "./Login-styled";
 
-import { setEmail, setPassword } from "../../redux/actions/user";
+import { setRedirectPath } from "../../redux/actions/application";
+import { setIsLoggedIn } from "../../redux/actions/user";
 import { logIn } from "../../redux/thunks";
 
 import { RootState } from "../../types";
 
 export interface LoginProps {
-  email: string;
-  handleEmailChange: (email: string) => void;
-  handleLogIn: () => void;
-  handlePasswordChange: (password: string) => void;
+  handleClearRedirectPath: () => void;
+  handleLogIn: (email: string, password: string) => void;
   isLoggedIn: boolean;
-  password: string;
+  redirectPath: string;
 }
 
 const Login: React.SFC<LoginProps> = (props: LoginProps) => {
   const {
-    email,
-    handleEmailChange,
+    handleClearRedirectPath,
     handleLogIn,
-    handlePasswordChange,
     isLoggedIn,
-    password,
+    redirectPath,
   } = props;
 
-  if (isLoggedIn) {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  React.useEffect((): void => {
+    if (redirectPath) {
+      handleClearRedirectPath();
+    }
+  }, [redirectPath]);
+
+  if (isLoggedIn && !redirectPath) {
     return <Redirect to="/" />;
   } else {
     return (
@@ -44,7 +50,7 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleLogIn();
+            handleLogIn(email, password);
           }}
         >
           <LoginTitleContainer>
@@ -60,7 +66,7 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
             icon="email"
             id="email"
             label="Email Address"
-            onChange={(e) => handleEmailChange(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="example@email.com"
             required
             type="email"
@@ -72,7 +78,7 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
             icon="lock"
             id="password"
             label="Password"
-            onChange={(e) => handlePasswordChange(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
             type="password"
             value={password}
@@ -98,15 +104,17 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  email: state.user.email,
   isLoggedIn: state.user.isLoggedIn,
-  password: state.user.password,
+  redirectPath: state.application.redirectPath,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleEmailChange: (email: string) => dispatch(setEmail(email)),
-  handleLogIn: () => dispatch(logIn()),
-  handlePasswordChange: (password: string) => dispatch(setPassword(password)),
+  handleClearRedirectPath: () => {
+    dispatch(setRedirectPath(""));
+    dispatch(setIsLoggedIn(false));
+  },
+  handleLogIn: (email: string, password: string) =>
+    dispatch(logIn(email, password)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

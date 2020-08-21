@@ -14,11 +14,12 @@ import {
   SET_LOCATION_SEARCH,
   SET_MODAL_CONTENT,
   SET_MODAL_TITLE,
+  SET_REDIRECT_PATH,
   SET_SEARCH_VALUE,
   SET_TOTAL_PAGES,
 } from "../actionTypes";
 
-import { ApplicationAction, ApplicationState } from "../../types";
+import { ReduxAction, ApplicationState } from "../../types";
 
 export const initialState: ApplicationState = {
   contract: false,
@@ -32,13 +33,14 @@ export const initialState: ApplicationState = {
   locationSearch: "",
   notificationMessage: "",
   notificationType: "default",
+  redirectPath: "",
   searchValue: "",
   totalPages: 1,
 };
 
 const reducer = (
   state = initialState,
-  action: ApplicationAction
+  action: ReduxAction
 ): ApplicationState => {
   let key: string;
   let value;
@@ -101,6 +103,7 @@ const reducer = (
     case SET_LOCATION_SEARCH:
     case SET_MODAL_CONTENT:
     case SET_MODAL_TITLE:
+    case SET_REDIRECT_PATH:
     case SET_SEARCH_VALUE:
     case SET_TOTAL_PAGES: {
       return { ...state, [key]: value };

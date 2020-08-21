@@ -4,19 +4,19 @@ import {
   SET_MODAL_TITLE,
 } from "../actionTypes";
 
-import { ModalAction } from "../../types";
+import { ReduxAction } from "../../types";
 
-export const setIsModalOpen = (isModalOpen: boolean): ModalAction => ({
+export const setIsModalOpen = (isModalOpen: boolean): ReduxAction => ({
   type: SET_IS_MODAL_OPEN,
   payload: { isModalOpen },
 });
 
-export const setModalContent = (modalContent: string): ModalAction => ({
+export const setModalContent = (modalContent: string): ReduxAction => ({
   type: SET_MODAL_CONTENT,
   payload: { modalContent },
 });
 
-export const setModalTitle = (modalTitle: string): ModalAction => ({
+export const setModalTitle = (modalTitle: string): ReduxAction => ({
   type: SET_MODAL_TITLE,
   payload: { modalTitle },
 });

@@ -23,12 +23,6 @@ export interface AddSavedJobSuccessResponse {
   _id: string;
 }
 
-export interface ApplicationAction {
-  type: string;
-  // eslint-disable-next-line
-  payload: any;
-}
-
 export interface ApplicationError {
   error: Error;
   componentStack: string;
@@ -46,6 +40,7 @@ export interface ApplicationState {
   locationSearch: string;
   notificationMessage: string;
   notificationType: NotificationType;
+  redirectPath: string;
   searchValue: string;
   totalPages: number;
 }
@@ -170,12 +165,6 @@ export interface LocationOption {
 
 export type LoginResponse = ErrorResponse & ServerResponseUser;
 
-export interface ModalAction {
-  type: string;
-  // eslint-disable-next-line
-  payload: any;
-}
-
 export interface ModalState {
   isModalOpen: boolean;
   modalContent: string;
@@ -191,6 +180,12 @@ export type NotificationType =
   | "warning";
 
 export type PaginationNavigationType = "left" | "right";
+
+export interface ReduxAction {
+  type: string;
+  // eslint-disable-next-line
+  payload: any;
+}
 
 export interface RemoveHiddenJobSuccessResponse {
   createdAt: string;
@@ -248,14 +243,7 @@ export interface SignupSuccessResponse {
   _id: string;
 }
 
-export interface UserAction {
-  type: string;
-  // eslint-disable-next-line
-  payload: any;
-}
-
 export interface UserState {
-  confirmPassword: string;
   email: string;
   hiddenJobs: string[];
   hiddenJobsDetails: Job[];
@@ -263,10 +251,6 @@ export interface UserState {
   isEditingProfile: boolean;
   isLoggedIn: false;
   name: string;
-  password: string;
-  resetConfirmNewPassword: string;
-  resetCurrentPassword: string;
-  resetNewPassword: string;
   savedJobs: string[];
   savedJobsCurrentPage: number;
   savedJobsDetails: Job[];

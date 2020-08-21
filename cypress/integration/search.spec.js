@@ -76,6 +76,16 @@ context("Search", () => {
 
     // * Do search
   });
+
+  it("Should reset search values on reload", () => {
+    cy.get("#search").type("Search value");
+    cy.get("#location-search").type("Location search value");
+
+    cy.reload();
+
+    cy.get("#search").should("have.value", "");
+    cy.get("#location-search").should("have.value", "");
+  });
 });
 
 context("Search - No Results", () => {

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 import Copyright from "../../components/Copyright";
 import JobCard from "../../components/JobCard";
@@ -18,11 +19,12 @@ import { Job, LocationOption, RootState } from "../../types";
 export interface SearchProps {
   currentJobs: Job[];
   currentPage: number;
+  redirectPath: string;
   totalPages: number;
 }
 
 const Search: React.SFC<SearchProps> = (props: SearchProps) => {
-  const { currentJobs, currentPage, totalPages } = props;
+  const { currentJobs, currentPage, redirectPath, totalPages } = props;
 
   const jobsOnPage = currentJobs.slice(currentPage * 5 - 5, currentPage * 5);
 
@@ -49,6 +51,10 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
       setter("");
     }
   };
+
+  if (redirectPath) {
+    return <Redirect to={redirectPath} />;
+  }
 
   return (
     <>
@@ -79,6 +85,7 @@ const Search: React.SFC<SearchProps> = (props: SearchProps) => {
 const mapStateToProps = (state: RootState) => ({
   currentJobs: state.application.currentJobs,
   currentPage: state.application.currentPage,
+  redirectPath: state.application.redirectPath,
   totalPages: state.application.totalPages,
 });
 

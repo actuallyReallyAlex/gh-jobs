@@ -38,8 +38,8 @@ const ProfileAccountStats: React.SFC<ProfileAccountStatsProps> = (
       <ProfileAccountStatsAvatar />
       <h3>{name}</h3>
       <ProfileAccountStatsInnerContainer>
-        <Stat figure={hiddenJobs.length} label="Hidden Jobs" />
-        <Stat figure={savedJobs.length} label="Saved Jobs" />
+        <Stat figure={hiddenJobs ? hiddenJobs.length : 0} label="Hidden Jobs" />
+        <Stat figure={savedJobs ? savedJobs.length : 0} label="Saved Jobs" />
       </ProfileAccountStatsInnerContainer>
       <ProfileAccountStatsActionsContainer>
         <Button

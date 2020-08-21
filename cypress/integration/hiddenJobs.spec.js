@@ -255,6 +255,34 @@ context("Hidden Jobs", () => {
 
     cy.get("#f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").should("not.exist");
   });
+
+  // ! Can't do this until you create a Test Database
+  it.skip("Should reset currentPage if hiding the last job on the last page", () => {
+    // * Go to last page
+    cy.get(":nth-child(6) > button").click();
+
+    // * Assert current page is "10"
+    cy.get("[data-cy=pagination-item-selected]").should("have.text", "10");
+
+    // * Hide 5 jobs
+    cy.get("#hide-job-69f7a578-6a8b-4df4-8088-fb8d94d33060").click();
+    cy.get("#hide-job-3076f2fe-b421-4b0d-8876-b20c02322ba7").click();
+    cy.get("#hide-job-c019304d-2472-4934-89e2-5e0a33d40226").click();
+    cy.get("#hide-job-35bca1a2-42d3-4f6c-93ab-efb76dbfaead").click();
+    cy.get("#hide-job-988bf054-4955-4859-a642-062def8017cb").click();
+
+    // * Assert current page is now "9"
+    cy.get("[data-cy=pagination-item-selected]").should("have.text", "9");
+
+    // * Cleanup
+    cy.get("#nav-profile").click();
+    cy.get("#view-hidden-jobs").click();
+    cy.get("#show-job-69f7a578-6a8b-4df4-8088-fb8d94d33060").click();
+    cy.get("#show-job-3076f2fe-b421-4b0d-8876-b20c02322ba7").click();
+    cy.get("#show-job-c019304d-2472-4934-89e2-5e0a33d40226").click();
+    cy.get("#show-job-35bca1a2-42d3-4f6c-93ab-efb76dbfaead").click();
+    cy.get("#show-job-988bf054-4955-4859-a642-062def8017cb").click();
+  });
 });
 
 context("Hidden Jobs - No Results", () => {
