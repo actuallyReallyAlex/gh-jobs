@@ -504,7 +504,7 @@ export const addHiddenJob = (id: string): AppThunk => async (
   dispatch(setIsLoading(true));
   try {
     const state: RootState = getState();
-    const { currentJobs } = state.application;
+    const { currentJobs, currentPage } = state.application;
     // TODO - Modify
     const result:
       | ErrorResponse
@@ -538,10 +538,14 @@ export const addHiddenJob = (id: string): AppThunk => async (
     const { hiddenJobs } = result;
 
     const newCurrentJobs = currentJobs.filter((job: Job) => job.id !== id);
+    const newTotalPages = Math.ceil(newCurrentJobs.length / 5);
 
     dispatch(setHiddenJobs(hiddenJobs));
     dispatch(setCurrentJobs(newCurrentJobs));
-    dispatch(setTotalPages(Math.ceil(newCurrentJobs.length / 5)));
+    dispatch(setTotalPages(newTotalPages));
+    if (currentPage > newTotalPages) {
+      dispatch(setCurrentPage(newTotalPages));
+    }
     dispatch(displayNotification("Job hidden successfully.", "success"));
     dispatch(setIsLoading(false));
   } catch (error) {
