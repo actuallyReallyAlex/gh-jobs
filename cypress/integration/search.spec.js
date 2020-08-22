@@ -43,18 +43,22 @@ context("Search", () => {
     cy.get('[data-cy="orbit-container"]').should("be.visible");
   });
 
-  // ! Unable to do with current implementation
-  // * If you don't stub it, the real db may not contain that job listing anymore
-  // * If you do stub it, you can't conditionally send a smaller list of jobs each time it hits /user/hiddenJobDetails
-  it.skip("Should not display hidden jobs in currentJobs on search", () => {
+  it("Should not display hidden jobs in currentJobs on search", () => {
+    // * Log In
+    cy.get("#nav-login").click();
+    cy.get("#email").type("bobtest@email.com");
+    cy.get("#password").type("Red123456!!!");
+    cy.get("#log-in").click();
+    cy.wait(500);
+
     // * Hide a job
-    cy.get("#hide-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
+    cy.get("#hide-job-7").click();
     // * Log User out
     cy.get("#nav-profile").click();
     cy.get("#settings").click();
     cy.get("#log-out").click();
 
-    cy.get("#f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").should("exist");
+    cy.get("#\\37").should("exist");
 
     // * Log In
     cy.get("#nav-login").click();
@@ -63,9 +67,18 @@ context("Search", () => {
     cy.get("#log-in").click();
     cy.wait(500);
 
-    cy.get("#f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").should("not.exist");
+    cy.get("#\\37").should("not.exist");
 
     // * Do search
+    cy.get("#search-submit").click();
+
+    // * Assert job does not exist
+    cy.get("#\\37").should("not.exist");
+
+    // * Cleanup
+    cy.get("#nav-profile").click();
+    cy.get("#view-hidden-jobs").click();
+    cy.get("#show-job-7").click();
   });
 
   it("Should reset search values on reload", () => {
