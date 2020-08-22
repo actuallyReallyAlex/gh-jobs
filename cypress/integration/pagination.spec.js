@@ -13,7 +13,6 @@ context("Pagination", () => {
       });
     });
     cy.visit("http://localhost:3000");
-    cy.wait(1500);
   });
 
   it("Should render initial <Pagination /> component correctly", () => {
@@ -213,7 +212,8 @@ context("Pagination", () => {
       cy.server();
       cy.route({
         method: "GET",
-        url: "/jobs/search?userId=&full_time=false&contract=false&description=&location1=Chicago",
+        url:
+          "/jobs/search?userId=&full_time=false&contract=false&description=&location1=Chicago",
         status: 200,
         response: jobsJson,
       });
@@ -266,7 +266,6 @@ context("Pagination - 1 Page", () => {
       });
     });
     cy.visit("http://localhost:3000");
-    cy.wait(1500);
   });
 
   it("Should display pagination correctly, when 5 jobs exist", () => {
@@ -304,7 +303,6 @@ context("Pagination - 2 Pages", () => {
       });
     });
     cy.visit("http://localhost:3000");
-    cy.wait(1500);
   });
 
   it("Should display pagination correctly, when 10 jobs exist", () => {
@@ -342,7 +340,6 @@ context("Pagination - 3 Pages", () => {
       });
     });
     cy.visit("http://localhost:3000");
-    cy.wait(1500);
   });
 
   it("Should display pagination correctly, when 15 jobs exist", () => {
@@ -382,7 +379,6 @@ context("Pagination - 4 Pages", () => {
       });
     });
     cy.visit("http://localhost:3000");
-    cy.wait(1500);
   });
 
   it("Should display pagination correctly, when 20 jobs exist", () => {

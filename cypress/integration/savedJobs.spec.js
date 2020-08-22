@@ -3,13 +3,11 @@
 context("Saved Jobs", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000");
-    cy.wait(500);
     cy.get("#nav-login").click();
     cy.get("h1").should("have.text", "Login");
     cy.get("#email").type("bobtest@email.com");
     cy.get("#password").type("Red123456!!!");
     cy.get("#log-in").click();
-    cy.wait(500);
 
     cy.get("#nav-login").should("not.exist");
     cy.get("#search").should("be.visible");
@@ -112,13 +110,11 @@ context("Saved Jobs", () => {
 context("Saved Jobs - No Results", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000");
-    cy.wait(500);
     cy.get("#nav-login").click();
     cy.get("h1").should("have.text", "Login");
     cy.get("#email").type("bobtest@email.com");
     cy.get("#password").type("Red123456!!!");
     cy.get("#log-in").click();
-    cy.wait(500);
 
     cy.get("#nav-login").should("not.exist");
     cy.get("#search").should("be.visible");

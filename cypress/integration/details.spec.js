@@ -3,7 +3,6 @@
 context("Details", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000");
-    cy.wait(500);
     cy.get("#\\37").click({ force: true });
   });
 

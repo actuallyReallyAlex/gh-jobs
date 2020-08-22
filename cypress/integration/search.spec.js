@@ -2,30 +2,13 @@
 
 context("Search", () => {
   beforeEach(() => {
-    cy.fixture("jobsSearch1").then((searchJson) => {
-      cy.server();
-      cy.route({
-        method: "GET",
-        url:
-          "/jobs/search?userId=&full_time=false&contract=false&description=developer",
-        status: 200,
-        response: searchJson,
-        delay: 1000,
-      });
-    });
     cy.visit("http://localhost:3000");
   });
 
   it("Should search correctly", () => {
-    cy.get('[data-cy="job-container"]').then(($jobs) => {
-      assert.equal($jobs.length, 5);
-    });
     cy.get("#search").type("developer");
     cy.get("#search-submit").click();
-    cy.wait(1000);
-    cy.get('[data-cy="job-container"]').then(($jobs) => {
-      assert.equal($jobs.length, 5);
-    });
+    cy.get("#notification").should("have.text", "Search returned 30 results.");
   });
 
   it("Should retain search value on reload", () => {
@@ -37,6 +20,15 @@ context("Search", () => {
   });
 
   it("Should be able to submit form with enter key", () => {
+    cy.server();
+    cy.route({
+      method: "GET",
+      url:
+        "/jobs/search?userId=&full_time=false&contract=false&description=developer",
+      status: 200,
+      response: [],
+      delay: 1000,
+    });
     cy.get('[data-cy="orbit-container"]').should("not.be.visible");
     cy.get("#search").type("developer");
     cy.get("#search").type("{enter}");

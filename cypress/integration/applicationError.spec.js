@@ -24,14 +24,12 @@ context("Application Error", () => {
       delay: 1000,
     });
     cy.visit("http://localhost:3000");
-    cy.wait(500);
   });
 
   it("Should display ErrorFallback correctly when an error occurs", () => {
     // * Create an error with stubbed response
     cy.get("#search").type("react");
     cy.get("#search-submit").click();
-    cy.wait(1000);
 
     cy.get("h1").should("have.text", "Technical Difficulties");
     cy.get("p").should(
@@ -45,19 +43,15 @@ context("Application Error", () => {
     // * Create an error with stubbed response
     cy.get("#search").type("react");
     cy.get("#search-submit").click();
-    cy.wait(1000);
 
     cy.get("#try-again").click();
-    cy.wait(500);
     cy.get("#search").should("be.visible");
   });
 
   it("Should push app to '/' when 'Try again' button is clicked", () => {
     cy.get("#\\37").click({ force: true });
-    cy.wait(1000);
 
     cy.get("#try-again").click();
-    cy.wait(500);
     cy.get("#search").should("be.visible");
   });
 });

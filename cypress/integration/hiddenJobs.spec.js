@@ -2,24 +2,12 @@
 
 context("Hidden Jobs", () => {
   beforeEach(() => {
-    cy.fixture("hiddenDetails").then((hiddenDetailsJson) => {
-      cy.server();
-      // cy.route({
-      //   method: "GET",
-      //   url: "/user/hiddenJobsDetails",
-      //   status: 200,
-      //   response: hiddenDetailsJson,
-      //   delay: 1000,
-      // });
-    });
     cy.visit("http://localhost:3000");
-    cy.wait(500);
     cy.get("#nav-login").click();
     cy.get("h1").should("have.text", "Login");
     cy.get("#email").type("bobtest@email.com");
     cy.get("#password").type("Red123456!!!");
     cy.get("#log-in").click();
-    cy.wait(500);
 
     cy.get("#nav-login").should("not.exist");
     cy.get("#search").should("be.visible");
@@ -206,7 +194,6 @@ context("Hidden Jobs", () => {
     cy.get("#email").type("bobtest@email.com");
     cy.get("#password").type("Red123456!!!");
     cy.get("#log-in").click();
-    cy.wait(500);
 
     cy.get("#\\37").should("not.exist");
 
@@ -257,13 +244,11 @@ context("Hidden Jobs - No Results", () => {
       });
     });
     cy.visit("http://localhost:3000");
-    cy.wait(500);
     cy.get("#nav-login").click();
     cy.get("h1").should("have.text", "Login");
     cy.get("#email").type("bobtest@email.com");
     cy.get("#password").type("Red123456!!!");
     cy.get("#log-in").click();
-    cy.wait(500);
 
     cy.get("#nav-login").should("not.exist");
     cy.get("#search").should("be.visible");

@@ -19,7 +19,6 @@ context("Options Panel", () => {
     cy.get("#location-search").should("have.value", "");
     cy.get("#location-search").type("Los Angeles");
     cy.get("#search-submit").click();
-    cy.wait(1000);
     cy.get("#location-search").should("have.value", "Los Angeles");
   });
 
@@ -28,7 +27,6 @@ context("Options Panel", () => {
     cy.get(":nth-child(4) > [data-cy=checkmark]").click();
     cy.get("#location-1").should("be.checked");
     cy.get("#search-submit").click();
-    cy.wait(1000);
     cy.get("#location-1").should("be.checked");
   });
 
@@ -36,13 +34,11 @@ context("Options Panel", () => {
     cy.get("#search").type("developer");
     cy.get("#search-submit").click();
 
-    cy.wait(1000);
     cy.get("#notification").should("have.text", "Search returned 30 results.");
 
     cy.get(":nth-child(1) > [data-cy=checkmark]").click();
     cy.get("#search-submit").click();
 
-    cy.wait(1000);
     cy.get("#notification").should("have.text", "Search returned 17 results.");
   });
 
@@ -50,20 +46,17 @@ context("Options Panel", () => {
     cy.get("#search").type("developer");
     cy.get("#search-submit").click();
 
-    cy.wait(1000);
     cy.get("#notification").should("have.text", "Search returned 30 results.");
 
     cy.get(":nth-child(2) > [data-cy=checkmark]").click();
     cy.get("#search-submit").click();
 
-    cy.wait(1000);
     cy.get("#notification").should("have.text", "Search returned 13 results.");
   });
 
   it("Should be able to search within the OptionsPanel", () => {
     cy.get("#location-search").type("Los Angeles");
     cy.get("#options-panel-search").click();
-    cy.wait(1000);
 
     cy.get("#notification").should("have.text", "Search returned 5 results.");
   });

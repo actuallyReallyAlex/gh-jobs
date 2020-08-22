@@ -69,7 +69,7 @@ class JobController {
               end: endOfToday(),
             });
 
-            if (!isWithinToday) {
+            if (!isWithinToday && process.env.NODE_ENV !== "test") {
               // * Jobs are stale. Get new jobs.
               const rehydration2Result = await rehydrateJobsDB();
 

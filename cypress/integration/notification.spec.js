@@ -3,7 +3,6 @@
 context("Notification", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000");
-    cy.wait(500);
   });
 
   it("Should reset the notification on initial load", () => {
@@ -12,7 +11,6 @@ context("Notification", () => {
     cy.get("#email").type("bobtest@email.com");
     cy.get("#password").type("Red123456!!!");
     cy.get("#log-in").click();
-    cy.wait(500);
     cy.get("#nav-login").should("not.exist");
     cy.get("#search").should("be.visible");
     cy.get("#nav-profile").click();
@@ -20,8 +18,6 @@ context("Notification", () => {
     cy.get("#name").clear();
     cy.get("#name").type("Cool Bob");
     cy.get("#edit-confirm").click();
-
-    cy.wait(500);
 
     cy.get("#notification").should(
       "have.text",
@@ -38,7 +34,6 @@ context("Notification", () => {
     cy.get("#name").clear();
     cy.get("#name").type("Bob Test");
     cy.get("#edit-confirm").click();
-    cy.wait(500);
     cy.get("#name").should("have.value", "Bob Test");
     cy.get("#email").should("have.value", "bobtest@email.com");
   });
@@ -49,7 +44,6 @@ context("Notification", () => {
     cy.get("#email").type("bobtest@email.com");
     cy.get("#password").type("Red123456!!!");
     cy.get("#log-in").click();
-    cy.wait(500);
     cy.get("#nav-login").should("not.exist");
     cy.get("#search").should("be.visible");
     cy.get("#nav-profile").click();
@@ -57,8 +51,6 @@ context("Notification", () => {
     cy.get("#name").clear();
     cy.get("#name").type("Cool Bob");
     cy.get("#edit-confirm").click();
-
-    cy.wait(500);
 
     cy.get("#notification").should(
       "have.text",
@@ -72,7 +64,6 @@ context("Notification", () => {
     cy.get("#name").clear();
     cy.get("#name").type("Bob Test");
     cy.get("#edit-confirm").click();
-    cy.wait(500);
     cy.get("#name").should("have.value", "Bob Test");
     cy.get("#email").should("have.value", "bobtest@email.com");
   });

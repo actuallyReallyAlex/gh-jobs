@@ -3,7 +3,6 @@
 context("Signup - Success", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000");
-    cy.wait(500);
     cy.get("#nav-login").click();
     cy.get("h1").should("have.text", "Login");
     cy.get("#create-an-account").click();
@@ -17,7 +16,6 @@ context("Signup - Success", () => {
     cy.get("#password").type("Red123456!!!");
     cy.get("#confirm-password").type("Red123456!!!");
     cy.get("#signup").click();
-    cy.wait(500);
 
     cy.get("#nav-login").should("not.exist");
     cy.get("#search").should("be.visible");
@@ -38,7 +36,6 @@ context("Signup - Success", () => {
 context("Signup - Error", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000");
-    cy.wait(500);
     cy.get("#nav-login").click();
     cy.get("h1").should("have.text", "Login");
     cy.get("#create-an-account").click();
@@ -52,7 +49,6 @@ context("Signup - Error", () => {
     cy.get("#password").type("Red123456!!!");
     cy.get("#confirm-password").type("Red123456!!!");
     cy.get("#signup").click();
-    cy.wait(500);
 
     cy.get("#notification").should(
       "have.text",

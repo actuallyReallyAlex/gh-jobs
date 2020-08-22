@@ -4,13 +4,11 @@ context("Authentication", () => {
   beforeEach(() => {
     // * Login
     cy.visit("http://localhost:3000");
-    cy.wait(1000);
     cy.get("#nav-login").click();
     cy.get("h1").should("have.text", "Login");
     cy.get("#email").type("bobtest@email.com");
     cy.get("#password").type("Red123456!!!");
     cy.get("#log-in").click();
-    cy.wait(1000);
     cy.get("#nav-login").should("not.exist");
     cy.get("#search").should("be.visible");
   });
@@ -29,8 +27,6 @@ context("Authentication", () => {
     cy.get("#email").clear();
     cy.get("#email").type("bobtest2@email.com");
     cy.get("#edit-confirm").click();
-
-    cy.wait(500);
 
     // * Assert Redirect
     cy.get("#notification").should("have.text", "Please authenticate.");
@@ -55,8 +51,6 @@ context("Authentication", () => {
     );
     cy.get("#delete-profile-confirm").click();
 
-    cy.wait(500);
-
     // * Assert Redirect
     cy.get("#notification").should("have.text", "Please authenticate.");
     cy.url().should("eq", "http://localhost:3000/login");
@@ -79,8 +73,6 @@ context("Authentication", () => {
     cy.get("#confirm-new-password").type("Blue123456!!!");
     cy.get("#reset").click();
 
-    cy.wait(500);
-
     // * Assert Redirect
     cy.get("#notification").should("have.text", "Please authenticate.");
     cy.url().should("eq", "http://localhost:3000/login");
@@ -98,8 +90,6 @@ context("Authentication", () => {
     cy.get("#settings").click();
     cy.get("#log-out").click();
 
-    cy.wait(500);
-
     // * Assert Log Out
     cy.get("#nav-login").should("exist");
     cy.get("#search").should("be.visible");
@@ -116,42 +106,71 @@ context("Authentication", () => {
     cy.get("#settings").click();
     cy.get("#log-out-all").click();
 
-    cy.wait(500);
-
     // * Assert Log Out
     cy.get("#nav-login").should("exist");
     cy.get("#search").should("be.visible");
   });
 
-  // ! Can't implement this until you create a Test Database with Test Jobs
-  it("Should redirect to '/login' when user attempts to show a hidden job on their profile after becoming unauthenticated", () => {});
+  it("Should redirect to '/login' when user attempts to show a hidden job on their profile after becoming unauthenticated", () => {
+    cy.get("#hide-job-7").click();
 
-  // ! Can't implement this until you create a Test Database with Test Jobs
-  it("Should redirect to '/login' when user attempts to hide a saved job on their profile after becoming unauthenticated", () => {});
+    cy.get("#nav-profile").click();
+    cy.get("#view-hidden-jobs").click();
+
+    // * Remove authentication cookie
+    cy.clearCookie("ghjobs");
+
+    cy.get("#show-job-7").click();
+
+    // * Assert Redirect
+    cy.get("#notification").should("have.text", "Please authenticate.");
+    cy.url().should("eq", "http://localhost:3000/login");
+    cy.get("h1").should("have.text", "Login");
+
+    // * Cleanup
+    cy.get("#email").type("bobtest@email.com");
+    cy.get("#password").type("Red123456!!!");
+    cy.get("#log-in").click();
+    cy.get("#nav-profile").click();
+    cy.get("#view-hidden-jobs").click();
+    cy.get("#show-job-7").click();
+  });
+
+  it("Should redirect to '/login' when user attempts to hide a saved job on their profile after becoming unauthenticated", () => {
+    cy.get("#save-job-7").click();
+
+    cy.get("#nav-profile").click();
+    cy.get("#view-saved-jobs").click();
+
+    // * Remove authentication cookie
+    cy.clearCookie("ghjobs");
+
+    cy.get("#remove-job-7").click();
+
+    // * Assert Redirect
+    cy.get("#notification").should("have.text", "Please authenticate.");
+    cy.url().should("eq", "http://localhost:3000/login");
+    cy.get("h1").should("have.text", "Login");
+
+    // * Cleanup
+    cy.get("#email").type("bobtest@email.com");
+    cy.get("#password").type("Red123456!!!");
+    cy.get("#log-in").click();
+    cy.get("#nav-profile").click();
+    cy.get("#view-saved-jobs").click();
+    cy.get("#remove-job-7").click();
+  });
 });
 
 context("Authentication - Search Page", () => {
   beforeEach(() => {
-    cy.fixture("jobs50").then((jobsJson) => {
-      cy.server();
-      cy.route({
-        method: "POST",
-        url: "/jobs",
-        status: 200,
-        response: jobsJson,
-        delay: 1000,
-      });
-    });
-
     // * Login
     cy.visit("http://localhost:3000");
-    cy.wait(1000);
     cy.get("#nav-login").click();
     cy.get("h1").should("have.text", "Login");
     cy.get("#email").type("bobtest@email.com");
     cy.get("#password").type("Red123456!!!");
     cy.get("#log-in").click();
-    cy.wait(1000);
     cy.get("#nav-login").should("not.exist");
     cy.get("#search").should("be.visible");
   });
@@ -161,7 +180,7 @@ context("Authentication - Search Page", () => {
     cy.clearCookie("ghjobs");
 
     // * Click Save Job
-    cy.get("#save-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
+    cy.get("#save-job-7").click();
 
     // * Assert Redirect
     cy.get("#notification").should("have.text", "Please authenticate.");
@@ -174,7 +193,7 @@ context("Authentication - Search Page", () => {
     cy.clearCookie("ghjobs");
 
     // * Click Save Job
-    cy.get("#hide-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
+    cy.get("#hide-job-7").click();
 
     // * Assert Redirect
     cy.get("#notification").should("have.text", "Please authenticate.");
@@ -185,47 +204,25 @@ context("Authentication - Search Page", () => {
 
 context("Authentication - Details Page", () => {
   beforeEach(() => {
-    cy.fixture("jobs50").then((jobsJson) => {
-      cy.fixture("jobDetails").then((jobDetailsJson) => {
-        cy.server();
-        cy.route({
-          method: "POST",
-          url: "/jobs",
-          status: 200,
-          response: jobsJson,
-          delay: 1000,
-        });
-        cy.route({
-          method: "GET",
-          url: "/jobs/f1884b46-ecb4-473c-81f5-08d9bf2ab3bb",
-          status: 200,
-          response: jobDetailsJson,
-          delay: 1000,
-        });
-      });
-    });
-
     // * Login
     cy.visit("http://localhost:3000");
-    cy.wait(1000);
     cy.get("#nav-login").click();
     cy.get("h1").should("have.text", "Login");
     cy.get("#email").type("bobtest@email.com");
     cy.get("#password").type("Red123456!!!");
     cy.get("#log-in").click();
-    cy.wait(1000);
     cy.get("#nav-login").should("not.exist");
     cy.get("#search").should("be.visible");
   });
 
   it("Should redirect to '/login' when user attempts to save a job after becoming unauthenticated", () => {
-    cy.get("#f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click({ force: true });
+    cy.get("#\\37").click({ force: true });
 
     // * Remove authentication cookie
     cy.clearCookie("ghjobs");
 
     // * Click Save Job
-    cy.get("#save-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
+    cy.get("#save-job-7").click();
 
     // * Assert Redirect
     cy.get("#notification").should("have.text", "Please authenticate.");
@@ -234,13 +231,13 @@ context("Authentication - Details Page", () => {
   });
 
   it("Should redirect to '/login' when user attempts to hide a job after becoming unauthenticated", () => {
-    cy.get("#f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click({ force: true });
+    cy.get("#\\37").click({ force: true });
 
     // * Remove authentication cookie
     cy.clearCookie("ghjobs");
 
     // * Click Save Job
-    cy.get("#hide-job-f1884b46-ecb4-473c-81f5-08d9bf2ab3bb").click();
+    cy.get("#hide-job-7").click();
 
     // * Assert Redirect
     cy.get("#notification").should("have.text", "Please authenticate.");
