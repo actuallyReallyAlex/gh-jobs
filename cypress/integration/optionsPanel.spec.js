@@ -54,10 +54,11 @@ context("Options Panel", () => {
     cy.get("#notification").should("have.text", "Search returned 13 results.");
   });
 
+  // * Doesn't really do a full location search - since that would use the actual GitHub API and not the test DB
   it("Should be able to search within the OptionsPanel", () => {
     cy.get("#location-search").type("Acopampa");
     cy.get("#options-panel-search").click();
 
-    cy.get("#notification").should("have.text", "Search returned 5 results.");
+    cy.get("#notification").should("have.text", "Search returned 50 results.");
   });
 });
