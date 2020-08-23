@@ -124,7 +124,7 @@ class JobController {
           // * If there is a location in the search, use the API
           // * If there is not a location, just query the DB
 
-          if (isLocationSearch) {
+          if (isLocationSearch && process.env.NODE_ENV !== "test") {
             const jobs: GitHubJob[] = [];
             let jobsInBatch = null;
             let page = 1;

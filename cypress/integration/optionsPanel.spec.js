@@ -55,7 +55,7 @@ context("Options Panel", () => {
   });
 
   it("Should be able to search within the OptionsPanel", () => {
-    cy.get("#location-search").type("Los Angeles");
+    cy.get("#location-search").type("Acopampa");
     cy.get("#options-panel-search").click();
 
     cy.get("#notification").should("have.text", "Search returned 5 results.");
