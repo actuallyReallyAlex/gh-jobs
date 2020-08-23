@@ -41,6 +41,14 @@ const SearchInputLeft = styled.div`
     color: #b9bdcf;
     font-size: 16px;
   }
+
+  @media only screen and (max-width: 600px) {
+    margin-right: -4px;
+
+    i {
+      margin-right: 4px;
+    }
+  }
 `;
 
 const SearchInputInput = styled.input`
@@ -74,6 +82,12 @@ const SearchInputButtonContainer = styled.div`
   button {
     border: 3px solid #ffffff;
     box-shadow: none;
+  }
+
+  @media only screen and (max-width: 600px) {
+    background-color: #ffffff;
+    border-bottom-right-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
   }
 `;
 
