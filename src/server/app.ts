@@ -46,6 +46,10 @@ class App {
       "http://localhost:8080",
       "https://gh-jobs.herokuapp.com",
       "https://www.githubjobs.io",
+      "http://localhost:3001", // * Browsersync
+      "http://192.168.1.228:3001", // * Browsersync
+      "http://localhost:3002", // * Browsersync
+      "http://192.168.1.228:3002", // * Browsersync
       undefined,
     ];
 
