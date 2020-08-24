@@ -7,6 +7,8 @@ import {
   GetJobsSuccessResponse,
   AddSavedJobSuccessResponse,
   SignupSuccessResponse,
+  LocationOption,
+  RootState,
 } from "./types";
 
 export const fetchServerData = async (
@@ -70,3 +72,35 @@ export const isError = (
 };
 
 export const history = createBrowserHistory();
+
+export const createSearchUrl = (
+  search: string,
+  locationOptions: LocationOption[],
+  state: RootState
+): string => {
+  const { contract, fullTime, locationSearch } = state.application;
+  const { id } = state.user;
+  const locationsSearches = locationOptions.filter(
+    (location: LocationOption) => location.value !== ""
+  );
+
+  if (locationSearch) {
+    locationsSearches.push({
+      name: "locationSearch",
+      setter: null,
+      value: locationSearch,
+    });
+  }
+
+  let url = `/jobs/search?userId=${encodeURI(id)}&full_time=${encodeURI(
+    fullTime.toString()
+  )}&contract=${encodeURI(contract.toString())}&description=${encodeURI(
+    search
+  )}`;
+
+  locationsSearches.forEach((locationSearch: LocationOption, i: number) => {
+    url = url + `&location${i + 1}=${encodeURI(locationSearch.value)}`;
+  });
+
+  return url;
+};

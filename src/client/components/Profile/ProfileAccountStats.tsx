@@ -11,7 +11,7 @@ import {
   ProfileAccountStatsInnerContainer,
 } from "./Profile-styled";
 
-import { clickViewHiddenJobs, clickViewSavedJobs } from "../../redux/thunks";
+import { clickViewJobs } from "../../redux/thunks/user";
 
 import { RootState } from "../../types";
 
@@ -68,8 +68,8 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleClickViewHiddenJobs: () => dispatch(clickViewHiddenJobs()),
-  handleClickViewSavedJobs: () => dispatch(clickViewSavedJobs()),
+  handleClickViewHiddenJobs: () => dispatch(clickViewJobs("hidden")),
+  handleClickViewSavedJobs: () => dispatch(clickViewJobs("saved")),
 });
 
 export default connect(

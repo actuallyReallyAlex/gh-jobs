@@ -7,7 +7,7 @@ import { Container, Row } from "./Settings-styled";
 
 import { displayNotification } from "../../redux/actions/application";
 import { setModalContent, setModalTitle } from "../../redux/actions/modal";
-import { logOut, logOutAll } from "../../redux/thunks";
+import { logOut } from "../../redux/thunks/user";
 
 export interface SettingsProps {
   handleClickDeleteProfile: () => void;
@@ -78,7 +78,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(setModalTitle("Reset Password"));
   },
   handleLogOut: () => dispatch(logOut()),
-  handleLogOutAll: () => dispatch(logOutAll()),
+  handleLogOutAll: () => dispatch(logOut(true)),
 });
 
 export default connect(null, mapDispatchToProps)(Settings);

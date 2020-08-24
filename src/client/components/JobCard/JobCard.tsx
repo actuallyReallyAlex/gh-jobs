@@ -26,7 +26,7 @@ import {
   addSavedJob,
   removeHiddenJob,
   removeSavedJob,
-} from "../../redux/thunks";
+} from "../../redux/thunks/user";
 
 import { Job, RootState } from "../../types";
 import { setJobDetails } from "../../redux/actions/application";

@@ -2,22 +2,11 @@
 
 context("Profile", () => {
   beforeEach(() => {
-    cy.fixture("jobs50").then((jobsJson) => {
-      cy.server();
-      cy.route({
-        method: "POST",
-        url: "/jobs",
-        status: 200,
-        response: jobsJson,
-        delay: 1000,
-      });
-    });
     cy.visit("http://localhost:3000");
     cy.get("#nav-login").click();
     cy.get("#email").type("bobtest@email.com");
     cy.get("#password").type("Red123456!!!");
     cy.get("#log-in").click();
-    cy.wait(500);
 
     cy.get("#nav-login").should("not.exist");
     cy.get("#nav-profile").should("be.visible");
@@ -39,8 +28,6 @@ context("Profile", () => {
     cy.get("#email").type("bobtest2@email.com");
     cy.get("#edit-confirm").click();
 
-    cy.wait(1500);
-
     cy.get("h2").should("have.text", "Hello, Cool");
     cy.get("#notification").should(
       "have.text",
@@ -54,7 +41,6 @@ context("Profile", () => {
     cy.get("#email").clear();
     cy.get("#email").type("bobtest@email.com");
     cy.get("#edit-confirm").click();
-    cy.wait(500);
     cy.get("h2").should("have.text", "Hello, Bob");
     cy.get("#name").should("have.value", "Bob Test");
     cy.get("#email").should("have.value", "bobtest@email.com");
@@ -97,8 +83,6 @@ context("Profile", () => {
     cy.get("#confirm-new-password").type("Blue123456!!!");
     cy.get("#reset").click();
 
-    cy.wait(500);
-
     cy.get("h2").should("have.text", "Hello, Bob");
     cy.get("#notification").should("have.text", "Password reset successfully.");
 
@@ -140,8 +124,6 @@ context("Profile", () => {
     cy.get("#confirm-new-password").type("Red123456!!!");
     cy.get("#reset").click();
 
-    cy.wait(500);
-
     cy.get("#modal-title").should("have.text", "Reset Password");
     cy.get("#notification").should("have.text", "Invalid credentials.");
   });
@@ -154,8 +136,6 @@ context("Profile", () => {
     cy.get("#new-password").type("Blue123456!!!");
     cy.get("#confirm-new-password").type("Yellow123456!!!");
     cy.get("#reset").click();
-
-    cy.wait(500);
 
     cy.get("#modal-title").should("have.text", "Reset Password");
     cy.get("#notification").should("have.text", "Passwords do not match.");
@@ -178,7 +158,6 @@ context("Profile", () => {
   it("Should be able to delete a user profile", () => {
     cy.get("#settings").click();
     cy.get("#log-out").click();
-    cy.wait(500);
     cy.get("#nav-login").should("exist");
     cy.get("#search").should("be.visible");
     cy.get("#nav-login").click();
@@ -191,7 +170,6 @@ context("Profile", () => {
     cy.get("#password").type("Red123456!!!");
     cy.get("#confirm-password").type("Red123456!!!");
     cy.get("#signup").click();
-    cy.wait(500);
     cy.get("#nav-login").should("not.exist");
     cy.get("#search").should("be.visible");
     cy.get("#nav-profile").click();
@@ -205,7 +183,6 @@ context("Profile", () => {
       "Are you sure you would like to delete your profile? This can not be reversed."
     );
     cy.get("#delete-profile-confirm").click();
-    cy.wait(500);
     cy.get("#nav-login").should("exist");
     cy.get("#search").should("be.visible");
   });
@@ -213,7 +190,6 @@ context("Profile", () => {
   it("Should be able to cancel deleting a user profile", () => {
     cy.get("#settings").click();
     cy.get("#log-out").click();
-    cy.wait(500);
     cy.get("#nav-login").should("exist");
     cy.get("#search").should("be.visible");
     cy.get("#nav-login").click();
@@ -226,7 +202,6 @@ context("Profile", () => {
     cy.get("#password").type("Red123456!!!");
     cy.get("#confirm-password").type("Red123456!!!");
     cy.get("#signup").click();
-    cy.wait(500);
     cy.get("#nav-login").should("not.exist");
     cy.get("#search").should("be.visible");
     cy.get("#nav-profile").click();
@@ -255,7 +230,6 @@ context("Profile", () => {
       "Are you sure you would like to delete your profile? This can not be reversed."
     );
     cy.get("#delete-profile-confirm").click();
-    cy.wait(500);
     cy.get("#nav-login").should("exist");
     cy.get("#search").should("be.visible");
   });

@@ -5,6 +5,7 @@ import AssetsController from "./controllers/assets";
 import JobController from "./controllers/job";
 import ScriptsController from "./controllers/scripts";
 import UserController from "./controllers/user";
+import TestDBController from "./controllers/testDB";
 
 import { checkIfMongoDBIsRunning } from "./util";
 
@@ -40,6 +41,7 @@ const main = async (): Promise<void> => {
         new JobController(),
         new ScriptsController(),
         new UserController(),
+        new TestDBController(),
       ],
       process.env.PORT
     );

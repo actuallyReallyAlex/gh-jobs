@@ -7,7 +7,7 @@ import { ActionsContainer } from "./DeleteProfile-styled";
 
 import { displayNotification } from "../../redux/actions/application";
 import { setModalContent, setModalTitle } from "../../redux/actions/modal";
-import { deleteProfile } from "../../redux/thunks";
+import { deleteProfile } from "../../redux/thunks/user";
 
 export interface DeleteProfileProps {
   handleCancelDeleteProfile: () => void;

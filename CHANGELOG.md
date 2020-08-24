@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.0] - 2020-08-24
+
+### 👩‍🔬 Test Database
+
+### Added
+
+- Test database - [#91](https://github.com/alexlee-dev/gh-jobs/issues/91)
+
+### Changed
+
+- Update Cypress to v5.0.0 - [#101](https://github.com/alexlee-dev/gh-jobs/issues/101)
+- Refactor `Thunks` - [#103](https://github.com/alexlee-dev/gh-jobs/issues/103)
+
+### Removed
+
+### Fixed
+
+- `SearchInput` style - [#81](https://github.com/alexlee-dev/gh-jobs/issues/81)
+- `ProfileAccountDetails` input disabled style - [#84](https://github.com/alexlee-dev/gh-jobs/issues/84)
+
 ## [1.7.0] - 2020-08-20
 
 ### 🐛 Bug Fixeroo Numbah 2

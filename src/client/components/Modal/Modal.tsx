@@ -10,7 +10,7 @@ import {
 
 import contents from "./contents";
 
-import { resetModal } from "../../redux/thunks";
+import { resetModal } from "../../redux/thunks/modal";
 
 import { RootState } from "../../types";
 
