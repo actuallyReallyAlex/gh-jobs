@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import compression from "compression";
 import cookieParser from "cookie-parser";
 import cors, { CorsOptions } from "cors";
 import express, { Request, Response } from "express";
@@ -35,6 +36,7 @@ class App {
     });
 
     this.app.use(cookieParser());
+    this.app.use(compression());
     this.app.use(express.json());
 
     if (process.env.NODE_ENV !== "test") {
