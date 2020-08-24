@@ -161,6 +161,7 @@ class JobController {
 
             const modifiedJobs = jobs.map((job: GitHubJob) => ({
               ...job,
+              howToApply: job.how_to_apply,
               listingDate: job.created_at,
             }));
 
