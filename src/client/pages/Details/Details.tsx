@@ -83,10 +83,10 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
 
   React.useEffect((): void => {
     if (jobDetails) {
-      const isPlainLink = jobDetails.how_to_apply.slice(0, 5) === "<p><a";
+      const isPlainLink = jobDetails.howToApply.slice(0, 5) === "<p><a";
 
       if (isPlainLink) {
-        const href = jobDetails.how_to_apply
+        const href = jobDetails.howToApply
           .split(/(<p><a href=")/gm)[2]
           .split(/(<\/a><\/p>)/gm)[0]
           .split(/">/gm)[0];
@@ -125,7 +125,7 @@ const Details: React.SFC<DetailsProps> = (props: DetailsProps) => {
                 </a>
               ) : (
                 <div
-                  dangerouslySetInnerHTML={{ __html: jobDetails.how_to_apply }}
+                  dangerouslySetInnerHTML={{ __html: jobDetails.howToApply }}
                 />
               ))}
           </DetailsHowToContainer>
