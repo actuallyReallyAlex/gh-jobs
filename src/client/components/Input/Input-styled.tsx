@@ -43,6 +43,7 @@ const StyledInputInnerContainer = styled.div`
     line-height: 14px;
     margin-bottom: 0;
     min-width: 0;
+    opacity: 1;
     padding: 0.375rem 0.75rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     width: 1%;
