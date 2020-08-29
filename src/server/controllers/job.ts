@@ -60,6 +60,10 @@ class JobController {
 
             // * Set dbJobs to new jobs
             dbJobs = await JobModel.find({});
+            dbJobs.sort(
+              (a: JobDocument, b: JobDocument) =>
+                Date.parse(b.listingDate) - Date.parse(a.listingDate)
+            );
           } else {
             // * Jobs exist in DB, but we need to ensure they are not stale jobs (from yesterday)
             const { createdAt } = dbJobs[0];
@@ -80,6 +84,10 @@ class JobController {
 
               // * Set dbJobs to new jobs
               dbJobs = await JobModel.find({});
+              dbJobs.sort(
+                (a: JobDocument, b: JobDocument) =>
+                  Date.parse(b.listingDate) - Date.parse(a.listingDate)
+              );
             }
           }
 
@@ -159,11 +167,16 @@ class JobController {
               })
             );
 
-            const modifiedJobs = jobs.map((job: GitHubJob) => ({
-              ...job,
-              howToApply: job.how_to_apply,
-              listingDate: job.created_at,
-            }));
+            const modifiedJobs = jobs
+              .map((job: GitHubJob) => ({
+                ...job,
+                howToApply: job.how_to_apply,
+                listingDate: job.created_at,
+              }))
+              .sort(
+                (a: GitHubJob, b: GitHubJob) =>
+                  Date.parse(b.created_at) - Date.parse(a.created_at)
+              );
 
             const uniqueResults: Job[] = unique(modifiedJobs);
             let finalResults = uniqueResults;
@@ -207,7 +220,10 @@ class JobController {
             ...companyResults,
             ...descriptionResults,
             ...titleResults,
-          ];
+          ].sort(
+            (a: Job, b: Job) =>
+              Date.parse(b.listingDate) - Date.parse(a.listingDate)
+          );
 
           const uniqueResults: Job[] = unique(searchResults);
           let finalResults = uniqueResults;
