@@ -65,9 +65,8 @@ const Login: React.SFC<LoginProps> = (props: LoginProps) => {
             full
             icon="email"
             id="email"
-            label="Email Address"
+            label="Email"
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="example@email.com"
             required
             type="email"
             value={email}
