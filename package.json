@@ -6,7 +6,7 @@
   "scripts": {
     "browsersync": "browser-sync start --proxy \"http://localhost:8080\"",
     "build": "npm run format && npm run lint && npm run build-client && npm run build-server",
-    "build-client": "rimraf dist && webpack --display=errors-only",
+    "build-client": "rimraf dist && webpack",
     "build-server": "rimraf build && tsc && copyfiles -f src/server/assets/**/* build/assets",
     "cy:open": "cypress open",
     "cy:run": "cypress run",

@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 import { Route, Router, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-import Details from "./pages/Details";
-import Login from "./pages/Login";
-import Profile from "./pages/Profile";
-import Search from "./pages/Search";
-import Signup from "./pages/Signup";
+const Details = React.lazy(() => import("./pages/Details"));
+const Login = React.lazy(() => import("./pages/Login"));
+const Profile = React.lazy(() => import("./pages/Profile"));
+const Search = React.lazy(() => import("./pages/Search"));
+const Signup = React.lazy(() => import("./pages/Signup"));
 
 import ErrorFallback from "./components/ErrorFallback";
 import LoadingIndicator from "./components/LoadingIndicator";
@@ -51,24 +51,28 @@ const App: React.SFC<AppProps> = (props: AppProps) => {
             handleInitializeApplication();
           }}
         >
-          <Navigation />
-          <Switch>
-            <Route exact path="/">
-              <Search />
-            </Route>
-            <Route path="/jobDetails/:id">
-              <Details />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/signup">
-              <Signup />
-            </Route>
-            <Route path="/profile">
-              <Profile />
-            </Route>
-          </Switch>
+          <React.Suspense fallback={<LoadingIndicator forceLoading={true} />}>
+            <>
+              <Navigation />
+              <Switch>
+                <Route exact path="/">
+                  <Search />
+                </Route>
+                <Route path="/jobDetails/:id">
+                  <Details />
+                </Route>
+                <Route path="/login">
+                  <Login />
+                </Route>
+                <Route path="/signup">
+                  <Signup />
+                </Route>
+                <Route path="/profile">
+                  <Profile />
+                </Route>
+              </Switch>
+            </>
+          </React.Suspense>
         </ErrorBoundary>
         <LoadingIndicator />
         <ToastContainer />
