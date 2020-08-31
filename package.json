@@ -1,12 +1,12 @@
 {
   "name": "gh-jobs",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "A MERN application bootstrapped with create-mern-application.",
   "main": "build/index.js",
   "scripts": {
     "browsersync": "browser-sync start --proxy \"http://localhost:8080\"",
     "build": "npm run format && npm run lint && npm run build-client && npm run build-server",
-    "build-client": "rimraf dist && webpack --display=errors-only",
+    "build-client": "rimraf dist && webpack",
     "build-server": "rimraf build && tsc && copyfiles -f src/server/assets/**/* build/assets",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
@@ -28,6 +28,7 @@
     "@sentry/react": "^5.20.1",
     "bcryptjs": "^2.4.3",
     "chalk": "^4.1.0",
+    "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "date-fns": "^2.14.0",

@@ -29,9 +29,15 @@ module.exports = {
   },
   devtool: "source-map",
   entry: ["./src/client/index.tsx"],
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+    },
+  },
   output: {
     path: path.join(__dirname, outputDirectory),
-    filename: "bundle.js",
+    filename: "[contenthash].bundle.js",
+    chunkFilename: "[contenthash].bundle.js",
     publicPath: "/",
   },
   resolve: {
@@ -55,6 +61,10 @@ module.exports = {
         use: [
           {
             loader: "ts-loader",
+            options: {
+              configFile: "client-tsconfig.json",
+              logLevel: "info",
+            },
           },
         ],
       },

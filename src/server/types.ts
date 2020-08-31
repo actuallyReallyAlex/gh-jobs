@@ -46,7 +46,7 @@ export interface Job {
   company_logo: string;
   company_url: string;
   description: string;
-  how_to_apply: string;
+  howToApply: string;
   id: string;
   listingDate: string;
   location: string;
@@ -61,7 +61,7 @@ export interface JobDocument extends Document {
   company_logo: string;
   company_url: string;
   description: string;
-  how_to_apply: string;
+  howToApply: string;
   id: string;
   listingDate: string;
   location: string;

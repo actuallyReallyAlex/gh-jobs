@@ -233,4 +233,8 @@ context("Profile", () => {
     cy.get("#nav-login").should("exist");
     cy.get("#search").should("be.visible");
   });
+
+  it("Should display initials of name in avatar", () => {
+    cy.get("#avatar-initials").should("have.text", "BT");
+  });
 });

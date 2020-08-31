@@ -58,7 +58,6 @@ const ProfileAccountDetails: React.SFC<ProfileAccountDetailsProps> = (
         />
       </ProfileAccountDetailsHeadingContainer>
       <ProfileAccountDetailsContentContainer>
-        <h4>User Information</h4>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -80,7 +79,7 @@ const ProfileAccountDetails: React.SFC<ProfileAccountDetailsProps> = (
             full
             icon="email"
             id="email"
-            label="Email Address"
+            label="Email"
             onChange={(e) => setNewEmail(e.target.value)}
             type="email"
             value={newEmail}

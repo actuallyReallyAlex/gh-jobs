@@ -20,8 +20,8 @@ const jobSchema = new mongoose.Schema(
       required: [true, "Field 'description' is required."],
       type: String,
     },
-    how_to_apply: {
-      required: [true, "Field 'how_to_apply' is required."],
+    howToApply: {
+      required: [true, "Field 'howToApply' is required."],
       type: String,
     },
     id: {

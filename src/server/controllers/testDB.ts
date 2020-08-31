@@ -67,11 +67,11 @@ class TestDBController {
           // * Get each job in DB
           const jobs: JobDocument[] = await JobModel.find({});
 
-          // * Modify `how_to_apply` field of each job
+          // * Modify `howToApply` field of each job
           await Promise.all(
             jobs.map(async (job: JobDocument) => {
               const dbJob = await JobModel.find({ id: job.id });
-              dbJob[0].how_to_apply =
+              dbJob[0].howToApply =
                 '<p><a href="https://www.google.com/"></a></p>';
               await dbJob[0].save();
               return;

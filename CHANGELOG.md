@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.0] - 2020-08-31
+
+### ✂️ Code Splitter
+
+### Added
+
+- Gzip compression - [#106](https://github.com/alexlee-dev/gh-jobs/issues/106)
+- `Avatar` component with text avatar - [#113](https://github.com/alexlee-dev/gh-jobs/issues/113)
+
+### Changed
+
+- Rename `how_to_apply` to `howToApply` - [#110](https://github.com/alexlee-dev/gh-jobs/issues/110)
+- Sort jobs by `listingDate` - [#111](https://github.com/alexlee-dev/gh-jobs/issues/111)
+- Form best practices - Signup - [#107](https://github.com/alexlee-dev/gh-jobs/issues/107)
+- Form best practices - Login - [#108](https://github.com/alexlee-dev/gh-jobs/issues/108)
+- Form best practices - Edit Profile - [#109](https://github.com/alexlee-dev/gh-jobs/issues/109)
+- Lazy Loading and Code Splitting - [#105](https://github.com/alexlee-dev/gh-jobs/issues/105)
+
+### Removed
+
+### Fixed
+
 ## [1.8.0] - 2020-08-24
 
 ### 👩‍🔬 Test Database

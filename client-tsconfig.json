@@ -3,7 +3,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "target": "es5",
-    "module": "CommonJS",
+    "module": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "jsx": "react",
     "outDir": "./build",
@@ -14,6 +14,5 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "downlevelIteration": true
-  },
-  "include": ["./src/server/**/*", "./index.d.ts"]
+  }
 }

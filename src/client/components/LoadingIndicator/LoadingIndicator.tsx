@@ -11,6 +11,7 @@ import {
 import { RootState } from "../../types";
 
 export interface LoadingIndicatorProps {
+  forceLoading?: boolean;
   isLoading: boolean;
 }
 
@@ -20,11 +21,14 @@ export interface LoadingIndicatorProps {
 const LoadingIndicator: React.SFC<LoadingIndicatorProps> = (
   props: LoadingIndicatorProps
 ) => {
-  const { isLoading } = props;
+  const { forceLoading, isLoading } = props;
   return (
     <>
-      <Shade isLoading={isLoading} />
-      <LoadingIndicatorContainer id="loading-indicator" isLoading={isLoading}>
+      <Shade isLoading={forceLoading ? forceLoading : isLoading} />
+      <LoadingIndicatorContainer
+        id="loading-indicator"
+        isLoading={forceLoading ? forceLoading : isLoading}
+      >
         <OrbitContainer data-cy="orbit-container">
           <Orbit />
           <Orbit />
