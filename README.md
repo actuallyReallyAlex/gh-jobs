@@ -46,6 +46,7 @@ View [my solution](https://devchallenges.io/solutions/Lwb0aAViU0LzUKL6kscT) on D
 - [@sentry/react](https://sentry.io/) - Official Sentry SDKs for Javascript.
 - [bcryptjs](https://github.com/dcodeIO/bcrypt.js) - Optimized bcrypt in plain JavaScript with zero dependencies.
 - [chalk](https://github.com/chalk/chalk) - Terminal string styling done right.
+- [compression](https://github.com/expressjs/compression) - Node.js compression middleware.
 - [cookie-parser](https://github.com/expressjs/cookie-parser) - Parse HTTP request cookies.
 - [cors](https://github.com/expressjs/cors) - Node.js CORS middleware.
 - [date-fns](https://date-fns.org/) - ⏳ Modern JavaScript date utility library ⌛.
