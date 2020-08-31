@@ -17,7 +17,7 @@ const Avatar: React.SFC<AvatarProps> = (props: AvatarProps) => {
   return (
     <Container>
       <Image />
-      <Initials>{initials}</Initials>
+      <Initials id="avatar-initials">{initials}</Initials>
     </Container>
   );
 };
