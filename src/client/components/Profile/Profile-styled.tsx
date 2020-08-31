@@ -57,12 +57,8 @@ const ProfileAccountDetailsHeadingContainer = styled.div`
   }
 `;
 
-const ProfileAccountStatsAvatar = styled.img`
-  background-image: linear-gradient(135deg, #ce9ffc 10%, #7367f0 100%);
-  border-radius: 50%;
-  height: 150px;
+const ProfileAccountStatsAvatarContainer = styled.div`
   margin: -75px auto;
-  width: 150px;
 `;
 
 const ProfileAccountStatsContainer = styled.div`
@@ -146,7 +142,7 @@ export {
   ProfileAccountDetailsContentContainer,
   ProfileAccountDetailsHeadingContainer,
   ProfileAccountStatsActionsContainer,
-  ProfileAccountStatsAvatar,
+  ProfileAccountStatsAvatarContainer,
   ProfileAccountStatsContainer,
   ProfileAccountStatsInnerContainer,
   ProfileHeroContainer,

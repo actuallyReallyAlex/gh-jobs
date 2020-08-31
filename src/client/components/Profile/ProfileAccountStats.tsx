@@ -6,7 +6,7 @@ import Stat from "../Stat";
 
 import {
   ProfileAccountStatsActionsContainer,
-  ProfileAccountStatsAvatar,
+  ProfileAccountStatsAvatarContainer,
   ProfileAccountStatsContainer,
   ProfileAccountStatsInnerContainer,
 } from "./Profile-styled";
@@ -14,6 +14,7 @@ import {
 import { clickViewJobs } from "../../redux/thunks/user";
 
 import { RootState } from "../../types";
+import Avatar from "../Avatar/Avatar";
 
 export interface ProfileAccountStatsProps {
   handleClickViewHiddenJobs: () => void;
@@ -35,7 +36,9 @@ const ProfileAccountStats: React.SFC<ProfileAccountStatsProps> = (
   } = props;
   return (
     <ProfileAccountStatsContainer>
-      <ProfileAccountStatsAvatar />
+      <ProfileAccountStatsAvatarContainer>
+        <Avatar />
+      </ProfileAccountStatsAvatarContainer>
       <h3>{name}</h3>
       <ProfileAccountStatsInnerContainer>
         <Stat figure={hiddenJobs ? hiddenJobs.length : 0} label="Hidden Jobs" />
