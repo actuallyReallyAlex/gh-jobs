@@ -23,7 +23,7 @@ const StyledInputInnerContainer = styled.div`
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-wrap: wrap;
-  margin-top: 14px;
+  margin-top: 5px;
   width: 100%;
 
   input {
@@ -79,7 +79,6 @@ const StyledInputLabel = styled.label`
   font-size: 14px;
   font-weight: bold;
   line-height: 21px;
-  text-transform: uppercase;
 `;
 
 export {

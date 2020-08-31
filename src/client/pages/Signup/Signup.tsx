@@ -59,7 +59,6 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
             id="name"
             label="Name"
             onChange={(e) => setName(e.target.value)}
-            placeholder="John Smith"
             required
             type="text"
             value={name}
@@ -69,9 +68,8 @@ const Signup: React.SFC<SignupProps> = (props: SignupProps) => {
             full
             icon="email"
             id="email"
-            label="Email Address"
+            label="Email"
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="example@email.com"
             required
             type="email"
             value={email}
