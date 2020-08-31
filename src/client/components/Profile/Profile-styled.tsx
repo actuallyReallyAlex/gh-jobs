@@ -17,12 +17,6 @@ const ProfileAccountDetailsContainer = styled.div`
 const ProfileAccountDetailsContentContainer = styled.div`
   padding: 25px;
 
-  h4 {
-    font-size: 14px;
-    margin: 0;
-    text-transform: uppercase;
-  }
-
   input {
     :disabled {
       color: #b9bdcf;
