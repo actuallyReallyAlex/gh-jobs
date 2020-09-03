@@ -14,7 +14,7 @@ context("Hidden Jobs", () => {
   });
 
   it("Should be able to hide a job from the 'Search' page", () => {
-    cy.get("#hide-job-7").its("data").should("be", '{ cy: "deselected" }');
+    cy.get("#hide-job-7").should("have.data", "cy", "deselected");
     cy.get("#hide-job-7").click();
     cy.get("#notification").should("have.text", "Job hidden successfully.");
     cy.get("#notification > button").click();
@@ -28,11 +28,9 @@ context("Hidden Jobs", () => {
   });
 
   it("Should be able to hide a job from the 'Details' page", () => {
+    cy.get("#hide-job-7").should("have.data", "cy", "deselected");
     cy.get("#\\37").click({ force: true });
-
-    cy.get("#hide-job-7").its("data").should("be", "{cy: 'deselected'}");
     cy.get("#hide-job-7").click();
-    cy.get("#show-job-7").its("data").should("be", "{ cy: 'selected' }");
     cy.get("#notification").should("have.text", "Job hidden successfully.");
     cy.get("#notification > button").click();
 
@@ -43,7 +41,7 @@ context("Hidden Jobs", () => {
   });
 
   it("Should be able to view list of hidden jobs", () => {
-    cy.get("#hide-job-7").its("data").should("be", "{ cy: 'deselected' }");
+    cy.get("#hide-job-7").should("have.data", "cy", "deselected");
     cy.get("#hide-job-7").click();
     cy.get("#notification").should("have.text", "Job hidden successfully.");
     cy.get("#notification > button").click();
@@ -103,7 +101,7 @@ context("Hidden Jobs", () => {
   });
 
   it("Should hide the job from the list of current jobs when user hides job", () => {
-    cy.get("#hide-job-7").its("data").should("be", '{ cy: "deselected" }');
+    cy.get("#hide-job-7").should("have.data", "cy", "deselected");
     cy.get("#hide-job-7").click();
     cy.get("#show-job-7").should("not.exist");
     cy.get("#notification").should("have.text", "Job hidden successfully.");

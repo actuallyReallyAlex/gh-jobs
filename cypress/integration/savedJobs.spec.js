@@ -14,9 +14,9 @@ context("Saved Jobs", () => {
   });
 
   it("Should be able to save a job from the 'Search' page", () => {
-    cy.get("#save-job-7").its("data").should("be", '{ cy: "deselected" }');
+    cy.get("#save-job-7").should("have.data", "cy", "deselected");
     cy.get("#save-job-7").click();
-    cy.get("#remove-job-7").its("data").should("be", "{ cy: 'selected' }");
+    cy.get("#remove-job-7").should("have.data", "cy", "deselected");
     cy.get("#notification").should("have.text", "Job saved successfully.");
     cy.get("#notification > button").click();
 
@@ -27,11 +27,10 @@ context("Saved Jobs", () => {
   });
 
   it("Should be able to save a job from the 'Details' page", () => {
+    cy.get("#save-job-7").should("have.data", "cy", "deselected");
     cy.get("#\\37").click({ force: true });
 
-    cy.get("#save-job-7").its("data").should("be", "{cy: 'deselected'}");
     cy.get("#save-job-7").click();
-    cy.get("#remove-job-7").its("data").should("be", "{ cy: 'selected' }");
     cy.get("#notification").should("have.text", "Job saved successfully.");
     cy.get("#notification > button").click();
 
@@ -42,9 +41,9 @@ context("Saved Jobs", () => {
   });
 
   it("Should be able to view list of saved jobs", () => {
-    cy.get("#save-job-7").its("data").should("be", "{ cy: 'deselected' }");
+    cy.get("#save-job-7").should("have.data", "cy", "deselected");
     cy.get("#save-job-7").click();
-    cy.get("#remove-job-7").its("data").should("be", '{ cy: "selected" }');
+    cy.get("#remove-job-7").should("have.data", "cy", "deselected");
     cy.get("#notification").should("have.text", "Job saved successfully.");
     cy.get("#notification > button").click();
 
