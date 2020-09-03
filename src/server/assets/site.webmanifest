@@ -1,6 +1,9 @@
 {
-  "name": "",
-  "short_name": "",
+  "background_color": "#ffffff",
+  "categories": ["business"],
+  "description": "A tool to help you find your next job.",
+  "dir": "ltr",
+  "display": "standalone",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -13,7 +16,12 @@
       "type": "image/png"
     }
   ],
+  "lang": "en-US",
+  "name": "GitHub Jobs",
+  "orientation": "portrait",
+  "scope": "https://www.githubjobs.io/",
+  "short_name": "GitHub Jobs",
+  "start_url": "https://www.githubjobs.io/",
   "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone"
+  "url": "https://www.githubjobs.io/"
 }
