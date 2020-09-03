@@ -9,7 +9,7 @@ import store from "./redux/store";
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 
-if ("serviceWorker" in navigator) {
+if ("serviceWorker" in navigator && process.env.NODE_ENV !== "test") {
   window.addEventListener("load", () => {
     navigator.serviceWorker
       .register("/service-worker.js")

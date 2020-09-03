@@ -10,12 +10,25 @@ const webpackMode =
   process.env.NODE_ENV === "production" ? "production" : "development";
 
 console.log(`Webpack Mode === ${chalk.blueBright(webpackMode)}\n`);
+console.log(`NODE_ENV === ${chalk.blueBright(process.env.NODE_ENV)}\n`);
 
 console.log(
   `Project Version === ${chalk.blueBright(process.env.npm_package_version)}`
 );
 
 console.log("");
+
+const plugins = [
+  new CleanWebpackPlugin(),
+  new HtmlWebpackPlugin({
+    template: "./public/index.html",
+  }),
+];
+
+if (process.env.NODE_ENV !== "test") {
+  console.log(`\nCreating WorkBox Service Worker\n`);
+  plugins.push(new GenerateSW({ clientsClaim: true, skipWaiting: true }));
+}
 
 module.exports = {
   mode: webpackMode,
@@ -44,16 +57,7 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      template: "./public/index.html",
-    }),
-    new GenerateSW({
-      clientsClaim: true,
-      skipWaiting: true,
-    }),
-  ],
+  plugins,
   module: {
     rules: [
       {
