@@ -1,15 +1,17 @@
 import styled from "styled-components";
 
 const OptionsPanelContainer = styled.div`
-  padding: 10px;
+  padding: 16px;
   width: 25%;
 
   @media only screen and (max-width: 800px) {
-    width: 100%;
+    padding: 0;
+    width: auto;
   }
 
   @media only screen and (max-width: 600px) {
-    width: 100%;
+    padding: 0;
+    width: auto;
   }
 
   button {

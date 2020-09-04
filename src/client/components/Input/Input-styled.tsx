@@ -9,7 +9,6 @@ const StyledInputContainer = styled.div<StyledInputContainerProps>`
   flex-direction: column;
   margin: ${(props) => (props.full ? "0" : undefined)};
   margin-bottom: 25px;
-  max-width: ${(props) => (props.full ? `100%` : `90%`)};
   width: ${(props) => (props.full ? `100%` : ``)};
 
   @media only screen and (max-width: 600px) {
