@@ -25,7 +25,7 @@ const plugins = [
   }),
 ];
 
-if (process.env.NODE_ENV !== "test") {
+if (process.env.NODE_ENV === "production") {
   console.log(`\nCreating WorkBox Service Worker\n`);
   plugins.push(new GenerateSW({ clientsClaim: true, skipWaiting: true }));
 }
