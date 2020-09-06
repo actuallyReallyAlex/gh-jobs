@@ -301,28 +301,34 @@ class UserController {
       > => {
         try {
           const { savedJobs } = req.user;
+          const newSavedJobs: string[] = [...savedJobs];
 
           const savedJobsDetails: Job[] = [];
-          let dbError = false;
 
           await Promise.all(
             savedJobs.map(async (id: string) => {
               const job = await JobModel.findOne({ id });
 
               if (!job) {
-                return (dbError = true);
+                const jobIndex = newSavedJobs.findIndex(
+                  (newSavedJobId: string) => id === newSavedJobId
+                );
+                newSavedJobs.splice(jobIndex, 1);
+                return;
               }
+
               return savedJobsDetails.push(job);
             })
           );
 
-          if (dbError) {
-            return res
-              .status(500)
-              .send({ error: "Error finding corresponding jobs in database." });
-          }
+          req.user.savedJobs = newSavedJobs;
+          await req.user.save();
 
-          return res.send(savedJobsDetails);
+          return res.send({
+            savedJobs: newSavedJobs,
+            savedJobsDetails,
+            staleJobs: savedJobs.length - newSavedJobs.length,
+          });
         } catch (error) {
           if (process.env.NODE_ENV !== "test") {
             console.error(error);
@@ -343,28 +349,34 @@ class UserController {
       > => {
         try {
           const { hiddenJobs } = req.user;
+          const newHiddenJobs: string[] = [...hiddenJobs];
 
           const hiddenJobsDetails: Job[] = [];
-          let dbError = false;
 
           await Promise.all(
             hiddenJobs.map(async (id: string) => {
               const job = await JobModel.findOne({ id });
 
               if (!job) {
-                return (dbError = true);
+                const jobIndex = newHiddenJobs.findIndex(
+                  (newHiddenJobId: string) => id === newHiddenJobId
+                );
+                newHiddenJobs.splice(jobIndex, 1);
+                return;
               }
+
               return hiddenJobsDetails.push(job);
             })
           );
 
-          if (dbError) {
-            return res
-              .status(500)
-              .send({ error: "Error finding corresponding jobs in database." });
-          }
+          req.user.hiddenJobs = newHiddenJobs;
+          await req.user.save();
 
-          return res.send(hiddenJobsDetails);
+          return res.send({
+            hiddenJobs: newHiddenJobs,
+            hiddenJobsDetails,
+            staleJobs: hiddenJobs.length - newHiddenJobs.length,
+          });
         } catch (error) {
           if (process.env.NODE_ENV !== "test") {
             console.error(error);
