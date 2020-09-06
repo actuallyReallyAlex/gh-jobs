@@ -35,16 +35,18 @@ const main = async (): Promise<void> => {
 
     if (!process.env.PORT) throw new Error("No PORT");
 
-    const app = new App(
-      [
-        new AssetsController(),
-        new JobController(),
-        new ScriptsController(),
-        new UserController(),
-        new TestDBController(),
-      ],
-      process.env.PORT
-    );
+    const controllers = [
+      new AssetsController(),
+      new JobController(),
+      new ScriptsController(),
+      new UserController(),
+    ];
+
+    if (process.env.NODE_ENV === "test") {
+      controllers.push(new TestDBController());
+    }
+
+    const app = new App(controllers, process.env.PORT);
 
     app.listen();
   } catch (error) {
