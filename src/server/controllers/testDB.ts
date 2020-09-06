@@ -1,9 +1,11 @@
 import express, { Request, Response, Router } from "express";
 
 import JobModel from "../models/Job";
+import UserModel from "../models/User";
 
-import { ErrorResponse, Job, JobDocument } from "../types";
 import { generateFakeJob } from "../util";
+
+import { ErrorResponse, Job, JobDocument, User } from "../types";
 
 /**
  * Test DB Controller.
@@ -79,6 +81,47 @@ class TestDBController {
           );
 
           return res.send();
+        } catch (error) {
+          console.error(error);
+          res.status(500).send({ error });
+        }
+      }
+    );
+
+    this.router.get(
+      "/createStaleUser",
+      async (
+        req: Request,
+        res: Response
+      ): Promise<Response<ErrorResponse | User>> => {
+        if (process.env.NODE_ENV !== "test") {
+          return res.status(500).send({ error: "Invalid environment." });
+        }
+
+        try {
+          const staleUser = new UserModel({
+            email: "stale@user.com",
+            hiddenJobs: ["7", "4", "1", "8", "9", "100", "101", "102"],
+            name: "Stale User",
+            password: "Red123456!!!",
+            savedJobs: ["2", "5", "6", "3", "0", "103", "104", "105"],
+          });
+
+          const token = await staleUser.generateAuthToken();
+
+          // * Set a Cookie with that token
+          res.cookie("ghjobs", token, {
+            maxAge: 60 * 60 * 1000, // 1 hour
+            httpOnly: true,
+            secure: false,
+            sameSite: true,
+          });
+
+          await staleUser.save();
+
+          console.log("Created stale job user in Test DB.");
+
+          return res.status(201).send(staleUser);
         } catch (error) {
           console.error(error);
           res.status(500).send({ error });
