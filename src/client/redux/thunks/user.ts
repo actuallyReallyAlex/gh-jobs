@@ -225,7 +225,17 @@ export const getHiddenJobsDetails = (): AppThunk => async (dispatch) => {
       return;
     }
 
-    dispatch(setHiddenJobsDetails(result));
+    dispatch(setHiddenJobsDetails(result.hiddenJobsDetails));
+    dispatch(setHiddenJobs(result.hiddenJobs));
+    if (result.staleJobs > 0) {
+      dispatch(
+        displayNotification(
+          `Removed ${result.staleJobs} stale jobs from your hidden jobs list.`,
+          "info"
+        )
+      );
+    }
+
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);
@@ -252,7 +262,17 @@ export const getSavedJobsDetails = (): AppThunk => async (dispatch) => {
       return;
     }
 
-    dispatch(setSavedJobsDetails(result));
+    dispatch(setSavedJobsDetails(result.savedJobsDetails));
+    dispatch(setSavedJobs(result.savedJobs));
+    if (result.staleJobs > 0) {
+      dispatch(
+        displayNotification(
+          `Removed ${result.staleJobs} stale jobs from your saved jobs list.`,
+          "info"
+        )
+      );
+    }
+
     dispatch(setIsLoading(false));
   } catch (error) {
     console.error(error);

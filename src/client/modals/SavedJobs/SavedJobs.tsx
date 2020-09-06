@@ -9,44 +9,52 @@ import { getSavedJobsDetails } from "../../redux/thunks/user";
 import { RootState, Job } from "../../types";
 
 export interface SavedJobsProps {
+  currentPage: number;
   handleGetSavedJobsDetails: () => void;
   savedJobs: string[];
-  savedJobsCurrentPage: number;
   savedJobsDetails: Job[];
-  savedJobsTotalPages: number;
 }
 
 const SavedJobs: React.SFC<SavedJobsProps> = (props: SavedJobsProps) => {
   const {
+    currentPage,
     handleGetSavedJobsDetails,
     savedJobs,
-    savedJobsCurrentPage,
     savedJobsDetails,
-    savedJobsTotalPages,
   } = props;
 
-  const jobsOnPage =
-    savedJobsDetails &&
-    savedJobsDetails.slice(
-      savedJobsCurrentPage * 5 - 5,
-      savedJobsCurrentPage * 5
-    );
+  const [jobsOnPage, setJobsOnPage] = React.useState([]);
 
   React.useEffect((): void => {
-    if (savedJobs && savedJobs.length > 0) {
-      handleGetSavedJobsDetails();
+    if (savedJobsDetails) {
+      setJobsOnPage(
+        savedJobsDetails.slice(currentPage * 5 - 5, currentPage * 5)
+      );
     }
-  }, []);
+  }, [savedJobsDetails]);
+
+  React.useEffect(() => {
+    if (savedJobs && SavedJobs.length > 0) {
+      if (savedJobsDetails.length === 0) {
+        handleGetSavedJobsDetails();
+      }
+    } else {
+      setJobsOnPage([]);
+    }
+  }, [savedJobs]);
+
+  React.useEffect(() => {
+    setJobsOnPage(savedJobsDetails.slice(currentPage * 5 - 5, currentPage * 5));
+  }, [currentPage]);
+
+  const pages = savedJobs ? Math.ceil(savedJobs.length / 5) : 1;
 
   return (
     <div>
       {jobsOnPage &&
         jobsOnPage.map((job: Job) => <JobCard job={job} key={job.id} />)}
       {jobsOnPage.length > 0 && (
-        <Pagination
-          currentPage={savedJobsCurrentPage}
-          totalPages={savedJobsTotalPages}
-        />
+        <Pagination currentPage={currentPage} totalPages={pages} />
       )}
       {jobsOnPage.length === 0 && <div id="no-results">No results.</div>}
     </div>
@@ -54,10 +62,9 @@ const SavedJobs: React.SFC<SavedJobsProps> = (props: SavedJobsProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
+  currentPage: state.application.currentPage,
   savedJobs: state.user.savedJobs,
-  savedJobsCurrentPage: state.user.savedJobsCurrentPage,
   savedJobsDetails: state.user.savedJobsDetails,
-  savedJobsTotalPages: state.user.savedJobsTotalPages,
 });
 
 const mapDispatchToProps = (dispatch) => ({

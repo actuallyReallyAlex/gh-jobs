@@ -35,11 +35,19 @@ const HiddenJobs: React.SFC<HiddenJobsProps> = (props: HiddenJobsProps) => {
 
   React.useEffect(() => {
     if (hiddenJobs && hiddenJobs.length > 0) {
-      handleGetHiddenJobsDetails();
+      if (hiddenJobsDetails.length === 0) {
+        handleGetHiddenJobsDetails();
+      }
     } else {
       setJobsOnPage([]);
     }
   }, [hiddenJobs]);
+
+  React.useEffect(() => {
+    setJobsOnPage(
+      hiddenJobsDetails.slice(currentPage * 5 - 5, currentPage * 5)
+    );
+  }, [currentPage]);
 
   const pages = hiddenJobs ? Math.ceil(hiddenJobs.length / 5) : 1;
 

@@ -68,9 +68,17 @@ export type GetJobDetailsSuccessResponse = Job;
 
 export type GetJobsSuccessResponse = Job[];
 
-export type GetHiddenJobsDetailsSuccessResponse = Job[];
+export interface GetHiddenJobsDetailsSuccessResponse {
+  hiddenJobs: string[];
+  hiddenJobsDetails: Job[];
+  staleJobs: number;
+}
 
-export type GetSavedJobsDetailsSuccessResponse = Job[];
+export interface GetSavedJobsDetailsSuccessResponse {
+  savedJobs: string[];
+  savedJobsDetails: Job[];
+  staleJobs: number;
+}
 
 export type InputAutoComplete =
   | "off"
