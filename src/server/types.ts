@@ -98,6 +98,16 @@ export interface Token {
   token: string;
 }
 
+export interface User {
+  _id: string;
+  email: string;
+  hiddenJobs: string[];
+  password: string;
+  name: string;
+  savedJobs: string[];
+  tokens: Token[];
+}
+
 export interface UserDocument extends Document {
   _id: string;
   email: string;
